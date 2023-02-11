@@ -25,5 +25,18 @@ public interface PokemonInfo {
     Gender gender();
     // 性格
     Nature nature();
+    // 覚えている技
     Move haveMove();
+    // HP実数値
+    int realValHitPoint();
+    // 攻撃実数値
+    int realValAttack();
+    // 防御実数値
+    int realValBlock();
+    // 特攻実数値
+    int realValContact();
+    // 特防実数値
+    int realValDefense();
+    // 素早実数値
+    int realValSpeed();
 }

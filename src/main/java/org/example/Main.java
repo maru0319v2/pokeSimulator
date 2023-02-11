@@ -17,7 +17,7 @@ public class Main {
                 bulbasaur.nature(),
                 bulbasaur.individualValue(),
                 bulbasaur.effortValue().add(20,30,60,10,30,30),
-                bulbasaur.level().add(100)
+                bulbasaur.level().add(49)
         );
         showAllParameters(bulbasaur1);
 
@@ -62,26 +62,19 @@ public class Main {
         System.out.print(" 特攻 " + target.effortValue().contact());
         System.out.print(" 特防 " + target.effortValue().defense());
         System.out.println(" 素早 " + target.effortValue().speed());
-
         System.out.print("実数値:");
-        System.out.print(" 体力 ");
-        System.out.print(((target.baseStats().hitPoint() * 2 + target.individualValue().hitPoint() + (target.effortValue().hitPoint() / 4)) * target.level().value() / 100) + 10 + target.level().value());
-        System.out.print(" 攻撃 ");
-        System.out.print((int)((((target.baseStats().attack() * 2 + target.individualValue().attack() + (target.effortValue().attack() / 4)) * target.level().value() / 100) + 5) * 1.0)); // 最後の1.0が性格補正
-        System.out.print(" 防御 ");
-        System.out.print((int)((((target.baseStats().block() * 2 + target.individualValue().block() + (target.effortValue().block() / 4)) * target.level().value() / 100) + 5) * 1.0));
-        System.out.print(" 特攻 ");
-        System.out.print((int)((((target.baseStats().contact() * 2 + target.individualValue().contact() + (target.effortValue().contact() / 4)) * target.level().value() / 100) + 5) * 1.0));
-        System.out.print(" 特防 ");
-        System.out.print((int)((((target.baseStats().defense() * 2 + target.individualValue().defense() + (target.effortValue().defense() / 4)) * target.level().value() / 100) + 5) * 1.0));
-        System.out.print(" 素早 ");
-        System.out.print((int)((((target.baseStats().speed() * 2 + target.individualValue().speed() + (target.effortValue().speed() / 4)) * target.level().value() / 100) + 5) * 1.0));
+        System.out.print(" 体力 " + target.realValHitPoint());
+        System.out.print(" 攻撃 " + target.realValAttack());
+        System.out.print(" 防御 " + target.realValBlock());
+        System.out.print(" 特攻 " + target.realValContact());
+        System.out.print(" 特防 " + target.realValDefense());
+        System.out.print(" 素早 " + target.realValSpeed());
     }
 
     private static void showMoveDetail(Move target) {
         System.out.println("技名:" + target.value());
         System.out.println("タイプ:" + target.moveType());
-        System.out.println("技名:" + target.moveSpecies());
+        System.out.println("分類:" + target.moveSpecies());
         System.out.println("威力:" + target.damage());
         System.out.println("命中率:" + target.hitRate());
     }

@@ -5,7 +5,6 @@ import main.java.org.example.impl.*;
 import main.java.org.example.move.Tackle;
 
 public class Bulbasaur implements PokemonInfo {
-
     private final BaseStatsImpl baseStats;
     private final IndividualValueImpl individualValue;
     private final EffortValueImpl effortValue;
@@ -55,6 +54,30 @@ public class Bulbasaur implements PokemonInfo {
     public Nature nature() { return this.nature; }
 
     public Move haveMove() { return this.haveMove; }
+
+    public int realValHitPoint() {
+        return ((this.baseStats().hitPoint() * 2 + this.individualValue().hitPoint() + (this.effortValue().hitPoint() / 4)) * this.level().value() / 100) + 10 + this.level().value();
+    }
+
+    public int realValAttack() {
+        return (int)((((this.baseStats().attack() * 2 + this.individualValue().attack() + (this.effortValue().attack() / 4)) * this.level().value() / 100) + 5) * 1.0); // 最後の1.0が性格補正
+    }
+
+    public int realValBlock() {
+        return (int)((((this.baseStats().block() * 2 + this.individualValue().block() + (this.effortValue().block() / 4)) * this.level().value() / 100) + 5) * 1.0);
+    }
+
+    public int realValContact() {
+        return (int)((((this.baseStats().contact() * 2 + this.individualValue().contact() + (this.effortValue().contact() / 4)) * this.level().value() / 100) + 5) * 1.0);
+    }
+
+    public int realValDefense() {
+        return (int)((((this.baseStats().defense() * 2 + this.individualValue().defense() + (this.effortValue().defense() / 4)) * this.level().value() / 100) + 5) * 1.0);
+    }
+
+    public int realValSpeed() {
+        return (int)((((this.baseStats().speed() * 2 + this.individualValue().speed() + (this.effortValue().speed() / 4)) * this.level().value() / 100) + 5) * 1.0);
+    }
 
     public Bulbasaur() {
         this.gender = new GenderImpl();
