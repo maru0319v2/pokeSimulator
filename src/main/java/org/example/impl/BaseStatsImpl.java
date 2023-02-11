@@ -6,12 +6,36 @@ import main.java.org.example.BaseStats;
 public class BaseStatsImpl implements BaseStats {
     private static final int MIN = 1;
     private static final int MAX = 255;
-    public final int hitPoint;
-    public final int attack;
-    public final int block;
-    public final int contact;
-    public final int defense;
-    public final int speed;
+    private final int hitPoint;
+    private final int attack;
+    private final int block;
+    private final int contact;
+    private final int defense;
+    private final int speed;
+
+    public int hitPoint() {
+        return this.hitPoint;
+    }
+
+    public int attack() {
+        return this.attack;
+    }
+
+    public int block() {
+        return this.block;
+    }
+
+    public int contact() {
+        return this.contact;
+    }
+
+    public int defense() {
+        return this.defense;
+    }
+
+    public int speed() {
+        return this.speed;
+    }
 
     public BaseStatsImpl(int hitPoint, int attack, int block, int contact, int defense, int speed) {
         if(hitPoint < MIN || hitPoint > MAX) throw new IllegalArgumentException("HP種族値は" + MIN + "以上" + MAX + "以下を指定してください。");

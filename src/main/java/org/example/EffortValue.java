@@ -8,4 +8,11 @@ public interface EffortValue {
 
     // 努力値をリセットする。
     EffortValue reset();
+
+    int hitPoint();
+    int attack();
+    int block();
+    int contact();
+    int defense();
+    int speed();
 }

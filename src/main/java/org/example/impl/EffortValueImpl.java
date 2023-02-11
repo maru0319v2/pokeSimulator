@@ -7,12 +7,12 @@ public class EffortValueImpl implements EffortValue {
     private static final int MIN = 0;
     private static final int MAX_OF_EACH = 255;
     private static final int MAX_OF_TOTAL = 510;
-    public final int hitPoint;
-    public final int attack;
-    public final int block;
-    public final int contact;
-    public final int defense;
-    public final int speed;
+    private final int hitPoint;
+    private final int attack;
+    private final int block;
+    private final int contact;
+    private final int defense;
+    private final int speed;
 
     public EffortValueImpl() {
         this.hitPoint = MIN;
@@ -69,5 +69,29 @@ public class EffortValueImpl implements EffortValue {
 
     public EffortValue reset() {
         return new EffortValueImpl(0, 0, 0, 0, 0, 0);
+    }
+
+    public int hitPoint() {
+        return this.hitPoint;
+    }
+
+    public int attack() {
+        return this.attack;
+    }
+
+    public int block() {
+        return this.block;
+    }
+
+    public int contact() {
+        return this.contact;
+    }
+
+    public int defense() {
+        return this.defense;
+    }
+
+    public int speed() {
+        return this.speed;
     }
 }
