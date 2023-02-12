@@ -12,6 +12,7 @@ public class Bulbasaur implements PokemonInfo {
     private final Gender gender;
     private final Nature nature;
     private final Move haveMove;
+    private final Experience experience;
 
     public String pokeName() {
         return "フシギダネ";
@@ -24,6 +25,8 @@ public class Bulbasaur implements PokemonInfo {
     public String species() {
         return "たねポケモン";
     }
+
+    public String experienceType() { return ExperienceType.type1050000; }
 
     public PokemonType pokemonType1() {
         return PokemonType.GRASS;
@@ -54,6 +57,8 @@ public class Bulbasaur implements PokemonInfo {
     public Nature nature() { return this.nature; }
 
     public Move haveMove() { return this.haveMove; }
+
+    public Experience experience() { return this.experience; }
 
     public int realValHitPoint() {
         return ((this.baseStats().hitPoint() * 2 + this.individualValue().hitPoint() + (this.effortValue().hitPoint() / 4)) * this.level().value() / 100) + 10 + this.level().value();
@@ -87,6 +92,7 @@ public class Bulbasaur implements PokemonInfo {
         this.effortValue = new EffortValueImpl(0, 0, 0, 0, 0, 0);
         this.level = new LevelImpl(1);
         this.haveMove = new Tackle();
+        this.experience = new ExperienceImpl(0);
     }
 
     public Bulbasaur(
@@ -94,7 +100,8 @@ public class Bulbasaur implements PokemonInfo {
             Nature nature,
             IndividualValue individualValue,
             EffortValue effortValue,
-            Level level
+            Level level,
+            Experience experience
     ) {
         this.gender = new GenderImpl(gender);
         this.nature = new NatureImpl(nature);
@@ -103,5 +110,6 @@ public class Bulbasaur implements PokemonInfo {
         this.effortValue = new EffortValueImpl(effortValue.hitPoint(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());
         this.level = new LevelImpl(level.value());
         this.haveMove = new Tackle();
+        this.experience = new ExperienceImpl(experience.totalExperience());
     }
 }

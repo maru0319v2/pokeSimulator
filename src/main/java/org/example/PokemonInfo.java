@@ -27,6 +27,8 @@ public interface PokemonInfo {
     Nature nature();
     // 覚えている技
     Move haveMove();
+
+    // TODO 現在の残りHP
     // HP実数値
     int realValHitPoint();
     // 攻撃実数値
@@ -39,4 +41,8 @@ public interface PokemonInfo {
     int realValDefense();
     // 素早実数値
     int realValSpeed();
+    // 経験値タイプ
+    String experienceType();
+    // 総獲得経験値
+    Experience experience();
 }

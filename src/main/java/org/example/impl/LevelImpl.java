@@ -1,6 +1,9 @@
 package main.java.org.example.impl;
 
 import main.java.org.example.Level;
+import main.java.org.example.PokemonInfo;
+
+import java.util.Objects;
 
 public class LevelImpl implements Level {
 
