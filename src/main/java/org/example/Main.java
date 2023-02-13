@@ -38,6 +38,7 @@ public class Main {
     }
 
     private static PokemonInfo damagePoke(PokemonInfo target, int value) {
+        System.out.println(target.pokeName() + " は" + value + "のダメージ!");
         return new Bulbasaur(
                 target.gender(),
                 target.nature(),
@@ -50,6 +51,7 @@ public class Main {
     }
 
     private static PokemonInfo recoveryPoke(PokemonInfo target, int value) {
+        System.out.println(target.pokeName() + " は体力を" + value + "回復!");
         return new Bulbasaur(
                 target.gender(),
                 target.nature(),
@@ -71,6 +73,7 @@ public class Main {
                 target.experience().add(exp),
                 target.currentHitPoint()
         );
+        System.out.println(target.pokeName() + " は" + exp + "の経験値を獲得!");
         while(isLevelUp(bulbasaur)) {
             bulbasaur = new Bulbasaur(
                     bulbasaur.gender(),
@@ -81,6 +84,7 @@ public class Main {
                     bulbasaur.experience(),
                     bulbasaur.currentHitPoint()
             );
+            System.out.println(target.pokeName() + " はLv." + bulbasaur.level().value() + "にレベルアップした!");
         }
         return bulbasaur;
     }
@@ -104,7 +108,7 @@ public class Main {
       //  System.out.println("  経験値タイプ: " + target.experienceType());
         System.out.println("性別: " + target.gender().value());
         System.out.println("性格: " + target.nature().value());
-        System.out.println("覚えている技: " + target.haveMove().value());
+        System.out.println("覚えている技: " + target.haveMove().name());
 //        System.out.print("種族値:");
 //        System.out.print(" 体力 " + target.baseStats().hitPoint());
 //        System.out.print(" 攻撃 " + target.baseStats().attack());
@@ -143,7 +147,7 @@ public class Main {
     private static void showMoveDetail(Move target) {
         System.out.println("--------------------------------------");
         System.out.println("【 技詳細表示 】");
-        System.out.println("技名: " + target.value());
+        System.out.println("技名: " + target.name());
         System.out.println("タイプ: " + target.moveType().value());
         System.out.println("分類: " + target.moveSpecies().value());
         System.out.println("威力: " + target.damage());

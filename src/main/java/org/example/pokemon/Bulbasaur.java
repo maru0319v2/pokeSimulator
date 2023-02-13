@@ -27,7 +27,7 @@ public class Bulbasaur implements PokemonInfo {
         return "たねポケモン";
     }
 
-    public String experienceType() { return ExperienceType.type1050000; }
+    public ExperienceType experienceType() { return ExperienceType.TYPE1050000; }
 
     public PokemonType pokemonType1() {
         return PokemonType.GRASS;
@@ -91,7 +91,7 @@ public class Bulbasaur implements PokemonInfo {
         this.nature = new NatureImpl();
         this.baseStats = new BaseStatsImpl(45, 49, 49, 65, 65, 45);
         this.individualValue = new IndividualValueImpl();
-        this.effortValue = new EffortValueImpl(0, 0, 0, 0, 0, 0);
+        this.effortValue = new EffortValueImpl();
         this.level = new LevelImpl(5);
         this.haveMove = new Tackle();
         this.experience = new ExperienceImpl(0);

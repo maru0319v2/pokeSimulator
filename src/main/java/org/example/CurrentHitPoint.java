@@ -4,11 +4,12 @@ import main.java.org.example.impl.CurrentHitPointImpl;
 
 public interface CurrentHitPoint {
 
+    // 現在HPの値
     public int value();
 
     // 体力を回復する。
-    public CurrentHitPointImpl recovery(PokemonInfo target, CurrentHitPointImpl currentHitPointImpl);
+    public CurrentHitPoint recovery(PokemonInfo target, CurrentHitPointImpl currentHitPointImpl);
 
     // 体力を減らす。
-    public CurrentHitPointImpl damage(CurrentHitPointImpl currentHitPointImpl);
+    public CurrentHitPoint damage(CurrentHitPointImpl currentHitPointImpl);
 }

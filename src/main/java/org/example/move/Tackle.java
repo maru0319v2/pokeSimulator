@@ -5,22 +5,14 @@ import main.java.org.example.MoveSpecies;
 import main.java.org.example.MoveType;
 
 public class Tackle implements Move {
-    private String value = "たいあたり";
+    private String name = "たいあたり";
     private final MoveType moveType = MoveType.NORMAL;
     private final MoveSpecies moveSpecies = MoveSpecies.PHYSICAL;
     private int damage = 40;
     private int hitRate = 95;
 
-    public String value() {
-        return this.value;
-    }
-
-    public int damage() {
-        return this.damage;
-    }
-
-    public int hitRate() {
-        return this.hitRate;
+    public String name() {
+        return this.name;
     }
 
     public MoveType moveType() {
@@ -29,5 +21,13 @@ public class Tackle implements Move {
 
     public MoveSpecies moveSpecies() {
         return this.moveSpecies;
+    }
+
+    public int damage() {
+        return this.damage;
+    }
+
+    public int hitRate() {
+        return this.hitRate;
     }
 }

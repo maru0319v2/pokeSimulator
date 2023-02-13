@@ -1,5 +1,7 @@
 package main.java.org.example;
 
+import main.java.org.example.impl.ExperienceType;
+
 // ポケモンの情報を表現するクラス
 public interface PokemonInfo {
 
@@ -27,7 +29,6 @@ public interface PokemonInfo {
     Nature nature();
     // 覚えている技
     Move haveMove();
-
     // 現在の残りHP
     CurrentHitPoint currentHitPoint();
     // HP実数値
@@ -43,7 +44,7 @@ public interface PokemonInfo {
     // 素早実数値
     int realValSpeed();
     // 経験値タイプ
-    String experienceType();
+    ExperienceType experienceType();
     // 総獲得経験値
     Experience experience();
 }

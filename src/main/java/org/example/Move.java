@@ -3,7 +3,7 @@ package main.java.org.example;
 // 技を表現するクラス
 public interface Move {
     // 技名
-    public String value();
+    public String name();
     // タイプ
     public MoveType moveType();
     // 分類
@@ -12,6 +12,7 @@ public interface Move {
     public int damage();
     // 命中率
     public int hitRate();
+    // TODO PP
 
 
 }
