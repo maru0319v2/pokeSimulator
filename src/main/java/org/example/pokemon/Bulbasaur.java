@@ -13,7 +13,6 @@ public class Bulbasaur implements PokemonInfo {
     private final Nature nature;
     private final Move haveMove;
     private final Experience experience;
-
     private final CurrentHitPoint currentHitPoint;
 
     public String pokeName() {
@@ -34,9 +33,7 @@ public class Bulbasaur implements PokemonInfo {
         return PokemonType.GRASS;
     }
 
-    public PokemonType pokemonType2() {
-        return PokemonType.POISON;
-    }
+    public PokemonType pokemonType2() { return PokemonType.POISON; }
 
     public BaseStats baseStats() {
         return this.baseStats;
@@ -95,7 +92,7 @@ public class Bulbasaur implements PokemonInfo {
         this.baseStats = new BaseStatsImpl(45, 49, 49, 65, 65, 45);
         this.individualValue = new IndividualValueImpl();
         this.effortValue = new EffortValueImpl(0, 0, 0, 0, 0, 0);
-        this.level = new LevelImpl(1);
+        this.level = new LevelImpl(5);
         this.haveMove = new Tackle();
         this.experience = new ExperienceImpl(0);
         this.currentHitPoint = new CurrentHitPointImpl(realValHitPoint());

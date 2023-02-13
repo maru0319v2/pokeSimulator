@@ -7,7 +7,7 @@ public interface Move {
     // タイプ
     public MoveType moveType();
     // 分類
-    public String moveSpecies();
+    public MoveSpecies moveSpecies();
     // 威力
     public int damage();
     // 命中率

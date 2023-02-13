@@ -1,28 +1,33 @@
 package main.java.org.example;
 
+// 技のタイプを表現するクラス
 public enum MoveType {
-    NORMAL("normal"),
-    FIGHTING("fighting"),
-    FLYING("flying"),
-    POISON("poison"),
-    GROUND("ground"),
-    ROCK("rock"),
-    BUG("bug"),
-    GHOST("ghost"),
-    STEEL("steel"),
-    FIRE("fire"),
-    WATER("water"),
-    GRASS("grass"),
-    ELECTRIC("electric"),
-    PSYCHIC("psychic"),
-    ICE("ice"),
-    DRAGON("dragon"),
-    DARK("dark"),
-    FAIRY("fairy");
+    NORMAL("ノーマル"),
+    FIGHTING("格闘"),
+    FLYING("飛行"),
+    POISON("毒"),
+    GROUND("地面"),
+    ROCK("岩"),
+    BUG("虫"),
+    GHOST("ゴースト"),
+    STEEL("鋼"),
+    FIRE("炎"),
+    WATER("水"),
+    GRASS("草"),
+    ELECTRIC("電気"),
+    PSYCHIC("エスパー"),
+    ICE("氷"),
+    DRAGON("ドラゴン"),
+    DARK("悪"),
+    FAIRY("フェアリー");
 
-    private String value;
+    private final String value;
 
-    private MoveType(String value) {
+    MoveType(String value) {
         this.value = value;
+    }
+
+    public String value() {
+        return this.value;
     }
 }
