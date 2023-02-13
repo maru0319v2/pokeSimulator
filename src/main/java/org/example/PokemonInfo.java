@@ -28,7 +28,8 @@ public interface PokemonInfo {
     // 覚えている技
     Move haveMove();
 
-    // TODO 現在の残りHP
+    // 現在の残りHP
+    CurrentHitPoint currentHitPoint();
     // HP実数値
     int realValHitPoint();
     // 攻撃実数値

@@ -14,6 +14,8 @@ public class Bulbasaur implements PokemonInfo {
     private final Move haveMove;
     private final Experience experience;
 
+    private final CurrentHitPoint currentHitPoint;
+
     public String pokeName() {
         return "フシギダネ";
     }
@@ -58,6 +60,9 @@ public class Bulbasaur implements PokemonInfo {
 
     public Move haveMove() { return this.haveMove; }
 
+    @Override
+    public CurrentHitPoint currentHitPoint() { return this.currentHitPoint; }
+
     public Experience experience() { return this.experience; }
 
     public int realValHitPoint() {
@@ -93,6 +98,7 @@ public class Bulbasaur implements PokemonInfo {
         this.level = new LevelImpl(1);
         this.haveMove = new Tackle();
         this.experience = new ExperienceImpl(0);
+        this.currentHitPoint = new CurrentHitPointImpl(realValHitPoint());
     }
 
     public Bulbasaur(
@@ -101,7 +107,8 @@ public class Bulbasaur implements PokemonInfo {
             IndividualValue individualValue,
             EffortValue effortValue,
             Level level,
-            Experience experience
+            Experience experience,
+            CurrentHitPoint currentHitPoint
     ) {
         this.gender = new GenderImpl(gender);
         this.nature = new NatureImpl(nature);
@@ -111,5 +118,6 @@ public class Bulbasaur implements PokemonInfo {
         this.level = new LevelImpl(level.value());
         this.haveMove = new Tackle();
         this.experience = new ExperienceImpl(experience.totalExperience());
+        this.currentHitPoint = new CurrentHitPointImpl(currentHitPoint.value());
     }
 }
