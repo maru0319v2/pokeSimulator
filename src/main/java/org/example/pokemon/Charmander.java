@@ -4,7 +4,7 @@ import main.java.org.example.*;
 import main.java.org.example.impl.*;
 import main.java.org.example.move.Tackle;
 
-public class Bulbasaur implements PokemonInfo {
+public class Charmander implements PokemonInfo {
     private final BaseStatsImpl baseStats;
     private final IndividualValueImpl individualValue;
     private final EffortValueImpl effortValue;
@@ -15,34 +15,34 @@ public class Bulbasaur implements PokemonInfo {
     private final Experience experience;
     private final CurrentHitPoint currentHitPoint;
 
-    private final String pokeName = "フシギダネ";
+    private final int BASE_HP = 39;
+    private final int BASE_ATTACK = 52;
+    private final int BASE_BLOCK = 43;
+    private final int BASE_CONTACT = 60;
+    private final int BASE_DEFENSE = 50;
+    private final int BASE_SPEED = 65;
 
-    private final int BASE_HP = 45;
-    private final int BASE_ATTACK = 49;
-    private final int BASE_BLOCK = 49;
-    private final int BASE_CONTACT = 65;
-    private final int BASE_DEFENSE = 65;
-    private final int BASE_SPEED = 45;
+    private final String pokeName = "ヒトカゲ";
 
     public String pokeName() {
         return this.pokeName;
     }
 
     public String pokeDexNo() {
-        return "001";
+        return "004";
     }
 
     public String species() {
-        return "たねポケモン";
+        return "とかげポケモン";
     }
 
     public ExperienceType experienceType() { return ExperienceType.TYPE1050000; }
 
     public PokemonType pokemonType1() {
-        return PokemonType.GRASS;
+        return PokemonType.FIRE;
     }
 
-    public PokemonType pokemonType2() { return PokemonType.POISON; }
+    public PokemonType pokemonType2() { return PokemonType.NONE; }
 
     public BaseStats baseStats() {
         return this.baseStats;
@@ -95,7 +95,7 @@ public class Bulbasaur implements PokemonInfo {
         return (int)((((this.baseStats().speed() * 2 + this.individualValue().speed() + (this.effortValue().speed() / 4)) * this.level().value() / 100) + 5) * 1.0);
     }
 
-    public Bulbasaur() {
+    public Charmander() {
         this.gender = new GenderImpl();
         this.nature = new NatureImpl();
         this.baseStats = new BaseStatsImpl(BASE_HP, BASE_ATTACK, BASE_BLOCK, BASE_CONTACT, BASE_DEFENSE, BASE_SPEED);
@@ -107,7 +107,7 @@ public class Bulbasaur implements PokemonInfo {
         this.currentHitPoint = new CurrentHitPointImpl(realValHitPoint());
     }
 
-    public Bulbasaur(
+    public Charmander(
             Gender gender,
             Nature nature,
             IndividualValue individualValue,
@@ -127,9 +127,10 @@ public class Bulbasaur implements PokemonInfo {
         this.currentHitPoint = new CurrentHitPointImpl(currentHitPoint.value());
     }
 
+
     // TODO テスト用コード
     @Override
     public PokemonInfo withCurrentHitPoint(CurrentHitPoint currentHitPoint) {
-        return new Bulbasaur(gender, nature, individualValue, effortValue, level, experience, currentHitPoint);
+        return new Charmander(gender, nature, individualValue, effortValue, level, experience, currentHitPoint);
     }
 }

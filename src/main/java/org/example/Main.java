@@ -3,6 +3,9 @@ package main.java.org.example;
 import main.java.org.example.impl.CurrentHitPointImpl;
 import main.java.org.example.move.Tackle;
 import main.java.org.example.pokemon.Bulbasaur;
+import main.java.org.example.pokemon.Charmander;
+
+import java.util.Random;
 import java.util.Scanner;
 
 
@@ -13,6 +16,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Bulbasaur bulbasaur = new Bulbasaur();
+        Charmander charmander = new Charmander();
 
         String inputCommand = "";
         while (!inputCommand.equals("q")) {
@@ -23,6 +27,8 @@ public class Main {
             System.out.print("d : ダメージを与える");
             System.out.print("    r : 体力を回復");
             System.out.println("    i  q : プログラムを終了");
+            System.out.print("c : ダメージ計算");
+            System.out.println("       b : バトルシミュレーション");
             System.out.print("コマンドを入力してください > ");
             inputCommand = scanner.nextLine();
 
@@ -32,38 +38,62 @@ public class Main {
                 case "e" -> bulbasaur = (Bulbasaur) addExp(bulbasaur, 1000);
                 case "d" -> bulbasaur = (Bulbasaur) damagePoke(bulbasaur, 10);
                 case "r" -> bulbasaur = (Bulbasaur) recoveryPoke(bulbasaur, 10);
+                case "c" -> calcDamage(bulbasaur, charmander, new Tackle());
+                case "b" -> bulbasaur = (Bulbasaur) new BattleSimulation().battleSimulation(bulbasaur, charmander);
             }
         }
         scanner.close();
     }
 
-    private static PokemonInfo damagePoke(PokemonInfo target, int value) {
-        System.out.println(target.pokeName() + " は" + value + "のダメージ!");
-        return new Bulbasaur(
-                target.gender(),
-                target.nature(),
-                target.individualValue(),
-                target.effortValue(),
-                target.level(),
-                target.experience(),
+    public static int calcDamage(PokemonInfo attackPoke, PokemonInfo defencePoke, Move move) {
+        // ダメージ計算参考　https://latest.pokewiki.net/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F
+        // TODO タイプ一致補正、急所に当たった場合
+        // 攻撃側のレベル
+        int attackPokeLv = attackPoke.level().value();
+        // 技の威力
+        int moveDamage = move.damage();
+        // 技の分類
+        MoveSpecies moveSpecies = move.moveSpecies();
+        // ダメージの乱数
+        double randomNum = (new Random().nextInt((100 - 85) + 1) + 85) / 100.0;
+
+        int attackVal = 0;
+        int defenceVal = 0;
+        if(moveSpecies == MoveSpecies.PHYSICAL) {
+            attackVal = attackPoke.realValAttack();
+            defenceVal = defencePoke.realValBlock();
+        } else if (moveSpecies == MoveSpecies.SPECIAL) {
+            attackVal = attackPoke.realValContact();
+            defenceVal = defencePoke.realValDefense();
+        }
+
+        // 物理攻撃の計算
+        int result = (int)Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * randomNum);
+        System.out.println(attackPoke.pokeName() + "の" + move.name() + "!");
+       // System.out.println("相手の" + defencePoke.pokeName() + "は" + result + "のダメージ!");
+        return result;
+    }
+
+    public static PokemonInfo damagePoke(PokemonInfo target, int value) {
+        PokemonInfo result = target.withCurrentHitPoint(
                 target.currentHitPoint().damage(new CurrentHitPointImpl(value))
         );
+        System.out.println(result.pokeName() + " は" + value + "のダメージ!  HP" + result.currentHitPoint().value() + "/" + result.realValHitPoint());
+        System.out.println();
+        return result;
     }
 
-    private static PokemonInfo recoveryPoke(PokemonInfo target, int value) {
-        System.out.println(target.pokeName() + " は体力を" + value + "回復!");
-        return new Bulbasaur(
-                target.gender(),
-                target.nature(),
-                target.individualValue(),
-                target.effortValue(),
-                target.level(),
-                target.experience(),
+    public static PokemonInfo recoveryPoke(PokemonInfo target, int value) {
+
+        PokemonInfo result = target.withCurrentHitPoint(
                 target.currentHitPoint().recovery(target, new CurrentHitPointImpl(value))
         );
+        System.out.println(result.pokeName() + " は体力を" + value + "回復!  HP" + result.currentHitPoint().value() + "/" + result.realValHitPoint());
+        System.out.println();
+        return result;
     }
 
-    private static PokemonInfo addExp(PokemonInfo target, int exp)  {
+    public static PokemonInfo addExp(PokemonInfo target, int exp)  {
         Bulbasaur bulbasaur = new Bulbasaur(
                 target.gender(),
                 target.nature(),
@@ -89,13 +119,13 @@ public class Main {
         return bulbasaur;
     }
 
-    private static boolean isLevelUp(PokemonInfo target) {
+    public static boolean isLevelUp(PokemonInfo target) {
         int totalExp = target.experience().totalExperience();
         int requireExp = target.experience().requireExperience(target);
         return totalExp >= requireExp;
     }
 
-    private static void showAllParameters(PokemonInfo target) {
+    public static void showAllParameters(PokemonInfo target) {
         System.out.println("--------------------------------------");
         System.out.print("図鑑No:" + target.pokeDexNo() + " ");
         System.out.print("名前:" + target.pokeName() + " ");
@@ -144,13 +174,20 @@ public class Main {
         System.out.println("素早 " + target.realValSpeed());
     }
 
-    private static void showMoveDetail(Move target) {
+    public static void showParametersInBattle(PokemonInfo target) {
+        System.out.print("名前:" + target.pokeName() + " ");
+        System.out.print("レベル: " + target.level().value());
+        System.out.println("HP: " + target.currentHitPoint().value() + "/" + target.realValHitPoint());
+
+    }
+
+    public static void showMoveDetail(Move target) {
         System.out.println("--------------------------------------");
         System.out.println("【 技詳細表示 】");
-        System.out.println("技名: " + target.name());
+        System.out.println("技　名: " + target.name());
         System.out.println("タイプ: " + target.moveType().value());
-        System.out.println("分類: " + target.moveSpecies().value());
-        System.out.println("威力: " + target.damage());
+        System.out.println("分　類: " + target.moveSpecies().value());
+        System.out.println("威　力: " + target.damage());
         System.out.println("命中率: " + target.hitRate());
     }
 }
