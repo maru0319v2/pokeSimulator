@@ -12,7 +12,7 @@ public class BattleSimulation {
     public PokemonInfo battleSimulation(PokemonInfo myPokemon, PokemonInfo enemyPokemon) {
 
         if(isPreemptiveMe(myPokemon.realValSpeed(), enemyPokemon.realValSpeed())) {
-            while (myPokemon.currentHitPoint().value() != 0 || enemyPokemon.currentHitPoint().value() != 0) {
+            while (myPokemon.currentHitPoint().value() > 0 && enemyPokemon.currentHitPoint().value() > 0) {
                 // ダメージ計算(自分 ->　敵)
                 int enemyDamage = Main.calcDamage(myPokemon, enemyPokemon, myPokemon.haveMove());
                 // 相手にダメージを与える
@@ -23,7 +23,7 @@ public class BattleSimulation {
                 myPokemon = damagePoke(myPokemon, myDamage);
             }
         } else {
-            while (myPokemon.currentHitPoint().value() != 0 || enemyPokemon.currentHitPoint().value() != 0) {
+            while (myPokemon.currentHitPoint().value() > 0 && enemyPokemon.currentHitPoint().value() > 0) {
                 // ダメージ計算(敵 -> 自分)
                 int myDamage = Main.calcDamage(enemyPokemon, myPokemon, enemyPokemon.haveMove());
                 // 自分にダメージを与える
