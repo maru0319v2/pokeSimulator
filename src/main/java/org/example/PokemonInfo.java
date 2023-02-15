@@ -21,6 +21,8 @@ public interface PokemonInfo {
     IndividualValue individualValue();
     // 努力値
     EffortValue effortValue();
+    // 基礎経験値
+    int basicExperience();
     // レベル
     Level level();
     // 性別

@@ -5,15 +5,20 @@ import main.java.org.example.move.Tackle;
 import main.java.org.example.pokemon.Bulbasaur;
 import main.java.org.example.pokemon.Charmander;
 
+import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
 
 // TODO やることリスト
 // 状態異常クラス
+// 技が外れた場合
+// ランク上昇 下降
+// 技を選択できる
+// 最初のポケモンを選ぶ
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         Bulbasaur bulbasaur = new Bulbasaur();
         Charmander charmander = new Charmander();
@@ -29,17 +34,19 @@ public class Main {
             System.out.println("    i  q : プログラムを終了");
             System.out.print("c : ダメージ計算");
             System.out.println("       b : バトルシミュレーション");
+            System.out.println("ce : 経験値計算");
             System.out.print("コマンドを入力してください > ");
             inputCommand = scanner.nextLine();
 
             switch (inputCommand) {
                 case "i" -> showAllParameters(bulbasaur);
                 case "m" -> showMoveDetail(new Tackle());
-                case "e" -> bulbasaur = (Bulbasaur) addExp(bulbasaur, 1000);
+                case "e" -> bulbasaur = (Bulbasaur) addExp(bulbasaur, 100);
                 case "d" -> bulbasaur = (Bulbasaur) damagePoke(bulbasaur, 10);
-                case "r" -> bulbasaur = (Bulbasaur) recoveryPoke(bulbasaur, 10);
+                case "r" -> bulbasaur = (Bulbasaur) recoveryPoke(bulbasaur, 20);
                 case "c" -> calcDamage(bulbasaur, charmander, new Tackle());
                 case "b" -> bulbasaur = (Bulbasaur) new BattleSimulation().battleSimulation(bulbasaur, charmander);
+                case "ce" -> calcExp(charmander);
             }
         }
         scanner.close();
@@ -47,7 +54,6 @@ public class Main {
 
     public static int calcDamage(PokemonInfo attackPoke, PokemonInfo defencePoke, Move move) {
         // ダメージ計算参考　https://latest.pokewiki.net/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F
-        // TODO タイプ一致補正、急所に当たった場合
         // 攻撃側のレベル
         int attackPokeLv = attackPoke.level().value();
         // 技の威力
@@ -56,6 +62,12 @@ public class Main {
         MoveSpecies moveSpecies = move.moveSpecies();
         // ダメージの乱数
         double randomNum = (new Random().nextInt((100 - 85) + 1) + 85) / 100.0;
+        // 急所の判定
+        boolean isCritical = (new Random().nextInt(24) + 1) == 1;
+        double criticalRate = isCritical ? 1.5 : 1;
+        // タイプ一致判定
+        boolean isTypeMatch = (Objects.equals(move.moveType().value(), attackPoke.pokemonType1().value())) || (Objects.equals(move.moveType().value(), attackPoke.pokemonType2().value()));
+        double typeMatchRate = isTypeMatch ? 1.5 : 1;
 
         int attackVal = 0;
         int defenceVal = 0;
@@ -67,9 +79,9 @@ public class Main {
             defenceVal = defencePoke.realValDefense();
         }
 
-        // 物理攻撃の計算
-        int result = (int)Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * randomNum);
+        int result = (int)Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * randomNum * criticalRate * typeMatchRate);
         System.out.println(attackPoke.pokeName() + "の" + move.name() + "!");
+        if(isCritical) { System.out.println("急所に当った!"); }
        // System.out.println("相手の" + defencePoke.pokeName() + "は" + result + "のダメージ!");
         return result;
     }
@@ -91,6 +103,10 @@ public class Main {
         System.out.println(result.pokeName() + " は体力を" + value + "回復!  HP" + result.currentHitPoint().value() + "/" + result.realValHitPoint());
         System.out.println();
         return result;
+    }
+
+    public static int calcExp(PokemonInfo enemyPoke) {
+        return enemyPoke.level().value() * enemyPoke.basicExperience() / 7;
     }
 
     public static PokemonInfo addExp(PokemonInfo target, int exp)  {

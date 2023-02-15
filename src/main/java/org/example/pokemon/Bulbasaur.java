@@ -24,6 +24,8 @@ public class Bulbasaur implements PokemonInfo {
     private final int BASE_DEFENSE = 65;
     private final int BASE_SPEED = 45;
 
+    private final int BASIC_EXPERIENCE = 64;
+
     public String pokeName() {
         return this.pokeName;
     }
@@ -66,6 +68,8 @@ public class Bulbasaur implements PokemonInfo {
 
     public Move haveMove() { return this.haveMove; }
 
+    public int basicExperience() { return this.BASIC_EXPERIENCE; }
+
     @Override
     public CurrentHitPoint currentHitPoint() { return this.currentHitPoint; }
 
@@ -103,7 +107,7 @@ public class Bulbasaur implements PokemonInfo {
         this.effortValue = new EffortValueImpl();
         this.level = new LevelImpl(5);
         this.haveMove = new Tackle();
-        this.experience = new ExperienceImpl(0);
+        this.experience = new ExperienceImpl(135); // TODO 固定化したくない
         this.currentHitPoint = new CurrentHitPointImpl(realValHitPoint());
     }
 

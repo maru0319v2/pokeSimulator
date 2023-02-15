@@ -1,38 +1,41 @@
 package main.java.org.example;
 
-import main.java.org.example.move.Tackle;
-import main.java.org.example.pokemon.Bulbasaur;
 
 import java.util.Random;
-import java.util.Scanner;
 
-import static main.java.org.example.Main.damagePoke;
+
+import static main.java.org.example.Main.*;
 
 public class BattleSimulation {
-    public PokemonInfo battleSimulation(PokemonInfo myPokemon, PokemonInfo enemyPokemon) {
+    public PokemonInfo battleSimulation(PokemonInfo myPokemon, PokemonInfo enemyPokemon) throws InterruptedException {
 
         if(isPreemptiveMe(myPokemon.realValSpeed(), enemyPokemon.realValSpeed())) {
-            while (myPokemon.currentHitPoint().value() > 0 && enemyPokemon.currentHitPoint().value() > 0) {
-                // ダメージ計算(自分 ->　敵)
-                int enemyDamage = Main.calcDamage(myPokemon, enemyPokemon, myPokemon.haveMove());
-                // 相手にダメージを与える
-                enemyPokemon = damagePoke(enemyPokemon, enemyDamage);
-                // ダメージ計算(敵 -> 自分)
-                int myDamage = Main.calcDamage(enemyPokemon, myPokemon, enemyPokemon.haveMove());
-                // 自分にダメージを与える
-                myPokemon = damagePoke(myPokemon, myDamage);
+            int enemyDamage = Main.calcDamage(myPokemon, enemyPokemon, myPokemon.haveMove());
+            enemyPokemon = damagePoke(enemyPokemon, enemyDamage);
+            Thread.sleep(500);
+        }
+        while (myPokemon.currentHitPoint().value() > 0 && enemyPokemon.currentHitPoint().value() > 0) {
+            // ダメージ計算(敵 -> 自分)
+            int myDamage = Main.calcDamage(enemyPokemon, myPokemon, enemyPokemon.haveMove());
+            // 自分にダメージを与える
+            myPokemon = damagePoke(myPokemon, myDamage);
+            if(myPokemon.currentHitPoint().value() == 0) {
+                break;
             }
+            Thread.sleep(500);
+            // ダメージ計算(自分 ->　敵)
+            int enemyDamage = Main.calcDamage(myPokemon, enemyPokemon, myPokemon.haveMove());
+            // 相手にダメージを与える
+            enemyPokemon = damagePoke(enemyPokemon, enemyDamage);
+            Thread.sleep(500);
+        }
+
+        if(myPokemon.currentHitPoint().value() > 0) {
+            System.out.println(enemyPokemon.pokeName() + "を倒した!");
+            int addExp = calcExp(enemyPokemon);
+            myPokemon = addExp(myPokemon, addExp);
         } else {
-            while (myPokemon.currentHitPoint().value() > 0 && enemyPokemon.currentHitPoint().value() > 0) {
-                // ダメージ計算(敵 -> 自分)
-                int myDamage = Main.calcDamage(enemyPokemon, myPokemon, enemyPokemon.haveMove());
-                // 自分にダメージを与える
-                myPokemon = damagePoke(myPokemon, myDamage);
-                // ダメージ計算(自分 ->　敵)
-                int enemyDamage = Main.calcDamage(myPokemon, enemyPokemon, myPokemon.haveMove());
-                // 相手にダメージを与える
-                enemyPokemon = damagePoke(enemyPokemon, enemyDamage);
-            }
+            System.out.println(myPokemon.pokeName() + "は倒れた");
         }
 
         return myPokemon;

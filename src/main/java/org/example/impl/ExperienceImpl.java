@@ -1,6 +1,7 @@
 package main.java.org.example.impl;
 
 import main.java.org.example.Experience;
+import main.java.org.example.Level;
 import main.java.org.example.PokemonInfo;
 
 import java.util.Objects;
@@ -22,6 +23,12 @@ public class ExperienceImpl implements Experience {
     }
 
     // 参考: https://wiki.xn--rckteqa2e.com/wiki/%E7%B5%8C%E9%A8%93%E5%80%A4%E3%82%BF%E3%82%A4%E3%83%97
+
+
+    // TODO 初期から持っている経験値
+    public int initialExperience(PokemonInfo target, ExperienceType experienceType) {
+        return requireExperienceAsType(target);
+    }
 
     // 次のレベルアップに必要な経験値
     public int nextRequireExperience(PokemonInfo target) {

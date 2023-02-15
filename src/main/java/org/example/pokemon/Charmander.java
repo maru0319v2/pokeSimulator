@@ -22,6 +22,8 @@ public class Charmander implements PokemonInfo {
     private final int BASE_DEFENSE = 50;
     private final int BASE_SPEED = 65;
 
+    private final int BASIC_EXPERIENCE = 62;
+
     private final String pokeName = "ヒトカゲ";
 
     public String pokeName() {
@@ -66,6 +68,8 @@ public class Charmander implements PokemonInfo {
 
     public Move haveMove() { return this.haveMove; }
 
+    public int basicExperience() { return this.BASIC_EXPERIENCE; }
+
     @Override
     public CurrentHitPoint currentHitPoint() { return this.currentHitPoint; }
 
@@ -103,7 +107,7 @@ public class Charmander implements PokemonInfo {
         this.effortValue = new EffortValueImpl();
         this.level = new LevelImpl(5);
         this.haveMove = new Tackle();
-        this.experience = new ExperienceImpl(0);
+        this.experience = new ExperienceImpl(135); // TODO 固定化したくない
         this.currentHitPoint = new CurrentHitPointImpl(realValHitPoint());
     }
 
