@@ -2,6 +2,8 @@ package main.java.org.example;
 
 import main.java.org.example.impl.ExperienceType;
 
+import java.util.List;
+
 // ポケモンの情報を表現するクラス
 public interface PokemonInfo {
 
@@ -30,7 +32,7 @@ public interface PokemonInfo {
     // 性格
     Nature nature();
     // 覚えている技
-    Move haveMove();
+    List<Move> haveMove();
     // 現在の残りHP
     CurrentHitPoint currentHitPoint();
     // HP実数値

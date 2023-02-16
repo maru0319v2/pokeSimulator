@@ -14,8 +14,9 @@ import java.util.Scanner;
 // 状態異常クラス
 // 技が外れた場合
 // ランク上昇 下降
-// 技を選択できる
 // 最初のポケモンを選ぶ
+// タイプ相性によるダメージ補正
+// 性格補正
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -26,15 +27,15 @@ public class Main {
         String inputCommand = "";
         while (!inputCommand.equals("q")) {
             System.out.println("--------------------------------------");
-            System.out.print("i : ステータスを表示");
-            System.out.print("    m : 技の詳細を表示");
-            System.out.println("   e : 経験値を与える");
-            System.out.print("d : ダメージを与える");
-            System.out.print("    r : 体力を回復");
-            System.out.println("    i  q : プログラムを終了");
-            System.out.print("c : ダメージ計算");
-            System.out.println("       b : バトルシミュレーション");
-            System.out.println("ce : 経験値計算");
+            System.out.print("i:ステータス表示  ");
+            System.out.print("m:技表示  ");
+            System.out.print("e:経験値を与える  ");
+            System.out.print("d:ダメージを与える  ");
+            System.out.print("r:体力回復  ");
+            System.out.print("c:ダメージ計算  ");
+            System.out.print("b:バトルシミュレーション  ");
+            System.out.print("ce:経験値計算  ");
+            System.out.println("q:終了");
             System.out.print("コマンドを入力してください > ");
             inputCommand = scanner.nextLine();
 
@@ -80,8 +81,8 @@ public class Main {
         }
 
         int result = (int)Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * randomNum * criticalRate * typeMatchRate);
-        System.out.println(attackPoke.pokeName() + "の" + move.name() + "!");
-        if(isCritical) { System.out.println("急所に当った!"); }
+        System.out.print(attackPoke.pokeName() + "の" + move.name() + "! ");
+        if(isCritical) { System.out.println(" 急所に当った! "); }
        // System.out.println("相手の" + defencePoke.pokeName() + "は" + result + "のダメージ!");
         return result;
     }
@@ -90,7 +91,7 @@ public class Main {
         PokemonInfo result = target.withCurrentHitPoint(
                 target.currentHitPoint().damage(new CurrentHitPointImpl(value))
         );
-        System.out.println(result.pokeName() + " は" + value + "のダメージ!  HP" + result.currentHitPoint().value() + "/" + result.realValHitPoint());
+        System.out.println(result.pokeName() + "は" + value + "のダメージ!");
         System.out.println();
         return result;
     }
@@ -100,7 +101,7 @@ public class Main {
         PokemonInfo result = target.withCurrentHitPoint(
                 target.currentHitPoint().recovery(target, new CurrentHitPointImpl(value))
         );
-        System.out.println(result.pokeName() + " は体力を" + value + "回復!  HP" + result.currentHitPoint().value() + "/" + result.realValHitPoint());
+        System.out.println(result.pokeName() + "は体力を" + value + "回復!  HP" + result.currentHitPoint().value() + "/" + result.realValHitPoint());
         System.out.println();
         return result;
     }
@@ -119,7 +120,7 @@ public class Main {
                 target.experience().add(exp),
                 target.currentHitPoint()
         );
-        System.out.println(target.pokeName() + " は" + exp + "の経験値を獲得!");
+        System.out.println(target.pokeName() + "は" + exp + "の経験値を獲得!");
         while(isLevelUp(bulbasaur)) {
             bulbasaur = new Bulbasaur(
                     bulbasaur.gender(),
@@ -130,7 +131,7 @@ public class Main {
                     bulbasaur.experience(),
                     bulbasaur.currentHitPoint()
             );
-            System.out.println(target.pokeName() + " はLv." + bulbasaur.level().value() + "にレベルアップした!");
+            System.out.println(target.pokeName() + "はLv." + bulbasaur.level().value() + "にレベルアップした!");
         }
         return bulbasaur;
     }
@@ -154,7 +155,11 @@ public class Main {
       //  System.out.println("  経験値タイプ: " + target.experienceType());
         System.out.println("性別: " + target.gender().value());
         System.out.println("性格: " + target.nature().value());
-        System.out.println("覚えている技: " + target.haveMove().name());
+        System.out.print("覚えている技: ");
+        for (Move move : target.haveMove()) {
+            System.out.print(move.name() + "  ");
+        }
+        System.out.println("");
 //        System.out.print("種族値:");
 //        System.out.print(" 体力 " + target.baseStats().hitPoint());
 //        System.out.print(" 攻撃 " + target.baseStats().attack());
@@ -182,7 +187,9 @@ public class Main {
 //        System.out.print(" 特攻 " + target.effortValue().contact());
 //        System.out.print(" 特防 " + target.effortValue().defense());
 //        System.out.println(" 素早 " + target.effortValue().speed());
-        System.out.println("HP: " + target.currentHitPoint().value() + "/" + target.realValHitPoint());
+        System.out.print("HP: " + target.currentHitPoint().value() + "/" + target.realValHitPoint() + " ");
+        showProgressBar(target);
+        System.out.println("");
         System.out.println("攻撃 " + target.realValAttack());
         System.out.println("防御 " + target.realValBlock());
         System.out.println("特攻 " + target.realValContact());
@@ -205,5 +212,20 @@ public class Main {
         System.out.println("分　類: " + target.moveSpecies().value());
         System.out.println("威　力: " + target.damage());
         System.out.println("命中率: " + target.hitRate());
+    }
+
+    public static void showProgressBar(PokemonInfo target) {
+        // 残りHPのパーセントを出す
+        double i = ((double)target.currentHitPoint().value()) / ((double)target.realValHitPoint()) * 20;
+        System.out.print("[");
+        int j;
+        for(j = 0; i > j; j++) {
+            System.out.print("=");
+        }
+        while (j < 20) {
+            System.out.print(" ");
+            j++;
+        }
+        System.out.print("]");
     }
 }

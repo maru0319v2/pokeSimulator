@@ -4,6 +4,8 @@ import main.java.org.example.*;
 import main.java.org.example.impl.*;
 import main.java.org.example.move.Tackle;
 
+import java.util.List;
+
 public class Charmander implements PokemonInfo {
     private final BaseStatsImpl baseStats;
     private final IndividualValueImpl individualValue;
@@ -11,7 +13,7 @@ public class Charmander implements PokemonInfo {
     private final Level level;
     private final Gender gender;
     private final Nature nature;
-    private final Move haveMove;
+    private final List<Move> haveMove;
     private final Experience experience;
     private final CurrentHitPoint currentHitPoint;
 
@@ -66,7 +68,7 @@ public class Charmander implements PokemonInfo {
 
     public Nature nature() { return this.nature; }
 
-    public Move haveMove() { return this.haveMove; }
+    public List<Move> haveMove() { return this.haveMove; }
 
     public int basicExperience() { return this.BASIC_EXPERIENCE; }
 
@@ -106,7 +108,7 @@ public class Charmander implements PokemonInfo {
         this.individualValue = new IndividualValueImpl();
         this.effortValue = new EffortValueImpl();
         this.level = new LevelImpl(5);
-        this.haveMove = new Tackle();
+        this.haveMove = List.of(new Tackle());
         this.experience = new ExperienceImpl(135); // TODO 固定化したくない
         this.currentHitPoint = new CurrentHitPointImpl(realValHitPoint());
     }
@@ -126,7 +128,7 @@ public class Charmander implements PokemonInfo {
         this.individualValue = new IndividualValueImpl(individualValue.hitPoint(), individualValue.attack(), individualValue.block(), individualValue.contact(), individualValue.defense(), individualValue.speed());
         this.effortValue = new EffortValueImpl(effortValue.hitPoint(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());
         this.level = new LevelImpl(level.value());
-        this.haveMove = new Tackle();
+        this.haveMove = List.of(new Tackle());
         this.experience = new ExperienceImpl(experience.totalExperience());
         this.currentHitPoint = new CurrentHitPointImpl(currentHitPoint.value());
     }
