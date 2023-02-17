@@ -81,10 +81,10 @@ public class BattleSimulation {
         boolean isNoNumberSelected = true;
         while (isNoNumberSelected) {
             System.out.print("技を選択してください > ");
-            int inputCommand = scanner.nextInt();
+            String inputCommand = scanner.nextLine();
             System.out.println("");
             for(int j = 1; i > j; j++) {
-                if(inputCommand == j) {
+                if(Integer.parseInt(inputCommand) == j) {
                     result = moves.get(j-1);
                     isNoNumberSelected = false;
                 }

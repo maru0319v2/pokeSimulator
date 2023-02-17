@@ -4,6 +4,7 @@ import main.java.org.example.impl.CurrentHitPointImpl;
 import main.java.org.example.move.Tackle;
 import main.java.org.example.pokemon.Bulbasaur;
 import main.java.org.example.pokemon.Charmander;
+import main.java.org.example.pokemon.Squirtle;
 
 import java.util.Objects;
 import java.util.Random;
@@ -21,8 +22,21 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
-        Bulbasaur bulbasaur = new Bulbasaur();
-        Charmander charmander = new Charmander();
+
+        System.out.println("1:フシギダネ");
+        System.out.println("2:ヒトカゲ");
+        System.out.println("3:ゼニガメ");
+
+        PokemonInfo myPokemon = null;
+        while (myPokemon == null) {
+            System.out.print("あなたのポケモンを選択してください > ");
+            String selectPokeCommand = scanner.nextLine();
+            switch (selectPokeCommand) {
+                case "1" -> myPokemon = new Bulbasaur();
+                case "2" -> myPokemon = new Charmander();
+                case "3" -> myPokemon = new Squirtle();
+            }
+        }
 
         String inputCommand = "";
         while (!inputCommand.equals("q")) {
@@ -40,14 +54,14 @@ public class Main {
             inputCommand = scanner.nextLine();
 
             switch (inputCommand) {
-                case "i" -> showAllParameters(bulbasaur);
+                case "i" -> showAllParameters(myPokemon);
                 case "m" -> showMoveDetail(new Tackle());
-                case "e" -> bulbasaur = (Bulbasaur) addExp(bulbasaur, 100);
-                case "d" -> bulbasaur = (Bulbasaur) damagePoke(bulbasaur, 10);
-                case "r" -> bulbasaur = (Bulbasaur) recoveryPoke(bulbasaur, 20);
-                case "c" -> calcDamage(bulbasaur, charmander, new Tackle());
-                case "b" -> bulbasaur = (Bulbasaur) new BattleSimulation().battleSimulation(bulbasaur, charmander);
-                case "ce" -> calcExp(charmander);
+                case "e" -> myPokemon = addExp(myPokemon, 100); // TODO フシギダネが帰ってくる damagePoke()とかを真似して直す
+                case "d" -> myPokemon = damagePoke(myPokemon, 10);
+                case "r" -> myPokemon = recoveryPoke(myPokemon, 20);
+                case "c" -> calcDamage(myPokemon, new Charmander(), new Tackle());
+                case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, new Charmander());
+                case "ce" -> calcExp(new Charmander());
             }
         }
         scanner.close();
@@ -88,7 +102,6 @@ public class Main {
         if(effectiveRate >= 2.0) { System.out.print("効果は抜群だ! "); }
         if(effectiveRate <= 0.5) { System.out.print("効果はいまひとつのようだ "); }
         if(effectiveRate == 0.0) { System.out.print("効果はないようだ "); }
-       // System.out.println("相手の" + defencePoke.pokeName() + "は" + result + "のダメージ!");
         return result;
     }
 
