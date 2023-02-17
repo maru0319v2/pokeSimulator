@@ -2,11 +2,11 @@ package main.java.org.example.move;
 
 import main.java.org.example.Move;
 import main.java.org.example.MoveSpecies;
-import main.java.org.example.MoveType;
+import main.java.org.example.Type;
 
 public class VineWhip implements Move {
     private String name = "つるのムチ";
-    private final MoveType moveType = MoveType.GRASS;
+    private final Type moveType = Type.GRASS;
     private final MoveSpecies moveSpecies = MoveSpecies.PHYSICAL;
     private int damage = 45;
     private int hitRate = 100;
@@ -15,7 +15,7 @@ public class VineWhip implements Move {
         return this.name;
     }
 
-    public MoveType moveType() {
+    public Type moveType() {
         return this.moveType;
     }
 

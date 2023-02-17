@@ -14,9 +14,9 @@ public interface PokemonInfo {
     // 分類
     String species();
     // タイプ1
-    PokemonType pokemonType1();
+    Type pokemonType1();
     // タイプ2
-    PokemonType pokemonType2();
+    Type pokemonType2();
     // 種族値
     BaseStats baseStats();
     // 個体値

@@ -5,7 +5,7 @@ public interface Move {
     // 技名
     public String name();
     // タイプ
-    public MoveType moveType();
+    public Type moveType();
     // 分類
     public MoveSpecies moveSpecies();
     // 威力

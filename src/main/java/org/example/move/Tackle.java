@@ -2,11 +2,11 @@ package main.java.org.example.move;
 
 import main.java.org.example.Move;
 import main.java.org.example.MoveSpecies;
-import main.java.org.example.MoveType;
+import main.java.org.example.Type;
 
 public class Tackle implements Move {
     private String name = "たいあたり";
-    private final MoveType moveType = MoveType.NORMAL;
+    private final Type moveType = Type.NORMAL;
     private final MoveSpecies moveSpecies = MoveSpecies.PHYSICAL;
     private int damage = 40;
     private int hitRate = 95;
@@ -15,7 +15,7 @@ public class Tackle implements Move {
         return this.name;
     }
 
-    public MoveType moveType() {
+    public Type moveType() {
         return this.moveType;
     }
 

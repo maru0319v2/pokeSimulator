@@ -15,9 +15,7 @@ import java.util.Scanner;
 // 技が外れた場合
 // ランク上昇 下降
 // 最初のポケモンを選ぶ
-// タイプ相性によるダメージ補正
-// 性格補正
-
+// 初期経験値固定値問題
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
@@ -69,6 +67,8 @@ public class Main {
         // タイプ一致判定
         boolean isTypeMatch = (Objects.equals(move.moveType().value(), attackPoke.pokemonType1().value())) || (Objects.equals(move.moveType().value(), attackPoke.pokemonType2().value()));
         double typeMatchRate = isTypeMatch ? 1.5 : 1;
+        // タイプ相性判定
+        double effectiveRate = Type.damageRateByType(defencePoke.pokemonType1(), defencePoke.pokemonType2(), move);
 
         int attackVal = 0;
         int defenceVal = 0;
@@ -80,9 +80,12 @@ public class Main {
             defenceVal = defencePoke.realValDefense();
         }
 
-        int result = (int)Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * randomNum * criticalRate * typeMatchRate);
+        int result = (int)Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * randomNum * criticalRate * typeMatchRate * effectiveRate);
         System.out.print(attackPoke.pokeName() + "の" + move.name() + "! ");
-        if(isCritical) { System.out.println(" 急所に当った! "); }
+        if(isCritical) { System.out.print(" 急所に当った! "); }
+        if(effectiveRate >= 2.0) { System.out.print("効果は抜群だ! "); }
+        if(effectiveRate <= 0.5) { System.out.print("効果はいまひとつのようだ "); }
+        if(effectiveRate == 0.0) { System.out.print("効果はないようだ "); }
        // System.out.println("相手の" + defencePoke.pokeName() + "は" + result + "のダメージ!");
         return result;
     }

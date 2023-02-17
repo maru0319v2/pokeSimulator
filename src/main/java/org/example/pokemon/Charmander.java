@@ -42,11 +42,11 @@ public class Charmander implements PokemonInfo {
 
     public ExperienceType experienceType() { return ExperienceType.TYPE1050000; }
 
-    public PokemonType pokemonType1() {
-        return PokemonType.FIRE;
+    public Type pokemonType1() {
+        return Type.FIRE;
     }
 
-    public PokemonType pokemonType2() { return PokemonType.NONE; }
+    public Type pokemonType2() { return Type.NONE; }
 
     public BaseStats baseStats() {
         return this.baseStats;
@@ -82,23 +82,23 @@ public class Charmander implements PokemonInfo {
     }
 
     public int realValAttack() {
-        return (int)((((this.baseStats().attack() * 2 + this.individualValue().attack() + (this.effortValue().attack() / 4)) * this.level().value() / 100) + 5) * 1.0); // 最後の1.0が性格補正
+        return (int)((((this.baseStats().attack() * 2 + this.individualValue().attack() + (this.effortValue().attack() / 4)) * this.level().value() / 100) + 5) * this.nature.attackRateByNature());
     }
 
     public int realValBlock() {
-        return (int)((((this.baseStats().block() * 2 + this.individualValue().block() + (this.effortValue().block() / 4)) * this.level().value() / 100) + 5) * 1.0);
+        return (int)((((this.baseStats().block() * 2 + this.individualValue().block() + (this.effortValue().block() / 4)) * this.level().value() / 100) + 5) * this.nature.blockRateByNature());
     }
 
     public int realValContact() {
-        return (int)((((this.baseStats().contact() * 2 + this.individualValue().contact() + (this.effortValue().contact() / 4)) * this.level().value() / 100) + 5) * 1.0);
+        return (int)((((this.baseStats().contact() * 2 + this.individualValue().contact() + (this.effortValue().contact() / 4)) * this.level().value() / 100) + 5) * this.nature.contactRateByNature());
     }
 
     public int realValDefense() {
-        return (int)((((this.baseStats().defense() * 2 + this.individualValue().defense() + (this.effortValue().defense() / 4)) * this.level().value() / 100) + 5) * 1.0);
+        return (int)((((this.baseStats().defense() * 2 + this.individualValue().defense() + (this.effortValue().defense() / 4)) * this.level().value() / 100) + 5) * this.nature.defenceRateByNature());
     }
 
     public int realValSpeed() {
-        return (int)((((this.baseStats().speed() * 2 + this.individualValue().speed() + (this.effortValue().speed() / 4)) * this.level().value() / 100) + 5) * 1.0);
+        return (int)((((this.baseStats().speed() * 2 + this.individualValue().speed() + (this.effortValue().speed() / 4)) * this.level().value() / 100) + 5) * this.nature.speedRateByNature());
     }
 
     public Charmander() {
