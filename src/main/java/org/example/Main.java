@@ -16,6 +16,8 @@ import java.util.Scanner;
 // ランク上昇 下降
 // 最初のポケモンを選ぶ
 // 初期経験値固定値問題
+// 覚える技リスト
+// 経験値を得るタイミングを努力値を得る
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
