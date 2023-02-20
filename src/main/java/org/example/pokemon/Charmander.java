@@ -137,6 +137,16 @@ public class Charmander implements PokemonInfo {
     // TODO テスト用コード
     @Override
     public PokemonInfo withCurrentHitPoint(CurrentHitPoint currentHitPoint) {
-        return new Charmander(gender, nature, individualValue, effortValue, level, experience, currentHitPoint);
+        return new Charmander(this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, currentHitPoint);
+    }
+
+    @Override
+    public PokemonInfo withExperience(int addingExperience) {
+        return new Charmander(this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience().add(addingExperience), this.currentHitPoint);
+    }
+
+    @Override
+    public PokemonInfo withLevel(int addLevel) {
+        return new Charmander(this.gender, this.nature, this.individualValue, this.effortValue, this.level().add(addLevel), this.experience, this.currentHitPoint);
     }
 }

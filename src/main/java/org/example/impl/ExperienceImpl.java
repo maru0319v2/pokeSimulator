@@ -1,7 +1,6 @@
 package main.java.org.example.impl;
 
 import main.java.org.example.Experience;
-import main.java.org.example.Level;
 import main.java.org.example.PokemonInfo;
 
 import java.util.Objects;

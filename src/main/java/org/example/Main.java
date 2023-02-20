@@ -15,6 +15,7 @@ import java.util.Scanner;
 // 初期経験値固定値問題
 // 覚える技リスト
 // 経験値を得るタイミングを努力値を得る
+// レベルアップ時ステータス上昇幅表示
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
@@ -52,7 +53,7 @@ public class Main {
             switch (inputCommand) {
                 case "i" -> ConsoleOutManager.showAllParameters(myPokemon);
                 case "m" -> ConsoleOutManager.showMoveDetail(new Tackle());
-                case "e" -> myPokemon = BattleLogic.addExp(myPokemon, 100); // TODO フシギダネが帰ってくる damagePoke()とかを真似して直す
+                case "e" -> myPokemon = BattleLogic.addExp(myPokemon, 200);
                 case "d" -> myPokemon = BattleLogic.damagePoke(myPokemon, 10);
                 case "r" -> myPokemon = BattleLogic.recoveryPoke(myPokemon, 20);
                 case "c" -> BattleLogic.calcDamage(myPokemon, new Charmander(), new Tackle());

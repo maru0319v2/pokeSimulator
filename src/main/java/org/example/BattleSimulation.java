@@ -13,25 +13,21 @@ public class BattleSimulation {
             if(BattleLogic.isPreemptiveMe(myPokemon.realValSpeed(), enemyPokemon.realValSpeed())) {
                 // 自分が先行の場合
                 int enemyDamage = BattleLogic.calcDamage(myPokemon, enemyPokemon, selectedMove);
-                Thread.sleep(500);
                 enemyPokemon = BattleLogic.damagePoke(enemyPokemon, enemyDamage);
                 if(enemyPokemon.currentHitPoint().value() == 0) { break; }
 
                 Thread.sleep(500);
                 int myDamage = BattleLogic.calcDamage(enemyPokemon, myPokemon, enemyPokemon.haveMove().get(0));
-                Thread.sleep(500);
                 myPokemon = BattleLogic.damagePoke(myPokemon, myDamage);
                 Thread.sleep(500);
             } else {
                 // 自分が後攻の場合
                 int myDamage = BattleLogic.calcDamage(enemyPokemon, myPokemon, enemyPokemon.haveMove().get(0));
-                Thread.sleep(500);
                 myPokemon = BattleLogic.damagePoke(myPokemon, myDamage);
                 if(myPokemon.currentHitPoint().value() == 0) { break; }
 
                 Thread.sleep(500);
                 int enemyDamage = BattleLogic.calcDamage(myPokemon, enemyPokemon, selectedMove);
-                Thread.sleep(500);
                 enemyPokemon = BattleLogic.damagePoke(enemyPokemon, enemyDamage);
                 Thread.sleep(500);
             }

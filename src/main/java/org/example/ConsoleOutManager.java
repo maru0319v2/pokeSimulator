@@ -83,6 +83,7 @@ public class ConsoleOutManager {
         System.out.print("]");
     }
 
+    // バトル中のステータス表示を行う
     public static void showPokemonInfo(PokemonInfo myPokemon, PokemonInfo enemyPokemon) {
         System.out.println("-------------------------------------------------");
         System.out.println("");

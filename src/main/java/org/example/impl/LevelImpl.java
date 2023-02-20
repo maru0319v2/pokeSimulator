@@ -22,6 +22,15 @@ public class LevelImpl implements Level {
         }
     }
 
+    public Level add(int value) {
+        int incrementedValue = this.value + value;
+        if(incrementedValue > 100) {
+            return new LevelImpl(100);
+        } else {
+            return new LevelImpl(incrementedValue);
+        }
+    }
+
     public int value() {
         return this.value;
     }

@@ -54,4 +54,8 @@ public interface PokemonInfo {
 
     // TODO テスト用コード
     PokemonInfo withCurrentHitPoint(CurrentHitPoint currentHitPoint);
+
+    PokemonInfo withExperience(int addingExperience);
+
+    PokemonInfo withLevel(int addLevel);
 }

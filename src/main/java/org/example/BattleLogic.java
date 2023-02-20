@@ -105,30 +105,13 @@ public class BattleLogic {
         return enemyPoke.level().value() * enemyPoke.basicExperience() / 7;
     }
 
-    // TODO 経験値を得るタイミングと努力値を得るタイミングは別にしたほうがいい
     public static PokemonInfo addExp(PokemonInfo target, int exp)  {
-        Bulbasaur bulbasaur = new Bulbasaur(
-                target.gender(),
-                target.nature(),
-                target.individualValue(),
-                target.effortValue().add(20,30,60,10,30,30),
-                target.level(),
-                target.experience().add(exp),
-                target.currentHitPoint()
-        );
-        System.out.println(target.pokeName() + "は" + exp + "の経験値を獲得!");
-        while(bulbasaur.experience().isLevelUp(bulbasaur)) {
-            bulbasaur = new Bulbasaur(
-                    bulbasaur.gender(),
-                    bulbasaur.nature(),
-                    bulbasaur.individualValue(),
-                    bulbasaur.effortValue(),
-                    bulbasaur.level().add(),
-                    bulbasaur.experience(),
-                    bulbasaur.currentHitPoint()
-            );
-            System.out.println(target.pokeName() + "はLv." + bulbasaur.level().value() + "にレベルアップした!");
+        PokemonInfo result = target.withExperience(exp);
+        System.out.println(result.pokeName() + "は" + exp + "の経験値を獲得!");
+        while(result.experience().isLevelUp(result)) {
+            result = result.withLevel(1);
+            System.out.println(result.pokeName() + "はLv." + result.level().value() + "にレベルアップした!");
         }
-        return bulbasaur;
+        return result;
     }
 }
