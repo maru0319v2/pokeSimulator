@@ -4,7 +4,5 @@ package main.java.org.example;
 public interface Level {
     public Level add();
 
-    public Level add(int value);
-
     public int value();
 }

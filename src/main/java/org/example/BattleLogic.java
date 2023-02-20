@@ -3,10 +3,46 @@ package main.java.org.example;
 import main.java.org.example.impl.CurrentHitPointImpl;
 import main.java.org.example.pokemon.Bulbasaur;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.Scanner;
 
 public class BattleLogic {
+
+    // 先行後攻を決める
+    public static boolean isPreemptiveMe(int mySpeed, int enemySpeed) {
+        if(mySpeed == enemySpeed) {
+            // 同速の場合は1~10をランダムで生成して偶数なら先行
+            return (new Random().nextInt(10) + 1) % 2 == 0;
+        }
+        return mySpeed > enemySpeed;
+    }
+
+    // 技を選択する
+    public static Move selectMove(List<Move> moves) {
+        Scanner scanner = new Scanner(System.in);
+        int i = 1;
+        for (Move move : moves) {
+            System.out.println(i + ": " + move.name());
+            i++;
+        }
+
+        Move result = null;
+        boolean isNoNumberSelected = true;
+        while (isNoNumberSelected) {
+            System.out.print("技を選択してください > ");
+            String inputCommand = scanner.nextLine();
+            System.out.println("");
+            for(int j = 1; i > j; j++) {
+                if(Integer.parseInt(inputCommand) == j) {
+                    result = moves.get(j-1);
+                    isNoNumberSelected = false;
+                }
+            }
+        }
+        return result;
+    }
 
     public static int calcDamage(PokemonInfo attackPoke, PokemonInfo defencePoke, Move move) {
         // ダメージ計算参考　https://latest.pokewiki.net/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F
@@ -81,7 +117,7 @@ public class BattleLogic {
                 target.currentHitPoint()
         );
         System.out.println(target.pokeName() + "は" + exp + "の経験値を獲得!");
-        while(isLevelUp(bulbasaur)) {
+        while(bulbasaur.experience().isLevelUp(bulbasaur)) {
             bulbasaur = new Bulbasaur(
                     bulbasaur.gender(),
                     bulbasaur.nature(),
@@ -94,11 +130,5 @@ public class BattleLogic {
             System.out.println(target.pokeName() + "はLv." + bulbasaur.level().value() + "にレベルアップした!");
         }
         return bulbasaur;
-    }
-
-    public static boolean isLevelUp(PokemonInfo target) {
-        int totalExp = target.experience().totalExperience();
-        int requireExp = target.experience().requireExperience(target);
-        return totalExp >= requireExp;
     }
 }

@@ -79,4 +79,10 @@ public class ExperienceImpl implements Experience {
         if(level == 2) { result = 9; }
         return result;
     }
+
+    public boolean isLevelUp(PokemonInfo target) {
+        int totalExp = this.totalExperience();
+        int requireExp = this.requireExperience(target);
+        return totalExp >= requireExp;
+    }
 }

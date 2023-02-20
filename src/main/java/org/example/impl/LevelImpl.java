@@ -1,9 +1,6 @@
 package main.java.org.example.impl;
 
 import main.java.org.example.Level;
-import main.java.org.example.PokemonInfo;
-
-import java.util.Objects;
 
 public class LevelImpl implements Level {
 
@@ -18,15 +15,6 @@ public class LevelImpl implements Level {
 
     public Level add() {
         int incrementedValue = this.value + 1;
-        if(incrementedValue > 100) {
-            return new LevelImpl(100);
-        } else {
-            return new LevelImpl(incrementedValue);
-        }
-    }
-
-    public Level add(int value) {
-        int incrementedValue = this.value + value;
         if(incrementedValue > 100) {
             return new LevelImpl(100);
         } else {

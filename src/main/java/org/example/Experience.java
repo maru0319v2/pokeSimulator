@@ -14,4 +14,7 @@ public interface Experience {
 
     // そのレベルに達するまでに必要な経験値
     public int requireExperience(PokemonInfo target);
+
+    // レベルアップ可能か
+    public boolean isLevelUp(PokemonInfo target);
 }
