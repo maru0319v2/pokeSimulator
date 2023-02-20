@@ -18,40 +18,40 @@ public class BattleSimulation {
         System.out.println("ゆけっ!" + myPokemon.pokeName() + "!");
 
         while (myPokemon.currentHitPoint().value() > 0 && enemyPokemon.currentHitPoint().value() > 0) {
-            showPokemonsInfo(myPokemon, enemyPokemon);
+            ConsoleOutManager.showPokemonInfo(myPokemon, enemyPokemon);
             Move selectedMove = selectMove(myPokemon.haveMove());
 
             if(isPreemptiveMe(myPokemon.realValSpeed(), enemyPokemon.realValSpeed())) {
                 // 自分が先行の場合
-                int enemyDamage = Main.calcDamage(myPokemon, enemyPokemon, selectedMove);
-                Thread.sleep(1000);
-                enemyPokemon = damagePoke(enemyPokemon, enemyDamage);
+                int enemyDamage = BattleLogic.calcDamage(myPokemon, enemyPokemon, selectedMove);
+                Thread.sleep(500);
+                enemyPokemon = BattleLogic.damagePoke(enemyPokemon, enemyDamage);
                 if(enemyPokemon.currentHitPoint().value() == 0) { break; }
 
-                Thread.sleep(1000);
-                int myDamage = Main.calcDamage(enemyPokemon, myPokemon, enemyPokemon.haveMove().get(0));
-                Thread.sleep(1000);
-                myPokemon = damagePoke(myPokemon, myDamage);
-                Thread.sleep(1000);
+                Thread.sleep(500);
+                int myDamage = BattleLogic.calcDamage(enemyPokemon, myPokemon, enemyPokemon.haveMove().get(0));
+                Thread.sleep(500);
+                myPokemon = BattleLogic.damagePoke(myPokemon, myDamage);
+                Thread.sleep(500);
             } else {
                 // 自分が後攻の場合
-                int myDamage = Main.calcDamage(enemyPokemon, myPokemon, enemyPokemon.haveMove().get(0));
-                Thread.sleep(1000);
-                myPokemon = damagePoke(myPokemon, myDamage);
+                int myDamage = BattleLogic.calcDamage(enemyPokemon, myPokemon, enemyPokemon.haveMove().get(0));
+                Thread.sleep(500);
+                myPokemon = BattleLogic.damagePoke(myPokemon, myDamage);
                 if(myPokemon.currentHitPoint().value() == 0) { break; }
 
-                Thread.sleep(1000);
-                int enemyDamage = Main.calcDamage(myPokemon, enemyPokemon, selectedMove);
-                Thread.sleep(1000);
-                enemyPokemon = damagePoke(enemyPokemon, enemyDamage);
-                Thread.sleep(1000);
+                Thread.sleep(500);
+                int enemyDamage = BattleLogic.calcDamage(myPokemon, enemyPokemon, selectedMove);
+                Thread.sleep(500);
+                enemyPokemon = BattleLogic.damagePoke(enemyPokemon, enemyDamage);
+                Thread.sleep(500);
             }
         }
 
         if(myPokemon.currentHitPoint().value() > 0) {
             System.out.println("野生の" + enemyPokemon.pokeName() + "は倒れた!");
-            int addExp = calcExp(enemyPokemon);
-            myPokemon = addExp(myPokemon, addExp);
+            int addExp = BattleLogic.calcExp(enemyPokemon);
+            myPokemon = BattleLogic.addExp(myPokemon, addExp);
         } else {
             System.out.println(myPokemon.pokeName() + "は倒れた");
         }
@@ -91,28 +91,5 @@ public class BattleSimulation {
             }
         }
         return result;
-    }
-
-    private void showPokemonsInfo(PokemonInfo myPokemon, PokemonInfo enemyPokemon) {
-        System.out.println("-------------------------------------------------");
-        System.out.println("");
-
-        System.out.println(enemyPokemon.pokeName() + " " + enemyPokemon.gender().value() + "    Lv." + enemyPokemon.level().value());
-        System.out.print("HP");
-        showProgressBar(enemyPokemon);
-        System.out.println("           ■");
-        System.out.print("   " + enemyPokemon.currentHitPoint().value() + " / " + enemyPokemon.realValHitPoint());
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        // ↑相手側　↓こっち側
-        System.out.print("                        ");
-        System.out.println(myPokemon.pokeName() + " " + myPokemon.gender().value() + "    Lv." + myPokemon.level().value());
-        System.out.print("            ■           HP");
-        showProgressBar(myPokemon);
-        System.out.println("");
-        System.out.println("                           " + myPokemon.currentHitPoint().value() + " / " + myPokemon.realValHitPoint());
-        System.out.println("");
-        System.out.println("-------------------------------------------------");
     }
 }
