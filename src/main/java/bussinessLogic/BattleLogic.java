@@ -7,6 +7,8 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
+import static bussinessLogic.ConsoleOutManager.showMessageParChar;
+
 public class BattleLogic {
 
     // 先行後攻を決める
@@ -43,7 +45,7 @@ public class BattleLogic {
         return result;
     }
 
-    public static int calcDamage(PokemonInfo attackPoke, PokemonInfo defencePoke, Move move) {
+    public static int calcDamage(PokemonInfo attackPoke, PokemonInfo defencePoke, Move move) throws InterruptedException {
         // ダメージ計算参考　https://latest.pokewiki.net/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F
         // 攻撃側のレベル
         int attackPokeLv = attackPoke.level().value();
@@ -73,20 +75,19 @@ public class BattleLogic {
         }
 
         int result = (int)Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * randomNum * criticalRate * typeMatchRate * effectiveRate);
-        System.out.print(attackPoke.pokeName() + "の" + move.name() + "! ");
-        if(isCritical) { System.out.print(" 急所に当った! "); }
-        if(effectiveRate >= 2.0) { System.out.print("効果は抜群だ! "); }
-        if(effectiveRate <= 0.5) { System.out.print("効果はいまひとつのようだ "); }
-        if(effectiveRate == 0.0) { System.out.print("効果はないようだ "); }
+        showMessageParChar(attackPoke.pokeName() + "の" + move.name() + "!");
+        if(isCritical) { showMessageParChar("急所に当った!"); }
+        if(effectiveRate >= 2.0) { showMessageParChar("効果は抜群だ!"); }
+        if(effectiveRate <= 0.5) { showMessageParChar("効果はいまひとつのようだ"); }
+        if(effectiveRate == 0.0) { showMessageParChar("効果はないようだ"); }
         return result;
     }
 
-    public static PokemonInfo damagePoke(PokemonInfo target, int value) {
+    public static PokemonInfo damagePoke(PokemonInfo target, int value) throws InterruptedException {
         PokemonInfo result = target.withCurrentHitPoint(
                 target.currentHitPoint().damage(new CurrentHitPointImpl(value))
         );
-        System.out.println(result.pokeName() + "は" + value + "のダメージ!");
-        System.out.println();
+        showMessageParChar(result.pokeName() + "は" + value + "のダメージ!");
         return result;
     }
 
@@ -104,12 +105,12 @@ public class BattleLogic {
         return enemyPoke.level().value() * enemyPoke.basicExperience() / 7;
     }
 
-    public static PokemonInfo addExp(PokemonInfo target, int exp)  {
+    public static PokemonInfo addExp(PokemonInfo target, int exp) throws InterruptedException {
         PokemonInfo result = target.withExperience(exp);
-        System.out.println(result.pokeName() + "は" + exp + "の経験値を獲得!");
+        showMessageParChar(result.pokeName() + "は" + exp + "の経験値を獲得!");
         while(result.experience().isLevelUp(result)) {
             result = result.withLevel(1);
-            System.out.println(result.pokeName() + "はLv." + result.level().value() + "にレベルアップした!");
+            showMessageParChar(result.pokeName() + "はLv." + result.level().value() + "にレベルアップした!");
         }
         return result;
     }

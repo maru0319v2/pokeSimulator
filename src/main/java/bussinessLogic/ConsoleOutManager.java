@@ -6,7 +6,6 @@ public class ConsoleOutManager {
     public static void showAllParameters(PokemonInfo target) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.println("--------------------------------------");
         System.out.print("図鑑No:" + target.pokeDexNo() + " ");
         System.out.print("名前:" + target.pokeName() + " ");
         System.out.println("分類:" + target.species());
@@ -63,7 +62,6 @@ public class ConsoleOutManager {
     public static void showMoveDetail(Move target) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.println("--------------------------------------");
         System.out.println("【 技詳細表示 】");
         System.out.println("技　名: " + target.name());
         System.out.println("タイプ: " + target.moveType().value());
@@ -89,15 +87,9 @@ public class ConsoleOutManager {
 
     // バトル中のステータス表示を行う
     public static void showPokemonInfo(PokemonInfo myPokemon, PokemonInfo enemyPokemon) {
-
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-        System.out.println("-------------------------------------------------");
-        System.out.println("");
-
         System.out.println(enemyPokemon.pokeName() + " " + enemyPokemon.gender().value() + "    Lv." + enemyPokemon.level().value());
         System.out.print("HP");
-        ConsoleOutManager.showProgressBar(enemyPokemon);
+        showProgressBar(enemyPokemon);
         System.out.println("           ■");
         System.out.print("   " + enemyPokemon.currentHitPoint().value() + " / " + enemyPokemon.realValHitPoint());
         System.out.println("");
@@ -107,10 +99,40 @@ public class ConsoleOutManager {
         System.out.print("                        ");
         System.out.println(myPokemon.pokeName() + " " + myPokemon.gender().value() + "    Lv." + myPokemon.level().value());
         System.out.print("            ■           HP");
-        ConsoleOutManager.showProgressBar(myPokemon);
+        showProgressBar(myPokemon);
         System.out.println("");
         System.out.println("                           " + myPokemon.currentHitPoint().value() + " / " + myPokemon.realValHitPoint());
         System.out.println("");
         System.out.println("-------------------------------------------------");
+    }
+
+    public static void showPokemonInfoWithClear(PokemonInfo myPokemon, PokemonInfo enemyPokemon) {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println(enemyPokemon.pokeName() + " " + enemyPokemon.gender().value() + "    Lv." + enemyPokemon.level().value());
+        System.out.print("HP");
+        showProgressBar(enemyPokemon);
+        System.out.println("           ■");
+        System.out.print("   " + enemyPokemon.currentHitPoint().value() + " / " + enemyPokemon.realValHitPoint());
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        // ↑相手側　↓こっち側
+        System.out.print("                        ");
+        System.out.println(myPokemon.pokeName() + " " + myPokemon.gender().value() + "    Lv." + myPokemon.level().value());
+        System.out.print("            ■           HP");
+        showProgressBar(myPokemon);
+        System.out.println("");
+        System.out.println("                           " + myPokemon.currentHitPoint().value() + " / " + myPokemon.realValHitPoint());
+        System.out.println("");
+        System.out.println("-------------------------------------------------");
+    }
+
+    public static void showMessageParChar(String message) throws InterruptedException {
+        for(int i = 0; i < message.length(); i++) {
+            System.out.print(message.charAt(i));
+            Thread.sleep(15);
+        }
+        System.out.println("");
     }
 }

@@ -8,6 +8,8 @@ import pokemon.Squirtle;
 import java.io.IOException;
 import java.util.Scanner;
 
+import static bussinessLogic.ConsoleOutManager.showMessageParChar;
+
 
 // TODO やることリスト
 // 状態異常クラス
@@ -27,7 +29,7 @@ public class Main {
 
         PokemonInfo myPokemon = null;
         while (myPokemon == null) {
-            System.out.print("あなたのポケモンを選択してください > ");
+            showMessageParChar("あなたのポケモンを選択してください > ");
             String selectPokeCommand = scanner.nextLine();
             switch (selectPokeCommand) {
                 case "1" -> myPokemon = new Bulbasaur();
@@ -36,18 +38,22 @@ public class Main {
             }
         }
 
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        showMessageParChar(myPokemon.pokeName() + "を仲間にした!");
+
         String inputCommand = "";
         while (!inputCommand.equals("q")) {
-            System.out.println("--------------------------------------");
-            System.out.print("i:ステータス表示  ");
-            System.out.print("m:技表示  ");
-            System.out.print("e:経験値を与える  ");
-            System.out.print("d:ダメージを与える  ");
-            System.out.print("r:体力回復  ");
-            System.out.print("c:ダメージ計算  ");
-            System.out.print("b:バトルシミュレーション  ");
-            System.out.print("ce:経験値計算  ");
-            System.out.println("q:終了");
+            System.out.println("-------------------------------------------------");
+            System.out.print("i:ステータス表示");
+            System.out.print("　　　　　m:技表示  ");
+            System.out.println("　　　e:経験値を与える");
+            System.out.print("d:ダメージを与える");
+            System.out.print("　　　　r:体力回復");
+            System.out.println("　　　c:ダメージ計算");
+            System.out.print("b:バトルシミュレーション");
+            System.out.print("　ce:経験値計算");
+            System.out.println(" 　q:終了");
             System.out.print("コマンドを入力してください > ");
             inputCommand = scanner.nextLine();
 
