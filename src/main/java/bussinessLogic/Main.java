@@ -5,6 +5,7 @@ import pokemon.Bulbasaur;
 import pokemon.Charmander;
 import pokemon.Squirtle;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 

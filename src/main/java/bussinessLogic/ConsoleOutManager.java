@@ -4,6 +4,8 @@ public class ConsoleOutManager {
     // コンソール出力を管理するクラス
 
     public static void showAllParameters(PokemonInfo target) {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         System.out.println("--------------------------------------");
         System.out.print("図鑑No:" + target.pokeDexNo() + " ");
         System.out.print("名前:" + target.pokeName() + " ");
@@ -59,6 +61,8 @@ public class ConsoleOutManager {
     }
 
     public static void showMoveDetail(Move target) {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         System.out.println("--------------------------------------");
         System.out.println("【 技詳細表示 】");
         System.out.println("技　名: " + target.name());
@@ -85,6 +89,9 @@ public class ConsoleOutManager {
 
     // バトル中のステータス表示を行う
     public static void showPokemonInfo(PokemonInfo myPokemon, PokemonInfo enemyPokemon) {
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         System.out.println("-------------------------------------------------");
         System.out.println("");
 
