@@ -1,9 +1,6 @@
 package move;
 
-import bussinessLogic.Move;
-import bussinessLogic.MoveSpecies;
-import bussinessLogic.PokemonInfo;
-import bussinessLogic.Type;
+import bussinessLogic.*;
 
 public class VineWhip implements Move {
     private String name = "つるのムチ";
@@ -31,5 +28,7 @@ public class VineWhip implements Move {
     public int hitRate() {
         return this.hitRate;
     }
-    public void effect(PokemonInfo attackPoke, PokemonInfo defensePoke) {}
+    public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke) {
+        return new InBattlePokemons(attackPoke, defensePoke);
+    }
 }

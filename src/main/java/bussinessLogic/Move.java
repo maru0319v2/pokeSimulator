@@ -13,7 +13,5 @@ public interface Move {
     // 命中率
     public int hitRate();
     // 技の効果
-    public void effect(PokemonInfo attackPoke, PokemonInfo defensePoke);
-
-
+    public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke) throws InterruptedException;
 }

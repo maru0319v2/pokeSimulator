@@ -17,22 +17,23 @@ public class BattleSimulation {
 
             if(BattleLogic.isPreemptiveMe(myPokemon, enemyPokemon)) {
                 // 自分が先行の場合
-                enemyPokemon = doAction(myPokemon, enemyPokemon, selectedMove);
+                // TODO 戻り値をInBattlePokemonそのままで受け取れるようにする
+                enemyPokemon = doAction(myPokemon, enemyPokemon, selectedMove).defensePoke;
 
                 if(enemyPokemon.currentHitPoint().value() == 0) { break; }
                 Thread.sleep(1000);
                 ConsoleOutManager.showPokemonInfoWithClear(myPokemon, enemyPokemon);
 
-                myPokemon = doAction(enemyPokemon, myPokemon, enemyPokemon.haveMove().get(0));
+                myPokemon = doAction(enemyPokemon, myPokemon, enemyPokemon.haveMove().get(0)).defensePoke;
             } else {
                 // 自分が後攻の場合
-                myPokemon = doAction(enemyPokemon, myPokemon, enemyPokemon.haveMove().get(0));
+                myPokemon = doAction(enemyPokemon, myPokemon, enemyPokemon.haveMove().get(0)).defensePoke;
 
                 if(myPokemon.currentHitPoint().value() == 0) { break; }
                 Thread.sleep(1000);
                 ConsoleOutManager.showPokemonInfoWithClear(myPokemon, enemyPokemon);
 
-                enemyPokemon = doAction(myPokemon, enemyPokemon, selectedMove);
+                enemyPokemon = doAction(myPokemon, enemyPokemon, selectedMove).defensePoke;
             }
         }
 

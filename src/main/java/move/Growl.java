@@ -1,9 +1,8 @@
 package move;
 
-import bussinessLogic.Move;
-import bussinessLogic.MoveSpecies;
-import bussinessLogic.PokemonInfo;
-import bussinessLogic.Type;
+import bussinessLogic.*;
+
+import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 
 public class Growl implements Move {
     private String name = "なきごえ";
@@ -32,8 +31,8 @@ public class Growl implements Move {
         return this.hitRate;
     }
 
-
-    public void effect(PokemonInfo attackPoke, PokemonInfo defensePoke) {
-
+    public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke) throws InterruptedException {
+        showMessageParChar(defensePoke.pokeName() + "の攻撃が下がった!");
+        return new InBattlePokemons(attackPoke, defensePoke.withAddedStatusRank(-1,0, 0, 0, 0));
     }
 }

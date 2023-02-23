@@ -49,15 +49,24 @@ public class BattleLogic {
     }
 
     // ターンごとの行動 命中判定、ダメージ計算、ダメージ付与を一括で行う
-    public static PokemonInfo doAction(PokemonInfo attackPoke, PokemonInfo defencePoke, Move move) throws InterruptedException {
-        if (isHit(move)) {
-            int damage = calcDamage(attackPoke, defencePoke, move);
-            defencePoke = damagePoke(defencePoke, damage);
+    public static InBattlePokemons doAction(PokemonInfo attackPoke, PokemonInfo defencePoke, Move move) throws InterruptedException {
+        if (move.moveSpecies() == MoveSpecies.PHYSICAL || move.moveSpecies() == MoveSpecies.SPECIAL) {
+            if (isHit(move)) {
+                int damage = calcDamage(attackPoke, defencePoke, move);
+                defencePoke = damagePoke(defencePoke, damage);
+            } else {
+                showMessageParChar(attackPoke.pokeName() + "の" + move.name() + "!");
+                showMessageParChar(attackPoke.pokeName() + "の" + move.name() + "は外れた");
+            }
+            return new InBattlePokemons(attackPoke, defencePoke);
         } else {
-            showMessageParChar(attackPoke.pokeName() + "の" + move.name() + "!");
-            showMessageParChar(attackPoke.pokeName() + "の" + move.name() + "は外れた");
+            if (isHit(move)) {
+                showMessageParChar(attackPoke.pokeName() + "の" + move.name() + "!");
+                return move.effect(attackPoke, defencePoke);
+            } else {
+                return new InBattlePokemons(attackPoke, defencePoke);
+            }
         }
-        return defencePoke;
     }
 
     private static boolean isHit(Move move) {
