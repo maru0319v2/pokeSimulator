@@ -128,6 +128,97 @@ public class ConsoleOutManager {
         System.out.println("-------------------------------------------------");
     }
 
+    public static void showParametersInBattle(PokemonInfo target) {
+        System.out.println("名前:" + target.pokeName() + " ");
+        System.out.println("タイプ1: " + target.pokemonType1().value() + " タイプ2: " + target.pokemonType2().value());
+        System.out.println("レベル: " + target.level().value());
+        System.out.print("HP: " + target.currentHitPoint().value() + "/" + target.realValHitPoint() + " ");
+        showProgressBar(target);
+        System.out.println("");
+        System.out.println("攻撃 " + target.realValAttack());
+        System.out.println("防御 " + target.realValBlock());
+        System.out.println("特攻 " + target.realValContact());
+        System.out.println("特防 " + target.realValDefense());
+        System.out.println("素早 " + target.realValSpeed());
+        System.out.println("");
+
+        System.out.print("攻撃ランク ");
+        int i = 0;
+        for(;i < Math.abs(target.statusRank().attack()); i++) {
+            if (target.statusRank().attack() > 0) {
+                System.out.print("△");
+            } else {
+                System.out.print("▼");
+            }
+        }
+        while (i < 6) {
+            System.out.print("・");
+            i++;
+        }
+        System.out.println("");
+
+        i = 0;
+        System.out.print("防御ランク ");
+        for(;i < Math.abs(target.statusRank().block()); i++) {
+            if (target.statusRank().block() > 0) {
+                System.out.print("△");
+            } else {
+                System.out.print("▼");
+            }
+        }
+        while (i < 6) {
+            System.out.print("・");
+            i++;
+        }
+        System.out.println("");
+
+        i = 0;
+        System.out.print("特攻ランク ");
+        for(;i < Math.abs(target.statusRank().contact()); i++) {
+            if (target.statusRank().contact() > 0) {
+                System.out.print("△");
+            } else {
+                System.out.print("▼");
+            }
+        }
+        while (i < 6) {
+            System.out.print("・");
+            i++;
+        }
+        System.out.println("");
+
+        i = 0;
+        System.out.print("特防ランク ");
+        for(;i < Math.abs(target.statusRank().defense()); i++) {
+            if (target.statusRank().defense() > 0) {
+                System.out.print("△");
+            } else {
+                System.out.print("▼");
+            }
+        }
+        while (i < 6) {
+            System.out.print("・");
+            i++;
+        }
+        System.out.println("");
+
+        i = 0;
+        System.out.print("素早ランク ");
+        for(;i < Math.abs(target.statusRank().speed()); i++) {
+            if (target.statusRank().speed() > 0) {
+                System.out.print("△");
+            } else {
+                System.out.print("▼");
+            }
+        }
+        while (i < 6) {
+            System.out.print("・");
+            i++;
+        }
+        System.out.println("");
+        System.out.println("");
+    }
+
     public static void showMessageParChar(String message) throws InterruptedException {
         for(int i = 0; i < message.length(); i++) {
             System.out.print(message.charAt(i));

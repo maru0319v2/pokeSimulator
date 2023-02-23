@@ -13,7 +13,8 @@ public class BattleSimulation {
         while (myPokemon.currentHitPoint().value() > 0 && enemyPokemon.currentHitPoint().value() > 0) {
             Thread.sleep(1000);
             ConsoleOutManager.showPokemonInfoWithClear(myPokemon, enemyPokemon);
-            Move selectedMove = BattleLogic.selectMove(myPokemon.haveMove());
+            Move selectedMove = BattleLogic.selectMove(myPokemon.haveMove(), myPokemon);
+            ConsoleOutManager.showPokemonInfoWithClear(myPokemon, enemyPokemon);
 
             if(BattleLogic.isPreemptiveMe(myPokemon, enemyPokemon)) {
                 // 自分が先行の場合

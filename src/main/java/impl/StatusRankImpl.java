@@ -11,22 +11,16 @@ public class StatusRankImpl implements StatusRank {
     private final int defense;
     private final int speed;
 
-    public int attack() {
-        return this.attack;
-    }
-
+    public int attack() { return this.attack; }
     public int block() {
         return this.block;
     }
-
     public int contact() {
         return this.contact;
     }
-
     public int defense() {
         return this.defense;
     }
-
     public int speed() {
         return this.speed;
     }

@@ -8,6 +8,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
+import static bussinessLogic.ConsoleOutManager.showParametersInBattle;
 
 public class BattleLogic {
 
@@ -24,13 +25,15 @@ public class BattleLogic {
     }
 
     // 技を選択する
-    public static Move selectMove(List<Move> moves) {
+    public static Move selectMove(List<Move> moves, PokemonInfo target) {
         Scanner scanner = new Scanner(System.in);
         int i = 1;
         for (Move move : moves) {
             System.out.println(i + ": " + move.name());
             i++;
         }
+        System.out.println();
+        System.out.println("i: ステータス確認");
 
         Move result = null;
         boolean isNoNumberSelected = true;
@@ -38,10 +41,15 @@ public class BattleLogic {
             System.out.print("技を選択してください > ");
             String inputCommand = scanner.nextLine();
             System.out.println("");
-            for(int j = 1; i > j; j++) {
-                if(Integer.parseInt(inputCommand) == j) {
-                    result = moves.get(j-1);
-                    isNoNumberSelected = false;
+
+            if(Objects.equals(inputCommand, "i")) {
+                showParametersInBattle(target);
+            } else {
+                for(int j = 1; i > j; j++) {
+                    if (Integer.parseInt(inputCommand) == j) {
+                        result = moves.get(j-1);
+                        isNoNumberSelected = false;
+                    }
                 }
             }
         }
