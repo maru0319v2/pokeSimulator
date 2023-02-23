@@ -119,14 +119,20 @@ public class Charmander implements PokemonInfo {
     public PokemonInfo withCurrentHitPoint(CurrentHitPoint currentHitPoint) {
         return new Charmander(this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, currentHitPoint, this.statusRank);
     }
-
     @Override
     public PokemonInfo withExperience(int addingExperience) {
         return new Charmander(this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience().add(addingExperience), this.currentHitPoint, this.statusRank);
     }
-
     @Override
     public PokemonInfo withLevel(int addLevel) {
         return new Charmander(this.gender, this.nature, this.individualValue, this.effortValue, this.level().add(addLevel), this.experience, this.currentHitPoint, this.statusRank);
+    }
+    @Override
+    public PokemonInfo withAddedStatusRank(final int attack, final int block, final int contact, final int defense, final int speed) {
+        return new Charmander(this.gender, this.nature, this.individualValue, this.effortValue, this.level(), this.experience, this.currentHitPoint, this.statusRank.add(attack, block, contact, defense, speed));
+    }
+    @Override
+    public PokemonInfo withResetStatusRank() {
+        return new Charmander(this.gender, this.nature, this.individualValue, this.effortValue, this.level(), this.experience, this.currentHitPoint, this.statusRank.reset());
     }
 }

@@ -15,7 +15,7 @@ public class BattleSimulation {
             ConsoleOutManager.showPokemonInfoWithClear(myPokemon, enemyPokemon);
             Move selectedMove = BattleLogic.selectMove(myPokemon.haveMove());
 
-            if(BattleLogic.isPreemptiveMe(myPokemon.realValSpeed(), enemyPokemon.realValSpeed())) {
+            if(BattleLogic.isPreemptiveMe(myPokemon, enemyPokemon)) {
                 // 自分が先行の場合
                 enemyPokemon = doAction(myPokemon, enemyPokemon, selectedMove);
 
@@ -44,7 +44,6 @@ public class BattleSimulation {
         } else {
             System.out.println(myPokemon.pokeName() + "は倒れた");
         }
-
-        return myPokemon;
+        return myPokemon.withResetStatusRank();
     }
 }

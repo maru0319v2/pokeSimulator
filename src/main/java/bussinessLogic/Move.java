@@ -12,7 +12,8 @@ public interface Move {
     public int damage();
     // 命中率
     public int hitRate();
-    // TODO PP
+    // 技の効果
+    public void effect(PokemonInfo attackPoke, PokemonInfo defensePoke);
 
 
 }

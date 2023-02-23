@@ -5,12 +5,12 @@ import bussinessLogic.MoveSpecies;
 import bussinessLogic.PokemonInfo;
 import bussinessLogic.Type;
 
-public class Tackle implements Move {
-    private String name = "たいあたり";
+public class Growl implements Move {
+    private String name = "なきごえ";
     private final Type moveType = Type.NORMAL;
-    private final MoveSpecies moveSpecies = MoveSpecies.PHYSICAL;
-    private int damage = 40;
-    private int hitRate = 95;
+    private final MoveSpecies moveSpecies = MoveSpecies.CHANGE;
+    private int damage = 0;
+    private int hitRate = 100;
 
     public String name() {
         return this.name;
@@ -31,5 +31,9 @@ public class Tackle implements Move {
     public int hitRate() {
         return this.hitRate;
     }
-    public void effect(PokemonInfo attackPoke, PokemonInfo defensePoke) {}
+
+
+    public void effect(PokemonInfo attackPoke, PokemonInfo defensePoke) {
+
+    }
 }

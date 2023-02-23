@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 
-
 // TODO やることリスト
 // 状態異常クラス
 // ランク上昇 下降
@@ -18,6 +17,7 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 // 覚える技リスト
 // 経験値を得るタイミングを努力値を得る
 // レベルアップ時ステータス上昇幅表示
+// 技のPP
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
@@ -49,7 +49,6 @@ public class Main {
             System.out.println("　　　e:経験値を与える");
             System.out.print("d:ダメージを与える");
             System.out.print("　　　　r:体力回復");
-            System.out.println("　　　c:ダメージ計算");
             System.out.print("b:バトルシミュレーション");
             System.out.print("　ce:経験値計算");
             System.out.println(" 　q:終了");
@@ -62,7 +61,6 @@ public class Main {
                 case "e" -> myPokemon = BattleLogic.addExp(myPokemon, 200);
                 case "d" -> myPokemon = BattleLogic.damagePoke(myPokemon, 10);
                 case "r" -> myPokemon = BattleLogic.recoveryPoke(myPokemon, 20);
-                case "c" -> BattleLogic.calcDamage(myPokemon, new Charmander(), new Tackle());
                 case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, new Charmander());
                 case "ce" -> BattleLogic.calcExp(new Charmander());
             }

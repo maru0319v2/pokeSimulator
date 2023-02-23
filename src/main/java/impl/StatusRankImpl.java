@@ -40,16 +40,99 @@ public class StatusRankImpl implements StatusRank {
     }
 
     public StatusRankImpl(int attack, int block, int contact, int defense, int speed) {
-        if(attack < MIN || attack > MAX) throw new IllegalArgumentException("攻撃ランクは" + MIN + "以上 " + MAX +"以下を指定してください。");
-        if(block < MIN || block > MAX) throw new IllegalArgumentException("防御ランクは" + MIN + "以上 " + MAX +"以下を指定してください。");
-        if(contact < MIN || contact > MAX) throw new IllegalArgumentException("特攻ランクは" + MIN + "以上 " + MAX +"以下を指定してください。");
-        if(defense < MIN || defense > MAX) throw new IllegalArgumentException("特防ランクは" + MIN + "以上 " + MAX +"以下を指定してください。");
-        if(speed < MIN || speed > MAX) throw new IllegalArgumentException("素早ランクは" + MIN + "以上 " + MAX +"以下を指定してください。");
+        int resultAttack;
+        if(attack < MIN) {
+            resultAttack = MIN;
+        } else resultAttack = Math.min(attack, MAX);
 
-        this.attack = attack;
-        this.block = block;
-        this.contact = contact;
-        this.defense = defense;
-        this.speed = speed;
+        int resultBlock;
+        if(block < MIN) {
+            resultBlock = MIN;
+        } else resultBlock = Math.min(block, MAX);
+
+        int resultContact;
+        if(contact < MIN) {
+            resultContact = MIN;
+        } else resultContact = Math.min(contact, MAX);
+
+        int resultDefense;
+        if(defense < MIN) {
+            resultDefense = MIN;
+        } else resultDefense = Math.min(defense, MAX);
+
+        int resultSpeed;
+        if(speed < MIN) {
+            resultSpeed = MIN;
+        } else resultSpeed = Math.min(speed, MAX);
+
+        this.attack = resultAttack;
+        this.block = resultBlock;
+        this.contact = resultContact;
+        this.defense = resultDefense;
+        this.speed = resultSpeed;
+    }
+
+    public StatusRankImpl add(final int attack, final int block, final int contact, final int defense, final int speed) {
+        int addedAttack = this.attack + attack;
+        int addedBlock = this.block + block;
+        int addedContact = this.contact + contact;
+        int addedDefense = this.defense + defense;
+        int addedSpeed = this.speed + speed;
+
+        return new StatusRankImpl(addedAttack, addedBlock, addedContact, addedDefense, addedSpeed);
+    }
+
+    public StatusRankImpl reset() {
+        return new StatusRankImpl(0, 0, 0, 0, 0);
+    }
+
+    public double attackRateByStatusRank() {
+        double result;
+        if(this.attack >= 0) {
+            result = (double)(2 + this.attack) / 2;
+        } else {
+            result = (2 / (double)(2 + Math.abs(this.attack)));
+        }
+        return result;
+    }
+
+    public double blockRateByStatusRank() {
+        double result;
+        if(this.block >= 0) {
+            result = (double)(2 + this.block) / 2;
+        } else {
+            result = (2 / (double)(2 + Math.abs(this.block)));
+        }
+        return result;
+    }
+
+    public double contactRateByStatusRank() {
+        double result;
+        if(this.contact >= 0) {
+            result = (double)(2 + this.contact) / 2;
+        } else {
+            result = (2 / (double)(2 + Math.abs(this.contact)));
+        }
+        return result;
+    }
+
+    public double defenseRateByStatusRank() {
+        double result;
+        if(this.defense >= 0) {
+            result = (double)(2 + this.defense) / 2;
+        } else {
+            result = (2 / (double)(2 + Math.abs(this.defense)));
+        }
+        return result;
+    }
+
+    public double speedRateByStatusRank() {
+        double result;
+        if(this.speed >= 0) {
+            result = (double)(2 + this.speed) / 2;
+        } else {
+            result = (2 / (double)(2 + Math.abs(this.speed)));
+        }
+        return result;
     }
 }

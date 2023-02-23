@@ -12,12 +12,15 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 public class BattleLogic {
 
     // 先行後攻を決める
-    public static boolean isPreemptiveMe(int mySpeed, int enemySpeed) {
-        if(mySpeed == enemySpeed) {
+    public static boolean isPreemptiveMe(PokemonInfo myPokemon, PokemonInfo enemyPokemon) {
+        int calculatedMySpeed = (int)(myPokemon.realValSpeed() * myPokemon.statusRank().speedRateByStatusRank());
+        int calculatedEnemySpeed = (int)(enemyPokemon.realValSpeed() * enemyPokemon.statusRank().speedRateByStatusRank());
+
+        if(calculatedMySpeed == calculatedEnemySpeed) {
             // 同速の場合は1~10をランダムで生成して偶数なら先行
             return (new Random().nextInt(10) + 1) % 2 == 0;
         }
-        return mySpeed > enemySpeed;
+        return calculatedMySpeed > calculatedEnemySpeed;
     }
 
     // 技を選択する
@@ -61,7 +64,7 @@ public class BattleLogic {
         return (new Random().nextInt(100) + 1) <= move.hitRate();
     }
 
-    public static int calcDamage(PokemonInfo attackPoke, PokemonInfo defencePoke, Move move) throws InterruptedException {
+    private static int calcDamage(PokemonInfo attackPoke, PokemonInfo defencePoke, Move move) throws InterruptedException {
         // ダメージ計算参考　https://latest.pokewiki.net/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F
         // 攻撃側のレベル
         int attackPokeLv = attackPoke.level().value();
@@ -82,12 +85,13 @@ public class BattleLogic {
 
         int attackVal = 0;
         int defenceVal = 0;
+        // ステータス実数値にランク補正を乗せる
         if(moveSpecies == MoveSpecies.PHYSICAL) {
-            attackVal = attackPoke.realValAttack();
-            defenceVal = defencePoke.realValBlock();
+            attackVal = (int)(attackPoke.realValAttack() * attackPoke.statusRank().attackRateByStatusRank());
+            defenceVal = (int)(defencePoke.realValBlock() * defencePoke.statusRank().blockRateByStatusRank());
         } else if (moveSpecies == MoveSpecies.SPECIAL) {
-            attackVal = attackPoke.realValContact();
-            defenceVal = defencePoke.realValDefense();
+            attackVal = (int)(attackPoke.realValContact() * attackPoke.statusRank().contactRateByStatusRank());
+            defenceVal = (int)(defencePoke.realValDefense() * defencePoke.statusRank().defenseRateByStatusRank());
         }
 
         int result = (int)Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * randomNum * criticalRate * typeMatchRate * effectiveRate);
