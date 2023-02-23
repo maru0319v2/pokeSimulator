@@ -1,5 +1,6 @@
 package bussinessLogic;
 
+import static bussinessLogic.BattleLogic.doAction;
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 
 public class BattleSimulation {
@@ -8,34 +9,30 @@ public class BattleSimulation {
         System.out.flush();
         showMessageParChar("野生の" + enemyPokemon.pokeName() + "が飛び出してきた!");
         showMessageParChar("ゆけっ!" + myPokemon.pokeName() + "!");
-        Thread.sleep(1000);
 
         while (myPokemon.currentHitPoint().value() > 0 && enemyPokemon.currentHitPoint().value() > 0) {
+            Thread.sleep(1000);
             ConsoleOutManager.showPokemonInfoWithClear(myPokemon, enemyPokemon);
             Move selectedMove = BattleLogic.selectMove(myPokemon.haveMove());
 
             if(BattleLogic.isPreemptiveMe(myPokemon.realValSpeed(), enemyPokemon.realValSpeed())) {
                 // 自分が先行の場合
-                int enemyDamage = BattleLogic.calcDamage(myPokemon, enemyPokemon, selectedMove);
-                enemyPokemon = BattleLogic.damagePoke(enemyPokemon, enemyDamage);
+                enemyPokemon = doAction(myPokemon, enemyPokemon, selectedMove);
+
                 if(enemyPokemon.currentHitPoint().value() == 0) { break; }
                 Thread.sleep(1000);
                 ConsoleOutManager.showPokemonInfoWithClear(myPokemon, enemyPokemon);
 
-                int myDamage = BattleLogic.calcDamage(enemyPokemon, myPokemon, enemyPokemon.haveMove().get(0));
-                myPokemon = BattleLogic.damagePoke(myPokemon, myDamage);
-                Thread.sleep(1000);
+                myPokemon = doAction(enemyPokemon, myPokemon, enemyPokemon.haveMove().get(0));
             } else {
                 // 自分が後攻の場合
-                int myDamage = BattleLogic.calcDamage(enemyPokemon, myPokemon, enemyPokemon.haveMove().get(0));
-                myPokemon = BattleLogic.damagePoke(myPokemon, myDamage);
+                myPokemon = doAction(enemyPokemon, myPokemon, enemyPokemon.haveMove().get(0));
+
                 if(myPokemon.currentHitPoint().value() == 0) { break; }
                 Thread.sleep(1000);
                 ConsoleOutManager.showPokemonInfoWithClear(myPokemon, enemyPokemon);
 
-                int enemyDamage = BattleLogic.calcDamage(myPokemon, enemyPokemon, selectedMove);
-                enemyPokemon = BattleLogic.damagePoke(enemyPokemon, enemyDamage);
-                Thread.sleep(1000);
+                enemyPokemon = doAction(myPokemon, enemyPokemon, selectedMove);
             }
         }
 

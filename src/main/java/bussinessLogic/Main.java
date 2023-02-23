@@ -13,7 +13,6 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 
 // TODO やることリスト
 // 状態異常クラス
-// 技が外れた場合
 // ランク上昇 下降
 // 初期経験値固定値問題
 // 覚える技リスト

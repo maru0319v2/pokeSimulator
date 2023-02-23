@@ -51,6 +51,8 @@ public interface PokemonInfo {
     ExperienceType experienceType();
     // 総獲得経験値
     Experience experience();
+    // ステータスランク
+    StatusRank statusRank();
 
     // TODO テスト用コード
     PokemonInfo withCurrentHitPoint(CurrentHitPoint currentHitPoint);

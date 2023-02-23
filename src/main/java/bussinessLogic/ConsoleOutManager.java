@@ -134,5 +134,6 @@ public class ConsoleOutManager {
             Thread.sleep(15);
         }
         System.out.println("");
+        Thread.sleep(200);
     }
 }
