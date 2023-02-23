@@ -10,6 +10,8 @@ public class BattleSimulation {
         showMessageParChar("野生の" + enemyPokemon.pokeName() + "が飛び出してきた!");
         showMessageParChar("ゆけっ!" + myPokemon.pokeName() + "!");
 
+        InBattlePokemons pokemons;
+
         while (myPokemon.currentHitPoint().value() > 0 && enemyPokemon.currentHitPoint().value() > 0) {
             Thread.sleep(1000);
             ConsoleOutManager.showPokemonInfoWithClear(myPokemon, enemyPokemon);
@@ -18,23 +20,30 @@ public class BattleSimulation {
 
             if(BattleLogic.isPreemptiveMe(myPokemon, enemyPokemon)) {
                 // 自分が先行の場合
-                // TODO 戻り値をInBattlePokemonそのままで受け取れるようにする
-                enemyPokemon = doAction(myPokemon, enemyPokemon, selectedMove).defensePoke;
+                pokemons = doAction(myPokemon, enemyPokemon, selectedMove);
+                myPokemon = pokemons.attackPoke;
+                enemyPokemon = pokemons.defensePoke;
 
                 if(enemyPokemon.currentHitPoint().value() == 0) { break; }
                 Thread.sleep(1000);
                 ConsoleOutManager.showPokemonInfoWithClear(myPokemon, enemyPokemon);
 
-                myPokemon = doAction(enemyPokemon, myPokemon, enemyPokemon.haveMove().get(0)).defensePoke;
+                pokemons = doAction(enemyPokemon, myPokemon, enemyPokemon.haveMove().get(0));
+                myPokemon = pokemons.defensePoke;
+                enemyPokemon = pokemons.attackPoke;
             } else {
                 // 自分が後攻の場合
-                myPokemon = doAction(enemyPokemon, myPokemon, enemyPokemon.haveMove().get(0)).defensePoke;
+                pokemons = doAction(enemyPokemon, myPokemon, enemyPokemon.haveMove().get(0));
+                myPokemon = pokemons.defensePoke;
+                enemyPokemon = pokemons.attackPoke;
 
                 if(myPokemon.currentHitPoint().value() == 0) { break; }
                 Thread.sleep(1000);
                 ConsoleOutManager.showPokemonInfoWithClear(myPokemon, enemyPokemon);
 
-                enemyPokemon = doAction(myPokemon, enemyPokemon, selectedMove).defensePoke;
+                pokemons = doAction(myPokemon, enemyPokemon, selectedMove);
+                myPokemon = pokemons.attackPoke;
+                enemyPokemon = pokemons.defensePoke;
             }
         }
 

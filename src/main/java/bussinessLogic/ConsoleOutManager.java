@@ -1,5 +1,7 @@
 package bussinessLogic;
 
+import java.util.List;
+
 public class ConsoleOutManager {
     // コンソール出力を管理するクラス
 
@@ -59,15 +61,16 @@ public class ConsoleOutManager {
         System.out.println("素早 " + target.realValSpeed());
     }
 
-    public static void showMoveDetail(Move target) {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+    public static void showMoveDetail(List<Move> moves) {
         System.out.println("【 技詳細表示 】");
-        System.out.println("技　名: " + target.name());
-        System.out.println("タイプ: " + target.moveType().value());
-        System.out.println("分　類: " + target.moveSpecies().value());
-        System.out.println("威　力: " + target.damage());
-        System.out.println("命中率: " + target.hitRate());
+        for (Move move : moves) {
+            System.out.println("技　名: " + move.name());
+            System.out.println("タイプ: " + move.moveType().value());
+            System.out.println("分　類: " + move.moveSpecies().value());
+            System.out.println("威　力: " + move.damage());
+            System.out.println("命中率: " + move.hitRate());
+            System.out.println("");
+        }
     }
 
     public static void showProgressBar(PokemonInfo target) {
@@ -152,7 +155,7 @@ public class ConsoleOutManager {
             }
         }
         while (i < 6) {
-            System.out.print("・");
+            System.out.print(".");
             i++;
         }
         System.out.println("");
@@ -167,7 +170,7 @@ public class ConsoleOutManager {
             }
         }
         while (i < 6) {
-            System.out.print("・");
+            System.out.print(".");
             i++;
         }
         System.out.println("");
@@ -182,7 +185,7 @@ public class ConsoleOutManager {
             }
         }
         while (i < 6) {
-            System.out.print("・");
+            System.out.print(".");
             i++;
         }
         System.out.println("");
@@ -197,7 +200,7 @@ public class ConsoleOutManager {
             }
         }
         while (i < 6) {
-            System.out.print("・");
+            System.out.print(".");
             i++;
         }
         System.out.println("");
@@ -212,7 +215,7 @@ public class ConsoleOutManager {
             }
         }
         while (i < 6) {
-            System.out.print("・");
+            System.out.print(".");
             i++;
         }
         System.out.println("");

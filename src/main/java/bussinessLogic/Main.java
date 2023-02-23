@@ -1,11 +1,6 @@
 package bussinessLogic;
 
-import move.Tackle;
-import pokemon.Bulbasaur;
-import pokemon.Charmander;
-import pokemon.Squirtle;
-
-import java.io.IOException;
+import pokemon.*;
 import java.util.Scanner;
 
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
@@ -18,6 +13,7 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 // レベルアップ時ステータス上昇幅表示
 // 技のPP
 // 急所にあたったときにステータスランク補正を無視する
+// 相手のステータスランク表示
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
@@ -57,7 +53,7 @@ public class Main {
 
             switch (inputCommand) {
                 case "i" -> ConsoleOutManager.showAllParameters(myPokemon);
-                case "m" -> ConsoleOutManager.showMoveDetail(new Tackle());
+                case "m" -> ConsoleOutManager.showMoveDetail(myPokemon.haveMove());
                 case "e" -> myPokemon = BattleLogic.addExp(myPokemon, 200);
                 case "d" -> myPokemon = BattleLogic.damagePoke(myPokemon, 10);
                 case "r" -> myPokemon = BattleLogic.recoveryPoke(myPokemon, 20);

@@ -2,10 +2,7 @@ package pokemon;
 
 import bussinessLogic.*;
 import impl.*;
-import move.Growl;
-import move.Growth;
-import move.Tackle;
-import move.VineWhip;
+import move.*;
 
 import java.util.List;
 
@@ -86,7 +83,7 @@ public class Bulbasaur implements PokemonInfo {
         this.individualValue = new IndividualValueImpl();
         this.effortValue = new EffortValueImpl();
         this.level = new LevelImpl(5);
-        this.haveMove = List.of(new Tackle(), new VineWhip(), new Growl(), new Growth());
+        this.haveMove = List.of(new Tackle(), new VineWhip(), new Growl(), new SwordsDance());
         this.experience = new ExperienceImpl(135); // TODO 固定化したくない
         this.currentHitPoint = new CurrentHitPointImpl(realValHitPoint());
         this.statusRank = new StatusRankImpl();
@@ -108,7 +105,7 @@ public class Bulbasaur implements PokemonInfo {
         this.individualValue = new IndividualValueImpl(individualValue.hitPoint(), individualValue.attack(), individualValue.block(), individualValue.contact(), individualValue.defense(), individualValue.speed());
         this.effortValue = new EffortValueImpl(effortValue.hitPoint(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());
         this.level = new LevelImpl(level.value());
-        this.haveMove = List.of(new Tackle(), new VineWhip(), new Growl(), new Growth());
+        this.haveMove = List.of(new Tackle(), new VineWhip(), new Growl(), new SwordsDance());
         this.experience = new ExperienceImpl(experience.totalExperience());
         this.currentHitPoint = new CurrentHitPointImpl(currentHitPoint.value());
         this.statusRank = new StatusRankImpl(statusRankImpl.attack(), statusRankImpl.block(), statusRankImpl.contact(), statusRankImpl.defense(), statusRankImpl.speed());

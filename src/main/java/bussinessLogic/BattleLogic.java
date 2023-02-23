@@ -7,8 +7,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
-import static bussinessLogic.ConsoleOutManager.showMessageParChar;
-import static bussinessLogic.ConsoleOutManager.showParametersInBattle;
+import static bussinessLogic.ConsoleOutManager.*;
 
 public class BattleLogic {
 
@@ -34,6 +33,7 @@ public class BattleLogic {
         }
         System.out.println();
         System.out.println("i: ステータス確認");
+        System.out.println("m: 技確認");
 
         Move result = null;
         boolean isNoNumberSelected = true;
@@ -44,6 +44,8 @@ public class BattleLogic {
 
             if(Objects.equals(inputCommand, "i")) {
                 showParametersInBattle(target);
+            } else if (Objects.equals(inputCommand, "m")) {
+                showMoveDetail(target.haveMove());
             } else {
                 for(int j = 1; i > j; j++) {
                     if (Integer.parseInt(inputCommand) == j) {
