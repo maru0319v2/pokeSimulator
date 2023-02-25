@@ -1,10 +1,7 @@
-package impl;
+package pokemonStatus.impl;
 
-import bussinessLogic.CurrentPowerPoint;
-import bussinessLogic.Move;
-import bussinessLogic.PokemonInfo;
-
-import java.util.List;
+import move.Move;
+import pokemonStatus.CurrentPowerPoint;
 
 public class CurrentPowerPointImpl implements CurrentPowerPoint {
     private static final int MIN = 0;

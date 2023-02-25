@@ -1,6 +1,6 @@
-package impl;
+package pokemonStatus.impl;
 
-import bussinessLogic.EffortValue;
+import pokemonStatus.EffortValue;
 
 // 努力値を表現するクラス
 public class EffortValueImpl implements EffortValue {

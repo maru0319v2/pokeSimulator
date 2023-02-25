@@ -1,6 +1,6 @@
 package Enum;
 
-import bussinessLogic.Move;
+import move.Move;
 
 import java.util.List;
 

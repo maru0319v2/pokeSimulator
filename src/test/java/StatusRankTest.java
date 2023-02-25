@@ -1,6 +1,6 @@
 
-import bussinessLogic.StatusRank;
-import impl.StatusRankImpl;
+import pokemonStatus.StatusRank;
+import pokemonStatus.impl.StatusRankImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

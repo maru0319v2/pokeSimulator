@@ -1,6 +1,6 @@
-package impl;
+package pokemonStatus.impl;
 
-import bussinessLogic.BaseStats;
+import pokemonStatus.BaseStats;
 
 // 種族値を表現するクラス
 public class BaseStatsImpl implements BaseStats {

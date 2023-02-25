@@ -1,5 +1,8 @@
 package bussinessLogic;
 
+import move.Move;
+import pokemon.PokemonInfo;
+
 import java.util.List;
 
 public class ConsoleOutManager {

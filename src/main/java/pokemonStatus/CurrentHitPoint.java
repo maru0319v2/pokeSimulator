@@ -1,6 +1,7 @@
-package bussinessLogic;
+package pokemonStatus;
 
-import impl.CurrentHitPointImpl;
+import pokemon.PokemonInfo;
+import pokemonStatus.impl.CurrentHitPointImpl;
 
 public interface CurrentHitPoint {
 

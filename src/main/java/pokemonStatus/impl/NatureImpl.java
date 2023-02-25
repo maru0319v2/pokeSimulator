@@ -1,6 +1,6 @@
-package impl;
+package pokemonStatus.impl;
 
-import bussinessLogic.Nature;
+import pokemonStatus.Nature;
 
 import java.util.List;
 import java.util.Random;

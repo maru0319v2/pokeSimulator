@@ -1,4 +1,4 @@
-package bussinessLogic;
+package pokemonStatus;
 
 // 性別の表現するクラス
 public interface Gender {

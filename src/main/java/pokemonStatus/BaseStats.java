@@ -1,4 +1,4 @@
-package bussinessLogic;
+package pokemonStatus;
 
 public interface BaseStats {
     int hitPoint();

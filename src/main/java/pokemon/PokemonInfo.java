@@ -1,7 +1,9 @@
-package bussinessLogic;
+package pokemon;
 
-import impl.ExperienceType;
 import Enum.*;
+import pokemonStatus.*;
+import move.Move;
+import pokemonStatus.impl.ExperienceType;
 
 import java.util.List;
 

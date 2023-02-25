@@ -1,6 +1,6 @@
-package impl;
+package pokemonStatus.impl;
 
-import bussinessLogic.Level;
+import pokemonStatus.Level;
 
 public class LevelImpl implements Level {
 

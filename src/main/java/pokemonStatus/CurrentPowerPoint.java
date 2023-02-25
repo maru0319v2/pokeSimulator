@@ -1,6 +1,6 @@
-package bussinessLogic;
+package pokemonStatus;
 
-import impl.CurrentHitPointImpl;
+import move.Move;
 
 public interface CurrentPowerPoint {
     // 現在PPの値

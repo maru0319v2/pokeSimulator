@@ -1,7 +1,7 @@
-package impl;
+package pokemonStatus.impl;
 
-import bussinessLogic.CurrentHitPoint;
-import bussinessLogic.PokemonInfo;
+import pokemon.PokemonInfo;
+import pokemonStatus.CurrentHitPoint;
 
 public class CurrentHitPointImpl implements CurrentHitPoint {
     private static final int MIN = 0;

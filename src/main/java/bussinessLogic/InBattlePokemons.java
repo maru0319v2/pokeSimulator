@@ -1,5 +1,7 @@
 package bussinessLogic;
 
+import pokemon.PokemonInfo;
+
 public class InBattlePokemons {
     PokemonInfo attackPoke;
     PokemonInfo defensePoke;

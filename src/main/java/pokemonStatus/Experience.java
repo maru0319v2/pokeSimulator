@@ -1,4 +1,6 @@
-package bussinessLogic;
+package pokemonStatus;
+
+import pokemon.PokemonInfo;
 
 // 経験値を表現するクラス
 public interface Experience {

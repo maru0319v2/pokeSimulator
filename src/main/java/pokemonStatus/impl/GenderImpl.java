@@ -1,6 +1,6 @@
-package impl;
+package pokemonStatus.impl;
 
-import bussinessLogic.Gender;
+import pokemonStatus.Gender;
 
 import java.util.Random;
 

@@ -1,6 +1,6 @@
-package impl;
+package pokemonStatus.impl;
 
-import bussinessLogic.IndividualValue;
+import pokemonStatus.IndividualValue;
 
 import java.util.Random;
 

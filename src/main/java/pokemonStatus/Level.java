@@ -1,4 +1,4 @@
-package bussinessLogic;
+package pokemonStatus;
 
 // レベルを表現するクラス
 public interface Level {

@@ -1,8 +1,11 @@
 package bussinessLogic;
 
-import impl.CurrentHitPointImpl;
-import impl.CurrentPowerPointImpl;
+import pokemonStatus.impl.CurrentHitPointImpl;
+import pokemonStatus.CurrentPowerPoint;
+import pokemonStatus.impl.CurrentPowerPointImpl;
 import Enum.*;
+import move.Move;
+import pokemon.PokemonInfo;
 
 import java.util.*;
 

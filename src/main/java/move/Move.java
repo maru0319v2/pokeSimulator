@@ -1,6 +1,9 @@
-package bussinessLogic;
+package move;
 
 import Enum.*;
+import pokemonStatus.CurrentPowerPoint;
+import bussinessLogic.InBattlePokemons;
+import pokemon.PokemonInfo;
 
 // 技を表現するクラス
 public interface Move {

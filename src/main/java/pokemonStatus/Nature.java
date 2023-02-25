@@ -1,4 +1,4 @@
-package bussinessLogic;
+package pokemonStatus;
 
 // 性格を表現するクラス
 public interface Nature {

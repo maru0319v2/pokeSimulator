@@ -1,6 +1,6 @@
-package impl;
+package pokemonStatus.impl;
 
-import bussinessLogic.StatusRank;
+import pokemonStatus.StatusRank;
 
 public class StatusRankImpl implements StatusRank {
     private static final int MIN = -6;

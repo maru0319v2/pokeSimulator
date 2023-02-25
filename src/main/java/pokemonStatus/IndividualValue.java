@@ -1,4 +1,4 @@
-package bussinessLogic;
+package pokemonStatus;
 
 // 個体値を表現するクラス
 public interface IndividualValue {

@@ -1,8 +1,10 @@
 package move;
 
 import bussinessLogic.*;
-import impl.CurrentPowerPointImpl;
+import pokemonStatus.CurrentPowerPoint;
+import pokemonStatus.impl.CurrentPowerPointImpl;
 import Enum.*;
+import pokemon.PokemonInfo;
 
 public class VineWhip implements Move {
     private String name = "つるのムチ";

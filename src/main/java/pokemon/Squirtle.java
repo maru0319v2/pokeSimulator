@@ -1,9 +1,10 @@
 package pokemon;
 
-import bussinessLogic.*;
-import impl.*;
+import pokemonStatus.*;
+import move.Move;
 import move.Tackle;
 import Enum.*;
+import pokemonStatus.impl.*;
 
 import java.util.ArrayList;
 import java.util.List;

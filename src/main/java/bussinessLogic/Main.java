@@ -1,5 +1,6 @@
 package bussinessLogic;
 
+import pokemon.PokemonInfo;
 import pokemon.*;
 import java.util.Scanner;
 
@@ -15,6 +16,7 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 // 相手のステータスランク表示
 // 6匹まで自分のポケモンをもてるようにする
 // 覚えられる技は4つまで
+// もちもの
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);

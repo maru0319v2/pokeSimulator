@@ -1,7 +1,7 @@
-package impl;
+package pokemonStatus.impl;
 
-import bussinessLogic.Experience;
-import bussinessLogic.PokemonInfo;
+import pokemon.PokemonInfo;
+import pokemonStatus.Experience;
 
 import java.util.Objects;
 

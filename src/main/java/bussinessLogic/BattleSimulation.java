@@ -1,5 +1,8 @@
 package bussinessLogic;
 
+import move.Move;
+import pokemon.PokemonInfo;
+
 import static bussinessLogic.BattleLogic.doAction;
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 
