@@ -108,10 +108,10 @@ public class BattleLogic {
         boolean isCritical = (new Random().nextInt(24) + 1) == 1;
         double criticalRate = isCritical ? 1.5 : 1;
         // 急所の場合は攻撃側のランク下降、防御側のランク上昇補正を無視する
-        double attackRateByStatusRank  = isCritical? Math.max(attackPoke.statusRank().attackRateByStatusRank(), 0.0) : attackPoke.statusRank().attackRateByStatusRank();
-        double blockRateByStatusRank   = isCritical? Math.min(defencePoke.statusRank().blockRateByStatusRank(), 0.0) : defencePoke.statusRank().blockRateByStatusRank();
-        double contactRateByStatusRank = isCritical? Math.max(attackPoke.statusRank().contactRateByStatusRank(), 0.0) : attackPoke.statusRank().contactRateByStatusRank();
-        double defenseRateByStatusRank = isCritical? Math.min(defencePoke.statusRank().defenseRateByStatusRank(), 0.0) : defencePoke.statusRank().defenseRateByStatusRank();
+        double attackRateByStatusRank  = isCritical? Math.max(attackPoke.statusRank().attackRateByStatusRank(), 1.0) : attackPoke.statusRank().attackRateByStatusRank();
+        double blockRateByStatusRank   = isCritical? Math.min(defencePoke.statusRank().blockRateByStatusRank(), 1.0) : defencePoke.statusRank().blockRateByStatusRank();
+        double contactRateByStatusRank = isCritical? Math.max(attackPoke.statusRank().contactRateByStatusRank(), 1.0) : attackPoke.statusRank().contactRateByStatusRank();
+        double defenseRateByStatusRank = isCritical? Math.min(defencePoke.statusRank().defenseRateByStatusRank(), 1.0) : defencePoke.statusRank().defenseRateByStatusRank();
         // タイプ一致判定
         boolean isTypeMatch = (Objects.equals(move.moveType().value(), attackPoke.pokemonType1().value())) || (Objects.equals(move.moveType().value(), attackPoke.pokemonType2().value()));
         double typeMatchRate = isTypeMatch ? 1.5 : 1;
