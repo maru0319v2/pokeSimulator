@@ -3,7 +3,7 @@ package pokemon;
 import Enum.*;
 import pokemonStatus.*;
 import move.Move;
-import pokemonStatus.impl.ExperienceType;
+import Enum.ExperienceType;
 
 import java.util.List;
 
@@ -56,6 +56,8 @@ public interface PokemonInfo {
     Experience experience();
     // ステータスランク
     StatusRank statusRank();
+    // 状態異常1
+    StatusAilment statusAilment();
 
     // TODO テスト用コード
     PokemonInfo withCurrentHitPoint(CurrentHitPoint currentHitPoint);
@@ -64,5 +66,6 @@ public interface PokemonInfo {
     PokemonInfo withAddedStatusRank(int attack, int block, int contact, int defense, int speed);
     PokemonInfo withResetStatusRank();
     PokemonInfo withMove(Move move);
+    PokemonInfo withStatusAilment(StatusAilment statusAilment);
 
 }

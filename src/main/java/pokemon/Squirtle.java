@@ -1,8 +1,7 @@
 package pokemon;
 
+import move.*;
 import pokemonStatus.*;
-import move.Move;
-import move.Tackle;
 import Enum.*;
 import pokemonStatus.impl.*;
 
@@ -39,6 +38,7 @@ public class Squirtle implements PokemonInfo {
     private final Experience experience;
     private final CurrentHitPoint currentHitPoint;
     private final StatusRank statusRank;
+    private final StatusAilment statusAilment;
     public String pokeName() {
         return this.pokeName;
     }
@@ -48,9 +48,7 @@ public class Squirtle implements PokemonInfo {
     public IndividualValue individualValue() {
         return this.individualValue;
     }
-    public EffortValue effortValue() {
-        return this.effortValue;
-    }
+    public EffortValue effortValue() { return this.effortValue; }
     public Level level() {
         return this.level;
     }
@@ -61,6 +59,10 @@ public class Squirtle implements PokemonInfo {
     public CurrentHitPoint currentHitPoint() { return this.currentHitPoint; }
     public Experience experience() { return this.experience; }
     public StatusRank statusRank() { return this.statusRank; }
+    public StatusAilment statusAilment() {
+        return this.statusAilment;
+    }
+
     public int realValHitPoint() {
         return ((this.baseStats().hitPoint() * 2 + this.individualValue().hitPoint() + (this.effortValue().hitPoint() / 4)) * this.level().value() / 100) + 10 + this.level().value();
     }
@@ -91,6 +93,7 @@ public class Squirtle implements PokemonInfo {
         this.experience = new ExperienceImpl(135); // TODO 固定化したくない
         this.currentHitPoint = new CurrentHitPointImpl(realValHitPoint());
         this.statusRank = new StatusRankImpl();
+        this.statusAilment = StatusAilment.NONE;
     }
 
     public Squirtle(
@@ -102,7 +105,8 @@ public class Squirtle implements PokemonInfo {
             Experience experience,
             List<Move> haveMove,
             CurrentHitPoint currentHitPoint,
-            StatusRank statusRankImpl
+            StatusRank statusRankImpl,
+            StatusAilment statusAilment
     ) {
         this.gender = new GenderImpl(gender);
         this.nature = new NatureImpl(nature);
@@ -114,30 +118,31 @@ public class Squirtle implements PokemonInfo {
         this.experience = new ExperienceImpl(experience.totalExperience());
         this.currentHitPoint = new CurrentHitPointImpl(currentHitPoint.value());
         this.statusRank = new StatusRankImpl(statusRankImpl.attack(), statusRankImpl.block(), statusRankImpl.contact(), statusRankImpl.defense(), statusRankImpl.speed());
+        this.statusAilment = statusAilment;
     }
-
 
     // TODO テスト用コード
     @Override
     public PokemonInfo withCurrentHitPoint(CurrentHitPoint currentHitPoint) {
-        return new Squirtle(this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience,this.haveMove, currentHitPoint, this.statusRank);
+        return new Squirtle(this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience,this.haveMove, currentHitPoint, this.statusRank, this.statusAilment);
     }
     @Override
     public PokemonInfo withExperience(int addingExperience) {
-        return new Squirtle(this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience().add(addingExperience),this.haveMove, this.currentHitPoint, this.statusRank);
+        return new Squirtle(this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience().add(addingExperience),this.haveMove, this.currentHitPoint, this.statusRank, this.statusAilment);
     }
     @Override
     public PokemonInfo withLevel(int addLevel) {
-        return new Squirtle(this.gender, this.nature, this.individualValue, this.effortValue, this.level().add(addLevel), this.experience,this.haveMove, this.currentHitPoint, this.statusRank);
+        return new Squirtle(this.gender, this.nature, this.individualValue, this.effortValue, this.level().add(addLevel), this.experience,this.haveMove, this.currentHitPoint, this.statusRank, this.statusAilment);
     }
     @Override
     public PokemonInfo withAddedStatusRank(final int attack, final int block, final int contact, final int defense, final int speed) {
-        return new Squirtle(this.gender, this.nature, this.individualValue, this.effortValue, this.level(), this.experience,this.haveMove, this.currentHitPoint, this.statusRank.add(attack, block, contact, defense, speed));
+        return new Squirtle(this.gender, this.nature, this.individualValue, this.effortValue, this.level(), this.experience,this.haveMove, this.currentHitPoint, this.statusRank.add(attack, block, contact, defense, speed), this.statusAilment);
     }
     @Override
     public PokemonInfo withResetStatusRank() {
-        return new Squirtle(this.gender, this.nature, this.individualValue, this.effortValue, this.level(), this.experience, this.haveMove, this.currentHitPoint, this.statusRank.reset());
+        return new Squirtle(this.gender, this.nature, this.individualValue, this.effortValue, this.level(), this.experience, this.haveMove, this.currentHitPoint, this.statusRank.reset(), this.statusAilment);
     }
+
     @Override
     public PokemonInfo withMove(Move move) {
         List<Move> newMoves = new ArrayList<>(4);
@@ -149,6 +154,10 @@ public class Squirtle implements PokemonInfo {
                 newMoves.add(haveMove);
             }
         }
-        return new Squirtle(this.gender, this.nature, this.individualValue, this.effortValue, this.level(), this.experience, newMoves, this.currentHitPoint, this.statusRank);
+        return new Squirtle(this.gender, this.nature, this.individualValue, this.effortValue, this.level(), this.experience, newMoves, this.currentHitPoint, this.statusRank, this.statusAilment);
+    }
+    @Override
+    public PokemonInfo withStatusAilment(StatusAilment statusAilment) {
+        return new Squirtle(this.gender, this.nature, this.individualValue, this.effortValue, this.level(), this.experience, this.haveMove, this.currentHitPoint, this.statusRank.reset(), statusAilment);
     }
 }

@@ -2,6 +2,7 @@ package pokemonStatus.impl;
 
 import pokemon.PokemonInfo;
 import pokemonStatus.Experience;
+import Enum.*;
 
 import java.util.Objects;
 

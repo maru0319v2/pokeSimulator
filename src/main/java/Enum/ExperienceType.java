@@ -1,4 +1,4 @@
-package pokemonStatus.impl;
+package Enum;
 
 public enum ExperienceType {
     TYPE600000("600,000タイプ"),

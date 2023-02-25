@@ -7,7 +7,6 @@ import java.util.Scanner;
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 
 // TODO やることリスト
-// 状態異常クラス
 // 初期経験値固定値問題
 // 覚える技リスト
 // 経験値を得るタイミングを努力値を得る

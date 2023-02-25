@@ -1,5 +1,6 @@
 package bussinessLogic;
 
+import org.jetbrains.annotations.NotNull;
 import pokemonStatus.impl.CurrentHitPointImpl;
 import pokemonStatus.CurrentPowerPoint;
 import pokemonStatus.impl.CurrentPowerPointImpl;
@@ -111,6 +112,8 @@ public class BattleLogic {
         double typeMatchRate = isTypeMatch ? 1.5 : 1;
         // タイプ相性判定
         double effectiveRate = Type.damageRateByType(defencePoke.pokemonType1(), defencePoke.pokemonType2(), move);
+        // やけど判定
+        double burnedRate = moveSpecies == MoveSpecies.PHYSICAL? attackPoke.statusAilment().dameRateByBurn() : 1.0;
 
         int attackVal = 0;
         int defenceVal = 0;
@@ -123,7 +126,7 @@ public class BattleLogic {
             defenceVal = (int)(defencePoke.realValDefense() * defencePoke.statusRank().defenseRateByStatusRank());
         }
 
-        int result = (int)Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * randomNum * criticalRate * typeMatchRate * effectiveRate);
+        int result = (int)Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * randomNum * criticalRate * typeMatchRate * effectiveRate * burnedRate);
         showMessageParChar(attackPoke.pokeName() + "の" + move.name() + "!");
         if(isCritical) { showMessageParChar("急所に当った!"); }
         if(effectiveRate >= 2.0) { showMessageParChar("効果は抜群だ!"); }

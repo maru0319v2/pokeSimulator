@@ -1,5 +1,7 @@
 package Enum;
 
+import java.util.Objects;
+
 public enum StatusAilment {
     BURN("やけど"),
     FREEZE("こおり"),
@@ -7,10 +9,10 @@ public enum StatusAilment {
     POISON("どく"),
     BAD_POISON("もうどく"),
     SLEEP("ねむり"),
-    FAINTING("ひんし");
+    FAINTING("ひんし"),
+    NONE("-");
 
     public final String value;
-
     StatusAilment(String value) {
         this.value = value;
     }
@@ -20,6 +22,6 @@ public enum StatusAilment {
     }
 
     public double dameRateByBurn() {
-        return 0.0;
+         return Objects.equals(this.value, "やけど") ? 0.5 : 1.0;
     }
 }
