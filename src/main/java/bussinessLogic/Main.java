@@ -55,7 +55,7 @@ public class Main {
                 case "i" -> ConsoleOutManager.showAllParameters(myPokemon);
                 case "m" -> ConsoleOutManager.showMoveDetail(myPokemon.haveMove());
                 case "e" -> myPokemon = BattleLogic.addExp(myPokemon, 200);
-                case "r" -> myPokemon = BattleLogic.recoveryPoke(myPokemon, 20);
+                case "r" -> myPokemon = BattleLogic.recoveryAll(myPokemon);
                 case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, new Charmander());
             }
         }

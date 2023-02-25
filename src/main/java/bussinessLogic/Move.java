@@ -14,4 +14,10 @@ public interface Move {
     public int hitRate();
     // 技の効果
     public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke) throws InterruptedException;
+    // デフォルトPP
+    public int powerPoint();
+    // 現在のPP
+    public CurrentPowerPoint currentPowerPoint();
+
+    Move withCurrentPowerPoint(CurrentPowerPoint decrementedPowerPoint);
 }

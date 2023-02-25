@@ -1,11 +1,9 @@
 package bussinessLogic;
 
 import impl.CurrentHitPointImpl;
+import impl.CurrentPowerPointImpl;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 import static bussinessLogic.ConsoleOutManager.*;
 
@@ -26,9 +24,14 @@ public class BattleLogic {
     // 技を選択する
     public static Move selectMove(List<Move> moves, PokemonInfo target) {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("　 　　　　　　     PP    タイプ");
         int i = 1;
         for (Move move : moves) {
-            System.out.println(i + ": " + move.name());
+            System.out.print(i + ": " + move.name());
+            for(int j = 0;j < 8 - move.name().length(); j++) {
+                System.out.print("　");
+            }
+            System.out.println(move.currentPowerPoint().value() + "/" + move.powerPoint() + " " + move.moveType().value());
             i++;
         }
         System.out.println();
@@ -60,6 +63,9 @@ public class BattleLogic {
 
     // ターンごとの行動 命中判定、ダメージ計算、ダメージ付与を一括で行う
     public static InBattlePokemons doAction(PokemonInfo attackPoke, PokemonInfo defencePoke, Move move) throws InterruptedException {
+        // PPを1減らす
+        attackPoke = decrementPowerPoint(attackPoke, move);
+
         if (move.moveSpecies() == MoveSpecies.PHYSICAL || move.moveSpecies() == MoveSpecies.SPECIAL) {
             if (isHit(move)) {
                 int damage = calcDamage(attackPoke, defencePoke, move);
@@ -130,7 +136,16 @@ public class BattleLogic {
         return result;
     }
 
-    public static PokemonInfo recoveryPoke(PokemonInfo target, int value) {
+    public static PokemonInfo recoveryAll(PokemonInfo target) {
+        target = recoveryHitPoint(target, 999);
+
+        for(Move move : target.haveMove()) {
+            target = recoveryPowerPoint(target, move, 99);
+        }
+        return target;
+    }
+
+    public static PokemonInfo recoveryHitPoint(PokemonInfo target, int value) {
 
         PokemonInfo result = target.withCurrentHitPoint(
                 target.currentHitPoint().recovery(target, new CurrentHitPointImpl(value))
@@ -138,6 +153,30 @@ public class BattleLogic {
         System.out.println(result.pokeName() + "は体力を" + value + "回復!  HP" + result.currentHitPoint().value() + "/" + result.realValHitPoint());
         System.out.println();
         return result;
+    }
+
+    public static PokemonInfo recoveryPowerPoint(PokemonInfo target, Move move, int value) {
+
+        Move targetMoves = null;
+        List<Move> haveMoves = target.haveMove();
+        for(Move haveMove : haveMoves) {
+            if(move.getClass() == haveMove.getClass()) {
+                targetMoves = haveMove;
+            }
+        }
+
+        CurrentPowerPoint recoveredPP = targetMoves.currentPowerPoint().recovery(targetMoves, new CurrentPowerPointImpl(value));
+        Move recoveredPPMove = targetMoves.withCurrentPowerPoint(recoveredPP);
+        PokemonInfo result = target.withMove(recoveredPPMove);
+
+        return result;
+    }
+
+    private static PokemonInfo decrementPowerPoint(PokemonInfo attackPoke, Move usedMove) {
+        CurrentPowerPoint decrementedPowerPoint = usedMove.currentPowerPoint().decrement(new CurrentPowerPointImpl(1));
+        Move decrementedPPMove = usedMove.withCurrentPowerPoint(decrementedPowerPoint);
+        PokemonInfo pokemonInfo = attackPoke.withMove(decrementedPPMove);
+        return pokemonInfo;
     }
 
     public static int calcExp(PokemonInfo enemyPoke) {

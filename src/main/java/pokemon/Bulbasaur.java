@@ -4,7 +4,9 @@ import bussinessLogic.*;
 import impl.*;
 import move.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.ToDoubleBiFunction;
 
 public class Bulbasaur implements PokemonInfo {
     private final String pokeName = "フシギダネ";
@@ -96,6 +98,7 @@ public class Bulbasaur implements PokemonInfo {
             EffortValue effortValue,
             Level level,
             Experience experience,
+            List<Move> haveMove,
             CurrentHitPoint currentHitPoint,
             StatusRank statusRankImpl
     ) {
@@ -105,7 +108,7 @@ public class Bulbasaur implements PokemonInfo {
         this.individualValue = new IndividualValueImpl(individualValue.hitPoint(), individualValue.attack(), individualValue.block(), individualValue.contact(), individualValue.defense(), individualValue.speed());
         this.effortValue = new EffortValueImpl(effortValue.hitPoint(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());
         this.level = new LevelImpl(level.value());
-        this.haveMove = List.of(new Tackle(), new VineWhip(), new Growl(), new SwordsDance());
+        this.haveMove = haveMove;
         this.experience = new ExperienceImpl(experience.totalExperience());
         this.currentHitPoint = new CurrentHitPointImpl(currentHitPoint.value());
         this.statusRank = new StatusRankImpl(statusRankImpl.attack(), statusRankImpl.block(), statusRankImpl.contact(), statusRankImpl.defense(), statusRankImpl.speed());
@@ -114,22 +117,36 @@ public class Bulbasaur implements PokemonInfo {
     // TODO テスト用コード
     @Override
     public PokemonInfo withCurrentHitPoint(CurrentHitPoint currentHitPoint) {
-        return new Bulbasaur(this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, currentHitPoint, this.statusRank);
+        return new Bulbasaur(this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience,this.haveMove, currentHitPoint, this.statusRank);
     }
     @Override
     public PokemonInfo withExperience(int addingExperience) {
-        return new Bulbasaur(this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience().add(addingExperience), this.currentHitPoint, this.statusRank);
+        return new Bulbasaur(this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience().add(addingExperience),this.haveMove, this.currentHitPoint, this.statusRank);
     }
     @Override
     public PokemonInfo withLevel(int addLevel) {
-        return new Bulbasaur(this.gender, this.nature, this.individualValue, this.effortValue, this.level().add(addLevel), this.experience, this.currentHitPoint, this.statusRank);
+        return new Bulbasaur(this.gender, this.nature, this.individualValue, this.effortValue, this.level().add(addLevel), this.experience,this.haveMove, this.currentHitPoint, this.statusRank);
     }
     @Override
     public PokemonInfo withAddedStatusRank(final int attack, final int block, final int contact, final int defense, final int speed) {
-        return new Bulbasaur(this.gender, this.nature, this.individualValue, this.effortValue, this.level(), this.experience, this.currentHitPoint, this.statusRank.add(attack, block, contact, defense, speed));
+        return new Bulbasaur(this.gender, this.nature, this.individualValue, this.effortValue, this.level(), this.experience,this.haveMove, this.currentHitPoint, this.statusRank.add(attack, block, contact, defense, speed));
     }
     @Override
     public PokemonInfo withResetStatusRank() {
-        return new Bulbasaur(this.gender, this.nature, this.individualValue, this.effortValue, this.level(), this.experience, this.currentHitPoint, this.statusRank.reset());
+        return new Bulbasaur(this.gender, this.nature, this.individualValue, this.effortValue, this.level(), this.experience, this.haveMove, this.currentHitPoint, this.statusRank.reset());
+    }
+
+    @Override
+    public PokemonInfo withMove(Move move) {
+        List<Move> newMoves = new ArrayList<>(4);
+        List<Move> haveMoves = this.haveMove();
+        for(Move haveMove : haveMoves) {
+            if(move.getClass() == haveMove.getClass()) {
+                newMoves.add(move);
+            } else {
+                newMoves.add(haveMove);
+            }
+        }
+        return new Bulbasaur(this.gender, this.nature, this.individualValue, this.effortValue, this.level(), this.experience, newMoves, this.currentHitPoint, this.statusRank);
     }
 }

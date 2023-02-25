@@ -60,5 +60,6 @@ public interface PokemonInfo {
     PokemonInfo withLevel(int addLevel);
     PokemonInfo withAddedStatusRank(int attack, int block, int contact, int defense, int speed);
     PokemonInfo withResetStatusRank();
+    PokemonInfo withMove(Move move);
 
 }

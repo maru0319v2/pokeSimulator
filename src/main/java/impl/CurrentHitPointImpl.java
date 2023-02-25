@@ -27,7 +27,7 @@ public class CurrentHitPointImpl implements CurrentHitPoint {
 
     public CurrentHitPointImpl damage(CurrentHitPointImpl currentHitPointImpl) {
         if (currentHitPointImpl.value <= MIN) {
-            throw new IllegalArgumentException("回復量は1以上を指定してください。");
+            throw new IllegalArgumentException("ダメージは1以上を指定してください。");
         }
         final int damaged = this.value - currentHitPointImpl.value;
         if(damaged <= MIN) {
