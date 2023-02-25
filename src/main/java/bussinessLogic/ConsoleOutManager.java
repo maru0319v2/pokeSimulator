@@ -24,7 +24,7 @@ public class ConsoleOutManager {
         System.out.println("性格: " + target.nature().value());
         System.out.print("覚えている技: ");
         for (Move move : target.haveMove()) {
-            System.out.print(move.name() + "  ");
+            System.out.print(move.getName() + "  ");
         }
         System.out.println("");
 //        System.out.print("種族値:");
@@ -67,11 +67,11 @@ public class ConsoleOutManager {
     public static void showMoveDetail(List<Move> moves) {
         System.out.println("【 技詳細表示 】");
         for (Move move : moves) {
-            System.out.println("技　名: " + move.name());
-            System.out.println("タイプ: " + move.moveType().value());
-            System.out.println("分　類: " + move.moveSpecies().value());
-            System.out.println("威　力: " + move.damage());
-            System.out.println("命中率: " + move.hitRate());
+            System.out.println("技　名: " + move.getName());
+            System.out.println("タイプ: " + move.getMoveType().value());
+            System.out.println("分　類: " + move.getMoveSpecies().value());
+            System.out.println("威　力: " + move.getDamage());
+            System.out.println("命中率: " + move.getHitRate());
             System.out.println("");
         }
     }

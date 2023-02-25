@@ -32,11 +32,11 @@ public class BattleLogic {
         System.out.println("　 　　　　　　     PP    タイプ");
         int i = 1;
         for (Move move : moves) {
-            System.out.print(i + ": " + move.name());
-            for(int j = 0;j < 8 - move.name().length(); j++) {
+            System.out.print(i + ": " + move.getName());
+            for(int j = 0;j < 8 - move.getName().length(); j++) {
                 System.out.print("　");
             }
-            System.out.println(move.currentPowerPoint().value() + "/" + move.powerPoint() + " " + move.moveType().value());
+            System.out.println(move.getCurrentPowerPoint().value() + "/" + move.getPowerPoint() + " " + move.getMoveType().value());
             i++;
         }
         System.out.println();
@@ -71,18 +71,18 @@ public class BattleLogic {
         // PPを1減らす
         attackPoke = decrementPowerPoint(attackPoke, move);
 
-        if (move.moveSpecies() == MoveSpecies.PHYSICAL || move.moveSpecies() == MoveSpecies.SPECIAL) {
+        if (move.getMoveSpecies() == MoveSpecies.PHYSICAL || move.getMoveSpecies() == MoveSpecies.SPECIAL) {
             if (isHit(move)) {
                 int damage = calcDamage(attackPoke, defencePoke, move);
                 defencePoke = damagePoke(defencePoke, damage);
             } else {
-                showMessageParChar(attackPoke.pokeName() + "の" + move.name() + "!");
-                showMessageParChar(attackPoke.pokeName() + "の" + move.name() + "は外れた");
+                showMessageParChar(attackPoke.pokeName() + "の" + move.getName() + "!");
+                showMessageParChar(attackPoke.pokeName() + "の" + move.getName() + "は外れた");
             }
             return new InBattlePokemons(attackPoke, defencePoke);
         } else {
             if (isHit(move)) {
-                showMessageParChar(attackPoke.pokeName() + "の" + move.name() + "!");
+                showMessageParChar(attackPoke.pokeName() + "の" + move.getName() + "!");
                 return move.effect(attackPoke, defencePoke);
             } else {
                 return new InBattlePokemons(attackPoke, defencePoke);
@@ -91,7 +91,7 @@ public class BattleLogic {
     }
 
     private static boolean isHit(Move move) {
-        return (new Random().nextInt(100) + 1) <= move.hitRate();
+        return (new Random().nextInt(100) + 1) <= move.getHitRate();
     }
 
     private static int calcDamage(PokemonInfo attackPoke, PokemonInfo defencePoke, Move move) throws InterruptedException {
@@ -99,9 +99,9 @@ public class BattleLogic {
         // 攻撃側のレベル
         int attackPokeLv = attackPoke.level().value();
         // 技の威力
-        int moveDamage = move.damage();
+        int moveDamage = move.getDamage();
         // 技の分類
-        MoveSpecies moveSpecies = move.moveSpecies();
+        MoveSpecies moveSpecies = move.getMoveSpecies();
         // ダメージの乱数
         double randomNum = (new Random().nextInt((100 - 85) + 1) + 85) / 100.0;
         // 急所の判定
@@ -113,7 +113,7 @@ public class BattleLogic {
         double contactRateByStatusRank = isCritical? Math.max(attackPoke.statusRank().contactRateByStatusRank(), 1.0) : attackPoke.statusRank().contactRateByStatusRank();
         double defenseRateByStatusRank = isCritical? Math.min(defencePoke.statusRank().defenseRateByStatusRank(), 1.0) : defencePoke.statusRank().defenseRateByStatusRank();
         // タイプ一致判定
-        boolean isTypeMatch = (Objects.equals(move.moveType().value(), attackPoke.pokemonType1().value())) || (Objects.equals(move.moveType().value(), attackPoke.pokemonType2().value()));
+        boolean isTypeMatch = (Objects.equals(move.getMoveType().value(), attackPoke.pokemonType1().value())) || (Objects.equals(move.getMoveType().value(), attackPoke.pokemonType2().value()));
         double typeMatchRate = isTypeMatch ? 1.5 : 1;
         // タイプ相性判定
         double effectiveRate = Type.damageRateByType(defencePoke.pokemonType1(), defencePoke.pokemonType2(), move);
@@ -132,7 +132,7 @@ public class BattleLogic {
         }
 
         int result = (int)Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * randomNum * criticalRate * typeMatchRate * effectiveRate * burnedRate);
-        showMessageParChar(attackPoke.pokeName() + "の" + move.name() + "!");
+        showMessageParChar(attackPoke.pokeName() + "の" + move.getName() + "!");
         if(isCritical) { showMessageParChar("急所に当った!"); }
         if(effectiveRate >= 2.0) { showMessageParChar("効果は抜群だ!"); }
         if(effectiveRate <= 0.5) { showMessageParChar("効果はいまひとつのようだ"); }
@@ -177,7 +177,7 @@ public class BattleLogic {
             }
         }
 
-        CurrentPowerPoint recoveredPP = targetMoves.currentPowerPoint().recovery(targetMoves, new CurrentPowerPointImpl(value));
+        CurrentPowerPoint recoveredPP = targetMoves.getCurrentPowerPoint().recovery(targetMoves, new CurrentPowerPointImpl(value));
         Move recoveredPPMove = targetMoves.withCurrentPowerPoint(recoveredPP);
         PokemonInfo result = target.withMove(recoveredPPMove);
 
@@ -185,7 +185,7 @@ public class BattleLogic {
     }
 
     private static PokemonInfo decrementPowerPoint(PokemonInfo attackPoke, Move usedMove) {
-        CurrentPowerPoint decrementedPowerPoint = usedMove.currentPowerPoint().decrement(new CurrentPowerPointImpl(1));
+        CurrentPowerPoint decrementedPowerPoint = usedMove.getCurrentPowerPoint().decrement(new CurrentPowerPointImpl(1));
         Move decrementedPPMove = usedMove.withCurrentPowerPoint(decrementedPowerPoint);
         PokemonInfo pokemonInfo = attackPoke.withMove(decrementedPPMove);
         return pokemonInfo;

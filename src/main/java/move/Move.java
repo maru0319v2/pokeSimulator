@@ -8,21 +8,20 @@ import pokemon.PokemonInfo;
 // 技を表現するクラス
 public interface Move {
     // 技名
-    public String name();
+    String getName();
     // タイプ
-    public Type moveType();
+    Type getMoveType();
     // 分類
-    public MoveSpecies moveSpecies();
+    MoveSpecies getMoveSpecies();
     // 威力
-    public int damage();
+    int getDamage();
     // 命中率
-    public int hitRate();
-    // 技の効果
-    public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke) throws InterruptedException;
+    int getHitRate();
     // デフォルトPP
-    public int powerPoint();
+    int getPowerPoint();
     // 現在のPP
-    public CurrentPowerPoint currentPowerPoint();
-
+    CurrentPowerPoint getCurrentPowerPoint();
+    // 技の効果
+    InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke) throws InterruptedException;
     Move withCurrentPowerPoint(CurrentPowerPoint decrementedPowerPoint);
 }

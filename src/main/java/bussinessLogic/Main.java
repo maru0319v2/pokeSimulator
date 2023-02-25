@@ -15,6 +15,7 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 // 6匹まで自分のポケモンをもてるようにする
 // 覚えられる技は4つまで
 // もちもの
+// PPが0のときはわるあがきする
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
