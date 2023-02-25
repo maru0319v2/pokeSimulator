@@ -14,6 +14,8 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 // 技のPP
 // 急所にあたったときにステータスランク補正を無視する
 // 相手のステータスランク表示
+// 6匹まで自分のポケモンをもてるようにする
+// 覚えられる技は4つまで
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
@@ -24,7 +26,7 @@ public class Main {
 
         PokemonInfo myPokemon = null;
         while (myPokemon == null) {
-            showMessageParChar("あなたのポケモンを選択してください > ");
+            System.out.print("あなたのポケモンを選択してください > ");
             String selectPokeCommand = scanner.nextLine();
             switch (selectPokeCommand) {
                 case "1" -> myPokemon = new Bulbasaur();
@@ -41,12 +43,10 @@ public class Main {
         while (!inputCommand.equals("q")) {
             System.out.println("-------------------------------------------------");
             System.out.print("i:ステータス表示");
-            System.out.print("　　　　　m:技表示  ");
-            System.out.println("　　　e:経験値を与える");
-            System.out.print("d:ダメージを与える");
-            System.out.print("　　　　r:体力回復");
-            System.out.print("b:バトルシミュレーション");
-            System.out.print("　ce:経験値計算");
+            System.out.print("　　m:技表示  ");
+            System.out.println("　　　       e:経験値を与える");
+            System.out.print("r:体力回復");
+            System.out.print("          b:野生ポケモンと戦闘");
             System.out.println(" 　q:終了");
             System.out.print("コマンドを入力してください > ");
             inputCommand = scanner.nextLine();
@@ -55,10 +55,8 @@ public class Main {
                 case "i" -> ConsoleOutManager.showAllParameters(myPokemon);
                 case "m" -> ConsoleOutManager.showMoveDetail(myPokemon.haveMove());
                 case "e" -> myPokemon = BattleLogic.addExp(myPokemon, 200);
-                case "d" -> myPokemon = BattleLogic.damagePoke(myPokemon, 10);
                 case "r" -> myPokemon = BattleLogic.recoveryPoke(myPokemon, 20);
                 case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, new Charmander());
-                case "ce" -> BattleLogic.calcExp(new Charmander());
             }
         }
         scanner.close();

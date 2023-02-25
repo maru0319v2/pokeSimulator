@@ -122,7 +122,7 @@ public class BattleLogic {
         return result;
     }
 
-    public static PokemonInfo damagePoke(PokemonInfo target, int value) throws InterruptedException {
+    private static PokemonInfo damagePoke(PokemonInfo target, int value) throws InterruptedException {
         PokemonInfo result = target.withCurrentHitPoint(
                 target.currentHitPoint().damage(new CurrentHitPointImpl(value))
         );
