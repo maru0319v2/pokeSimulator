@@ -2,10 +2,8 @@ package pokemon;
 
 import bussinessLogic.*;
 import impl.*;
-import move.Growl;
-import move.SwordsDance;
 import move.Tackle;
-import move.VineWhip;
+import Enum.*;
 
 import java.util.ArrayList;
 import java.util.List;

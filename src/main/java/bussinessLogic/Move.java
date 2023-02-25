@@ -1,5 +1,7 @@
 package bussinessLogic;
 
+import Enum.*;
+
 // 技を表現するクラス
 public interface Move {
     // 技名

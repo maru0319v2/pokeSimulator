@@ -1,4 +1,4 @@
-package bussinessLogic;
+package Enum;
 
 // 技の分類を表現するクラス
 public enum MoveSpecies {

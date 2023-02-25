@@ -1,6 +1,7 @@
 package bussinessLogic;
 
 import impl.ExperienceType;
+import Enum.*;
 
 import java.util.List;
 

@@ -2,6 +2,7 @@ package bussinessLogic;
 
 import impl.CurrentHitPointImpl;
 import impl.CurrentPowerPointImpl;
+import Enum.*;
 
 import java.util.*;
 

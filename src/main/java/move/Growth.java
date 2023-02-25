@@ -2,6 +2,7 @@ package move;
 
 import bussinessLogic.*;
 import impl.CurrentPowerPointImpl;
+import Enum.*;
 
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 

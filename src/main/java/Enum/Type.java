@@ -1,4 +1,6 @@
-package bussinessLogic;
+package Enum;
+
+import bussinessLogic.Move;
 
 import java.util.List;
 
@@ -24,7 +26,7 @@ public enum Type {
     FAIRY("フェアリー"),
     NONE("-");
 
-    private final String value;
+    public final String value;
 
     Type(String value) {
         this.value = value;

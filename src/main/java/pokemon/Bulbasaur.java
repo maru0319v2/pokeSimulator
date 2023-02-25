@@ -3,10 +3,10 @@ package pokemon;
 import bussinessLogic.*;
 import impl.*;
 import move.*;
+import Enum.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.ToDoubleBiFunction;
 
 public class Bulbasaur implements PokemonInfo {
     private final String pokeName = "フシギダネ";

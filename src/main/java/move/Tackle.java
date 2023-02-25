@@ -2,6 +2,7 @@ package move;
 
 import bussinessLogic.*;
 import impl.CurrentPowerPointImpl;
+import Enum.*;
 
 public class Tackle implements Move {
     private String name = "たいあたり";
