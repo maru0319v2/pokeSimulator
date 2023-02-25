@@ -15,7 +15,7 @@ public class StatusAilmentTest {
         PokemonInfo myPokemon = new Bulbasaur();
         myPokemon = myPokemon.withStatusAilment(StatusAilment.BURN);
 
-        assertEquals(myPokemon.statusAilment(),StatusAilment.BURN);
+        assertEquals(myPokemon.getStatusAilment(),StatusAilment.BURN);
     }
 
     @Test
@@ -25,7 +25,7 @@ public class StatusAilmentTest {
         PokemonInfo myPokemon2 = new Squirtle();
         myPokemon1 = myPokemon1.withStatusAilment(StatusAilment.BURN);
 
-        assertEquals(myPokemon1.statusAilment().dameRateByBurn(),0.5);
-        assertEquals(myPokemon2.statusAilment().dameRateByBurn(),1.0);
+        assertEquals(myPokemon1.getStatusAilment().dameRateByBurn(),0.5);
+        assertEquals(myPokemon2.getStatusAilment().dameRateByBurn(),1.0);
     }
 }

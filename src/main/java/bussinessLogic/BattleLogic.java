@@ -16,8 +16,8 @@ public class BattleLogic {
 
     // 先行後攻を決める
     public static boolean isPreemptiveMe(PokemonInfo myPokemon, PokemonInfo enemyPokemon) {
-        int calculatedMySpeed = (int)(myPokemon.realValSpeed() * myPokemon.statusRank().speedRateByStatusRank());
-        int calculatedEnemySpeed = (int)(enemyPokemon.realValSpeed() * enemyPokemon.statusRank().speedRateByStatusRank());
+        int calculatedMySpeed = (int)(myPokemon.getRealValSpeed() * myPokemon.getStatusRank().speedRateByStatusRank());
+        int calculatedEnemySpeed = (int)(enemyPokemon.getRealValSpeed() * enemyPokemon.getStatusRank().speedRateByStatusRank());
 
         if(calculatedMySpeed == calculatedEnemySpeed) {
             // 同速の場合は1~10をランダムで生成して偶数なら先行
@@ -53,7 +53,7 @@ public class BattleLogic {
             if(Objects.equals(inputCommand, "i")) {
                 showParametersInBattle(target);
             } else if (Objects.equals(inputCommand, "m")) {
-                showMoveDetail(target.haveMove());
+                showMoveDetail(target.getHaveMove());
             } else {
                 for(int j = 1; i > j; j++) {
                     if (Integer.parseInt(inputCommand) == j) {
@@ -76,13 +76,13 @@ public class BattleLogic {
                 int damage = calcDamage(attackPoke, defencePoke, move);
                 defencePoke = damagePoke(defencePoke, damage);
             } else {
-                showMessageParChar(attackPoke.pokeName() + "の" + move.getName() + "!");
-                showMessageParChar(attackPoke.pokeName() + "の" + move.getName() + "は外れた");
+                showMessageParChar(attackPoke.getPokeName() + "の" + move.getName() + "!");
+                showMessageParChar(attackPoke.getPokeName() + "の" + move.getName() + "は外れた");
             }
             return new InBattlePokemons(attackPoke, defencePoke);
         } else {
             if (isHit(move)) {
-                showMessageParChar(attackPoke.pokeName() + "の" + move.getName() + "!");
+                showMessageParChar(attackPoke.getPokeName() + "の" + move.getName() + "!");
                 return move.effect(attackPoke, defencePoke);
             } else {
                 return new InBattlePokemons(attackPoke, defencePoke);
@@ -97,7 +97,7 @@ public class BattleLogic {
     private static int calcDamage(PokemonInfo attackPoke, PokemonInfo defencePoke, Move move) throws InterruptedException {
         // ダメージ計算参考　https://latest.pokewiki.net/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F
         // 攻撃側のレベル
-        int attackPokeLv = attackPoke.level().value();
+        int attackPokeLv = attackPoke.getLevel().value();
         // 技の威力
         int moveDamage = move.getDamage();
         // 技の分類
@@ -108,31 +108,31 @@ public class BattleLogic {
         boolean isCritical = (new Random().nextInt(24) + 1) == 1;
         double criticalRate = isCritical ? 1.5 : 1;
         // 急所の場合は攻撃側のランク下降、防御側のランク上昇補正を無視する
-        double attackRateByStatusRank  = isCritical? Math.max(attackPoke.statusRank().attackRateByStatusRank(), 1.0) : attackPoke.statusRank().attackRateByStatusRank();
-        double blockRateByStatusRank   = isCritical? Math.min(defencePoke.statusRank().blockRateByStatusRank(), 1.0) : defencePoke.statusRank().blockRateByStatusRank();
-        double contactRateByStatusRank = isCritical? Math.max(attackPoke.statusRank().contactRateByStatusRank(), 1.0) : attackPoke.statusRank().contactRateByStatusRank();
-        double defenseRateByStatusRank = isCritical? Math.min(defencePoke.statusRank().defenseRateByStatusRank(), 1.0) : defencePoke.statusRank().defenseRateByStatusRank();
+        double attackRateByStatusRank  = isCritical? Math.max(attackPoke.getStatusRank().attackRateByStatusRank(), 1.0) : attackPoke.getStatusRank().attackRateByStatusRank();
+        double blockRateByStatusRank   = isCritical? Math.min(defencePoke.getStatusRank().blockRateByStatusRank(), 1.0) : defencePoke.getStatusRank().blockRateByStatusRank();
+        double contactRateByStatusRank = isCritical? Math.max(attackPoke.getStatusRank().contactRateByStatusRank(), 1.0) : attackPoke.getStatusRank().contactRateByStatusRank();
+        double defenseRateByStatusRank = isCritical? Math.min(defencePoke.getStatusRank().defenseRateByStatusRank(), 1.0) : defencePoke.getStatusRank().defenseRateByStatusRank();
         // タイプ一致判定
-        boolean isTypeMatch = (Objects.equals(move.getMoveType().value(), attackPoke.pokemonType1().value())) || (Objects.equals(move.getMoveType().value(), attackPoke.pokemonType2().value()));
+        boolean isTypeMatch = (Objects.equals(move.getMoveType().value(), attackPoke.getType1().value())) || (Objects.equals(move.getMoveType().value(), attackPoke.getType2().value()));
         double typeMatchRate = isTypeMatch ? 1.5 : 1;
         // タイプ相性判定
-        double effectiveRate = Type.damageRateByType(defencePoke.pokemonType1(), defencePoke.pokemonType2(), move);
+        double effectiveRate = Type.damageRateByType(defencePoke.getType1(), defencePoke.getType2(), move);
         // やけど判定
-        double burnedRate = moveSpecies == MoveSpecies.PHYSICAL? attackPoke.statusAilment().dameRateByBurn() : 1.0;
+        double burnedRate = moveSpecies == MoveSpecies.PHYSICAL? attackPoke.getStatusAilment().dameRateByBurn() : 1.0;
 
         int attackVal = 0;
         int defenceVal = 0;
         // ステータス実数値にランク補正を乗せる
         if(moveSpecies == MoveSpecies.PHYSICAL) {
-            attackVal = (int)(attackPoke.realValAttack() * attackRateByStatusRank);
-            defenceVal = (int)(defencePoke.realValBlock() * blockRateByStatusRank);
+            attackVal = (int)(attackPoke.getRealValAttack() * attackRateByStatusRank);
+            defenceVal = (int)(defencePoke.getRealValBlock() * blockRateByStatusRank);
         } else if (moveSpecies == MoveSpecies.SPECIAL) {
-            attackVal = (int)(attackPoke.realValContact() * contactRateByStatusRank);
-            defenceVal = (int)(defencePoke.realValDefense() * defenseRateByStatusRank);
+            attackVal = (int)(attackPoke.getRealValContact() * contactRateByStatusRank);
+            defenceVal = (int)(defencePoke.getRealValDefense() * defenseRateByStatusRank);
         }
 
         int result = (int)Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * randomNum * criticalRate * typeMatchRate * effectiveRate * burnedRate);
-        showMessageParChar(attackPoke.pokeName() + "の" + move.getName() + "!");
+        showMessageParChar(attackPoke.getPokeName() + "の" + move.getName() + "!");
         if(isCritical) { showMessageParChar("急所に当った!"); }
         if(effectiveRate >= 2.0) { showMessageParChar("効果は抜群だ!"); }
         if(effectiveRate <= 0.5) { showMessageParChar("効果はいまひとつのようだ"); }
@@ -142,16 +142,16 @@ public class BattleLogic {
 
     private static PokemonInfo damagePoke(PokemonInfo target, int value) throws InterruptedException {
         PokemonInfo result = target.withCurrentHitPoint(
-                target.currentHitPoint().damage(new CurrentHitPointImpl(value))
+                target.getCurrentHitPoint().damage(new CurrentHitPointImpl(value))
         );
-        showMessageParChar(result.pokeName() + "は" + value + "のダメージ!");
+        showMessageParChar(result.getPokeName() + "は" + value + "のダメージ!");
         return result;
     }
 
     public static PokemonInfo recoveryAll(PokemonInfo target) {
         target = recoveryHitPoint(target, 999);
 
-        for(Move move : target.haveMove()) {
+        for(Move move : target.getHaveMove()) {
             target = recoveryPowerPoint(target, move, 99);
         }
         return target;
@@ -160,9 +160,9 @@ public class BattleLogic {
     public static PokemonInfo recoveryHitPoint(PokemonInfo target, int value) {
 
         PokemonInfo result = target.withCurrentHitPoint(
-                target.currentHitPoint().recovery(target, new CurrentHitPointImpl(value))
+                target.getCurrentHitPoint().recovery(target, new CurrentHitPointImpl(value))
         );
-        System.out.println(result.pokeName() + "は体力を" + value + "回復!  HP" + result.currentHitPoint().value() + "/" + result.realValHitPoint());
+        System.out.println(result.getPokeName() + "は体力を" + value + "回復!  HP" + result.getCurrentHitPoint().value() + "/" + result.getRealValHitPoint());
         System.out.println();
         return result;
     }
@@ -170,7 +170,7 @@ public class BattleLogic {
     public static PokemonInfo recoveryPowerPoint(PokemonInfo target, Move move, int value) {
 
         Move targetMoves = null;
-        List<Move> haveMoves = target.haveMove();
+        List<Move> haveMoves = target.getHaveMove();
         for(Move haveMove : haveMoves) {
             if(move.getClass() == haveMove.getClass()) {
                 targetMoves = haveMove;
@@ -192,15 +192,15 @@ public class BattleLogic {
     }
 
     public static int calcExp(PokemonInfo enemyPoke) {
-        return enemyPoke.level().value() * enemyPoke.basicExperience() / 7;
+        return enemyPoke.getLevel().value() * enemyPoke.getBasicExperience() / 7;
     }
 
     public static PokemonInfo addExp(PokemonInfo target, int exp) throws InterruptedException {
         PokemonInfo result = target.withExperience(exp);
-        showMessageParChar(result.pokeName() + "は" + exp + "の経験値を獲得!");
-        while(result.experience().isLevelUp(result)) {
+        showMessageParChar(result.getPokeName() + "は" + exp + "の経験値を獲得!");
+        while(result.getExperience().isLevelUp(result)) {
             result = result.withLevel(1);
-            showMessageParChar(result.pokeName() + "はLv." + result.level().value() + "にレベルアップした!");
+            showMessageParChar(result.getPokeName() + "はLv." + result.getLevel().value() + "にレベルアップした!");
         }
         return result;
     }

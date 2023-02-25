@@ -28,7 +28,7 @@ public class Growth implements Move {
     }
 
     public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke) throws InterruptedException {
-        showMessageParChar(attackPoke.pokeName() + "の特攻が上がった!");
+        showMessageParChar(attackPoke.getPokeName() + "の特攻が上がった!");
         return new InBattlePokemons(attackPoke.withAddedStatusRank(0,0, 1, 0, 0), defensePoke);
     }
     @Override

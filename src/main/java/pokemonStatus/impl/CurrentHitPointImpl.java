@@ -21,7 +21,7 @@ public class CurrentHitPointImpl implements CurrentHitPoint {
             throw new IllegalArgumentException("回復量は1以上を指定してください。");
         }
         final int added = this.value + currentHitPointImpl.value;
-        int result = Math.min(added, target.realValHitPoint());
+        int result = Math.min(added, target.getRealValHitPoint());
         return new CurrentHitPointImpl(result);
     }
 

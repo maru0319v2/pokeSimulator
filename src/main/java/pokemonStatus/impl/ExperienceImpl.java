@@ -32,7 +32,7 @@ public class ExperienceImpl implements Experience {
 
     // 次のレベルアップに必要な経験値
     public int nextRequireExperience(PokemonInfo target) {
-        return requireExperienceAsType(target) - target.experience().totalExperience();
+        return requireExperienceAsType(target) - target.getExperience().totalExperience();
     }
 
     public int requireExperience(PokemonInfo target) {
@@ -40,8 +40,8 @@ public class ExperienceImpl implements Experience {
     }
 
     private int requireExperienceAsType(PokemonInfo target) {
-        ExperienceType experienceType = target.experienceType();
-        int level = target.level().value() + 1;
+        ExperienceType experienceType = target.getExperienceType();
+        int level = target.getLevel().value() + 1;
         int result = 10;
 
         if(Objects.equals(experienceType, ExperienceType.TYPE600000)) {

@@ -27,7 +27,7 @@ public class Growl implements Move {
     }
 
     public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke) throws InterruptedException {
-        showMessageParChar(defensePoke.pokeName() + "の攻撃が下がった!");
+        showMessageParChar(defensePoke.getPokeName() + "の攻撃が下がった!");
         return new InBattlePokemons(attackPoke, defensePoke.withAddedStatusRank(-1,0, 0, 0, 0));
     }
 

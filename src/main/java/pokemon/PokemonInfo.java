@@ -11,53 +11,53 @@ import java.util.List;
 public interface PokemonInfo {
 
     // 名前
-    String pokeName();
+    String getPokeName();
     // 図鑑No.
-    String pokeDexNo();
+    String getPokeDexNo();
     // 分類
-    String species();
+    String getSpecies();
     // タイプ1
-    Type pokemonType1();
+    Type getType1();
     // タイプ2
-    Type pokemonType2();
+    Type getType2();
     // 種族値
-    BaseStats baseStats();
+    BaseStats getBaseStats();
     // 個体値
-    IndividualValue individualValue();
+    IndividualValue getIndividualValue();
     // 努力値
-    EffortValue effortValue();
+    EffortValue getEffortValue();
     // 基礎経験値
-    int basicExperience();
+    int getBasicExperience();
     // レベル
-    Level level();
+    Level getLevel();
     // 性別
-    Gender gender();
+    Gender getGender();
     // 性格
-    Nature nature();
+    Nature getNature();
     // 覚えている技
-    List<Move> haveMove();
+    List<Move> getHaveMove();
     // 現在の残りHP
-    CurrentHitPoint currentHitPoint();
+    CurrentHitPoint getCurrentHitPoint();
     // HP実数値
-    int realValHitPoint();
+    int getRealValHitPoint();
     // 攻撃実数値
-    int realValAttack();
+    int getRealValAttack();
     // 防御実数値
-    int realValBlock();
+    int getRealValBlock();
     // 特攻実数値
-    int realValContact();
+    int getRealValContact();
     // 特防実数値
-    int realValDefense();
+    int getRealValDefense();
     // 素早実数値
-    int realValSpeed();
+    int getRealValSpeed();
     // 経験値タイプ
-    ExperienceType experienceType();
+    ExperienceType getExperienceType();
     // 総獲得経験値
-    Experience experience();
+    Experience getExperience();
     // ステータスランク
-    StatusRank statusRank();
+    StatusRank getStatusRank();
     // 状態異常1
-    StatusAilment statusAilment();
+    StatusAilment getStatusAilment();
 
     // TODO テスト用コード
     PokemonInfo withCurrentHitPoint(CurrentHitPoint currentHitPoint);

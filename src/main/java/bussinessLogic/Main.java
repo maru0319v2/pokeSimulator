@@ -37,7 +37,7 @@ public class Main {
 
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        showMessageParChar(myPokemon.pokeName() + "を仲間にした!");
+        showMessageParChar(myPokemon.getPokeName() + "を仲間にした!");
 
         String inputCommand = "";
         while (!inputCommand.equals("q")) {
@@ -53,7 +53,7 @@ public class Main {
 
             switch (inputCommand) {
                 case "i" -> ConsoleOutManager.showAllParameters(myPokemon);
-                case "m" -> ConsoleOutManager.showMoveDetail(myPokemon.haveMove());
+                case "m" -> ConsoleOutManager.showMoveDetail(myPokemon.getHaveMove());
                 case "e" -> myPokemon = BattleLogic.addExp(myPokemon, 200);
                 case "r" -> myPokemon = BattleLogic.recoveryAll(myPokemon);
                 case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, new Charmander());

@@ -27,7 +27,7 @@ public class SwordsDance implements Move {
     }
 
     public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke) throws InterruptedException {
-        showMessageParChar(attackPoke.pokeName() + "の攻撃がぐーんと上がった!");
+        showMessageParChar(attackPoke.getPokeName() + "の攻撃がぐーんと上がった!");
         return new InBattlePokemons(attackPoke.withAddedStatusRank(2,0, 0, 0, 0), defensePoke);
     }
     @Override

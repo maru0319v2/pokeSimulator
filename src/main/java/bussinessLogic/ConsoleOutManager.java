@@ -11,19 +11,19 @@ public class ConsoleOutManager {
     public static void showAllParameters(PokemonInfo target) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.print("図鑑No:" + target.pokeDexNo() + " ");
-        System.out.print("名前:" + target.pokeName() + " ");
-        System.out.println("分類:" + target.species());
-        System.out.println("タイプ1: " + target.pokemonType1().value() + " タイプ2: " + target.pokemonType2().value());
-        System.out.print("レベル: " + target.level().value());
-        System.out.print("  次のレベルまで: " + target.experience().nextRequireExperience(target) + " exp.");
-        System.out.println("  総経験値: " + target.experience().totalExperience() + " exp.");
+        System.out.print("図鑑No:" + target.getPokeDexNo() + " ");
+        System.out.print("名前:" + target.getPokeName() + " ");
+        System.out.println("分類:" + target.getSpecies());
+        System.out.println("タイプ1: " + target.getType1().value() + " タイプ2: " + target.getType2().value());
+        System.out.print("レベル: " + target.getLevel().value());
+        System.out.print("  次のレベルまで: " + target.getExperience().nextRequireExperience(target) + " exp.");
+        System.out.println("  総経験値: " + target.getExperience().totalExperience() + " exp.");
 
         //  System.out.println("  経験値タイプ: " + target.experienceType());
-        System.out.println("性別: " + target.gender().value());
-        System.out.println("性格: " + target.nature().value());
+        System.out.println("性別: " + target.getGender().value());
+        System.out.println("性格: " + target.getNature().value());
         System.out.print("覚えている技: ");
-        for (Move move : target.haveMove()) {
+        for (Move move : target.getHaveMove()) {
             System.out.print(move.getName() + "  ");
         }
         System.out.println("");
@@ -54,14 +54,14 @@ public class ConsoleOutManager {
 //        System.out.print(" 特攻 " + target.effortValue().contact());
 //        System.out.print(" 特防 " + target.effortValue().defense());
 //        System.out.println(" 素早 " + target.effortValue().speed());
-        System.out.print("HP: " + target.currentHitPoint().value() + "/" + target.realValHitPoint() + " ");
+        System.out.print("HP: " + target.getCurrentHitPoint().value() + "/" + target.getRealValHitPoint() + " ");
         showProgressBar(target);
         System.out.println("");
-        System.out.println("攻撃 " + target.realValAttack());
-        System.out.println("防御 " + target.realValBlock());
-        System.out.println("特攻 " + target.realValContact());
-        System.out.println("特防 " + target.realValDefense());
-        System.out.println("素早 " + target.realValSpeed());
+        System.out.println("攻撃 " + target.getRealValAttack());
+        System.out.println("防御 " + target.getRealValBlock());
+        System.out.println("特攻 " + target.getRealValContact());
+        System.out.println("特防 " + target.getRealValDefense());
+        System.out.println("素早 " + target.getRealValSpeed());
     }
 
     public static void showMoveDetail(List<Move> moves) {
@@ -78,7 +78,7 @@ public class ConsoleOutManager {
 
     public static void showProgressBar(PokemonInfo target) {
         // 残りHPのパーセントを出す
-        double i = ((double)target.currentHitPoint().value()) / ((double)target.realValHitPoint()) * 20;
+        double i = ((double)target.getCurrentHitPoint().value()) / ((double)target.getRealValHitPoint()) * 20;
         System.out.print("[");
         int j;
         for(j = 0; i > j; j++) {
@@ -93,21 +93,21 @@ public class ConsoleOutManager {
 
     // バトル中のステータス表示を行う
     public static void showPokemonInfo(PokemonInfo myPokemon, PokemonInfo enemyPokemon) {
-        System.out.println(enemyPokemon.pokeName() + " " + enemyPokemon.gender().value() + "    Lv." + enemyPokemon.level().value());
+        System.out.println(enemyPokemon.getPokeName() + " " + enemyPokemon.getGender().value() + "    Lv." + enemyPokemon.getLevel().value());
         System.out.print("HP");
         showProgressBar(enemyPokemon);
         System.out.println("           ■");
-        System.out.print("   " + enemyPokemon.currentHitPoint().value() + " / " + enemyPokemon.realValHitPoint());
+        System.out.print("   " + enemyPokemon.getCurrentHitPoint().value() + " / " + enemyPokemon.getRealValHitPoint());
         System.out.println("");
         System.out.println("");
         System.out.println("");
         // ↑相手側　↓こっち側
         System.out.print("                        ");
-        System.out.println(myPokemon.pokeName() + " " + myPokemon.gender().value() + "    Lv." + myPokemon.level().value());
+        System.out.println(myPokemon.getPokeName() + " " + myPokemon.getGender().value() + "    Lv." + myPokemon.getLevel().value());
         System.out.print("            ■           HP");
         showProgressBar(myPokemon);
         System.out.println("");
-        System.out.println("                           " + myPokemon.currentHitPoint().value() + " / " + myPokemon.realValHitPoint());
+        System.out.println("                           " + myPokemon.getCurrentHitPoint().value() + " / " + myPokemon.getRealValHitPoint());
         System.out.println("");
         System.out.println("-------------------------------------------------");
     }
@@ -115,43 +115,43 @@ public class ConsoleOutManager {
     public static void showPokemonInfoWithClear(PokemonInfo myPokemon, PokemonInfo enemyPokemon) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.println(enemyPokemon.pokeName() + " " + enemyPokemon.gender().value() + "    Lv." + enemyPokemon.level().value());
+        System.out.println(enemyPokemon.getPokeName() + " " + enemyPokemon.getGender().value() + "    Lv." + enemyPokemon.getLevel().value());
         System.out.print("HP");
         showProgressBar(enemyPokemon);
         System.out.println("           ■");
-        System.out.print("   " + enemyPokemon.currentHitPoint().value() + " / " + enemyPokemon.realValHitPoint());
+        System.out.print("   " + enemyPokemon.getCurrentHitPoint().value() + " / " + enemyPokemon.getRealValHitPoint());
         System.out.println("");
         System.out.println("");
         System.out.println("");
         // ↑相手側　↓こっち側
         System.out.print("                        ");
-        System.out.println(myPokemon.pokeName() + " " + myPokemon.gender().value() + "    Lv." + myPokemon.level().value());
+        System.out.println(myPokemon.getPokeName() + " " + myPokemon.getGender().value() + "    Lv." + myPokemon.getLevel().value());
         System.out.print("            ■           HP");
         showProgressBar(myPokemon);
         System.out.println("");
-        System.out.println("                           " + myPokemon.currentHitPoint().value() + " / " + myPokemon.realValHitPoint());
+        System.out.println("                           " + myPokemon.getCurrentHitPoint().value() + " / " + myPokemon.getRealValHitPoint());
         System.out.println("");
         System.out.println("-------------------------------------------------");
     }
 
     public static void showParametersInBattle(PokemonInfo target) {
-        System.out.println("名前:" + target.pokeName() + " ");
-        System.out.println("タイプ1: " + target.pokemonType1().value() + " タイプ2: " + target.pokemonType2().value());
-        System.out.println("レベル: " + target.level().value());
-        System.out.print("HP: " + target.currentHitPoint().value() + "/" + target.realValHitPoint() + " ");
+        System.out.println("名前:" + target.getPokeName() + " ");
+        System.out.println("タイプ1: " + target.getType1().value() + " タイプ2: " + target.getType2().value());
+        System.out.println("レベル: " + target.getLevel().value());
+        System.out.print("HP: " + target.getCurrentHitPoint().value() + "/" + target.getRealValHitPoint() + " ");
         showProgressBar(target);
         System.out.println("");
-        System.out.println("攻撃 " + target.realValAttack());
-        System.out.println("防御 " + target.realValBlock());
-        System.out.println("特攻 " + target.realValContact());
-        System.out.println("特防 " + target.realValDefense());
-        System.out.println("素早 " + target.realValSpeed());
+        System.out.println("攻撃 " + target.getRealValAttack());
+        System.out.println("防御 " + target.getRealValBlock());
+        System.out.println("特攻 " + target.getRealValContact());
+        System.out.println("特防 " + target.getRealValDefense());
+        System.out.println("素早 " + target.getRealValSpeed());
         System.out.println("");
 
         System.out.print("攻撃ランク ");
         int i = 0;
-        for(;i < Math.abs(target.statusRank().attack()); i++) {
-            if (target.statusRank().attack() > 0) {
+        for(;i < Math.abs(target.getStatusRank().attack()); i++) {
+            if (target.getStatusRank().attack() > 0) {
                 System.out.print("△");
             } else {
                 System.out.print("▼");
@@ -165,8 +165,8 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("防御ランク ");
-        for(;i < Math.abs(target.statusRank().block()); i++) {
-            if (target.statusRank().block() > 0) {
+        for(;i < Math.abs(target.getStatusRank().block()); i++) {
+            if (target.getStatusRank().block() > 0) {
                 System.out.print("△");
             } else {
                 System.out.print("▼");
@@ -180,8 +180,8 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("特攻ランク ");
-        for(;i < Math.abs(target.statusRank().contact()); i++) {
-            if (target.statusRank().contact() > 0) {
+        for(;i < Math.abs(target.getStatusRank().contact()); i++) {
+            if (target.getStatusRank().contact() > 0) {
                 System.out.print("△");
             } else {
                 System.out.print("▼");
@@ -195,8 +195,8 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("特防ランク ");
-        for(;i < Math.abs(target.statusRank().defense()); i++) {
-            if (target.statusRank().defense() > 0) {
+        for(;i < Math.abs(target.getStatusRank().defense()); i++) {
+            if (target.getStatusRank().defense() > 0) {
                 System.out.print("△");
             } else {
                 System.out.print("▼");
@@ -210,8 +210,8 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("素早ランク ");
-        for(;i < Math.abs(target.statusRank().speed()); i++) {
-            if (target.statusRank().speed() > 0) {
+        for(;i < Math.abs(target.getStatusRank().speed()); i++) {
+            if (target.getStatusRank().speed() > 0) {
                 System.out.print("△");
             } else {
                 System.out.print("▼");

@@ -10,15 +10,15 @@ public class BattleSimulation {
     public PokemonInfo battleSimulation(PokemonInfo myPokemon, PokemonInfo enemyPokemon) throws InterruptedException {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        showMessageParChar("野生の" + enemyPokemon.pokeName() + "が飛び出してきた!");
-        showMessageParChar("ゆけっ!" + myPokemon.pokeName() + "!");
+        showMessageParChar("野生の" + enemyPokemon.getPokeName() + "が飛び出してきた!");
+        showMessageParChar("ゆけっ!" + myPokemon.getPokeName() + "!");
 
         InBattlePokemons pokemons;
 
-        while (myPokemon.currentHitPoint().value() > 0 && enemyPokemon.currentHitPoint().value() > 0) {
+        while (myPokemon.getCurrentHitPoint().value() > 0 && enemyPokemon.getCurrentHitPoint().value() > 0) {
             Thread.sleep(100);
             ConsoleOutManager.showPokemonInfoWithClear(myPokemon, enemyPokemon);
-            Move selectedMove = BattleLogic.selectMove(myPokemon.haveMove(), myPokemon);
+            Move selectedMove = BattleLogic.selectMove(myPokemon.getHaveMove(), myPokemon);
             ConsoleOutManager.showPokemonInfoWithClear(myPokemon, enemyPokemon);
 
             if(BattleLogic.isPreemptiveMe(myPokemon, enemyPokemon)) {
@@ -27,20 +27,20 @@ public class BattleSimulation {
                 myPokemon = pokemons.attackPoke;
                 enemyPokemon = pokemons.defensePoke;
 
-                if(enemyPokemon.currentHitPoint().value() == 0) { break; }
+                if(enemyPokemon.getCurrentHitPoint().value() == 0) { break; }
                 Thread.sleep(100);
                 ConsoleOutManager.showPokemonInfoWithClear(myPokemon, enemyPokemon);
 
-                pokemons = doAction(enemyPokemon, myPokemon, enemyPokemon.haveMove().get(0));
+                pokemons = doAction(enemyPokemon, myPokemon, enemyPokemon.getHaveMove().get(0));
                 myPokemon = pokemons.defensePoke;
                 enemyPokemon = pokemons.attackPoke;
             } else {
                 // 自分が後攻の場合
-                pokemons = doAction(enemyPokemon, myPokemon, enemyPokemon.haveMove().get(0));
+                pokemons = doAction(enemyPokemon, myPokemon, enemyPokemon.getHaveMove().get(0));
                 myPokemon = pokemons.defensePoke;
                 enemyPokemon = pokemons.attackPoke;
 
-                if(myPokemon.currentHitPoint().value() == 0) { break; }
+                if(myPokemon.getCurrentHitPoint().value() == 0) { break; }
                 Thread.sleep(100);
                 ConsoleOutManager.showPokemonInfoWithClear(myPokemon, enemyPokemon);
 
@@ -51,12 +51,12 @@ public class BattleSimulation {
         }
 
         ConsoleOutManager.showPokemonInfoWithClear(myPokemon, enemyPokemon);
-        if(myPokemon.currentHitPoint().value() > 0) {
-            System.out.println("野生の" + enemyPokemon.pokeName() + "は倒れた!");
+        if(myPokemon.getCurrentHitPoint().value() > 0) {
+            System.out.println("野生の" + enemyPokemon.getPokeName() + "は倒れた!");
             int addExp = BattleLogic.calcExp(enemyPokemon);
             myPokemon = BattleLogic.addExp(myPokemon, addExp);
         } else {
-            System.out.println(myPokemon.pokeName() + "は倒れた");
+            System.out.println(myPokemon.getPokeName() + "は倒れた");
         }
         return myPokemon.withResetStatusRank();
     }
