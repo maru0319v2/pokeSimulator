@@ -1,7 +1,9 @@
 package pokemonStatus.impl;
 
+import lombok.Getter;
 import pokemonStatus.StatusRank;
 
+@Getter
 public class StatusRankImpl implements StatusRank {
     private static final int MIN = -6;
     private static final int MAX = 6;
@@ -10,20 +12,6 @@ public class StatusRankImpl implements StatusRank {
     private final int contact;
     private final int defense;
     private final int speed;
-
-    public int attack() { return this.attack; }
-    public int block() {
-        return this.block;
-    }
-    public int contact() {
-        return this.contact;
-    }
-    public int defense() {
-        return this.defense;
-    }
-    public int speed() {
-        return this.speed;
-    }
 
     public StatusRankImpl() {
         this.attack = 0;

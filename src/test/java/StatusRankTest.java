@@ -11,11 +11,11 @@ public class StatusRankTest {
     @DisplayName("引数なしコンストラクタを呼んだときにすべてのステータスランクが0になること")
     public void testStatusRank1() {
         StatusRank sr = new StatusRankImpl();
-        int a = sr.attack();
-        int b = sr.block();
-        int c = sr.contact();
-        int d = sr.defense();
-        int s = sr.speed();
+        int a = sr.getAttack();
+        int b = sr.getBlock();
+        int c = sr.getContact();
+        int d = sr.getDefense();
+        int s = sr.getSpeed();
         assertEquals(a,0);
         assertEquals(b,0);
         assertEquals(c,0);
@@ -27,11 +27,11 @@ public class StatusRankTest {
     @DisplayName("コンストラクタを呼んだときに引数で渡した通りのステータスランクが取得できること")
     public void testStatusRank2() {
         StatusRank sr = new StatusRankImpl(1, 2, 3, 4, 5);
-        int a = sr.attack();
-        int b = sr.block();
-        int c = sr.contact();
-        int d = sr.defense();
-        int s = sr.speed();
+        int a = sr.getAttack();
+        int b = sr.getBlock();
+        int c = sr.getContact();
+        int d = sr.getDefense();
+        int s = sr.getSpeed();
         assertEquals(a,1);
         assertEquals(b,2);
         assertEquals(c,3);
@@ -44,11 +44,11 @@ public class StatusRankTest {
     public void testStatusRank3() {
         StatusRank sr = new StatusRankImpl();
         sr = sr.add(0, -2, -9, 2, 9);
-        int a = sr.attack();
-        int b = sr.block();
-        int c = sr.contact();
-        int d = sr.defense();
-        int s = sr.speed();
+        int a = sr.getAttack();
+        int b = sr.getBlock();
+        int c = sr.getContact();
+        int d = sr.getDefense();
+        int s = sr.getSpeed();
         assertEquals(a,0);
         assertEquals(b,-2);
         assertEquals(c,-6);
@@ -61,11 +61,11 @@ public class StatusRankTest {
     public void testStatusRank4() {
         StatusRank sr = new StatusRankImpl(1, 2, 3, 4, 5);
         sr = sr.reset();
-        int a = sr.attack();
-        int b = sr.block();
-        int c = sr.contact();
-        int d = sr.defense();
-        int s = sr.speed();
+        int a = sr.getAttack();
+        int b = sr.getBlock();
+        int c = sr.getContact();
+        int d = sr.getDefense();
+        int s = sr.getSpeed();
         assertEquals(a,0);
         assertEquals(b,0);
         assertEquals(c,0);

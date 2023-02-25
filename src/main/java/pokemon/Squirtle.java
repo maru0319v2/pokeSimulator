@@ -91,7 +91,7 @@ public class Squirtle implements PokemonInfo {
         this.haveMove = haveMove;
         this.experience = new ExperienceImpl(experience.totalExperience());
         this.currentHitPoint = new CurrentHitPointImpl(currentHitPoint.value());
-        this.statusRank = new StatusRankImpl(statusRankImpl.attack(), statusRankImpl.block(), statusRankImpl.contact(), statusRankImpl.defense(), statusRankImpl.speed());
+        this.statusRank = new StatusRankImpl(statusRankImpl.getAttack(), statusRankImpl.getBlock(), statusRankImpl.getContact(), statusRankImpl.getDefense(), statusRankImpl.getSpeed());
         this.statusAilment = statusAilment;
     }
 

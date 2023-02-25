@@ -1,11 +1,11 @@
 package pokemonStatus;
 
 public interface StatusRank {
-    int attack();
-    int block();
-    int contact();
-    int defense();
-    int speed();
+    int getAttack();
+    int getBlock();
+    int getContact();
+    int getDefense();
+    int getSpeed();
     double attackRateByStatusRank();
     double blockRateByStatusRank();
     double contactRateByStatusRank();
