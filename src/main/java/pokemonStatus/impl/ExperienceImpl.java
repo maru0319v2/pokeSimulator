@@ -40,7 +40,7 @@ public class ExperienceImpl implements Experience {
     }
 
     private int requireExperienceAsType(PokemonInfo target) {
-        ExperienceType experienceType = target.getExperienceType();
+        ExperienceType experienceType = target.getBasePrm().getExperienceType();
         int level = target.getLevel().value() + 1;
         int result = 10;
 

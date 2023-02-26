@@ -29,15 +29,15 @@ public class Main {
             System.out.print("あなたのポケモンを選択してください > ");
             String selectPokeCommand = scanner.nextLine();
             switch (selectPokeCommand) {
-                case "1" -> myPokemon = new Bulbasaur();
-                case "2" -> myPokemon = new Charmander();
-                case "3" -> myPokemon = new Squirtle();
+                case "1" -> myPokemon = new PokemonInfoImpl(BasePrm.BULBASAUR);
+                case "2" -> myPokemon = new PokemonInfoImpl(BasePrm.CHARMANDER);
+                case "3" -> myPokemon = new PokemonInfoImpl(BasePrm.SQUIRTLE);
             }
         }
 
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        showMessageParChar(myPokemon.getPokeName() + "を仲間にした!");
+        showMessageParChar(myPokemon.getBasePrm().getName() + "を仲間にした!");
 
         String inputCommand = "";
         while (!inputCommand.equals("q")) {
@@ -56,7 +56,7 @@ public class Main {
                 case "m" -> ConsoleOutManager.showMoveDetail(myPokemon.getHaveMove());
                 case "e" -> myPokemon = BattleLogic.addExp(myPokemon, 200);
                 case "r" -> myPokemon = BattleLogic.recoveryAll(myPokemon);
-                case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, new Charmander());
+                case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, new PokemonInfoImpl(BasePrm.CHARMANDER));
             }
         }
         scanner.close();

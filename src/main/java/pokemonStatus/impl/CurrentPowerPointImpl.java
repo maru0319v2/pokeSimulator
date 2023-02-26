@@ -22,7 +22,7 @@ public class CurrentPowerPointImpl implements CurrentPowerPoint {
             throw new IllegalArgumentException("PP回復量は1以上を指定してください。");
         }
         final int recovered = this.value + currentPowerPoint.value();
-        int result = Math.min(recovered, target.getPowerPoint());
+        int result = Math.min(recovered, target.baseMPrm().getPowerPoint());
 
         return new CurrentPowerPointImpl(result);
     }

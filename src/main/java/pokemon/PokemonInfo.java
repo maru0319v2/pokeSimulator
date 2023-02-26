@@ -3,31 +3,17 @@ package pokemon;
 import Enum.*;
 import pokemonStatus.*;
 import move.Move;
-import Enum.ExperienceType;
 
 import java.util.List;
 
 // ポケモンの情報を表現するクラス
 public interface PokemonInfo {
-
-    // 名前
-    String getPokeName();
-    // 図鑑No.
-    String getPokeDexNo();
-    // 分類
-    String getSpecies();
-    // タイプ1
-    Type getType1();
-    // タイプ2
-    Type getType2();
-    // 種族値
-    BaseStats getBaseStats();
+    // ポケモン固有の値
+    BasePrm getBasePrm();
     // 個体値
     IndividualValue getIndividualValue();
     // 努力値
     EffortValue getEffortValue();
-    // 基礎経験値
-    int getBasicExperience();
     // レベル
     Level getLevel();
     // 性別
@@ -50,8 +36,6 @@ public interface PokemonInfo {
     int getRealValDefense();
     // 素早実数値
     int getRealValSpeed();
-    // 経験値タイプ
-    ExperienceType getExperienceType();
     // 総獲得経験値
     Experience getExperience();
     // ステータスランク
@@ -67,5 +51,4 @@ public interface PokemonInfo {
     PokemonInfo withResetStatusRank();
     PokemonInfo withMove(Move move);
     PokemonInfo withStatusAilment(StatusAilment statusAilment);
-
 }

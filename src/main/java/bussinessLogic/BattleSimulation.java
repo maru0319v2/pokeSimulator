@@ -10,8 +10,8 @@ public class BattleSimulation {
     public PokemonInfo battleSimulation(PokemonInfo myPokemon, PokemonInfo enemyPokemon) throws InterruptedException {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        showMessageParChar("野生の" + enemyPokemon.getPokeName() + "が飛び出してきた!");
-        showMessageParChar("ゆけっ!" + myPokemon.getPokeName() + "!");
+        showMessageParChar("野生の" + enemyPokemon.getBasePrm().getName() + "が飛び出してきた!");
+        showMessageParChar("ゆけっ!" + myPokemon.getBasePrm().getName() + "!");
 
         InBattlePokemons pokemons;
 
@@ -52,11 +52,11 @@ public class BattleSimulation {
 
         ConsoleOutManager.showPokemonInfoWithClear(myPokemon, enemyPokemon);
         if(myPokemon.getCurrentHitPoint().value() > 0) {
-            System.out.println("野生の" + enemyPokemon.getPokeName() + "は倒れた!");
+            System.out.println("野生の" + enemyPokemon.getBasePrm().getName() + "は倒れた!");
             int addExp = BattleLogic.calcExp(enemyPokemon);
             myPokemon = BattleLogic.addExp(myPokemon, addExp);
         } else {
-            System.out.println(myPokemon.getPokeName() + "は倒れた");
+            System.out.println(myPokemon.getBasePrm().getName() + "は倒れた");
         }
         return myPokemon.withResetStatusRank();
     }

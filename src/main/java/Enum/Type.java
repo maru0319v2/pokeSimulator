@@ -91,9 +91,9 @@ public enum Type {
         List<Type> superEffectiveList = List.of(FIGHTING);
         List<Type> doesNotAffectList = List.of(GHOST);
 
-        if (superEffectiveList.contains(affectedMove.getMoveType())) {
+        if (superEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 2.0;
-        } else if (doesNotAffectList.contains(affectedMove.getMoveType())) {
+        } else if (doesNotAffectList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.0;
         } else {
             return 1.0;
@@ -104,9 +104,9 @@ public enum Type {
         List<Type> superEffectiveList = List.of(WATER, GROUND, ROCK);
         List<Type> notEffectiveList = List.of(FIRE, GRASS, ICE, BUG, STEEL, FAIRY);
 
-        if (superEffectiveList.contains(affectedMove.getMoveType())) {
+        if (superEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 2.0;
-        } else if (notEffectiveList.contains(affectedMove.getMoveType())) {
+        } else if (notEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.5;
         } else {
             return 1.0;
@@ -117,9 +117,9 @@ public enum Type {
         List<Type> superEffectiveList = List.of(ELECTRIC, GRASS);
         List<Type> notEffectiveList = List.of(FIRE, WATER, ICE, STEEL);
 
-        if (superEffectiveList.contains(affectedMove.getMoveType())) {
+        if (superEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 2.0;
-        } else if (notEffectiveList.contains(affectedMove.getMoveType())) {
+        } else if (notEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.5;
         } else {
             return 1.0;
@@ -130,9 +130,9 @@ public enum Type {
         List<Type> superEffectiveList = List.of(GROUND);
         List<Type> notEffectiveList = List.of(ELECTRIC, FLYING, STEEL);
 
-        if (superEffectiveList.contains(affectedMove.getMoveType())) {
+        if (superEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 2.0;
-        } else if (notEffectiveList.contains(affectedMove.getMoveType())) {
+        } else if (notEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.5;
         } else {
             return 1.0;
@@ -143,9 +143,9 @@ public enum Type {
         List<Type> superEffectiveList = List.of(FIRE, ICE, POISON, FLYING, BUG);
         List<Type> notEffectiveList = List.of(WATER, ELECTRIC, GRASS, GROUND);
 
-        if (superEffectiveList.contains(affectedMove.getMoveType())) {
+        if (superEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 2.0;
-        } else if (notEffectiveList.contains(affectedMove.getMoveType())) {
+        } else if (notEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.5;
         } else {
             return 1.0;
@@ -156,9 +156,9 @@ public enum Type {
         List<Type> superEffectiveList = List.of(FIRE, FIGHTING, ROCK, STEEL);
         List<Type> notEffectiveList = List.of(ICE);
 
-        if (superEffectiveList.contains(affectedMove.getMoveType())) {
+        if (superEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 2.0;
-        } else if (notEffectiveList.contains(affectedMove.getMoveType())) {
+        } else if (notEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.5;
         } else {
             return 1.0;
@@ -169,9 +169,9 @@ public enum Type {
         List<Type> superEffectiveList = List.of(FLYING, PSYCHIC, FAIRY);
         List<Type> notEffectiveList = List.of(BUG, ROCK, DARK);
 
-        if (superEffectiveList.contains(affectedMove.getMoveType())) {
+        if (superEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 2.0;
-        } else if (notEffectiveList.contains(affectedMove.getMoveType())) {
+        } else if (notEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.5;
         } else {
             return 1.0;
@@ -182,9 +182,9 @@ public enum Type {
         List<Type> superEffectiveList = List.of(GROUND, PSYCHIC);
         List<Type> notEffectiveList = List.of(GRASS, FIGHTING, POISON, BUG, FAIRY);
 
-        if (superEffectiveList.contains(affectedMove.getMoveType())) {
+        if (superEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 2.0;
-        } else if (notEffectiveList.contains(affectedMove.getMoveType())) {
+        } else if (notEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.5;
         } else {
             return 1.0;
@@ -196,11 +196,11 @@ public enum Type {
         List<Type> notEffectiveList = List.of(POISON, ROCK);
         List<Type> doesNotAffectList = List.of(ELECTRIC);
 
-        if (superEffectiveList.contains(affectedMove.getMoveType())) {
+        if (superEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 2.0;
-        } else if (notEffectiveList.contains(affectedMove.getMoveType())) {
+        } else if (notEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.5;
-        } else if (doesNotAffectList.contains(affectedMove.getMoveType())) {
+        } else if (doesNotAffectList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.0;
         } else {
             return 1.0;
@@ -212,11 +212,11 @@ public enum Type {
         List<Type> notEffectiveList = List.of(GRASS, FIGHTING, BUG);
         List<Type> doesNotAffectList = List.of(GROUND);
 
-        if (superEffectiveList.contains(affectedMove.getMoveType())) {
+        if (superEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 2.0;
-        } else if (notEffectiveList.contains(affectedMove.getMoveType())) {
+        } else if (notEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.5;
-        } else if (doesNotAffectList.contains(affectedMove.getMoveType())) {
+        } else if (doesNotAffectList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.0;
         } else {
             return 1.0;
@@ -227,9 +227,9 @@ public enum Type {
         List<Type> superEffectiveList = List.of(BUG, GHOST, DARK);
         List<Type> notEffectiveList = List.of(FIGHTING, PSYCHIC);
 
-        if (superEffectiveList.contains(affectedMove.getMoveType())) {
+        if (superEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 2.0;
-        } else if (notEffectiveList.contains(affectedMove.getMoveType())) {
+        } else if (notEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.5;
         } else {
             return 1.0;
@@ -240,9 +240,9 @@ public enum Type {
         List<Type> superEffectiveList = List.of(FIRE, FLYING, ROCK);
         List<Type> notEffectiveList = List.of(GRASS, FIGHTING, GROUND);
 
-        if (superEffectiveList.contains(affectedMove.getMoveType())) {
+        if (superEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 2.0;
-        } else if (notEffectiveList.contains(affectedMove.getMoveType())) {
+        } else if (notEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.5;
         } else {
             return 1.0;
@@ -253,9 +253,9 @@ public enum Type {
         List<Type> superEffectiveList = List.of(WATER, GRASS, FIGHTING, GROUND, STEEL);
         List<Type> notEffectiveList = List.of(NORMAL, FIRE, POISON, FLYING);
 
-        if (superEffectiveList.contains(affectedMove.getMoveType())) {
+        if (superEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 2.0;
-        } else if (notEffectiveList.contains(affectedMove.getMoveType())) {
+        } else if (notEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.5;
         } else {
             return 1.0;
@@ -267,11 +267,11 @@ public enum Type {
         List<Type> notEffectiveList = List.of(POISON, BUG);
         List<Type> doesNotAffectList = List.of(NORMAL, FIGHTING);
 
-        if (superEffectiveList.contains(affectedMove.getMoveType())) {
+        if (superEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 2.0;
-        } else if (notEffectiveList.contains(affectedMove.getMoveType())) {
+        } else if (notEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.5;
-        } else if (doesNotAffectList.contains(affectedMove.getMoveType())) {
+        } else if (doesNotAffectList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.0;
         } else {
             return 1.0;
@@ -282,9 +282,9 @@ public enum Type {
         List<Type> superEffectiveList = List.of(ICE, DRAGON, FAIRY);
         List<Type> notEffectiveList = List.of(FIRE, WATER, ELECTRIC, GRASS);
 
-        if (superEffectiveList.contains(affectedMove.getMoveType())) {
+        if (superEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 2.0;
-        } else if (notEffectiveList.contains(affectedMove.getMoveType())) {
+        } else if (notEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.5;
         } else {
             return 1.0;
@@ -296,11 +296,11 @@ public enum Type {
         List<Type> notEffectiveList = List.of(GHOST, DARK);
         List<Type> doesNotAffectList = List.of(PSYCHIC);
 
-        if (superEffectiveList.contains(affectedMove.getMoveType())) {
+        if (superEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 2.0;
-        } else if (notEffectiveList.contains(affectedMove.getMoveType())) {
+        } else if (notEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.5;
-        } else if (doesNotAffectList.contains(affectedMove.getMoveType())) {
+        } else if (doesNotAffectList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.0;
         } else {
             return 1.0;
@@ -312,11 +312,11 @@ public enum Type {
         List<Type> notEffectiveList = List.of(NORMAL, GRASS, ICE, FLYING, PSYCHIC, BUG, ROCK, DRAGON, STEEL, FAIRY);
         List<Type> doesNotAffectList = List.of(POISON);
 
-        if (superEffectiveList.contains(affectedMove.getMoveType())) {
+        if (superEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 2.0;
-        } else if (notEffectiveList.contains(affectedMove.getMoveType())) {
+        } else if (notEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.5;
-        } else if (doesNotAffectList.contains(affectedMove.getMoveType())) {
+        } else if (doesNotAffectList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.0;
         } else {
             return 1.0;
@@ -328,11 +328,11 @@ public enum Type {
         List<Type> notEffectiveList = List.of(FIGHTING, BUG, DARK);
         List<Type> doesNotAffectList = List.of(DRAGON);
 
-        if (superEffectiveList.contains(affectedMove.getMoveType())) {
+        if (superEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 2.0;
-        } else if (notEffectiveList.contains(affectedMove.getMoveType())) {
+        } else if (notEffectiveList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.5;
-        } else if (doesNotAffectList.contains(affectedMove.getMoveType())) {
+        } else if (doesNotAffectList.contains(affectedMove.baseMPrm().getMoveType())) {
             return 0.0;
         } else {
             return 1.0;
