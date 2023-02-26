@@ -66,11 +66,27 @@ public class BattleLogic {
         return result;
     }
 
+    // 敵の技を選択する
+    public static Move enemySelectMove(PokemonInfo enemyPokemon, PokemonInfo myPokemon) {
+        int moveSize = enemyPokemon.getHaveMove().size();
+        int selectedNo = (new Random().nextInt(moveSize));
+
+        // TODO 効果抜群になる技があればそれを優先したい
+//        for(Move move : enemyPokemon.getHaveMove()) {
+//            if(// 技が相手に効果抜群かを判定) {
+//                return move;
+//            }
+//        }
+
+        return enemyPokemon.getHaveMove().get(selectedNo);
+    }
+
     // ターンごとの行動 命中判定、ダメージ計算、ダメージ付与を一括で行う
     public static InBattlePokemons doAction(PokemonInfo attackPoke, PokemonInfo defencePoke, Move move) throws InterruptedException {
         // PPを1減らす
         attackPoke = decrementPowerPoint(attackPoke, move);
 
+        // TODO 型で処理を分けてif文なくせそう
         if (move.baseMPrm().getMoveSpecies() == MoveSpecies.PHYSICAL || move.baseMPrm().getMoveSpecies() == MoveSpecies.SPECIAL) {
             if (isHit(move)) {
                 int damage = calcDamage(attackPoke, defencePoke, move);

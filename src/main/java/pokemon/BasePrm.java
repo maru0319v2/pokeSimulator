@@ -7,6 +7,7 @@ import move.*;
 
 import java.util.List;
 
+@SuppressWarnings("ALL")
 @Getter
 @AllArgsConstructor
 public enum BasePrm {

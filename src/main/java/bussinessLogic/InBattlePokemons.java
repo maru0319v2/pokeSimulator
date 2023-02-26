@@ -4,10 +4,10 @@ import pokemon.PokemonInfo;
 
 public class InBattlePokemons {
     PokemonInfo attackPoke;
-    PokemonInfo defensePoke;
+    PokemonInfo defencePoke;
 
-    public InBattlePokemons(PokemonInfo attackPoke, PokemonInfo defensePoke) {
+    public InBattlePokemons(PokemonInfo attackPoke, PokemonInfo defencePoke) {
         this.attackPoke = attackPoke;
-        this.defensePoke = defensePoke;
+        this.defencePoke = defencePoke;
     }
 }

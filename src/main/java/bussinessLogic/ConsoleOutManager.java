@@ -91,7 +91,7 @@ public class ConsoleOutManager {
     }
 
     // バトル中のステータス表示を行う
-    public static void showPokemonInfo(PokemonInfo myPokemon, PokemonInfo enemyPokemon) {
+    public static void showPokemonInfoWitouthClear(PokemonInfo myPokemon, PokemonInfo enemyPokemon) {
         System.out.println(enemyPokemon.getBasePrm().getName() + " " + enemyPokemon.getGender().value() + "    Lv." + enemyPokemon.getLevel().value());
         System.out.print("HP");
         showProgressBar(enemyPokemon);
@@ -111,7 +111,7 @@ public class ConsoleOutManager {
         System.out.println("-------------------------------------------------");
     }
 
-    public static void showPokemonInfoWithClear(PokemonInfo myPokemon, PokemonInfo enemyPokemon) {
+    public static void showPokemonInfo(PokemonInfo myPokemon, PokemonInfo enemyPokemon) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         System.out.println(enemyPokemon.getBasePrm().getName() + " " + enemyPokemon.getGender().value() + "    Lv." + enemyPokemon.getLevel().value());
