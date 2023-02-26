@@ -57,8 +57,12 @@ public class BattleLogic {
             } else {
                 for(int j = 1; i > j; j++) {
                     if (Integer.parseInt(inputCommand) == j) {
-                        result = moves.get(j-1);
-                        isNoNumberSelected = false;
+                        if(moves.get(j-1).canUse()) {
+                            result = moves.get(j-1);
+                            isNoNumberSelected = false;
+                        } else {
+                            System.out.println("技のPPが足りない!");
+                        }
                     }
                 }
             }

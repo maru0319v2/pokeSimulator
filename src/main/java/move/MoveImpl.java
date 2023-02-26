@@ -33,4 +33,9 @@ public class MoveImpl implements Move {
     public Move withCurrentPowerPoint(Move move, CurrentPowerPoint decrementedPowerPoint) {
         return new MoveImpl(move, decrementedPowerPoint);
     }
+
+    @Override
+    public boolean canUse() {
+        return this.getCurrentPowerPoint().value() > 0;
+    }
 }

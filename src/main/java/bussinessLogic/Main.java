@@ -16,6 +16,7 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 // 覚えられる技は4つまで
 // もちもの
 // PPが0のときはわるあがきする
+// 技の優先度
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
