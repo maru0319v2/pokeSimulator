@@ -1,10 +1,14 @@
 package Enum;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import move.Move;
 
 import java.util.List;
 
 // タイプを表現するクラス
+@Getter
+@AllArgsConstructor
 public enum Type {
     NORMAL("ノーマル"),
     FIGHTING("かくとう"),
@@ -28,14 +32,7 @@ public enum Type {
 
     public final String value;
 
-    Type(String value) {
-        this.value = value;
-    }
-
-    public String value() {
-        return this.value;
-    }
-
+    // TODO ロジックをenumのフィールドに入れる
     public static double damageRateByType(Type type1, Type type2, Move affectedMove) {
         double result1;
         switch (type1) {

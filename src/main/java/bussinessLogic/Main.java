@@ -23,7 +23,6 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 // もちもの
 // PPが0のときはわるあがきする
 // 技の優先度
-// 性格クラスはenumにするべき
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
@@ -70,7 +69,7 @@ public class Main {
                         new PokemonInfoImpl(
                                 BasePrm.CHARIZARD,
                                 Gender.MALE,
-                                new NatureImpl("ひかえめ"),
+                                Nature.MODEST,
                                 new IndividualValueImpl(10, 10, 10, 10, 10 , 10),
                                 new EffortValueImpl(6, 0, 0, 252, 0, 252),
                                 new LevelImpl(50),
@@ -79,7 +78,7 @@ public class Main {
                         new PokemonInfoImpl(
                                 BasePrm.VENUSAUR,
                                 Gender.MALE,
-                                new NatureImpl("がんばりや"),
+                                Nature.MODEST,
                                 new IndividualValueImpl(10, 10, 10, 10, 10 , 10),
                                 new EffortValueImpl(252, 0, 0, 252, 0 , 6),
                                 new LevelImpl(50),

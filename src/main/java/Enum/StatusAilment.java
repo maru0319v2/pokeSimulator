@@ -1,7 +1,12 @@
 package Enum;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.Objects;
 
+@Getter
+@AllArgsConstructor
 public enum StatusAilment {
     BURN("やけど"),
     FREEZE("こおり"),
@@ -13,13 +18,6 @@ public enum StatusAilment {
     NONE("-");
 
     public final String value;
-    StatusAilment(String value) {
-        this.value = value;
-    }
-
-    public String value() {
-        return this.value;
-    }
 
     public double dameRateByBurn() {
          return Objects.equals(this.value, "やけど") ? 0.5 : 1.0;

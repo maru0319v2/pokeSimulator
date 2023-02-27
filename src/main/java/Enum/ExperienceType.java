@@ -1,5 +1,10 @@
 package Enum;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum ExperienceType {
     TYPE600000("600,000タイプ"),
     TYPE800000("800,000タイプ"),
@@ -9,12 +14,4 @@ public enum ExperienceType {
     TYPE1640000("1,640,000タイプ");
 
     private final String value;
-
-    ExperienceType(String value) {
-        this.value = value;
-    }
-
-    public String value() {
-        return this.value;
-    }
 }

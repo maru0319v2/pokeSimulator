@@ -1,6 +1,5 @@
 package bussinessLogic;
 
-import org.jetbrains.annotations.NotNull;
 import pokemonStatus.impl.CurrentHitPointImpl;
 import pokemonStatus.CurrentPowerPoint;
 import pokemonStatus.impl.CurrentPowerPointImpl;
@@ -36,7 +35,7 @@ public class BattleLogic {
             for(int j = 0;j < 8 - move.baseMPrm().getName().length(); j++) {
                 System.out.print("　");
             }
-            System.out.println(move.getCurrentPowerPoint().value() + "/" + move.baseMPrm().getPowerPoint() + " " + move.baseMPrm().getMoveType().value());
+            System.out.println(move.getCurrentPowerPoint().value() + "/" + move.baseMPrm().getPowerPoint() + " " + move.baseMPrm().getMoveType().getValue());
             i++;
         }
         System.out.println();
@@ -133,7 +132,7 @@ public class BattleLogic {
         double contactRateByStatusRank = isCritical? Math.max(attackPoke.getStatusRank().contactRateByStatusRank(), 1.0) : attackPoke.getStatusRank().contactRateByStatusRank();
         double defenseRateByStatusRank = isCritical? Math.min(defencePoke.getStatusRank().defenseRateByStatusRank(), 1.0) : defencePoke.getStatusRank().defenseRateByStatusRank();
         // タイプ一致判定
-        boolean isTypeMatch = (Objects.equals(move.baseMPrm().getMoveType().value(), attackPoke.getBasePrm().getType1().value())) || (Objects.equals(move.baseMPrm().getMoveType().value(), attackPoke.getBasePrm().getType2().value()));
+        boolean isTypeMatch = (Objects.equals(move.baseMPrm().getMoveType(), attackPoke.getBasePrm().getType1())) || (Objects.equals(move.baseMPrm().getMoveType(), attackPoke.getBasePrm().getType2()));
         double typeMatchRate = isTypeMatch ? 1.5 : 1;
         // タイプ相性判定
         double effectiveRate = Type.damageRateByType(defencePoke.getBasePrm().getType1(), defencePoke.getBasePrm().getType2(), move);

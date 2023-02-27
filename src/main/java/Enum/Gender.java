@@ -1,7 +1,12 @@
 package Enum;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.Random;
 
+@Getter
+@AllArgsConstructor
 public enum Gender {
     MALE("♂"),
     FEMALE("♀"),
@@ -10,19 +15,7 @@ public enum Gender {
     public final String value;
 
     public static Gender decide() {
-        Random rand = new Random();
-        if(rand.nextInt(10) % 2 == 0) {
-            return MALE;
-        } else {
-            return FEMALE;
-        }
-    }
-
-    Gender(String value) {
-        this.value = value;
-    }
-
-    public String value() {
-        return this.value;
+        int index = new Random().nextInt(Gender.values().length);
+        return Gender.values()[index];
     }
 }

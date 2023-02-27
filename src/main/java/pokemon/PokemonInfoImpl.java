@@ -28,25 +28,25 @@ public class PokemonInfoImpl implements PokemonInfo {
         return ((this.basePrm.getHitPoint() * 2 + this.individualValue.hitPoint() + (this.effortValue.hitPoint() / 4)) * this.level.value() / 100) + 10 + this.level.value();
     }
     public int getRealValAttack() {
-        return (int)((((this.basePrm.getAttack() * 2 + this.individualValue.attack() + (this.effortValue.attack() / 4)) * this.level.value() / 100) + 5) * this.nature.attackRateByNature());
+        return (int)((((this.basePrm.getAttack() * 2 + this.individualValue.attack() + (this.effortValue.attack() / 4)) * this.level.value() / 100) + 5) * this.nature.getAttackRate());
     }
     public int getRealValBlock() {
-        return (int)((((this.basePrm.getBlock() * 2 + this.individualValue.block() + (this.effortValue.block() / 4)) * this.level.value() / 100) + 5) * this.nature.blockRateByNature());
+        return (int)((((this.basePrm.getBlock() * 2 + this.individualValue.block() + (this.effortValue.block() / 4)) * this.level.value() / 100) + 5) * this.nature.getBlockRate());
     }
     public int getRealValContact() {
-        return (int)((((this.basePrm.getContact() * 2 + this.individualValue.contact() + (this.effortValue.contact() / 4)) * this.level.value() / 100) + 5) * this.nature.contactRateByNature());
+        return (int)((((this.basePrm.getContact() * 2 + this.individualValue.contact() + (this.effortValue.contact() / 4)) * this.level.value() / 100) + 5) * this.nature.getContactRate());
     }
     public int getRealValDefense() {
-        return (int)((((this.basePrm.getDefense() * 2 + this.individualValue.defense() + (this.effortValue.defense() / 4)) * this.level.value() / 100) + 5) * this.nature.defenceRateByNature());
+        return (int)((((this.basePrm.getDefense() * 2 + this.individualValue.defense() + (this.effortValue.defense() / 4)) * this.level.value() / 100) + 5) * this.nature.getDefenceRate());
     }
     public int getRealValSpeed() {
-        return (int)((((this.basePrm.getSpeed() * 2 + this.individualValue.speed() + (this.effortValue.speed() / 4)) * this.level.value() / 100) + 5) * this.nature.speedRateByNature());
+        return (int)((((this.basePrm.getSpeed() * 2 + this.individualValue.speed() + (this.effortValue.speed() / 4)) * this.level.value() / 100) + 5) * this.nature.getSpeedRate());
     }
 
     public PokemonInfoImpl(BasePrm basePokemonInfo) {
         this.basePrm = basePokemonInfo;
         this.gender = Gender.decide();
-        this.nature = new NatureImpl();
+        this.nature = Nature.decide();
         this.individualValue = new IndividualValueImpl();
         this.effortValue = new EffortValueImpl();
         this.level = new LevelImpl(5);
@@ -69,7 +69,7 @@ public class PokemonInfoImpl implements PokemonInfo {
     ) {
         this.basePrm = basePokemonInfo;
         this.gender = gender;
-        this.nature = new NatureImpl(nature);
+        this.nature = nature;
         this.individualValue = new IndividualValueImpl(individualValue.hitPoint(), individualValue.attack(), individualValue.block(), individualValue.contact(), individualValue.defense(), individualValue.speed());
         this.effortValue = new EffortValueImpl(effortValue.hitPoint(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());
         this.level = new LevelImpl(level.value());
@@ -95,7 +95,7 @@ public class PokemonInfoImpl implements PokemonInfo {
     ) {
         this.basePrm = basePokemonInfo;
         this.gender = gender;
-        this.nature = new NatureImpl(nature);
+        this.nature = nature;
         this.individualValue = new IndividualValueImpl(individualValue.hitPoint(), individualValue.attack(), individualValue.block(), individualValue.contact(), individualValue.defense(), individualValue.speed());
         this.effortValue = new EffortValueImpl(effortValue.hitPoint(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());
         this.level = new LevelImpl(level.value());
@@ -106,7 +106,6 @@ public class PokemonInfoImpl implements PokemonInfo {
         this.statusAilment = statusAilment;
     }
 
-    // TODO テスト用コード
     @Override
     public PokemonInfo withCurrentHitPoint(CurrentHitPoint currentHitPoint) {
         return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience,this.haveMove, currentHitPoint, this.statusRank, this.statusAilment);
