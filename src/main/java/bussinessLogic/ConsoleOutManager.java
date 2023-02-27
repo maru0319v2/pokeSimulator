@@ -90,27 +90,6 @@ public class ConsoleOutManager {
         System.out.print("]");
     }
 
-    // バトル中のステータス表示を行う
-    public static void showPokemonInfoWitouthClear(PokemonInfo myPokemon, PokemonInfo enemyPokemon) {
-        System.out.println(enemyPokemon.getBasePrm().getName() + " " + enemyPokemon.getGender().getValue() + "    Lv." + enemyPokemon.getLevel().value());
-        System.out.print("HP");
-        showProgressBar(enemyPokemon);
-        System.out.println("           ■");
-        System.out.print("   " + enemyPokemon.getCurrentHitPoint().value() + " / " + enemyPokemon.getRealValHitPoint());
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        // ↑相手側　↓こっち側
-        System.out.print("                        ");
-        System.out.println(myPokemon.getBasePrm().getName() + " " + myPokemon.getGender().getValue() + "    Lv." + myPokemon.getLevel().value());
-        System.out.print("            ■           HP");
-        showProgressBar(myPokemon);
-        System.out.println("");
-        System.out.println("                           " + myPokemon.getCurrentHitPoint().value() + " / " + myPokemon.getRealValHitPoint());
-        System.out.println("");
-        System.out.println("-------------------------------------------------");
-    }
-
     public static void showPokemonInfo(PokemonInfo myPokemon, PokemonInfo enemyPokemon) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
