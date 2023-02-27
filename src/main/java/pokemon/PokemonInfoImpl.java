@@ -45,7 +45,7 @@ public class PokemonInfoImpl implements PokemonInfo {
 
     public PokemonInfoImpl(BasePrm basePokemonInfo) {
         this.basePrm = basePokemonInfo;
-        this.gender = new GenderImpl();
+        this.gender = Gender.decide();
         this.nature = new NatureImpl();
         this.individualValue = new IndividualValueImpl();
         this.effortValue = new EffortValueImpl();
@@ -68,7 +68,7 @@ public class PokemonInfoImpl implements PokemonInfo {
             List<Move> haveMove
     ) {
         this.basePrm = basePokemonInfo;
-        this.gender = new GenderImpl(gender);
+        this.gender = gender;
         this.nature = new NatureImpl(nature);
         this.individualValue = new IndividualValueImpl(individualValue.hitPoint(), individualValue.attack(), individualValue.block(), individualValue.contact(), individualValue.defense(), individualValue.speed());
         this.effortValue = new EffortValueImpl(effortValue.hitPoint(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());
@@ -94,7 +94,7 @@ public class PokemonInfoImpl implements PokemonInfo {
             StatusAilment statusAilment
     ) {
         this.basePrm = basePokemonInfo;
-        this.gender = new GenderImpl(gender);
+        this.gender = gender;
         this.nature = new NatureImpl(nature);
         this.individualValue = new IndividualValueImpl(individualValue.hitPoint(), individualValue.attack(), individualValue.block(), individualValue.contact(), individualValue.defense(), individualValue.speed());
         this.effortValue = new EffortValueImpl(effortValue.hitPoint(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());

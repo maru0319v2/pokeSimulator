@@ -69,7 +69,7 @@ public class Main {
                 case "f" -> myPokemon = new BattleSimulation().battleSimulation(
                         new PokemonInfoImpl(
                                 BasePrm.CHARIZARD,
-                                new GenderImpl(),
+                                Gender.MALE,
                                 new NatureImpl("ひかえめ"),
                                 new IndividualValueImpl(10, 10, 10, 10, 10 , 10),
                                 new EffortValueImpl(6, 0, 0, 252, 0, 252),
@@ -78,7 +78,7 @@ public class Main {
                         ),
                         new PokemonInfoImpl(
                                 BasePrm.VENUSAUR,
-                                new GenderImpl(),
+                                Gender.MALE,
                                 new NatureImpl("がんばりや"),
                                 new IndividualValueImpl(10, 10, 10, 10, 10 , 10),
                                 new EffortValueImpl(252, 0, 0, 252, 0 , 6),
