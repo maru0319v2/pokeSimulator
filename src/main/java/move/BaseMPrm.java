@@ -17,6 +17,18 @@ public enum BaseMPrm {
             return new InBattlePokemons(attackPoke, defensePoke);
         }
     },
+    FLAMETHROWER("かえんほうしゃ", Type.FIRE, MoveSpecies.SPECIAL, 95, 100, 15) {
+        @Override
+        public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke) {
+            return new InBattlePokemons(attackPoke, defensePoke);
+        }
+    },
+    DRAGON_CLAW("ドラゴンクロー", Type.DRAGON, MoveSpecies.PHYSICAL, 80, 100, 15) {
+        @Override
+        public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke) {
+            return new InBattlePokemons(attackPoke, defensePoke);
+        }
+    },
     VINE_WHIP("つるのムチ", Type.GRASS, MoveSpecies.PHYSICAL, 45, 100, 25) {
         @Override
         public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke) {

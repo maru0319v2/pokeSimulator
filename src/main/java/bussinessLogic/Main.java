@@ -1,7 +1,13 @@
 package bussinessLogic;
 
+import move.BaseMPrm;
+import move.MoveImpl;
 import pokemon.PokemonInfo;
 import pokemon.*;
+import pokemonStatus.impl.*;
+import Enum.*;
+
+import java.util.List;
 import java.util.Scanner;
 
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
@@ -17,6 +23,7 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 // もちもの
 // PPが0のときはわるあがきする
 // 技の優先度
+// 性格クラスはenumにするべき
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
@@ -48,6 +55,7 @@ public class Main {
             System.out.println("　　　       e:経験値を与える");
             System.out.print("r:体力回復");
             System.out.print("          b:野生ポケモンと戦闘");
+            System.out.print(" 　f:バトルファクトリーbeta");
             System.out.println(" 　q:終了");
             System.out.print("コマンドを入力してください > ");
             inputCommand = scanner.nextLine();
@@ -58,6 +66,25 @@ public class Main {
                 case "e" -> myPokemon = BattleLogic.addExp(myPokemon, 200);
                 case "r" -> myPokemon = BattleLogic.recoveryAll(myPokemon);
                 case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, new PokemonInfoImpl(BasePrm.CHARMANDER));
+                case "f" -> myPokemon = new BattleSimulation().battleSimulation(
+                        new PokemonInfoImpl(
+                                BasePrm.CHARIZARD,
+                                new GenderImpl(),
+                                new NatureImpl("ひかえめ"),
+                                new IndividualValueImpl(10, 10, 10, 10, 10 , 10),
+                                new EffortValueImpl(6, 0, 0, 252, 0, 252),
+                                new LevelImpl(50),
+                                List.of(new MoveImpl(BaseMPrm.TACKLE), new MoveImpl(BaseMPrm.GROWL), new MoveImpl(BaseMPrm.FLAMETHROWER), new MoveImpl(BaseMPrm.DRAGON_CLAW))
+                        ),
+                        new PokemonInfoImpl(
+                                BasePrm.VENUSAUR,
+                                new GenderImpl(),
+                                new NatureImpl("がんばりや"),
+                                new IndividualValueImpl(10, 10, 10, 10, 10 , 10),
+                                new EffortValueImpl(252, 0, 0, 252, 0 , 6),
+                                new LevelImpl(50),
+                                BasePrm.VENUSAUR.getInitialMove()
+                        ));
             }
         }
         scanner.close();

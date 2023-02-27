@@ -57,6 +57,29 @@ public class PokemonInfoImpl implements PokemonInfo {
         this.statusAilment = StatusAilment.NONE;
     }
 
+    // 指定パラメータポケモンインスタンスを作成する。
+    public PokemonInfoImpl(
+            BasePrm basePokemonInfo,
+            Gender gender,
+            Nature nature,
+            IndividualValue individualValue,
+            EffortValue effortValue,
+            Level level,
+            List<Move> haveMove
+    ) {
+        this.basePrm = basePokemonInfo;
+        this.gender = new GenderImpl(gender);
+        this.nature = new NatureImpl(nature);
+        this.individualValue = new IndividualValueImpl(individualValue.hitPoint(), individualValue.attack(), individualValue.block(), individualValue.contact(), individualValue.defense(), individualValue.speed());
+        this.effortValue = new EffortValueImpl(effortValue.hitPoint(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());
+        this.level = new LevelImpl(level.value());
+        this.haveMove = haveMove;
+        this.experience = new ExperienceImpl(0);
+        this.currentHitPoint = new CurrentHitPointImpl(getRealValHitPoint());
+        this.statusRank = new StatusRankImpl();
+        this.statusAilment = StatusAilment.NONE;
+    }
+
     private PokemonInfoImpl(
             BasePrm basePokemonInfo,
             Gender gender,

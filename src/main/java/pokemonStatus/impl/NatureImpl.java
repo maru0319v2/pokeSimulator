@@ -19,6 +19,10 @@ public class NatureImpl implements Nature {
         this.value = nature.value();
     }
 
+    public NatureImpl(String natureValue) {
+        this.value = natureValue;
+    }
+
     public String value() {
         return this.value;
     }
