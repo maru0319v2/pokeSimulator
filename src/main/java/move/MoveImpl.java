@@ -4,6 +4,8 @@ import lombok.Getter;
 import pokemonStatus.CurrentPowerPoint;
 import pokemonStatus.impl.CurrentPowerPointImpl;
 
+import java.util.Random;
+
 @Getter
 public class MoveImpl implements Move {
     BaseMPrm baseMPrm;
@@ -37,5 +39,10 @@ public class MoveImpl implements Move {
     @Override
     public boolean canUse() {
         return this.getCurrentPowerPoint().value() > 0;
+    }
+
+    @Override
+    public boolean isHit() {
+        return (new Random().nextInt(100) + 1) <= this.baseMPrm().getHitRate();
     }
 }

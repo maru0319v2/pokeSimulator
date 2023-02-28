@@ -10,4 +10,5 @@ public interface Move {
     CurrentPowerPoint getCurrentPowerPoint();
     Move withCurrentPowerPoint(Move move, CurrentPowerPoint decrementedPowerPoint);
     boolean canUse();
+    boolean isHit();
 }

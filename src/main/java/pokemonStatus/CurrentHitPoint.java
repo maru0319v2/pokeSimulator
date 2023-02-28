@@ -13,4 +13,6 @@ public interface CurrentHitPoint {
 
     // 体力を減らす。
     public CurrentHitPoint damage(CurrentHitPointImpl currentHitPointImpl);
+    boolean isAlive();
+    boolean isDead();
 }

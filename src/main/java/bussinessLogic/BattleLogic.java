@@ -1,8 +1,5 @@
 package bussinessLogic;
 
-import pokemonStatus.impl.CurrentHitPointImpl;
-import pokemonStatus.CurrentPowerPoint;
-import pokemonStatus.impl.CurrentPowerPointImpl;
 import Enum.*;
 import move.Move;
 import pokemon.PokemonInfo;
@@ -19,8 +16,8 @@ public class BattleLogic {
         int calculatedEnemySpeed = (int)(enemyPokemon.getRealValSpeed() * enemyPokemon.getStatusRank().speedRateByStatusRank());
 
         if(calculatedMySpeed == calculatedEnemySpeed) {
-            // 同速の場合は1~10をランダムで生成して偶数なら先行
-            return (new Random().nextInt(10) + 1) % 2 == 0;
+            // 同速の場合は0~1をランダムで生成して0なら先行
+            return (new Random().nextInt(2)) == 0;
         }
         return calculatedMySpeed > calculatedEnemySpeed;
     }
@@ -87,30 +84,26 @@ public class BattleLogic {
     // ターンごとの行動 命中判定、ダメージ計算、ダメージ付与を一括で行う
     public static InBattlePokemons doAction(PokemonInfo attackPoke, PokemonInfo defencePoke, Move move) throws InterruptedException {
         // PPを1減らす
-        attackPoke = decrementPowerPoint(attackPoke, move);
+        attackPoke = attackPoke.decrementPowerPoint(move);
 
         // TODO 型で処理を分けてif文なくせそう
         if (move.baseMPrm().getMoveSpecies() == MoveSpecies.PHYSICAL || move.baseMPrm().getMoveSpecies() == MoveSpecies.SPECIAL) {
-            if (isHit(move)) {
+            if (move.isHit()) {
                 int damage = calcDamage(attackPoke, defencePoke, move);
-                defencePoke = damagePoke(defencePoke, damage);
+                defencePoke = defencePoke.damagePoke(damage);
             } else {
                 showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "!");
                 showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "は外れた");
             }
             return new InBattlePokemons(attackPoke, defencePoke);
         } else {
-            if (isHit(move)) {
+            if (move.isHit()) {
                 showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "!");
                 return move.baseMPrm().effect(attackPoke, defencePoke);
             } else {
                 return new InBattlePokemons(attackPoke, defencePoke);
             }
         }
-    }
-
-    private static boolean isHit(Move move) {
-        return (new Random().nextInt(100) + 1) <= move.baseMPrm().getHitRate();
     }
 
     private static int calcDamage(PokemonInfo attackPoke, PokemonInfo defencePoke, Move move) throws InterruptedException {
@@ -156,71 +149,6 @@ public class BattleLogic {
         if(effectiveRate >= 2.0) { showMessageParChar("効果は抜群だ!"); }
         if(effectiveRate <= 0.5) { showMessageParChar("効果はいまひとつのようだ"); }
         if(effectiveRate == 0.0) { showMessageParChar("効果はないようだ"); }
-        return result;
-    }
-
-    private static PokemonInfo damagePoke(PokemonInfo target, int value) throws InterruptedException {
-        PokemonInfo result = target.withCurrentHitPoint(
-                target.getCurrentHitPoint().damage(new CurrentHitPointImpl(value))
-        );
-        showMessageParChar(result.getBasePrm().getName() + "は" + value + "のダメージ!");
-        return result;
-    }
-
-    public static PokemonInfo recoveryAll(PokemonInfo target) {
-        target = recoveryHitPoint(target, 999);
-
-        for(Move move : target.getHaveMove()) {
-            target = recoveryPowerPoint(target, move, 99);
-        }
-        return target;
-    }
-
-    public static PokemonInfo recoveryHitPoint(PokemonInfo target, int value) {
-
-        PokemonInfo result = target.withCurrentHitPoint(
-                target.getCurrentHitPoint().recovery(target, new CurrentHitPointImpl(value))
-        );
-        System.out.println(result.getBasePrm().getName() + "は体力を" + value + "回復!  HP" + result.getCurrentHitPoint().value() + "/" + result.getRealValHitPoint());
-        System.out.println();
-        return result;
-    }
-
-    public static PokemonInfo recoveryPowerPoint(PokemonInfo target, Move move, int value) {
-
-        Move targetMoves = null;
-        List<Move> haveMoves = target.getHaveMove();
-        for(Move haveMove : haveMoves) {
-            if(move.getClass() == haveMove.getClass()) {
-                targetMoves = haveMove;
-            }
-        }
-
-        CurrentPowerPoint recoveredPP = targetMoves.getCurrentPowerPoint().recovery(targetMoves, new CurrentPowerPointImpl(value));
-        Move recoveredPPMove = targetMoves.withCurrentPowerPoint(targetMoves, recoveredPP);
-        PokemonInfo result = target.withMove(recoveredPPMove);
-
-        return result;
-    }
-
-    private static PokemonInfo decrementPowerPoint(PokemonInfo attackPoke, Move usedMove) {
-        CurrentPowerPoint decrementedPowerPoint = usedMove.getCurrentPowerPoint().decrement(new CurrentPowerPointImpl(1));
-        Move decrementedPPMove = usedMove.withCurrentPowerPoint(usedMove, decrementedPowerPoint);
-        PokemonInfo pokemonInfo = attackPoke.withMove(decrementedPPMove);
-        return pokemonInfo;
-    }
-
-    public static int calcExp(PokemonInfo enemyPoke) {
-        return enemyPoke.getLevel().value() * enemyPoke.getBasePrm().getBasicExperience() / 7;
-    }
-
-    public static PokemonInfo addExp(PokemonInfo target, int exp) throws InterruptedException {
-        PokemonInfo result = target.withExperience(exp);
-        showMessageParChar(result.getBasePrm().getName() + "は" + exp + "の経験値を獲得!");
-        while(result.getExperience().isLevelUp(result)) {
-            result = result.withLevel(1);
-            showMessageParChar(result.getBasePrm().getName() + "はLv." + result.getLevel().value() + "にレベルアップした!");
-        }
         return result;
     }
 }

@@ -16,6 +16,7 @@ public class CurrentHitPointImpl implements CurrentHitPoint {
         return this.value;
     }
 
+    @Override
     public CurrentHitPointImpl recovery(PokemonInfo target, CurrentHitPointImpl currentHitPointImpl) {
         if (currentHitPointImpl.value <= MIN) {
             throw new IllegalArgumentException("回復量は1以上を指定してください。");
@@ -25,6 +26,7 @@ public class CurrentHitPointImpl implements CurrentHitPoint {
         return new CurrentHitPointImpl(result);
     }
 
+    @Override
     public CurrentHitPointImpl damage(CurrentHitPointImpl currentHitPointImpl) {
         if (currentHitPointImpl.value <= MIN) {
             throw new IllegalArgumentException("ダメージは1以上を指定してください。");
@@ -35,5 +37,15 @@ public class CurrentHitPointImpl implements CurrentHitPoint {
             return new CurrentHitPointImpl(0);
         }
         return new CurrentHitPointImpl(damaged);
+    }
+
+    @Override
+    public boolean isAlive() {
+        return this.value > 0;
+    }
+
+    @Override
+    public boolean isDead() {
+        return this.value == 0;
     }
 }

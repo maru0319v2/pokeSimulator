@@ -42,8 +42,20 @@ public interface PokemonInfo {
     StatusRank getStatusRank();
     // 状態異常1
     StatusAilment getStatusAilment();
-
-    // TODO テスト用コード
+    // 与える経験値
+    int giveExp();
+    // 経験値を得る
+    PokemonInfo addExp(int exp) throws InterruptedException;
+    // 体力を回復
+    PokemonInfo recoveryHitPoint(int value);
+    // ダメージを受ける
+    PokemonInfo damagePoke(int value) throws InterruptedException;
+    // 指定PPを回復
+    PokemonInfo recoveryPowerPoint(Move move, int value);
+    // 体力、PP全回復
+    PokemonInfo recoveryAll();
+    // PPを使う
+    PokemonInfo decrementPowerPoint(Move usedMove);
     PokemonInfo withCurrentHitPoint(CurrentHitPoint currentHitPoint);
     PokemonInfo withExperience(int addingExperience);
     PokemonInfo withLevel(int addLevel);

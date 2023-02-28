@@ -23,6 +23,7 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 // もちもの
 // PPが0のときはわるあがきする
 // 技の優先度
+// 技に関するすべてのパラメータを実装する
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
@@ -62,8 +63,8 @@ public class Main {
             switch (inputCommand) {
                 case "i" -> ConsoleOutManager.showAllParameters(myPokemon);
                 case "m" -> ConsoleOutManager.showMoveDetail(myPokemon.getHaveMove());
-                case "e" -> myPokemon = BattleLogic.addExp(myPokemon, 200);
-                case "r" -> myPokemon = BattleLogic.recoveryAll(myPokemon);
+                case "e" -> myPokemon = myPokemon.addExp(200);
+                case "r" -> myPokemon = myPokemon.recoveryAll();
                 case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, new PokemonInfoImpl(BasePrm.CHARMANDER));
                 case "f" -> myPokemon = new BattleSimulation().battleSimulation(
                         new PokemonInfoImpl(

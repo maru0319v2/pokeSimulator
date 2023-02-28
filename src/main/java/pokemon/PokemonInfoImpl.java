@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static bussinessLogic.ConsoleOutManager.showMessageParChar;
+
 @Getter
 public class PokemonInfoImpl implements PokemonInfo {
     private final BasePrm basePrm;
@@ -41,6 +43,74 @@ public class PokemonInfoImpl implements PokemonInfo {
     }
     public int getRealValSpeed() {
         return (int)((((this.basePrm.getSpeed() * 2 + this.individualValue.speed() + (this.effortValue.speed() / 4)) * this.level.value() / 100) + 5) * this.nature.getSpeedRate());
+    }
+
+    @Override
+    public int giveExp() {
+        return this.getLevel().value() * this.getBasePrm().getBasicExperience() / 7;
+    }
+
+    @Override
+    public PokemonInfo addExp(int exp) throws InterruptedException {
+        PokemonInfo result = this.withExperience(exp);
+        showMessageParChar(result.getBasePrm().getName() + "は" + exp + "の経験値を獲得!");
+        while(result.getExperience().isLevelUp(result)) {
+            result = result.withLevel(1);
+            showMessageParChar(result.getBasePrm().getName() + "はLv." + result.getLevel().value() + "にレベルアップした!");
+        }
+        return result;
+    }
+
+    @Override
+    public PokemonInfo recoveryHitPoint(int value) {
+        PokemonInfo result = this.withCurrentHitPoint(
+                this.getCurrentHitPoint().recovery(this, new CurrentHitPointImpl(value)));
+        System.out.println(result.getBasePrm().getName() + "は体力を" + value + "回復!  HP" + result.getCurrentHitPoint().value() + "/" + result.getRealValHitPoint());
+        System.out.println();
+        return result;
+    }
+
+    @Override
+    public PokemonInfo damagePoke(int value) throws InterruptedException {
+        PokemonInfo result = this.withCurrentHitPoint(
+                this.getCurrentHitPoint().damage(new CurrentHitPointImpl(value))
+        );
+        showMessageParChar(result.getBasePrm().getName() + "は" + value + "のダメージ!");
+        return result;
+    }
+
+    @Override
+    public PokemonInfo recoveryPowerPoint(Move move, int value) {
+        Move targetMoves = null;
+        List<Move> haveMoves = this.getHaveMove();
+        for(Move haveMove : haveMoves) {
+            if(move.getClass() == haveMove.getClass()) {
+                targetMoves = haveMove;
+            }
+        }
+        CurrentPowerPoint recoveredPP = targetMoves.getCurrentPowerPoint().recovery(targetMoves, new CurrentPowerPointImpl(value));
+        Move recoveredPPMove = targetMoves.withCurrentPowerPoint(targetMoves, recoveredPP);
+        PokemonInfo result = this.withMove(recoveredPPMove);
+
+        return result;
+    }
+
+    @Override
+    public PokemonInfo recoveryAll() {
+        PokemonInfo result = this.recoveryHitPoint(999);
+
+        for(Move move : result.getHaveMove()) {
+            result = result.recoveryPowerPoint(move, 99);
+        }
+        return result;
+    }
+
+    @Override
+    public PokemonInfo decrementPowerPoint(Move usedMove) {
+        CurrentPowerPoint decrementedPowerPoint = usedMove.getCurrentPowerPoint().decrement(new CurrentPowerPointImpl(1));
+        Move decrementedPPMove = usedMove.withCurrentPowerPoint(usedMove, decrementedPowerPoint);
+        PokemonInfo pokemonInfo = this.withMove(decrementedPPMove);
+        return pokemonInfo;
     }
 
     public PokemonInfoImpl(BasePrm basePokemonInfo) {

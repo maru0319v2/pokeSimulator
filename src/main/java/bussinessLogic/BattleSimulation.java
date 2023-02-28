@@ -16,7 +16,7 @@ public class BattleSimulation {
 
         InBattlePokemons pokemons;
 
-        while (myPokemon.getCurrentHitPoint().value() > 0 && enemyPokemon.getCurrentHitPoint().value() > 0) {
+        while (myPokemon.getCurrentHitPoint().isAlive() && enemyPokemon.getCurrentHitPoint().isAlive()) {
             Thread.sleep(100);
             showPokemonInfo(myPokemon, enemyPokemon);
             Move selectedMove = BattleLogic.selectMove(myPokemon.getHaveMove(), myPokemon);
@@ -29,7 +29,7 @@ public class BattleSimulation {
                 myPokemon = pokemons.attackPoke;
                 enemyPokemon = pokemons.defencePoke;
 
-                if(enemyPokemon.getCurrentHitPoint().value() == 0) { break; }
+                if(enemyPokemon.getCurrentHitPoint().isDead()) { break; }
                 Thread.sleep(100);
                 showPokemonInfo(myPokemon, enemyPokemon);
 
@@ -42,7 +42,7 @@ public class BattleSimulation {
                 myPokemon = pokemons.defencePoke;
                 enemyPokemon = pokemons.attackPoke;
 
-                if(myPokemon.getCurrentHitPoint().value() == 0) { break; }
+                if(myPokemon.getCurrentHitPoint().isDead()) { break; }
                 Thread.sleep(100);
                 showPokemonInfo(myPokemon, enemyPokemon);
 
@@ -53,10 +53,10 @@ public class BattleSimulation {
         }
 
         showPokemonInfo(myPokemon, enemyPokemon);
-        if(myPokemon.getCurrentHitPoint().value() > 0) {
+        if(myPokemon.getCurrentHitPoint().isAlive()) {
             System.out.println("野生の" + enemyPokemon.getBasePrm().getName() + "は倒れた!");
-            int addExp = BattleLogic.calcExp(enemyPokemon);
-            myPokemon = BattleLogic.addExp(myPokemon, addExp);
+            int addExp = enemyPokemon.giveExp();
+            myPokemon = myPokemon.addExp(addExp);
         } else {
             System.out.println(myPokemon.getBasePrm().getName() + "は倒れた");
         }
