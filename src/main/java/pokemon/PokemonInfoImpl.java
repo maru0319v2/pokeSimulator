@@ -63,19 +63,17 @@ public class PokemonInfoImpl implements PokemonInfo {
 
     @Override
     public PokemonInfo recoveryHitPoint(int value) {
-        PokemonInfo result = this.withCurrentHitPoint(
-                this.getCurrentHitPoint().recovery(this, new CurrentHitPointImpl(value)));
+        PokemonInfo result = this.withCurrentHitPoint(this.getCurrentHitPoint().recovery(this, new CurrentHitPointImpl(value)));
         System.out.println(result.getBasePrm().getName() + "は体力を" + value + "回復!  HP" + result.getCurrentHitPoint().value() + "/" + result.getRealValHitPoint());
         System.out.println();
-        return result;
+        return result.withStatusAilment(StatusAilment.NONE);
     }
 
     @Override
     public PokemonInfo damagePoke(int value) throws InterruptedException {
-        PokemonInfo result = this.withCurrentHitPoint(
-                this.getCurrentHitPoint().damage(new CurrentHitPointImpl(value))
-        );
+        PokemonInfo result = this.withCurrentHitPoint(this.getCurrentHitPoint().damage(new CurrentHitPointImpl(value)));
         showMessageParChar(result.getBasePrm().getName() + "は" + value + "のダメージ!");
+        if (result.getCurrentHitPoint().isDead()) { return result.withStatusAilment(StatusAilment.FAINTING); }
         return result;
     }
 

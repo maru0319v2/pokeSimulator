@@ -14,7 +14,7 @@ import pokemonStatus.impl.LevelImpl;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BattleLogicTest {
     @Test
@@ -39,10 +39,8 @@ public class BattleLogicTest {
                 List.of(new MoveImpl(BaseMPrm.TACKLE))
         );
 
-        boolean result1 = BattleLogic.isPreemptiveMe(myPoke, enemyPoke, new MoveImpl(BaseMPrm.QUICK_ATTACK), new MoveImpl(BaseMPrm.TACKLE));
-        assertEquals(result1, true);
-        boolean result2 = BattleLogic.isPreemptiveMe(myPoke, enemyPoke, new MoveImpl(BaseMPrm.TACKLE), new MoveImpl(BaseMPrm.QUICK_ATTACK));
-        assertEquals(result2, false);
+        assertTrue(BattleLogic.isPreemptiveMe(myPoke, enemyPoke, new MoveImpl(BaseMPrm.QUICK_ATTACK), new MoveImpl(BaseMPrm.TACKLE)));
+        assertFalse(BattleLogic.isPreemptiveMe(myPoke, enemyPoke, new MoveImpl(BaseMPrm.TACKLE), new MoveImpl(BaseMPrm.QUICK_ATTACK)));
     }
 
 
