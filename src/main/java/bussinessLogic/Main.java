@@ -17,13 +17,10 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 // 覚える技リスト
 // 経験値を得るタイミングを努力値を得る
 // レベルアップ時ステータス上昇幅表示
-// 相手のステータスランク表示
 // 6匹まで自分のポケモンをもてるようにする
 // 覚えられる技は4つまで
 // もちもの
 // PPが0のときはわるあがきする
-// 技の優先度
-// 技に関するすべてのパラメータを実装する
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
