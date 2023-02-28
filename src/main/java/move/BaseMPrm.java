@@ -11,7 +11,7 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 @Getter
 @AllArgsConstructor
 public enum BaseMPrm {
-    TACKLE("たいあたり", Type.NORMAL, MoveSpecies.PHYSICAL, 40, 95, 35, 0,
+    TACKLE("たいあたり", Type.NORMAL, MoveSpecies.PHYSICAL, 40, 95, 35, 0, 0,
             true, false, true, false, false, false
     ) {
         @Override
@@ -19,7 +19,15 @@ public enum BaseMPrm {
             return new InBattlePokemons(attackPoke, defensePoke);
         }
     },
-    FLAMETHROWER("かえんほうしゃ", Type.FIRE, MoveSpecies.SPECIAL, 90, 100, 15, 0,
+    QUICK_ATTACK("でんこうせっか", Type.NORMAL, MoveSpecies.PHYSICAL, 40, 100, 30, 0, 1,
+            true, false, true, false, false, false
+    ) {
+        @Override
+        public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke) {
+            return new InBattlePokemons(attackPoke, defensePoke);
+        }
+    },
+    FLAMETHROWER("かえんほうしゃ", Type.FIRE, MoveSpecies.SPECIAL, 90, 100, 15, 0, 0,
             false, false, true, false, false, false
     ) {
         @Override
@@ -27,7 +35,7 @@ public enum BaseMPrm {
             return new InBattlePokemons(attackPoke, defensePoke);
         }
     },
-    DRAGON_CLAW("ドラゴンクロー", Type.DRAGON, MoveSpecies.PHYSICAL, 80, 100, 15, 0,
+    DRAGON_CLAW("ドラゴンクロー", Type.DRAGON, MoveSpecies.PHYSICAL, 80, 100, 15, 0, 0,
             true, false, true, false, false, false
     ) {
         @Override
@@ -35,7 +43,7 @@ public enum BaseMPrm {
             return new InBattlePokemons(attackPoke, defensePoke);
         }
     },
-    VINE_WHIP("つるのムチ", Type.GRASS, MoveSpecies.PHYSICAL, 45, 100, 25, 0,
+    VINE_WHIP("つるのムチ", Type.GRASS, MoveSpecies.PHYSICAL, 45, 100, 25, 0, 0,
             true, false, true, false, false, false
     ) {
         @Override
@@ -43,7 +51,7 @@ public enum BaseMPrm {
             return new InBattlePokemons(attackPoke, defensePoke);
         }
     },
-    GROWL("なきごえ", Type.NORMAL, MoveSpecies.CHANGE, 0, 100, 20, 0,
+    GROWL("なきごえ", Type.NORMAL, MoveSpecies.CHANGE, 0, 100, 20, 0, 0,
             false, true, true, false, true, true
     ) {
         @Override
@@ -52,7 +60,7 @@ public enum BaseMPrm {
             return new InBattlePokemons(attackPoke, defensePoke.withAddedStatusRank(-1,0, 0, 0, 0));
         }
     },
-    GROWTH("せいちょう", Type.NORMAL, MoveSpecies.CHANGE, 0, 100, 20, 0,
+    GROWTH("せいちょう", Type.NORMAL, MoveSpecies.CHANGE, 0, 100, 20, 0, 0,
             false, false, true, false, true, false) {
         @Override
         public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke) throws InterruptedException {
@@ -60,7 +68,7 @@ public enum BaseMPrm {
             return new InBattlePokemons(attackPoke.withAddedStatusRank(0,0, 1, 0, 0), defensePoke);
         }
     },
-    SWORDS_DANCE("つるぎのまい", Type.NORMAL, MoveSpecies.CHANGE, 0, 100, 20, 0,
+    SWORDS_DANCE("つるぎのまい", Type.NORMAL, MoveSpecies.CHANGE, 0, 100, 20, 0, 0,
             false, false, true, false, true, false) {
         @Override
         public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke) throws InterruptedException {
@@ -83,6 +91,8 @@ public enum BaseMPrm {
     private final int powerPoint;
     // 急所ランク
     private final int criticalRank;
+    // 優先度
+    private final int priority;
     // 直接攻撃
     private final boolean direct;
     // マジックコートで返せる

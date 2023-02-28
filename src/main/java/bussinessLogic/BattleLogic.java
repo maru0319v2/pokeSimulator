@@ -11,9 +11,15 @@ import static bussinessLogic.ConsoleOutManager.*;
 public class BattleLogic {
 
     // 先行後攻を決める
-    public static boolean isPreemptiveMe(PokemonInfo myPokemon, PokemonInfo enemyPokemon) {
+    public static boolean isPreemptiveMe(PokemonInfo myPokemon, PokemonInfo enemyPokemon, Move selectedMove, Move enemyMove) {
         int calculatedMySpeed = (int)(myPokemon.getRealValSpeed() * myPokemon.getStatusRank().speedRateByStatusRank());
         int calculatedEnemySpeed = (int)(enemyPokemon.getRealValSpeed() * enemyPokemon.getStatusRank().speedRateByStatusRank());
+        int myPriority = selectedMove.baseMPrm().getPriority();
+        int enemyPriority = enemyMove.baseMPrm().getPriority();
+
+        if(myPriority != enemyPriority) {
+            return myPriority > enemyPriority;
+        }
 
         if(calculatedMySpeed == calculatedEnemySpeed) {
             // 同速の場合は0~1をランダムで生成して0なら先行

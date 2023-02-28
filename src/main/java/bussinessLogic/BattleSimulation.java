@@ -23,7 +23,7 @@ public class BattleSimulation {
             Move enemyMove = BattleLogic.enemySelectMove(enemyPokemon, myPokemon);
             showPokemonInfo(myPokemon, enemyPokemon);
 
-            if(BattleLogic.isPreemptiveMe(myPokemon, enemyPokemon)) {
+            if(BattleLogic.isPreemptiveMe(myPokemon, enemyPokemon, selectedMove, enemyMove)) {
                 // 自分が先行の場合
                 pokemons = doAction(myPokemon, enemyPokemon, selectedMove);
                 myPokemon = pokemons.attackPoke;
