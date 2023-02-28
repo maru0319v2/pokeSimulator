@@ -1,7 +1,4 @@
 
-import bussinessLogic.BattleLogic;
-import move.BaseMPrm;
-import move.MoveImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pokemon.BasePrm;
@@ -19,9 +16,9 @@ public class PokemonInfoImplTest {
     public void testBattleLogic1() throws InterruptedException {
         PokemonInfo myPoke = new PokemonInfoImpl(BasePrm.CHARMANDER);
         myPoke = myPoke.damagePoke(200);
-        assertEquals(myPoke.getStatusAilment(), StatusAilment.FAINTING);
+        assertEquals(myPoke.getStatusAilment().getValue(), Ailment.FAINTING);
 
         myPoke = myPoke.recoveryHitPoint(50);
-        assertEquals(myPoke.getStatusAilment(), StatusAilment.NONE);
+        assertEquals(myPoke.getStatusAilment().getValue(), Ailment.NONE);
     }
 }

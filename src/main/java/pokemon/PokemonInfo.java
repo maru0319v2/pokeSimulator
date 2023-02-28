@@ -3,6 +3,7 @@ package pokemon;
 import Enum.*;
 import pokemonStatus.*;
 import move.Move;
+import statusAilment.StatusAilmentInterface;
 
 import java.util.List;
 
@@ -41,7 +42,7 @@ public interface PokemonInfo {
     // ステータスランク
     StatusRank getStatusRank();
     // 状態異常1
-    StatusAilment getStatusAilment();
+    StatusAilmentInterface getStatusAilment();
     // 与える経験値
     int giveExp();
     // 経験値を得る
@@ -62,5 +63,5 @@ public interface PokemonInfo {
     PokemonInfo withAddedStatusRank(int attack, int block, int contact, int defense, int speed);
     PokemonInfo withResetStatusRank();
     PokemonInfo withMove(Move move);
-    PokemonInfo withStatusAilment(StatusAilment statusAilment);
+    PokemonInfo withStatusAilment(StatusAilmentInterface statusAilment);
 }

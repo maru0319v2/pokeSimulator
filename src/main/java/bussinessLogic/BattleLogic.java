@@ -136,7 +136,7 @@ public class BattleLogic {
         // タイプ相性判定
         double effectiveRate = Type.damageRateByType(defencePoke.getBasePrm().getType1(), defencePoke.getBasePrm().getType2(), move);
         // やけど判定
-        double burnedRate = moveSpecies == MoveSpecies.PHYSICAL? attackPoke.getStatusAilment().dameRateByBurn() : 1.0;
+        double burnedRate = moveSpecies == MoveSpecies.PHYSICAL? attackPoke.getStatusAilment().damageRateByBurn() : 1.0;
 
         int attackVal = 0;
         int defenceVal = 0;

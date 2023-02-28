@@ -5,6 +5,8 @@ import move.*;
 import pokemonStatus.*;
 import pokemonStatus.impl.*;
 import Enum.*;
+import statusAilment.StatusAilmentImpl;
+import statusAilment.StatusAilmentInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,7 @@ public class PokemonInfoImpl implements PokemonInfo {
     private final Experience experience;
     private final CurrentHitPoint currentHitPoint;
     private final StatusRank statusRank;
-    private final StatusAilment statusAilment;
+    private final StatusAilmentInterface statusAilment;
 
     public int getRealValHitPoint() {
         return ((this.basePrm.getHitPoint() * 2 + this.individualValue.hitPoint() + (this.effortValue.hitPoint() / 4)) * this.level.value() / 100) + 10 + this.level.value();
@@ -66,14 +68,14 @@ public class PokemonInfoImpl implements PokemonInfo {
         PokemonInfo result = this.withCurrentHitPoint(this.getCurrentHitPoint().recovery(this, new CurrentHitPointImpl(value)));
         System.out.println(result.getBasePrm().getName() + "は体力を" + value + "回復!  HP" + result.getCurrentHitPoint().value() + "/" + result.getRealValHitPoint());
         System.out.println();
-        return result.withStatusAilment(StatusAilment.NONE);
+        return result.withStatusAilment(new StatusAilmentImpl(Ailment.NONE));
     }
 
     @Override
     public PokemonInfo damagePoke(int value) throws InterruptedException {
         PokemonInfo result = this.withCurrentHitPoint(this.getCurrentHitPoint().damage(new CurrentHitPointImpl(value)));
         showMessageParChar(result.getBasePrm().getName() + "は" + value + "のダメージ!");
-        if (result.getCurrentHitPoint().isDead()) { return result.withStatusAilment(StatusAilment.FAINTING); }
+        if (result.getCurrentHitPoint().isDead()) { return result.withStatusAilment(new StatusAilmentImpl(Ailment.FAINTING)); }
         return result;
     }
 
@@ -122,7 +124,7 @@ public class PokemonInfoImpl implements PokemonInfo {
         this.experience = new ExperienceImpl(135); // TODO 固定化したくない
         this.currentHitPoint = new CurrentHitPointImpl(getRealValHitPoint());
         this.statusRank = new StatusRankImpl();
-        this.statusAilment = StatusAilment.NONE;
+        this.statusAilment = new StatusAilmentImpl(Ailment.NONE);
     }
 
     // 指定パラメータポケモンインスタンスを作成する。
@@ -145,7 +147,7 @@ public class PokemonInfoImpl implements PokemonInfo {
         this.experience = new ExperienceImpl(0);
         this.currentHitPoint = new CurrentHitPointImpl(getRealValHitPoint());
         this.statusRank = new StatusRankImpl();
-        this.statusAilment = StatusAilment.NONE;
+        this.statusAilment = new StatusAilmentImpl(Ailment.NONE);
     }
 
     private PokemonInfoImpl(
@@ -159,7 +161,7 @@ public class PokemonInfoImpl implements PokemonInfo {
             List<Move> haveMove,
             CurrentHitPoint currentHitPoint,
             StatusRank statusRankImpl,
-            StatusAilment statusAilment
+            StatusAilmentInterface statusAilment
     ) {
         this.basePrm = basePokemonInfo;
         this.gender = gender;
@@ -207,7 +209,7 @@ public class PokemonInfoImpl implements PokemonInfo {
         return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, newMoves, this.currentHitPoint, this.statusRank, this.statusAilment);
     }
     @Override
-    public PokemonInfo withStatusAilment(StatusAilment statusAilment) {
+    public PokemonInfo withStatusAilment(StatusAilmentInterface statusAilment) {
         return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, statusAilment);
     }
 }

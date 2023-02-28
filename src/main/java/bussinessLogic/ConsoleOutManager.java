@@ -14,7 +14,7 @@ public class ConsoleOutManager {
         System.out.print("図鑑No:" + target.getBasePrm().getPokeDexNo() + " ");
         System.out.println("名前:" + target.getBasePrm().getName() + " ");
         System.out.println("タイプ1: " + target.getBasePrm().getType1().getValue() + " タイプ2: " + target.getBasePrm().getType2().getValue());
-        System.out.println("状態: " + target.getStatusAilment().value);
+        System.out.println("状態: " + target.getStatusAilment().getValue());
         System.out.print("レベル: " + target.getLevel().value());
         System.out.print("  次のレベルまで: " + target.getExperience().nextRequireExperience(target) + " exp.");
         System.out.println("  総経験値: " + target.getExperience().totalExperience() + " exp.");
