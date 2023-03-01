@@ -16,11 +16,11 @@ public class StatusRankTest {
         int c = sr.getContact();
         int d = sr.getDefense();
         int s = sr.getSpeed();
-        assertEquals(a,0);
-        assertEquals(b,0);
-        assertEquals(c,0);
-        assertEquals(d,0);
-        assertEquals(s,0);
+        assertEquals(0, a);
+        assertEquals(0, b);
+        assertEquals(0, c);
+        assertEquals(0, d);
+        assertEquals(0, s);
     }
 
     @Test
@@ -32,11 +32,11 @@ public class StatusRankTest {
         int c = sr.getContact();
         int d = sr.getDefense();
         int s = sr.getSpeed();
-        assertEquals(a,1);
-        assertEquals(b,2);
-        assertEquals(c,3);
-        assertEquals(d,4);
-        assertEquals(s,5);
+        assertEquals(1, a);
+        assertEquals(2, b);
+        assertEquals(3, c);
+        assertEquals(4, d);
+        assertEquals(5, s);
     }
 
     @Test
@@ -49,11 +49,11 @@ public class StatusRankTest {
         int c = sr.getContact();
         int d = sr.getDefense();
         int s = sr.getSpeed();
-        assertEquals(a,0);
-        assertEquals(b,-2);
-        assertEquals(c,-6);
-        assertEquals(d,2);
-        assertEquals(s,6);
+        assertEquals(0, a);
+        assertEquals(-2, b);
+        assertEquals(-6, c);
+        assertEquals(2, d);
+        assertEquals(6, s);
     }
 
     @Test
@@ -66,11 +66,11 @@ public class StatusRankTest {
         int c = sr.getContact();
         int d = sr.getDefense();
         int s = sr.getSpeed();
-        assertEquals(a,0);
-        assertEquals(b,0);
-        assertEquals(c,0);
-        assertEquals(d,0);
-        assertEquals(s,0);
+        assertEquals(0, a);
+        assertEquals(0, b);
+        assertEquals(0, c);
+        assertEquals(0, d);
+        assertEquals(0, s);
     }
 
     @Test
@@ -82,20 +82,20 @@ public class StatusRankTest {
         StatusRank sr3 = new StatusRankImpl(3, 4, 5, 6, 7);
 
         // ランク補正計算後、小数点は切り捨てられる
-        assertEquals((int)(100 * sr1.attackRateByStatusRank()),25);
-        assertEquals((int)(100 * sr1.blockRateByStatusRank()),25);
-        assertEquals((int)(100 * sr1.contactRateByStatusRank()),28);
-        assertEquals((int)(100 * sr1.defenseRateByStatusRank()),33);
-        assertEquals((int)(100 * sr1.speedRateByStatusRank()),40);
-        assertEquals((int)(100 * sr2.attackRateByStatusRank()),50);
-        assertEquals((int)(100 * sr2.blockRateByStatusRank()),66);
-        assertEquals((int)(100 * sr2.contactRateByStatusRank()),100);
-        assertEquals((int)(100 * sr2.defenseRateByStatusRank()),150);
-        assertEquals((int)(100 * sr2.speedRateByStatusRank()),200);
-        assertEquals((int)(100 * sr3.attackRateByStatusRank()),250);
-        assertEquals((int)(100 * sr3.blockRateByStatusRank()),300);
-        assertEquals((int)(100 * sr3.contactRateByStatusRank()),350);
-        assertEquals((int)(100 * sr3.defenseRateByStatusRank()),400);
-        assertEquals((int)(100 * sr3.speedRateByStatusRank()),400);
+        assertEquals(25, (int)(100 * sr1.attackRateByStatusRank()));
+        assertEquals(25, (int)(100 * sr1.blockRateByStatusRank()));
+        assertEquals(28, (int)(100 * sr1.contactRateByStatusRank()));
+        assertEquals(33, (int)(100 * sr1.defenseRateByStatusRank()));
+        assertEquals(40, (int)(100 * sr1.speedRateByStatusRank()));
+        assertEquals(50, (int)(100 * sr2.attackRateByStatusRank()));
+        assertEquals(66, (int)(100 * sr2.blockRateByStatusRank()));
+        assertEquals(100, (int)(100 * sr2.contactRateByStatusRank()));
+        assertEquals(150, (int)(100 * sr2.defenseRateByStatusRank()));
+        assertEquals(200, (int)(100 * sr2.speedRateByStatusRank()));
+        assertEquals(250, (int)(100 * sr3.attackRateByStatusRank()));
+        assertEquals(300, (int)(100 * sr3.blockRateByStatusRank()));
+        assertEquals(350, (int)(100 * sr3.contactRateByStatusRank()));
+        assertEquals(400, (int)(100 * sr3.defenseRateByStatusRank()));
+        assertEquals(400, (int)(100 * sr3.speedRateByStatusRank()));
     }
 }

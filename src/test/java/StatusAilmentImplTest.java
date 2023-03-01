@@ -16,7 +16,7 @@ public class StatusAilmentImplTest {
         PokemonInfo myPokemon = new PokemonInfoImpl(BasePrm.BULBASAUR);
         myPokemon = myPokemon.withStatusAilment(new StatusAilmentImpl(Ailment.BURN));
 
-        assertEquals(myPokemon.getStatusAilment().getValue(), Ailment.BURN);
+        assertEquals(Ailment.BURN, myPokemon.getStatusAilment().getValue());
     }
 
     @Test
@@ -26,8 +26,8 @@ public class StatusAilmentImplTest {
         PokemonInfo myPokemon2 = new PokemonInfoImpl(BasePrm.SQUIRTLE);
         myPokemon1 = myPokemon1.withStatusAilment(new StatusAilmentImpl(Ailment.BURN));
 
-        assertEquals(myPokemon1.getStatusAilment().damageRateByBurn(),0.5);
-        assertEquals(myPokemon2.getStatusAilment().damageRateByBurn(),1.0);
+        assertEquals(0.5, myPokemon1.getStatusAilment().damageRateByBurn());
+        assertEquals(1.0, myPokemon2.getStatusAilment().damageRateByBurn());
     }
 
     @Test
@@ -37,7 +37,7 @@ public class StatusAilmentImplTest {
         myPokemon = myPokemon.withStatusAilment(new StatusAilmentImpl(Ailment.SLEEP));
         myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn());
         // 1ターン経過後
-        assertEquals(myPokemon.getStatusAilment().getValue(), Ailment.SLEEP);
+        assertEquals(Ailment.SLEEP, myPokemon.getStatusAilment().getValue());
         assertFalse(myPokemon.getStatusAilment().canMove());
         myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn());
         myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn());
