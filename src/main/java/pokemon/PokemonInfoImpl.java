@@ -5,6 +5,7 @@ import move.*;
 import pokemonStatus.*;
 import pokemonStatus.impl.*;
 import Enum.*;
+import statusAilment.Ailment;
 import statusAilment.StatusAilmentImpl;
 import statusAilment.StatusAilmentInterface;
 

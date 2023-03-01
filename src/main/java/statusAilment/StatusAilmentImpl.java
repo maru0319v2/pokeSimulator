@@ -1,11 +1,12 @@
 package statusAilment;
 
-import Enum.*;
 import lombok.Getter;
 import pokemon.PokemonInfo;
 
 import java.util.Objects;
 import java.util.Random;
+
+import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 
 @Getter
 public class StatusAilmentImpl implements StatusAilmentInterface {
@@ -49,13 +50,18 @@ public class StatusAilmentImpl implements StatusAilmentInterface {
         return new StatusAilmentImpl(this.value, this.countRecoverySleep, this.elapsedTurn);
     }
 
-    public boolean canMove() {
-        if(this.value == Ailment.SLEEP || this.value == Ailment.FREEZE) {
+    public boolean canMove() throws InterruptedException {
+        if(this.value == Ailment.SLEEP) {
+            showMessageParChar("ぐうぐうねむっている・・・");
             return false;
         }
-        if(this.value == Ailment.PARALYSIS) {
-            // まひの場合、25%の確率で行動できない
-            return (new Random().nextInt(4)) != 0;
+        if(this.value == Ailment.FREEZE) {
+            showMessageParChar("こおってしまってうごけない！");
+            return false;
+        }
+        if(this.value == Ailment.PARALYSIS && (new Random().nextInt(4)) == 0) {
+            showMessageParChar("しびれてうごけない!");
+            return false;
         }
         return true;
     }
@@ -68,6 +74,10 @@ public class StatusAilmentImpl implements StatusAilmentInterface {
         return Objects.equals(this.value, Ailment.BURN) ? 0.5 : 1.0;
     }
 
+    public double speedRateByParalysis() {
+        return Objects.equals(this.value, Ailment.PARALYSIS) ? 0.5 : 1.0;
+    }
+
     public PokemonInfo slipDamageByBurn(PokemonInfo target) throws InterruptedException {
         int damage = target.getRealValHitPoint() / 8;
         return target.damagePoke(damage);
@@ -75,6 +85,12 @@ public class StatusAilmentImpl implements StatusAilmentInterface {
 
     public PokemonInfo slipDamageByPoison(PokemonInfo target) throws InterruptedException {
         int damage = target.getRealValHitPoint() / 8;
+        return target.damagePoke(damage);
+    }
+
+    public PokemonInfo slipDamageByBadPoison(PokemonInfo target) throws InterruptedException {
+        int rate = elapsedTurn / 16;
+        int damage = target.getRealValHitPoint() / rate;
         return target.damagePoke(damage);
     }
 }

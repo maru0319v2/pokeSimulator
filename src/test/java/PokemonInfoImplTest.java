@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 import pokemon.BasePrm;
 import pokemon.PokemonInfo;
 import pokemon.PokemonInfoImpl;
-import Enum.*;
-
+import statusAilment.Ailment;
 
 
 import static org.junit.jupiter.api.Assertions.*;

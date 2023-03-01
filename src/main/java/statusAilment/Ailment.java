@@ -1,4 +1,4 @@
-package Enum;
+package statusAilment;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

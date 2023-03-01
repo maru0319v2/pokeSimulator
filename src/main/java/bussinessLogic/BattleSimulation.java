@@ -25,30 +25,43 @@ public class BattleSimulation {
 
             if(BattleLogic.isPreemptiveMe(myPokemon, enemyPokemon, selectedMove, enemyMove)) {
                 // 自分が先行の場合
-                pokemons = doAction(myPokemon, enemyPokemon, selectedMove);
-                myPokemon = pokemons.attackPoke;
-                enemyPokemon = pokemons.defencePoke;
+                myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn());
+                if(myPokemon.getStatusAilment().canMove()) {
+                    pokemons = doAction(myPokemon, enemyPokemon, selectedMove);
+                    myPokemon = pokemons.attackPoke;
+                    enemyPokemon = pokemons.defencePoke;
+                }
 
                 if(enemyPokemon.getCurrentHitPoint().isDead()) { break; }
                 Thread.sleep(100);
                 showPokemonInfo(myPokemon, enemyPokemon);
 
-                pokemons = doAction(enemyPokemon, myPokemon, enemyMove);
-                myPokemon = pokemons.defencePoke;
-                enemyPokemon = pokemons.attackPoke;
+                enemyPokemon = enemyPokemon.withStatusAilment(enemyPokemon.getStatusAilment().comeTurn());
+                if(enemyPokemon.getStatusAilment().canMove()) {
+                    pokemons = doAction(enemyPokemon, myPokemon, enemyMove);
+                    myPokemon = pokemons.defencePoke;
+                    enemyPokemon = pokemons.attackPoke;
+                }
             } else {
                 // 自分が後攻の場合
-                pokemons = doAction(enemyPokemon, myPokemon, enemyMove);
-                myPokemon = pokemons.defencePoke;
-                enemyPokemon = pokemons.attackPoke;
+
+                enemyPokemon = enemyPokemon.withStatusAilment(enemyPokemon.getStatusAilment().comeTurn());
+                if(enemyPokemon.getStatusAilment().canMove()) {
+                    pokemons = doAction(enemyPokemon, myPokemon, enemyMove);
+                    myPokemon = pokemons.defencePoke;
+                    enemyPokemon = pokemons.attackPoke;
+                }
 
                 if(myPokemon.getCurrentHitPoint().isDead()) { break; }
                 Thread.sleep(100);
                 showPokemonInfo(myPokemon, enemyPokemon);
 
-                pokemons = doAction(myPokemon, enemyPokemon, selectedMove);
-                myPokemon = pokemons.attackPoke;
-                enemyPokemon = pokemons.defencePoke;
+                myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn());
+                if(myPokemon.getStatusAilment().canMove()) {
+                    pokemons = doAction(myPokemon, enemyPokemon, selectedMove);
+                    myPokemon = pokemons.attackPoke;
+                    enemyPokemon = pokemons.defencePoke;
+                }
             }
         }
 

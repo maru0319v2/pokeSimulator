@@ -1,14 +1,15 @@
 package statusAilment;
 
 import pokemon.PokemonInfo;
-import Enum.*;
 
 public interface StatusAilmentInterface {
     Ailment getValue();
     StatusAilmentImpl comeTurn();
-    boolean canMove();
+    boolean canMove() throws InterruptedException;
     public double damageRateByBurn();
+    double speedRateByParalysis();
     PokemonInfo slipDamageByBurn(PokemonInfo target) throws InterruptedException;
     PokemonInfo slipDamageByPoison(PokemonInfo target) throws InterruptedException;
+    PokemonInfo slipDamageByBadPoison(PokemonInfo target) throws InterruptedException;
 
 }
