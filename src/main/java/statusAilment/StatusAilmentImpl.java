@@ -31,11 +31,12 @@ public class StatusAilmentImpl implements StatusAilmentInterface {
         this.elapsedTurn = 0;
     }
 
-    public StatusAilmentImpl comeTurn() {
+    public StatusAilmentImpl comeTurn() throws InterruptedException {
 
         // ねむりの場合、経過ターンを1増やしカウンタを同じになればねむりを解く
         if(this.value == Ailment.SLEEP) {
             if(this.countRecoverySleep <= this.elapsedTurn + 1) {
+                showMessageParChar("めをさました!");
                 return new StatusAilmentImpl(Ailment.NONE);
             }
             return new StatusAilmentImpl(this.value, this.countRecoverySleep, this.elapsedTurn + 1);
@@ -43,6 +44,7 @@ public class StatusAilmentImpl implements StatusAilmentInterface {
         // こおりの場合、20%の確率でこおりを解く
         if(this.value == Ailment.FREEZE) {
             if((new Random().nextInt(5)) == 0) {
+                showMessageParChar("こおりがとけた!");
                 return new StatusAilmentImpl(Ailment.NONE);
             }
         }

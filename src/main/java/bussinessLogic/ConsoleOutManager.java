@@ -2,6 +2,7 @@ package bussinessLogic;
 
 import move.Move;
 import pokemon.PokemonInfo;
+import statusAilment.Ailment;
 
 import java.util.List;
 
@@ -94,7 +95,12 @@ public class ConsoleOutManager {
     public static void showPokemonInfo(PokemonInfo myPokemon, PokemonInfo enemyPokemon) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.println(enemyPokemon.getBasePrm().getName() + " " + enemyPokemon.getGender().getValue() + "    Lv." + enemyPokemon.getLevel().value());
+        System.out.print(enemyPokemon.getBasePrm().getName() + " " + enemyPokemon.getGender().getValue() + "    Lv." + enemyPokemon.getLevel().value());
+        if(enemyPokemon.getStatusAilment().getValue() == Ailment.NONE) {
+            System.out.println("");
+        } else {
+            System.out.println(" " + enemyPokemon.getStatusAilment().getValue().value);
+        }
         System.out.print("HP");
         showProgressBar(enemyPokemon);
         System.out.println("           ■");
@@ -104,7 +110,12 @@ public class ConsoleOutManager {
         System.out.println("");
         // ↑相手側　↓こっち側
         System.out.print("                        ");
-        System.out.println(myPokemon.getBasePrm().getName() + " " + myPokemon.getGender().getValue() + "    Lv." + myPokemon.getLevel().value());
+        System.out.print(myPokemon.getBasePrm().getName() + " " + myPokemon.getGender().getValue() + "    Lv." + myPokemon.getLevel().value());
+        if(myPokemon.getStatusAilment().getValue() == Ailment.NONE) {
+            System.out.println("");
+        } else {
+            System.out.println(" " + myPokemon.getStatusAilment().getValue().value);
+        }
         System.out.print("            ■           HP");
         showProgressBar(myPokemon);
         System.out.println("");

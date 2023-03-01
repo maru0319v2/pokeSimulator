@@ -44,7 +44,7 @@ public class StatusAilmentImplTest {
         myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn());
         myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn());
         // 5ターン経過後
-        assertEquals(myPokemon.getStatusAilment().getValue(), Ailment.NONE);
+        assertEquals(Ailment.NONE, myPokemon.getStatusAilment().getValue());
         assertTrue(myPokemon.getStatusAilment().canMove());
 
     }

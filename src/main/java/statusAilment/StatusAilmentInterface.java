@@ -4,7 +4,8 @@ import pokemon.PokemonInfo;
 
 public interface StatusAilmentInterface {
     Ailment getValue();
-    StatusAilmentImpl comeTurn();
+    int getElapsedTurn();
+    StatusAilmentImpl comeTurn() throws InterruptedException;
     boolean canMove() throws InterruptedException;
     public double damageRateByBurn();
     double speedRateByParalysis();

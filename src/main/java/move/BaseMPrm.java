@@ -5,6 +5,8 @@ import bussinessLogic.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import pokemon.PokemonInfo;
+import statusAilment.Ailment;
+import statusAilment.StatusAilmentImpl;
 
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 
@@ -74,6 +76,23 @@ public enum BaseMPrm {
         public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke) throws InterruptedException {
             showMessageParChar(attackPoke.getBasePrm().getName() + "の攻撃がぐーんと上がった!");
             return new InBattlePokemons(attackPoke.withAddedStatusRank(2,0, 0, 0, 0), defensePoke);
+        }
+    },
+    SLEEP_POWDER("ねむりごな", Type.GRASS, MoveSpecies.CHANGE, 0, 75, 15, 0, 0,
+            false, true, true, false, false, false) {
+        @Override
+        public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke) throws InterruptedException {
+            // TODO このメッセージはStatusAilmentImplでだすべき
+            showMessageParChar(defensePoke.getBasePrm().getName() + "はねむってしまった!");
+            return new InBattlePokemons(attackPoke, defensePoke.withStatusAilment(new StatusAilmentImpl(Ailment.SLEEP)));
+        }
+    },
+    WILL_O_WISP("おにび", Type.FIRE, MoveSpecies.CHANGE, 0, 85, 15, 0, 0,
+            false, true, true, false, false, false) {
+        @Override
+        public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke) throws InterruptedException {
+            showMessageParChar(defensePoke.getBasePrm().getName() + "はやけどをおった!");
+            return new InBattlePokemons(attackPoke, defensePoke.withStatusAilment(new StatusAilmentImpl(Ailment.BURN)));
         }
     };
 
