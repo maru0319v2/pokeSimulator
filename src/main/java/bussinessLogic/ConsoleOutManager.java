@@ -1,9 +1,7 @@
 package bussinessLogic;
 
 import move.Move;
-import pokemon.BasePrm;
 import pokemon.PokemonInfo;
-import pokemon.PokemonInfoImpl;
 import statusAilment.Ailment;
 
 import java.util.List;
@@ -98,7 +96,7 @@ public class ConsoleOutManager {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         System.out.print(enemyPokemon.getBasePrm().getName() + " " + enemyPokemon.getGender().getValue() + "    Lv." + enemyPokemon.getLevel().value());
-        if(enemyPokemon.getStatusAilment().getValue() == Ailment.NONE) {
+        if(enemyPokemon.getStatusAilment().getValue() == Ailment.FINE) {
             System.out.println("");
         } else {
             System.out.println(" " + enemyPokemon.getStatusAilment().getValue().value);
@@ -113,7 +111,7 @@ public class ConsoleOutManager {
         // ↑相手側　↓こっち側
         System.out.print("                        ");
         System.out.print(myPokemon.getBasePrm().getName() + " " + myPokemon.getGender().getValue() + "    Lv." + myPokemon.getLevel().value());
-        if(myPokemon.getStatusAilment().getValue() == Ailment.NONE) {
+        if(myPokemon.getStatusAilment().getValue() == Ailment.FINE) {
             System.out.println("");
         } else {
             System.out.println(" " + myPokemon.getStatusAilment().getValue().value);
@@ -225,7 +223,7 @@ public class ConsoleOutManager {
             case BURN -> showMessageParChar(target.getBasePrm().getName() + "はやけどをおった!");
             case FREEZE -> showMessageParChar(target.getBasePrm().getName() + "はこおりついてしまった!");
             case SLEEP -> showMessageParChar(target.getBasePrm().getName() + "はねむってしまった!");
-            case NONE -> showMessageParChar(target.getBasePrm().getName() + "はけんこうになった!");
+            case FINE -> showMessageParChar(target.getBasePrm().getName() + "はけんこうになった!");
             case FAINTING -> showMessageParChar(target.getBasePrm().getName() + "はたおれてしまった!");
         }
     }

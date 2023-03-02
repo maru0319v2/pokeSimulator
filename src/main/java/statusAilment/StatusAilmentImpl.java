@@ -2,7 +2,6 @@ package statusAilment;
 
 import lombok.Getter;
 import pokemon.PokemonInfo;
-import pokemon.PokemonInfoImpl;
 
 import java.util.Objects;
 import java.util.Random;
@@ -31,7 +30,7 @@ public class StatusAilmentImpl implements StatusAilmentInterface {
         return new StatusAilmentImpl();
     }
     private StatusAilmentImpl() {
-        this.value = Ailment.NONE;
+        this.value = Ailment.FINE;
         this.countRecoverySleep = 0;
         this.elapsedTurn = 0;
     }
@@ -63,26 +62,26 @@ public class StatusAilmentImpl implements StatusAilmentInterface {
         // 元の状態異常
         Ailment beforeAilment = target.getStatusAilment().getValue();
 
-        if(beforeAilment == Ailment.NONE) {
+        if(beforeAilment == Ailment.FINE) {
             // 元の状態が健康ならすべて上書きされる
             return true;
         }
 
         if(beforeAilment == Ailment.FAINTING) {
             // 元の状態が瀕死なら健康でしか上書きできない
-            if(value == Ailment.NONE) {
+            if(value == Ailment.FINE) {
                 return true;
             }
         }
         if(beforeAilment == Ailment.SLEEP) {
             // 元の状態がねむりの場合、引数の経過ターンが大きい、またはひんしか健康の場合上書きする
-            if(target.getStatusAilment().getElapsedTurn() < this.getElapsedTurn() || value == Ailment.NONE || value == Ailment.FAINTING) {
+            if(target.getStatusAilment().getElapsedTurn() < this.getElapsedTurn() || value == Ailment.FINE || value == Ailment.FAINTING) {
                 return true;
             }
         }
         if(beforeAilment == Ailment.PARALYSIS || beforeAilment == Ailment.POISON || beforeAilment == Ailment.BAD_POISON || beforeAilment == Ailment.BURN || beforeAilment == Ailment.FREEZE) {
             // 元の状態がまひ、どく、もうどく、やけど、こおりなら健康と瀕死でしか上書きできない
-            if(value == Ailment.NONE || value == Ailment.FAINTING) {
+            if(value == Ailment.FINE || value == Ailment.FAINTING) {
                 return true;
             }
         }
@@ -128,7 +127,7 @@ public class StatusAilmentImpl implements StatusAilmentInterface {
     }
 
     public boolean isNoAilment() {
-        return this.value == Ailment.NONE;
+        return this.value == Ailment.FINE;
     }
 
     public double damageRateByBurn() {

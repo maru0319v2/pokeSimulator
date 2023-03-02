@@ -13,7 +13,7 @@ public enum Ailment {
     BAD_POISON("もうどく"),
     SLEEP("ねむり"),
     FAINTING("ひんし"),
-    NONE("-");
+    FINE("-");
 
     public final String value;
 }

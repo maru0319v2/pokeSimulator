@@ -5,7 +5,6 @@ import pokemon.BasePrm;
 import pokemon.PokemonInfo;
 import pokemon.PokemonInfoImpl;
 import statusAilment.Ailment;
-import statusAilment.StatusAilmentImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static statusAilment.StatusAilmentImpl.changeAilment;
@@ -37,8 +36,8 @@ public class StatusAilmentImplTest {
         poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FAINTING));
         assertEquals(Ailment.FAINTING, poke1.getStatusAilment().getValue());
 
-        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.NONE));
-        assertEquals(Ailment.NONE, poke2.getStatusAilment().getValue());
+        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.FINE));
+        assertEquals(Ailment.FINE, poke2.getStatusAilment().getValue());
     }
 
     @Test
@@ -67,8 +66,8 @@ public class StatusAilmentImplTest {
         poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FAINTING));
         assertEquals(Ailment.FAINTING, poke1.getStatusAilment().getValue());
 
-        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.NONE));
-        assertEquals(Ailment.NONE, poke2.getStatusAilment().getValue());
+        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.FINE));
+        assertEquals(Ailment.FINE, poke2.getStatusAilment().getValue());
     }
 
     @Test
@@ -97,8 +96,8 @@ public class StatusAilmentImplTest {
         poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FAINTING));
         assertEquals(Ailment.FAINTING, poke1.getStatusAilment().getValue());
 
-        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.NONE));
-        assertEquals(Ailment.NONE, poke2.getStatusAilment().getValue());
+        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.FINE));
+        assertEquals(Ailment.FINE, poke2.getStatusAilment().getValue());
     }
 
     @Test
@@ -127,8 +126,8 @@ public class StatusAilmentImplTest {
         poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FAINTING));
         assertEquals(Ailment.FAINTING, poke1.getStatusAilment().getValue());
 
-        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.NONE));
-        assertEquals(Ailment.NONE, poke2.getStatusAilment().getValue());
+        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.FINE));
+        assertEquals(Ailment.FINE, poke2.getStatusAilment().getValue());
     }
 
     @Test
@@ -157,8 +156,8 @@ public class StatusAilmentImplTest {
         poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FAINTING));
         assertEquals(Ailment.FAINTING, poke1.getStatusAilment().getValue());
 
-        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.NONE));
-        assertEquals(Ailment.NONE, poke2.getStatusAilment().getValue());
+        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.FINE));
+        assertEquals(Ailment.FINE, poke2.getStatusAilment().getValue());
     }
 
     @Test
@@ -187,8 +186,8 @@ public class StatusAilmentImplTest {
         poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FAINTING));
         assertEquals(Ailment.FAINTING, poke1.getStatusAilment().getValue());
 
-        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.NONE));
-        assertEquals(Ailment.NONE, poke2.getStatusAilment().getValue());
+        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.FINE));
+        assertEquals(Ailment.FINE, poke2.getStatusAilment().getValue());
     }
 
     @Test
@@ -212,8 +211,8 @@ public class StatusAilmentImplTest {
         poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.BURN));
         assertEquals(Ailment.FAINTING, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.NONE));
-        assertEquals(Ailment.NONE, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FINE));
+        assertEquals(Ailment.FINE, poke1.getStatusAilment().getValue());
     }
 
     @Test
@@ -259,7 +258,7 @@ public class StatusAilmentImplTest {
         myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn());
         myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn());
         // 5ターン経過後
-        assertEquals(Ailment.NONE, myPokemon.getStatusAilment().getValue());
+        assertEquals(Ailment.FINE, myPokemon.getStatusAilment().getValue());
         assertTrue(myPokemon.getStatusAilment().canMove());
     }
 

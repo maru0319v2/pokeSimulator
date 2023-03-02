@@ -18,6 +18,6 @@ public class PokemonInfoImplTest {
         assertEquals(Ailment.FAINTING, myPoke.getStatusAilment().getValue());
 
         myPoke = myPoke.recoveryHitPoint(50);
-        assertEquals(Ailment.NONE, myPoke.getStatusAilment().getValue());
+        assertEquals(Ailment.FINE, myPoke.getStatusAilment().getValue());
     }
 }

@@ -6,7 +6,6 @@ import pokemonStatus.*;
 import pokemonStatus.impl.*;
 import Enum.*;
 import statusAilment.Ailment;
-import statusAilment.StatusAilmentImpl;
 import statusAilment.StatusAilmentInterface;
 
 import java.util.ArrayList;
@@ -71,7 +70,7 @@ public class PokemonInfoImpl implements PokemonInfo {
         PokemonInfo result = this.withCurrentHitPoint(this.getCurrentHitPoint().recovery(this, new CurrentHitPointImpl(value)));
         System.out.println(result.getBasePrm().getName() + "は体力を" + value + "回復!  HP" + result.getCurrentHitPoint().value() + "/" + result.getRealValHitPoint());
         System.out.println();
-        return result.withStatusAilment(changeAilment(result, Ailment.NONE));
+        return result.withStatusAilment(changeAilment(result, Ailment.FINE));
     }
 
     @Override
