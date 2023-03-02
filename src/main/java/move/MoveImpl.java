@@ -43,6 +43,9 @@ public class MoveImpl implements Move {
 
     @Override
     public boolean isHit() {
+        if(this.baseMPrm.getHitRate() == -1) {
+            return true;
+        }
         return (new Random().nextInt(100) + 1) <= this.baseMPrm().getHitRate();
     }
 }

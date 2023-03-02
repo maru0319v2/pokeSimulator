@@ -25,6 +25,14 @@ public enum BaseMPrm {
             return new InBattlePokemons(attackPoke, defensePoke);
         }
     },
+    AERIAL_ACE("つばめがえし", Type.FLYING, MoveSpecies.PHYSICAL, 60, -1, 20, 0, 0,
+            true, false, true, false, false, false
+    ) {
+        @Override
+        public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke, int recoveryHP) {
+            return new InBattlePokemons(attackPoke, defensePoke);
+        }
+    },
     QUICK_ATTACK("でんこうせっか", Type.NORMAL, MoveSpecies.PHYSICAL, 40, 100, 30, 0, 1,
             true, false, true, false, false, false
     ) {

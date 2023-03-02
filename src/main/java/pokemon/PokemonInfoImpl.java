@@ -211,8 +211,7 @@ public class PokemonInfoImpl implements PokemonInfo {
         return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, newMoves, this.currentHitPoint, this.statusRank, this.statusAilment);
     }
     @Override
-    public PokemonInfo withStatusAilment(StatusAilmentInterface afterAilment) {
-        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, afterAilment);
+    public PokemonInfo withStatusAilment(StatusAilmentInterface statusAilment) {
+        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, statusAilment);
     }
-    // PokemonInfoImpl()のオーバーロードでできるのでは?
 }

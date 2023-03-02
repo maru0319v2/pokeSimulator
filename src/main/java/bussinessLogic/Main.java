@@ -22,7 +22,7 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 // もちもの
 // PPが0のときはわるあがきする
 // 草タイプはねむりごな等無効、炎タイプはやけどにならない、氷タイプは氷状態にならない、鋼タイプはどくにならない、毒タイプはどくにならない
-// 必中技の実装
+// ターンの終わりにスリップダメージ
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
@@ -73,7 +73,7 @@ public class Main {
                                 new IndividualValueImpl(10, 10, 10, 10, 10 , 10),
                                 new EffortValueImpl(6, 0, 0, 252, 0, 252),
                                 new LevelImpl(50),
-                                List.of(new MoveImpl(BaseMPrm.WILL_O_WISP), new MoveImpl(BaseMPrm.GROWL), new MoveImpl(BaseMPrm.FLAMETHROWER), new MoveImpl(BaseMPrm.DRAGON_CLAW))
+                                List.of(new MoveImpl(BaseMPrm.WILL_O_WISP), new MoveImpl(BaseMPrm.GROWL), new MoveImpl(BaseMPrm.FLAMETHROWER), new MoveImpl(BaseMPrm.AERIAL_ACE))
                         ),
                         new PokemonInfoImpl(
                                 BasePrm.VENUSAUR,
