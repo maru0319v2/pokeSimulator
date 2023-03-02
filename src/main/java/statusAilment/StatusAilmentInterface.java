@@ -5,6 +5,7 @@ import pokemon.PokemonInfo;
 public interface StatusAilmentInterface {
     Ailment getValue();
     int getElapsedTurn();
+    int getCountRecoverySleep();
     StatusAilmentImpl comeTurn() throws InterruptedException;
     boolean canMove() throws InterruptedException;
     public double damageRateByBurn();

@@ -210,7 +210,32 @@ public class PokemonInfoImpl implements PokemonInfo {
         return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, newMoves, this.currentHitPoint, this.statusRank, this.statusAilment);
     }
     @Override
-    public PokemonInfo withStatusAilment(StatusAilmentInterface statusAilment) {
-        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, statusAilment);
+    public PokemonInfo withStatusAilment(StatusAilmentInterface afterAilment) {
+        Ailment beforeAilment = this.statusAilment.getValue();
+
+        if(beforeAilment == Ailment.NONE) {
+            // 元の状態が健康ならすべて上書きされる
+            return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, afterAilment);
+        }
+        if(beforeAilment == Ailment.FAINTING) {
+            // 元の状態が瀕死なら健康でしか上書きできない
+            if(afterAilment.getValue() == Ailment.NONE) {
+                return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, afterAilment);
+            }
+        }
+        if(beforeAilment == Ailment.SLEEP) {
+            // 元の状態がねむりの場合、引数の経過ターンが大きい、または引数の状態がひんしか健康の場合上書きする
+            if(this.statusAilment.getElapsedTurn() < afterAilment.getElapsedTurn() || afterAilment.getValue() == Ailment.NONE || afterAilment.getValue() == Ailment.FAINTING) {
+                return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, afterAilment);
+            }
+        }
+        if(beforeAilment == Ailment.PARALYSIS || beforeAilment == Ailment.POISON || beforeAilment == Ailment.BAD_POISON || beforeAilment == Ailment.BURN || beforeAilment == Ailment.FREEZE) {
+            // 元の状態がまひ、どく、もうどく、やけど、こおりなら健康と瀕死でしか上書きできない
+            if(afterAilment.getValue() == Ailment.NONE || afterAilment.getValue() == Ailment.FAINTING) {
+                return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, afterAilment);
+            }
+        }
+        // それ以外の場合は更新しない
+        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, this.statusAilment);
     }
 }
