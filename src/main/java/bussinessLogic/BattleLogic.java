@@ -97,15 +97,16 @@ public class BattleLogic {
             if (move.isHit()) {
                 int damage = calcDamage(attackPoke, defencePoke, move);
                 defencePoke = defencePoke.damagePoke(damage);
+                return move.baseMPrm().effect(attackPoke, defencePoke, damage);
             } else {
                 showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "!");
                 showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "は外れた");
+                return new InBattlePokemons(attackPoke, defencePoke);
             }
-            return new InBattlePokemons(attackPoke, defencePoke);
         } else {
             if (move.isHit()) {
                 showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "!");
-                return move.baseMPrm().effect(attackPoke, defencePoke);
+                return move.baseMPrm().effect(attackPoke, defencePoke ,0);
             } else {
                 return new InBattlePokemons(attackPoke, defencePoke);
             }

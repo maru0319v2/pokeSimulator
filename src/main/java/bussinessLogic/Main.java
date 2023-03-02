@@ -83,7 +83,7 @@ public class Main {
                                 new IndividualValueImpl(10, 10, 10, 10, 10 , 10),
                                 new EffortValueImpl(252, 0, 0, 252, 0 , 6),
                                 new LevelImpl(50),
-                                List.of(new MoveImpl(BaseMPrm.SLEEP_POWDER), new MoveImpl(BaseMPrm.VINE_WHIP), new MoveImpl(BaseMPrm.QUICK_ATTACK))
+                                List.of(new MoveImpl(BaseMPrm.SLEEP_POWDER), new MoveImpl(BaseMPrm.GIGA_DRAIN), new MoveImpl(BaseMPrm.QUICK_ATTACK))
                         ));
             }
         }
