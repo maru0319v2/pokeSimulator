@@ -32,7 +32,7 @@ public enum BaseMPrm {
             return new InBattlePokemons(attackPoke, defensePoke);
         }
     },
-    FLAMETHROWER("かえんほうしゃ", Type.FIRE, MoveSpecies.SPECIAL, 9, 100, 15, 0, 0,
+    FLAMETHROWER("かえんほうしゃ", Type.FIRE, MoveSpecies.SPECIAL, 90, 100, 15, 0, 0,
             false, false, true, false, false, false
     ) {
         @Override

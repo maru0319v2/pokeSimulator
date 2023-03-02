@@ -23,7 +23,6 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 // PPが0のときはわるあがきする
 // 草タイプはねむりごな等無効、炎タイプはやけどにならない、氷タイプは氷状態にならない、鋼タイプはどくにならない、毒タイプはどくにならない
 // 状態異常が上書きされる
-// 自分がねむっているときに相手のターンがスキップされるときがある？
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
