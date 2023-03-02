@@ -12,6 +12,7 @@ import statusAilment.StatusAilmentImpl;
 import java.util.Random;
 
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
+import static statusAilment.StatusAilmentImpl.changeAilment;
 
 @Getter
 @AllArgsConstructor
@@ -38,8 +39,7 @@ public enum BaseMPrm {
         @Override
         public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke, int recoveryHP) throws InterruptedException {
             if((new Random().nextInt(10)) == 0) {
-                showMessageParChar(defensePoke.getBasePrm().getName() + "はやけどをおった!");
-                return new InBattlePokemons(attackPoke, defensePoke.withStatusAilment(new StatusAilmentImpl(Ailment.BURN)));
+                return new InBattlePokemons(attackPoke, defensePoke.withStatusAilment(changeAilment(defensePoke, Ailment.BURN)));
             }
             return new InBattlePokemons(attackPoke, defensePoke);
         }
@@ -99,17 +99,14 @@ public enum BaseMPrm {
             false, true, true, false, false, false) {
         @Override
         public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke, int recoveryHP) throws InterruptedException {
-            // TODO このメッセージはStatusAilmentImplでだすべき
-            showMessageParChar(defensePoke.getBasePrm().getName() + "はねむってしまった!");
-            return new InBattlePokemons(attackPoke, defensePoke.withStatusAilment(new StatusAilmentImpl(Ailment.SLEEP)));
+            return new InBattlePokemons(attackPoke, defensePoke.withStatusAilment(changeAilment(defensePoke, Ailment.SLEEP)));
         }
     },
     WILL_O_WISP("おにび", Type.FIRE, MoveSpecies.CHANGE, 0, 85, 15, 0, 0,
             false, true, true, false, false, false) {
         @Override
         public InBattlePokemons effect(PokemonInfo attackPoke, PokemonInfo defensePoke, int recoveryHP) throws InterruptedException {
-            showMessageParChar(defensePoke.getBasePrm().getName() + "はやけどをおった!");
-            return new InBattlePokemons(attackPoke, defensePoke.withStatusAilment(new StatusAilmentImpl(Ailment.BURN)));
+            return new InBattlePokemons(attackPoke, defensePoke.withStatusAilment(changeAilment(defensePoke, Ailment.BURN)));
         }
     };
 

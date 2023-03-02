@@ -48,13 +48,13 @@ public interface PokemonInfo {
     // 経験値を得る
     PokemonInfo addExp(int exp) throws InterruptedException;
     // 体力を回復
-    PokemonInfo recoveryHitPoint(int value);
+    PokemonInfo recoveryHitPoint(int value) throws InterruptedException;
     // ダメージを受ける
     PokemonInfo damagePoke(int value) throws InterruptedException;
     // 指定PPを回復
     PokemonInfo recoveryPowerPoint(Move move, int value);
     // 体力、PP全回復
-    PokemonInfo recoveryAll();
+    PokemonInfo recoveryAll() throws InterruptedException;
     // PPを使う
     PokemonInfo decrementPowerPoint(Move usedMove);
     PokemonInfo withCurrentHitPoint(CurrentHitPoint currentHitPoint);

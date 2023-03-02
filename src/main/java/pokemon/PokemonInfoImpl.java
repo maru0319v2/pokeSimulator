@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Objects;
 
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
+import static statusAilment.StatusAilmentImpl.changeAilment;
+import static statusAilment.StatusAilmentImpl.initializeAilment;
 
 @Getter
 public class PokemonInfoImpl implements PokemonInfo {
@@ -65,18 +67,18 @@ public class PokemonInfoImpl implements PokemonInfo {
     }
 
     @Override
-    public PokemonInfo recoveryHitPoint(int value) {
+    public PokemonInfo recoveryHitPoint(int value) throws InterruptedException {
         PokemonInfo result = this.withCurrentHitPoint(this.getCurrentHitPoint().recovery(this, new CurrentHitPointImpl(value)));
         System.out.println(result.getBasePrm().getName() + "は体力を" + value + "回復!  HP" + result.getCurrentHitPoint().value() + "/" + result.getRealValHitPoint());
         System.out.println();
-        return result.withStatusAilment(new StatusAilmentImpl(Ailment.NONE));
+        return result.withStatusAilment(changeAilment(result, Ailment.NONE));
     }
 
     @Override
     public PokemonInfo damagePoke(int value) throws InterruptedException {
         PokemonInfo result = this.withCurrentHitPoint(this.getCurrentHitPoint().damage(new CurrentHitPointImpl(value)));
         showMessageParChar(result.getBasePrm().getName() + "は" + value + "のダメージ!");
-        if (result.getCurrentHitPoint().isDead()) { return result.withStatusAilment(new StatusAilmentImpl(Ailment.FAINTING)); }
+        if (result.getCurrentHitPoint().isDead()) { return result.withStatusAilment(changeAilment(result, Ailment.FAINTING)); }
         return result;
     }
 
@@ -97,7 +99,7 @@ public class PokemonInfoImpl implements PokemonInfo {
     }
 
     @Override
-    public PokemonInfo recoveryAll() {
+    public PokemonInfo recoveryAll() throws InterruptedException {
         PokemonInfo result = this.recoveryHitPoint(999);
 
         for(Move move : result.getHaveMove()) {
@@ -125,7 +127,7 @@ public class PokemonInfoImpl implements PokemonInfo {
         this.experience = new ExperienceImpl(135); // TODO 固定化したくない
         this.currentHitPoint = new CurrentHitPointImpl(getRealValHitPoint());
         this.statusRank = new StatusRankImpl();
-        this.statusAilment = new StatusAilmentImpl(Ailment.NONE);
+        this.statusAilment = initializeAilment();
     }
 
     // 指定パラメータポケモンインスタンスを作成する。
@@ -148,7 +150,7 @@ public class PokemonInfoImpl implements PokemonInfo {
         this.experience = new ExperienceImpl(0);
         this.currentHitPoint = new CurrentHitPointImpl(getRealValHitPoint());
         this.statusRank = new StatusRankImpl();
-        this.statusAilment = new StatusAilmentImpl(Ailment.NONE);
+        this.statusAilment = initializeAilment();
     }
 
     private PokemonInfoImpl(
@@ -211,31 +213,7 @@ public class PokemonInfoImpl implements PokemonInfo {
     }
     @Override
     public PokemonInfo withStatusAilment(StatusAilmentInterface afterAilment) {
-        Ailment beforeAilment = this.statusAilment.getValue();
-
-        if(beforeAilment == Ailment.NONE) {
-            // 元の状態が健康ならすべて上書きされる
-            return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, afterAilment);
-        }
-        if(beforeAilment == Ailment.FAINTING) {
-            // 元の状態が瀕死なら健康でしか上書きできない
-            if(afterAilment.getValue() == Ailment.NONE) {
-                return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, afterAilment);
-            }
-        }
-        if(beforeAilment == Ailment.SLEEP) {
-            // 元の状態がねむりの場合、引数の経過ターンが大きい、または引数の状態がひんしか健康の場合上書きする
-            if(this.statusAilment.getElapsedTurn() < afterAilment.getElapsedTurn() || afterAilment.getValue() == Ailment.NONE || afterAilment.getValue() == Ailment.FAINTING) {
-                return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, afterAilment);
-            }
-        }
-        if(beforeAilment == Ailment.PARALYSIS || beforeAilment == Ailment.POISON || beforeAilment == Ailment.BAD_POISON || beforeAilment == Ailment.BURN || beforeAilment == Ailment.FREEZE) {
-            // 元の状態がまひ、どく、もうどく、やけど、こおりなら健康と瀕死でしか上書きできない
-            if(afterAilment.getValue() == Ailment.NONE || afterAilment.getValue() == Ailment.FAINTING) {
-                return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, afterAilment);
-            }
-        }
-        // それ以外の場合は更新しない
-        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, this.statusAilment);
+        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, afterAilment);
     }
+    // PokemonInfoImpl()のオーバーロードでできるのでは?
 }

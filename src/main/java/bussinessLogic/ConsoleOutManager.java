@@ -1,7 +1,9 @@
 package bussinessLogic;
 
 import move.Move;
+import pokemon.BasePrm;
 import pokemon.PokemonInfo;
+import pokemon.PokemonInfoImpl;
 import statusAilment.Ailment;
 
 import java.util.List;
@@ -213,6 +215,19 @@ public class ConsoleOutManager {
         }
         System.out.println("");
         System.out.println("");
+    }
+
+    public static void showChangeAilmentMessage(PokemonInfo target, Ailment value) throws InterruptedException {
+        switch (value) {
+            case PARALYSIS -> showMessageParChar(target.getBasePrm().getName() + "はしびれてしまった!");
+            case POISON -> showMessageParChar(target.getBasePrm().getName() + "はどくをあびた!");
+            case BAD_POISON -> showMessageParChar(target.getBasePrm().getName() + "はもうどくをあびた!");
+            case BURN -> showMessageParChar(target.getBasePrm().getName() + "はやけどをおった!");
+            case FREEZE -> showMessageParChar(target.getBasePrm().getName() + "はこおりついてしまった!");
+            case SLEEP -> showMessageParChar(target.getBasePrm().getName() + "はねむってしまった!");
+            case NONE -> showMessageParChar(target.getBasePrm().getName() + "はけんこうになった!");
+            case FAINTING -> showMessageParChar(target.getBasePrm().getName() + "はたおれてしまった!");
+        }
     }
 
     public static void showMessageParChar(String message) throws InterruptedException {
