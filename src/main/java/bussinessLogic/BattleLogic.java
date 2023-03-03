@@ -1,6 +1,8 @@
 package bussinessLogic;
 
 import Enum.*;
+import field.Field;
+import field.Weather;
 import move.Move;
 import pokemon.PokemonInfo;
 
@@ -88,7 +90,7 @@ public class BattleLogic {
     }
 
     // ターンごとの行動 命中判定、ダメージ計算、ダメージ付与を一括で行う
-    public static InBattlePokemons doAction(PokemonInfo attackPoke, PokemonInfo defencePoke, Move move) throws InterruptedException {
+    public static OnBattleField doAction(PokemonInfo attackPoke, PokemonInfo defencePoke, Field field, Move move) throws InterruptedException {
         // PPを1減らす
         attackPoke = attackPoke.decrementPowerPoint(move);
 
@@ -97,20 +99,20 @@ public class BattleLogic {
             if (move.isHit()) {
                 int damage = calcDamage(attackPoke, defencePoke, move);
                 defencePoke = defencePoke.damagePoke(damage);
-                return move.baseMPrm().effect(attackPoke, defencePoke, damage);
+                return move.baseMPrm().effect(attackPoke, defencePoke, field, damage);
             } else {
                 showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "!");
                 showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "は外れた");
-                return new InBattlePokemons(attackPoke, defencePoke);
+                return new OnBattleField(attackPoke, defencePoke, field);
             }
         } else {
             if (move.isHit()) {
                 showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "!");
-                return move.baseMPrm().effect(attackPoke, defencePoke ,0);
+                return move.baseMPrm().effect(attackPoke, defencePoke , field, 0);
             } else {
                 showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "!");
                 showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "は外れた");
-                return new InBattlePokemons(attackPoke, defencePoke);
+                return new OnBattleField(attackPoke, defencePoke, field);
             }
         }
     }

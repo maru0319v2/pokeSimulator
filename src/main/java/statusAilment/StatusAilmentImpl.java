@@ -10,13 +10,13 @@ import static bussinessLogic.ConsoleOutManager.showChangeAilmentMessage;
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 
 @Getter
-public class StatusAilmentImpl implements StatusAilmentInterface {
+public class StatusAilmentImpl implements StatusAilment {
     private final Ailment value;
     private final int countRecoverySleep;
     private final int elapsedTurn;
 
     // 状態異常の継続する場合(ねむり経過ターン+1)
-    public static StatusAilmentImpl keepAilment(Ailment value, int countForRecovery, int elapsedTurn) {
+    public static StatusAilment keepAilment(Ailment value, int countForRecovery, int elapsedTurn) {
         return new StatusAilmentImpl(value, countForRecovery, elapsedTurn);
     }
     private StatusAilmentImpl(Ailment value, int countForRecovery, int elapsedTurn) {
@@ -26,7 +26,7 @@ public class StatusAilmentImpl implements StatusAilmentInterface {
     }
 
     // 初期化したい場合
-    public static StatusAilmentImpl initializeAilment() {
+    public static StatusAilment initializeAilment() {
         return new StatusAilmentImpl();
     }
     private StatusAilmentImpl() {
@@ -36,7 +36,7 @@ public class StatusAilmentImpl implements StatusAilmentInterface {
     }
 
     // 状態異常を変化させる場合
-    public static StatusAilmentImpl changeAilment(PokemonInfo target, Ailment value) throws InterruptedException {
+    public static StatusAilment changeAilment(PokemonInfo target, Ailment value) throws InterruptedException {
         return new StatusAilmentImpl(target, value);
     }
     private StatusAilmentImpl(PokemonInfo target, Ailment value) throws InterruptedException {
@@ -89,7 +89,7 @@ public class StatusAilmentImpl implements StatusAilmentInterface {
         return false;
     }
 
-    public StatusAilmentImpl comeTurn() throws InterruptedException {
+    public StatusAilment comeTurn() throws InterruptedException {
 
         // ねむりの場合、経過ターンを1増やしカウンタを同じになればねむりを解く
         if(this.value == Ailment.SLEEP) {

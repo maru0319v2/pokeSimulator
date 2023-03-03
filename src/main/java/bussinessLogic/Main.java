@@ -23,6 +23,10 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 // PPが0のときはわるあがきする
 // 草タイプはねむりごな等無効、炎タイプはやけどにならない、氷タイプは氷状態にならない、鋼タイプはどくにならない、毒タイプはどくにならない
 // ターンの終わりにスリップダメージ
+// 命中ランク、回避ランク
+// とくせい
+// ひるみ判定
+// こんらん、バインド、のろい、ちょうはつ、こだわり
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
@@ -73,7 +77,7 @@ public class Main {
                                 new IndividualValueImpl(10, 10, 10, 10, 10 , 10),
                                 new EffortValueImpl(6, 0, 0, 252, 0, 252),
                                 new LevelImpl(50),
-                                List.of(new MoveImpl(BaseMPrm.WILL_O_WISP), new MoveImpl(BaseMPrm.GROWL), new MoveImpl(BaseMPrm.FLAMETHROWER), new MoveImpl(BaseMPrm.AERIAL_ACE))
+                                List.of(new MoveImpl(BaseMPrm.FLAMETHROWER), new MoveImpl(BaseMPrm.SUNNY_DAY), new MoveImpl(BaseMPrm.WILL_O_WISP), new MoveImpl(BaseMPrm.AERIAL_ACE))
                         ),
                         new PokemonInfoImpl(
                                 BasePrm.VENUSAUR,
@@ -82,7 +86,7 @@ public class Main {
                                 new IndividualValueImpl(10, 10, 10, 10, 10 , 10),
                                 new EffortValueImpl(252, 0, 0, 252, 0 , 6),
                                 new LevelImpl(50),
-                                List.of(new MoveImpl(BaseMPrm.SLEEP_POWDER), new MoveImpl(BaseMPrm.GIGA_DRAIN), new MoveImpl(BaseMPrm.QUICK_ATTACK))
+                                List.of(new MoveImpl(BaseMPrm.SLEEP_POWDER), new MoveImpl(BaseMPrm.GIGA_DRAIN), new MoveImpl(BaseMPrm.QUICK_ATTACK), new MoveImpl(BaseMPrm.RAIN_DANCE))
                         ));
             }
         }

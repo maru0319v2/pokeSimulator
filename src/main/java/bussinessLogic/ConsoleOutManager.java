@@ -1,5 +1,6 @@
 package bussinessLogic;
 
+import field.Weather;
 import move.Move;
 import pokemon.PokemonInfo;
 import statusAilment.Ailment;
@@ -217,14 +218,41 @@ public class ConsoleOutManager {
 
     public static void showChangeAilmentMessage(PokemonInfo target, Ailment value) throws InterruptedException {
         switch (value) {
-            case PARALYSIS -> showMessageParChar(target.getBasePrm().getName() + "はしびれてしまった!");
-            case POISON -> showMessageParChar(target.getBasePrm().getName() + "はどくをあびた!");
-            case BAD_POISON -> showMessageParChar(target.getBasePrm().getName() + "はもうどくをあびた!");
-            case BURN -> showMessageParChar(target.getBasePrm().getName() + "はやけどをおった!");
-            case FREEZE -> showMessageParChar(target.getBasePrm().getName() + "はこおりついてしまった!");
-            case SLEEP -> showMessageParChar(target.getBasePrm().getName() + "はねむってしまった!");
-            case FINE -> showMessageParChar(target.getBasePrm().getName() + "はけんこうになった!");
-            case FAINTING -> showMessageParChar(target.getBasePrm().getName() + "はたおれてしまった!");
+            case PARALYSIS -> System.out.println(target.getBasePrm().getName() + "はしびれてしまった!");
+            case POISON -> System.out.println(target.getBasePrm().getName() + "はどくをあびた!");
+            case BAD_POISON -> System.out.println(target.getBasePrm().getName() + "はもうどくをあびた!");
+            case BURN -> System.out.println(target.getBasePrm().getName() + "はやけどをおった!");
+            case FREEZE -> System.out.println(target.getBasePrm().getName() + "はこおりついてしまった!");
+            case SLEEP -> System.out.println(target.getBasePrm().getName() + "はねむってしまった!");
+            case FINE -> System.out.println(target.getBasePrm().getName() + "はけんこうになった!");
+            case FAINTING -> System.out.println(target.getBasePrm().getName() + "はたおれてしまった!");
+        }
+    }
+
+    public static void showChangeWeather(Weather value) throws InterruptedException {
+        switch (value) {
+            case DROUGHT -> System.out.println("ひざしがつよくなった!");
+            case RAIN -> System.out.println("あめがふりはじめた!");
+            case SANDSTORM -> System.out.println("すなあらしがふきはじめた!");
+            case HAIL -> System.out.println("あられがふりはじめた!");
+        }
+    }
+
+    public static void showUndoWeather(Weather value) throws InterruptedException {
+        switch (value) {
+            case DROUGHT -> System.out.println("ひざしがよわまった!");
+            case RAIN -> System.out.println("あめがやんだ!");
+            case SANDSTORM -> System.out.println("すなあらしがおさまった!");
+            case HAIL -> System.out.println("あられがやんだ!");
+        }
+    }
+
+    public static void showKeepWeather(Weather value) throws InterruptedException {
+        switch (value) {
+            case DROUGHT -> System.out.println("ひざしがつよい");
+            case RAIN -> System.out.println("あめがふっている");
+            case SANDSTORM -> System.out.println("すなあらしがふいている");
+            case HAIL -> System.out.println("あられがふっている");
         }
     }
 

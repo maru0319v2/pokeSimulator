@@ -1,11 +1,15 @@
 package bussinessLogic;
 
+import field.Field;
+import field.FieldImpl;
+import field.Weather;
 import move.Move;
 import pokemon.PokemonInfo;
 
 import static bussinessLogic.BattleLogic.*;
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 import static bussinessLogic.ConsoleOutManager.showPokemonInfo;
+import static field.FieldImpl.initializeField;
 
 public class BattleSimulation {
     public PokemonInfo battleSimulation(PokemonInfo myPokemon, PokemonInfo enemyPokemon) throws InterruptedException {
@@ -14,7 +18,8 @@ public class BattleSimulation {
         showMessageParChar("野生の" + enemyPokemon.getBasePrm().getName() + "が飛び出してきた!");
         showMessageParChar("ゆけっ!" + myPokemon.getBasePrm().getName() + "!");
 
-        InBattlePokemons pokemons;
+        OnBattleField onBattleField;
+        Field field = initializeField();
 
         while (myPokemon.getCurrentHitPoint().isAlive() && enemyPokemon.getCurrentHitPoint().isAlive()) {
             Thread.sleep(100);
@@ -27,9 +32,10 @@ public class BattleSimulation {
                 // 自分が先行の場合
                 myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn());
                 if(myPokemon.getStatusAilment().canMove()) {
-                    pokemons = doAction(myPokemon, enemyPokemon, selectedMove);
-                    myPokemon = pokemons.attackPoke;
-                    enemyPokemon = pokemons.defencePoke;
+                    onBattleField = doAction(myPokemon, enemyPokemon, field, selectedMove);
+                    myPokemon = onBattleField.attackPoke;
+                    enemyPokemon = onBattleField.defencePoke;
+                    field = onBattleField.field;
                 }
 
                 if(enemyPokemon.getCurrentHitPoint().isDead()) { break; }
@@ -38,18 +44,19 @@ public class BattleSimulation {
 
                 enemyPokemon = enemyPokemon.withStatusAilment(enemyPokemon.getStatusAilment().comeTurn());
                 if(enemyPokemon.getStatusAilment().canMove()) {
-                    pokemons = doAction(enemyPokemon, myPokemon, enemyMove);
-                    myPokemon = pokemons.defencePoke;
-                    enemyPokemon = pokemons.attackPoke;
+                    onBattleField = doAction(enemyPokemon, myPokemon, field, enemyMove);
+                    myPokemon = onBattleField.defencePoke;
+                    enemyPokemon = onBattleField.attackPoke;
+                    field = onBattleField.field;
                 }
             } else {
                 // 自分が後攻の場合
-
                 enemyPokemon = enemyPokemon.withStatusAilment(enemyPokemon.getStatusAilment().comeTurn());
                 if(enemyPokemon.getStatusAilment().canMove()) {
-                    pokemons = doAction(enemyPokemon, myPokemon, enemyMove);
-                    myPokemon = pokemons.defencePoke;
-                    enemyPokemon = pokemons.attackPoke;
+                    onBattleField = doAction(enemyPokemon, myPokemon, field,  enemyMove);
+                    myPokemon = onBattleField.defencePoke;
+                    enemyPokemon = onBattleField.attackPoke;
+                    field = onBattleField.field;
                 }
 
                 if(myPokemon.getCurrentHitPoint().isDead()) { break; }
@@ -58,11 +65,14 @@ public class BattleSimulation {
 
                 myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn());
                 if(myPokemon.getStatusAilment().canMove()) {
-                    pokemons = doAction(myPokemon, enemyPokemon, selectedMove);
-                    myPokemon = pokemons.attackPoke;
-                    enemyPokemon = pokemons.defencePoke;
+                    onBattleField = doAction(myPokemon, enemyPokemon, field,  selectedMove);
+                    myPokemon = onBattleField.attackPoke;
+                    enemyPokemon = onBattleField.defencePoke;
+                    field = onBattleField.field;
                 }
             }
+            // ターン終了処理
+            field = field.elapseTurn();
         }
 
         showPokemonInfo(myPokemon, enemyPokemon);
@@ -75,4 +85,6 @@ public class BattleSimulation {
         }
         return myPokemon.withResetStatusRank();
     }
+
+
 }

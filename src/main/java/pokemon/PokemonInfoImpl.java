@@ -6,7 +6,7 @@ import pokemonStatus.*;
 import pokemonStatus.impl.*;
 import Enum.*;
 import statusAilment.Ailment;
-import statusAilment.StatusAilmentInterface;
+import statusAilment.StatusAilment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class PokemonInfoImpl implements PokemonInfo {
     private final Experience experience;
     private final CurrentHitPoint currentHitPoint;
     private final StatusRank statusRank;
-    private final StatusAilmentInterface statusAilment;
+    private final StatusAilment statusAilment;
 
     public int getRealValHitPoint() {
         return ((this.basePrm.getHitPoint() * 2 + this.individualValue.hitPoint() + (this.effortValue.hitPoint() / 4)) * this.level.value() / 100) + 10 + this.level.value();
@@ -163,7 +163,7 @@ public class PokemonInfoImpl implements PokemonInfo {
             List<Move> haveMove,
             CurrentHitPoint currentHitPoint,
             StatusRank statusRankImpl,
-            StatusAilmentInterface statusAilment
+            StatusAilment statusAilment
     ) {
         this.basePrm = basePokemonInfo;
         this.gender = gender;
@@ -211,7 +211,7 @@ public class PokemonInfoImpl implements PokemonInfo {
         return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, newMoves, this.currentHitPoint, this.statusRank, this.statusAilment);
     }
     @Override
-    public PokemonInfo withStatusAilment(StatusAilmentInterface statusAilment) {
+    public PokemonInfo withStatusAilment(StatusAilment statusAilment) {
         return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, statusAilment);
     }
 }

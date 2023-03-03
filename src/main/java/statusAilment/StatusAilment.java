@@ -2,11 +2,11 @@ package statusAilment;
 
 import pokemon.PokemonInfo;
 
-public interface StatusAilmentInterface {
+public interface StatusAilment {
     Ailment getValue();
     int getElapsedTurn();
     int getCountRecoverySleep();
-    StatusAilmentImpl comeTurn() throws InterruptedException;
+    StatusAilment comeTurn() throws InterruptedException;
     boolean canMove() throws InterruptedException;
     public double damageRateByBurn();
     double speedRateByParalysis();
