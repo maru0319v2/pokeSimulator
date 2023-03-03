@@ -1,6 +1,7 @@
 package field;
 
 import lombok.Getter;
+import pokemon.PokemonInfo;
 
 import static bussinessLogic.ConsoleOutManager.*;
 
@@ -56,5 +57,15 @@ public class FieldImpl implements Field {
         }
         showKeepWeather(this.weather);
         return keepField(this.weather, this.elapsedTurn + 1, this.countForRecovery);
+    }
+
+    public PokemonInfo slipDamageBySandStorm(PokemonInfo target) throws InterruptedException {
+        int damage = target.getRealValHitPoint() / 16;
+        return target.damagePoke(damage);
+    }
+
+    public PokemonInfo slipDamageByHail(PokemonInfo target) throws InterruptedException {
+        int damage = target.getRealValHitPoint() / 16;
+        return target.damagePoke(damage);
     }
 }
