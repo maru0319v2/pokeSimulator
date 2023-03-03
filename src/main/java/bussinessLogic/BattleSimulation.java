@@ -1,8 +1,6 @@
 package bussinessLogic;
 
 import field.Field;
-import field.FieldImpl;
-import field.Weather;
 import move.Move;
 import pokemon.PokemonInfo;
 

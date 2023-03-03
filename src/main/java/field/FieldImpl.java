@@ -1,6 +1,5 @@
 package field;
 
-import bussinessLogic.OnBattleField;
 import lombok.Getter;
 
 import static bussinessLogic.ConsoleOutManager.*;

@@ -2,8 +2,6 @@ import field.Field;
 import field.Weather;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import pokemonStatus.StatusRank;
-import pokemonStatus.impl.StatusRankImpl;
 
 import static field.FieldImpl.changeField;
 import static field.FieldImpl.initializeField;

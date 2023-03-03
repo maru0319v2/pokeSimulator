@@ -2,7 +2,6 @@ package bussinessLogic;
 
 import Enum.*;
 import field.Field;
-import field.Weather;
 import move.Move;
 import pokemon.PokemonInfo;
 
