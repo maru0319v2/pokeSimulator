@@ -45,7 +45,7 @@ public class BattleSimulation {
                     field = onBF.getField();
                 }
 
-                if(!onBF.isBothFine()) { break; }
+                if(onBF.isDeadEither()) { break; }
                 Thread.sleep(500);
                 showPokemonInfo(myPoke, enemyPoke);
 
@@ -71,7 +71,7 @@ public class BattleSimulation {
                     field = onBF.getField();
                 }
 
-                if(!onBF.isBothFine()) { break; }
+                if(onBF.isDeadEither()) { break; }
                 Thread.sleep(500);
                 showPokemonInfo(myPoke, enemyPoke);
 
@@ -85,7 +85,7 @@ public class BattleSimulation {
                     field = onBF.getField();
                 }
             }
-            if(!onBF.isBothFine()) { break; }
+            if(onBF.isDeadEither()) { break; }
             // ターン終了処理
             onBF = endTurnProcess(myPoke, enemyPoke, field);
             myPoke = onBF.getAttackPoke();
