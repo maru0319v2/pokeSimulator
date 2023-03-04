@@ -11,4 +11,5 @@ public interface Field {
     PokemonInfo slipDamageBySandStorm(PokemonInfo target) throws InterruptedException;
     PokemonInfo slipDamageByHail(PokemonInfo target) throws InterruptedException;
     double damageRateByWeather(Move move);
+    double defenceRateBySandStorm(PokemonInfo defencePoke);
 }

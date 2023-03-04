@@ -146,6 +146,8 @@ public class BattleLogic {
         // ダメージ倍率合算
         double totalDamageRate = randomNum * criticalRate * typeMatchRate * effectiveRate * burnedRate * weatherRate;
 
+        // すなあらしによる岩タイプの特防上昇
+        double defenceRateRock = field.defenceRateBySandStorm(defencePoke);
         int attackVal = 0;
         int defenceVal = 0;
         // ステータス実数値にランク補正を乗せる
@@ -154,7 +156,7 @@ public class BattleLogic {
             defenceVal = (int)(defencePoke.getRealValBlock() * blockRateByStatusRank);
         } else if (moveSpecies == MoveSpecies.SPECIAL) {
             attackVal = (int)(attackPoke.getRealValContact() * contactRateByStatusRank);
-            defenceVal = (int)(defencePoke.getRealValDefense() * defenseRateByStatusRank);
+            defenceVal = (int)(defencePoke.getRealValDefense() * defenseRateByStatusRank * defenceRateRock);
         }
 
         int result = (int)Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * totalDamageRate);

@@ -4,6 +4,9 @@ import move.BaseMPrm;
 import move.MoveImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import pokemon.BasePrm;
+import pokemon.PokemonInfo;
+import pokemon.PokemonInfoImpl;
 
 import static field.FieldImpl.changeField;
 import static field.FieldImpl.initializeField;
@@ -91,5 +94,24 @@ public class FieldTest {
 
         assertEquals(0.5, result1);
         assertEquals(1.5, result2);
+    }
+
+    @Test
+    @DisplayName("砂嵐のときに岩タイプの特防が1.5倍になること")
+    public void test6() throws InterruptedException {
+        PokemonInfo myPoke1 = new PokemonInfoImpl(BasePrm.RHYDON);
+        PokemonInfo myPoke2 = new PokemonInfoImpl(BasePrm.CHARIZARD);
+
+        Field field = initializeField();
+        double result1 = field.defenceRateBySandStorm(myPoke1);
+        double result2 = field.defenceRateBySandStorm(myPoke2);
+        assertEquals(1.0, result1);
+        assertEquals(1.0, result2);
+
+        field = changeField(field, Weather.SANDSTORM);
+        double result3 = field.defenceRateBySandStorm(myPoke1);
+        double result4 = field.defenceRateBySandStorm(myPoke2);
+        assertEquals(1.5, result3);
+        assertEquals(1.0, result4);
     }
 }

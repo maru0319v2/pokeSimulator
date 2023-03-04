@@ -26,7 +26,6 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 // とくせい
 // ひるみ判定
 // こんらん、バインド、のろい、ちょうはつ、こだわり
-// ひでりのときに炎技1.5倍、水技半減、雨のときに雨技1.5倍、炎技半減、砂嵐のときに岩特防1.5倍
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);

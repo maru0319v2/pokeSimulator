@@ -83,6 +83,14 @@ public enum BasePrm {
             ExperienceType.TYPE1050000, 265,
             0, 0, 0, 0, 3, 0,
             List.of(new MoveImpl(BaseMPrm.TACKLE), new MoveImpl(BaseMPrm.GROWL))
+    ),
+    RHYDON(
+            "112", "サイドン",
+            Type.GROUND, Type.ROCK,
+            105, 130, 120, 45, 45, 40,
+            ExperienceType.TYPE1250000, 170,
+            0, 2, 0, 0, 0, 0,
+            List.of(new MoveImpl(BaseMPrm.TACKLE), new MoveImpl(BaseMPrm.GROWL))
     );
 
     private final String pokeDexNo;

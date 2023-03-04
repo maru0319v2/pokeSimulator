@@ -85,4 +85,13 @@ public class FieldImpl implements Field {
         }
         return 1.0;
     }
+
+    public double defenceRateBySandStorm(PokemonInfo defencePoke) {
+        Type type1 = defencePoke.getBasePrm().getType1();
+        Type type2 = defencePoke.getBasePrm().getType2();
+        if (this.weather == Weather.SANDSTORM) {
+            return type1 == Type.ROCK || type2 == Type.ROCK? 1.5 : 1.0;
+        }
+        return 1.0;
+    }
 }
