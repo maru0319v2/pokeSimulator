@@ -19,10 +19,10 @@ public class BattleSimulation {
         showMessageParChar("野生の" + enemyPoke.getBasePrm().getName() + "が飛び出してきた!");
         showMessageParChar("ゆけっ!" + myPoke.getBasePrm().getName() + "!");
 
-        OnBattleField onBF;
         Field field = initializeField();
+        OnBattleField onBF = new OnBattleField(myPoke, enemyPoke, field);;
 
-        while (myPoke.getCurrentHitPoint().isAlive() && enemyPoke.getCurrentHitPoint().isAlive()) {
+        while (onBF.isBothFine()) {
             Thread.sleep(100);
             // 技選択
             showPokemonInfo(myPoke, enemyPoke);
@@ -40,7 +40,7 @@ public class BattleSimulation {
                     field = onBF.getField();
                 }
 
-                if(myPoke.getCurrentHitPoint().isDead() || enemyPoke.getCurrentHitPoint().isDead()) { break; }
+                if(!onBF.isBothFine()) { break; }
                 Thread.sleep(100);
                 showPokemonInfo(myPoke, enemyPoke);
 
@@ -73,7 +73,7 @@ public class BattleSimulation {
                     field = onBF.getField();
                 }
             }
-            if(myPoke.getCurrentHitPoint().isDead() || enemyPoke.getCurrentHitPoint().isDead()) { break; }
+            if(!onBF.isBothFine()) { break; }
             // ターン終了処理
             onBF = endTurnProcess(myPoke, enemyPoke, field);
             myPoke = onBF.getAttackPoke();
