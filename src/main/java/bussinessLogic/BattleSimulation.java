@@ -124,27 +124,27 @@ public class BattleSimulation {
         }
         if(myPoke.getStatusAilment().getValue() == Ailment.POISON) {
             System.out.println(myPoke.getBasePrm().getName() + "はどくでダメージをうけた！");
-            myPoke.getStatusAilment().slipDamageByPoison(myPoke);
+            myPoke = myPoke.getStatusAilment().slipDamageByPoison(myPoke);
         }
         if(myPoke.getStatusAilment().getValue() == Ailment.BAD_POISON) {
             System.out.println(myPoke.getBasePrm().getName() + "はどくでダメージをうけた！");
-            myPoke.getStatusAilment().slipDamageByPoison(myPoke);
+            myPoke = myPoke.getStatusAilment().slipDamageByPoison(myPoke);
         }
         if(myPoke.getStatusAilment().getValue() == Ailment.BURN) {
             System.out.println(myPoke.getBasePrm().getName() + "はやけどでダメージをうけた！");
-            myPoke.getStatusAilment().slipDamageByPoison(myPoke);
+            myPoke = myPoke.getStatusAilment().slipDamageByPoison(myPoke);
         }
         if(enemyPoke.getStatusAilment().getValue() == Ailment.POISON) {
             System.out.println(enemyPoke.getBasePrm().getName() + "はどくでダメージをうけた！");
-            enemyPoke.getStatusAilment().slipDamageByPoison(enemyPoke);
+            enemyPoke = enemyPoke.getStatusAilment().slipDamageByPoison(enemyPoke);
         }
         if(enemyPoke.getStatusAilment().getValue() == Ailment.BAD_POISON) {
             System.out.println(enemyPoke.getBasePrm().getName() + "はどくでダメージをうけた！");
-            enemyPoke.getStatusAilment().slipDamageByPoison(enemyPoke);
+            enemyPoke = enemyPoke.getStatusAilment().slipDamageByPoison(enemyPoke);
         }
         if(enemyPoke.getStatusAilment().getValue() == Ailment.BURN) {
             System.out.println(enemyPoke.getBasePrm().getName() + "はやけどでダメージをうけた！");
-            enemyPoke.getStatusAilment().slipDamageByPoison(enemyPoke);
+            enemyPoke = enemyPoke.getStatusAilment().slipDamageByPoison(enemyPoke);
         }
 
         return new OnBattleField(myPoke, enemyPoke, field);
