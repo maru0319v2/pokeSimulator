@@ -19,11 +19,12 @@ public class BattleSimulation {
         showMessageParChar("野生の" + enemyPoke.getBasePrm().getName() + "が飛び出してきた!");
         showMessageParChar("ゆけっ!" + myPoke.getBasePrm().getName() + "!");
 
-        OnBattleField onBattleField;
+        OnBattleField onBF;
         Field field = initializeField();
 
         while (myPoke.getCurrentHitPoint().isAlive() && enemyPoke.getCurrentHitPoint().isAlive()) {
             Thread.sleep(100);
+            // 技選択
             showPokemonInfo(myPoke, enemyPoke);
             Move selectedMove = BattleLogic.selectMove(myPoke.getHaveMove(), myPoke);
             Move enemyMove = BattleLogic.enemySelectMove(enemyPoke, myPoke);
@@ -33,10 +34,10 @@ public class BattleSimulation {
                 // 自分が先行の場合
                 myPoke = myPoke.withStatusAilment(myPoke.getStatusAilment().comeTurn());
                 if(myPoke.getStatusAilment().canMove()) {
-                    onBattleField = doAction(myPoke, enemyPoke, field, selectedMove);
-                    myPoke = onBattleField.getAttackPoke();
-                    enemyPoke = onBattleField.getDefencePoke();
-                    field = onBattleField.getField();
+                    onBF = doAction(myPoke, enemyPoke, field, selectedMove);
+                    myPoke = onBF.getAttackPoke();
+                    enemyPoke = onBF.getDefencePoke();
+                    field = onBF.getField();
                 }
 
                 if(myPoke.getCurrentHitPoint().isDead() || enemyPoke.getCurrentHitPoint().isDead()) { break; }
@@ -45,19 +46,19 @@ public class BattleSimulation {
 
                 enemyPoke = enemyPoke.withStatusAilment(enemyPoke.getStatusAilment().comeTurn());
                 if(enemyPoke.getStatusAilment().canMove()) {
-                    onBattleField = doAction(enemyPoke, myPoke, field, enemyMove);
-                    myPoke = onBattleField.getDefencePoke();
-                    enemyPoke = onBattleField.getAttackPoke();
-                    field = onBattleField.getField();
+                    onBF = doAction(enemyPoke, myPoke, field, enemyMove);
+                    myPoke = onBF.getDefencePoke();
+                    enemyPoke = onBF.getAttackPoke();
+                    field = onBF.getField();
                 }
             } else {
                 // 自分が後攻の場合
                 enemyPoke = enemyPoke.withStatusAilment(enemyPoke.getStatusAilment().comeTurn());
                 if(enemyPoke.getStatusAilment().canMove()) {
-                    onBattleField = doAction(enemyPoke, myPoke, field,  enemyMove);
-                    myPoke = onBattleField.getDefencePoke();
-                    enemyPoke = onBattleField.getAttackPoke();
-                    field = onBattleField.getField();
+                    onBF = doAction(enemyPoke, myPoke, field,  enemyMove);
+                    myPoke = onBF.getDefencePoke();
+                    enemyPoke = onBF.getAttackPoke();
+                    field = onBF.getField();
                 }
 
                 if(myPoke.getCurrentHitPoint().isDead() || enemyPoke.getCurrentHitPoint().isDead()) { break; }
@@ -66,17 +67,17 @@ public class BattleSimulation {
 
                 myPoke = myPoke.withStatusAilment(myPoke.getStatusAilment().comeTurn());
                 if(myPoke.getStatusAilment().canMove()) {
-                    onBattleField = doAction(myPoke, enemyPoke, field,  selectedMove);
-                    myPoke = onBattleField.getAttackPoke();
-                    enemyPoke = onBattleField.getDefencePoke();
-                    field = onBattleField.getField();
+                    onBF = doAction(myPoke, enemyPoke, field,  selectedMove);
+                    myPoke = onBF.getAttackPoke();
+                    enemyPoke = onBF.getDefencePoke();
+                    field = onBF.getField();
                 }
             }
             if(myPoke.getCurrentHitPoint().isDead() || enemyPoke.getCurrentHitPoint().isDead()) { break; }
             // ターン終了処理
-            onBattleField = endTurnProcess(myPoke, enemyPoke, field);
-            myPoke = onBattleField.getAttackPoke();
-            enemyPoke = onBattleField.getDefencePoke();
+            onBF = endTurnProcess(myPoke, enemyPoke, field);
+            myPoke = onBF.getAttackPoke();
+            enemyPoke = onBF.getDefencePoke();
         }
 
         showPokemonInfo(myPoke, enemyPoke);
