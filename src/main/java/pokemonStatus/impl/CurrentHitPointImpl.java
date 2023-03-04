@@ -3,6 +3,8 @@ package pokemonStatus.impl;
 import pokemon.PokemonInfo;
 import pokemonStatus.CurrentHitPoint;
 
+import static bussinessLogic.ConsoleOutManager.showMessageParChar;
+
 public class CurrentHitPointImpl implements CurrentHitPoint {
     private static final int MIN = 0;
     private final int value;
@@ -17,12 +19,13 @@ public class CurrentHitPointImpl implements CurrentHitPoint {
     }
 
     @Override
-    public CurrentHitPointImpl recovery(PokemonInfo target, CurrentHitPointImpl currentHitPointImpl) {
+    public CurrentHitPointImpl recovery(PokemonInfo target, CurrentHitPointImpl currentHitPointImpl) throws InterruptedException {
         if (currentHitPointImpl.value <= MIN) {
             throw new IllegalArgumentException("回復量は1以上を指定してください。");
         }
         final int added = this.value + currentHitPointImpl.value;
         int result = Math.min(added, target.getRealValHitPoint());
+        showMessageParChar(target.getBasePrm().getName() + "は体力を" + currentHitPointImpl.value + "回復!");
         return new CurrentHitPointImpl(result);
     }
 

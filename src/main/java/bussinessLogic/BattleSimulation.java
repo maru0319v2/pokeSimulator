@@ -102,48 +102,48 @@ public class BattleSimulation {
             if(myPoke.getBasePrm().getType1() != Type.ROCK || myPoke.getBasePrm().getType2() != Type.ROCK ||
                     myPoke.getBasePrm().getType1() != Type.GROUND || myPoke.getBasePrm().getType2() != Type.GROUND ||
                     myPoke.getBasePrm().getType1() != Type.STEEL || myPoke.getBasePrm().getType2() != Type.STEEL) {
-                System.out.println(myPoke.getBasePrm().getName() + "はすなあらしでダメージをうけた！");
+                showMessageParChar(myPoke.getBasePrm().getName() + "はすなあらしでダメージをうけた！");
                 myPoke = field.slipDamageBySandStorm(myPoke);
             }
             if(enemyPoke.getBasePrm().getType1() != Type.ROCK || enemyPoke.getBasePrm().getType2() != Type.ROCK ||
                     enemyPoke.getBasePrm().getType1() != Type.GROUND || enemyPoke.getBasePrm().getType2() != Type.GROUND ||
                     enemyPoke.getBasePrm().getType1() != Type.STEEL || enemyPoke.getBasePrm().getType2() != Type.STEEL) {
-                System.out.println(enemyPoke.getBasePrm().getName() + "はすなあらしでダメージをうけた！");
+                showMessageParChar(enemyPoke.getBasePrm().getName() + "はすなあらしでダメージをうけた！");
                 enemyPoke = field.slipDamageBySandStorm(enemyPoke);
             }
         }
         if(field.getWeather() == Weather.HAIL) {
             if(myPoke.getBasePrm().getType1() != Type.ICE || myPoke.getBasePrm().getType2() != Type.ICE) {
-                System.out.println(myPoke.getBasePrm().getName() + "はあられでダメージをうけた！");
+                showMessageParChar(myPoke.getBasePrm().getName() + "はあられでダメージをうけた！");
                 myPoke = field.slipDamageByHail(myPoke);
             }
             if(enemyPoke.getBasePrm().getType1() != Type.ICE || enemyPoke.getBasePrm().getType2() != Type.ICE) {
-                System.out.println(enemyPoke.getBasePrm().getName() + "はあられでダメージをうけた！");
+                showMessageParChar(enemyPoke.getBasePrm().getName() + "はあられでダメージをうけた！");
                 enemyPoke = field.slipDamageByHail(enemyPoke);
             }
         }
         if(myPoke.getStatusAilment().getValue() == Ailment.POISON) {
-            System.out.println(myPoke.getBasePrm().getName() + "はどくでダメージをうけた！");
+            showMessageParChar(myPoke.getBasePrm().getName() + "はどくでダメージをうけた！");
             myPoke = myPoke.getStatusAilment().slipDamageByPoison(myPoke);
         }
         if(myPoke.getStatusAilment().getValue() == Ailment.BAD_POISON) {
-            System.out.println(myPoke.getBasePrm().getName() + "はどくでダメージをうけた！");
+            showMessageParChar(myPoke.getBasePrm().getName() + "はどくでダメージをうけた！");
             myPoke = myPoke.getStatusAilment().slipDamageByPoison(myPoke);
         }
         if(myPoke.getStatusAilment().getValue() == Ailment.BURN) {
-            System.out.println(myPoke.getBasePrm().getName() + "はやけどでダメージをうけた！");
+            showMessageParChar(myPoke.getBasePrm().getName() + "はやけどでダメージをうけた！");
             myPoke = myPoke.getStatusAilment().slipDamageByPoison(myPoke);
         }
         if(enemyPoke.getStatusAilment().getValue() == Ailment.POISON) {
-            System.out.println(enemyPoke.getBasePrm().getName() + "はどくでダメージをうけた！");
+            showMessageParChar(enemyPoke.getBasePrm().getName() + "はどくでダメージをうけた！");
             enemyPoke = enemyPoke.getStatusAilment().slipDamageByPoison(enemyPoke);
         }
         if(enemyPoke.getStatusAilment().getValue() == Ailment.BAD_POISON) {
-            System.out.println(enemyPoke.getBasePrm().getName() + "はどくでダメージをうけた！");
+            showMessageParChar(enemyPoke.getBasePrm().getName() + "はどくでダメージをうけた！");
             enemyPoke = enemyPoke.getStatusAilment().slipDamageByPoison(enemyPoke);
         }
         if(enemyPoke.getStatusAilment().getValue() == Ailment.BURN) {
-            System.out.println(enemyPoke.getBasePrm().getName() + "はやけどでダメージをうけた！");
+            showMessageParChar(enemyPoke.getBasePrm().getName() + "はやけどでダメージをうけた！");
             enemyPoke = enemyPoke.getStatusAilment().slipDamageByPoison(enemyPoke);
         }
 

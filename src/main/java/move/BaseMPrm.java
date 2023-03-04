@@ -85,7 +85,6 @@ public enum BaseMPrm {
         @Override
         public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
             int recovery = recoveryHP/2;
-            showMessageParChar(attackPoke.getBasePrm().getName() + "は体力を" + recovery + "回復!");
             return new OnBattleField(attackPoke.withCurrentHitPoint(attackPoke.getCurrentHitPoint().recovery(attackPoke, new CurrentHitPointImpl(recovery))), defensePoke, field);
         }
     },
