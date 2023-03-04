@@ -25,6 +25,7 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 // とくせい
 // ひるみ判定
 // こんらん、バインド、のろい、ちょうはつ、こだわり
+// テストを充実させる
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);

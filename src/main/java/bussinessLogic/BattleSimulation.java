@@ -41,7 +41,7 @@ public class BattleSimulation {
                 }
 
                 if(!onBF.isBothFine()) { break; }
-                Thread.sleep(100);
+                Thread.sleep(500);
                 showPokemonInfo(myPoke, enemyPoke);
 
                 enemyPoke = enemyPoke.withStatusAilment(enemyPoke.getStatusAilment().comeTurn());
@@ -62,7 +62,7 @@ public class BattleSimulation {
                 }
 
                 if(myPoke.getCurrentHitPoint().isDead() || enemyPoke.getCurrentHitPoint().isDead()) { break; }
-                Thread.sleep(100);
+                Thread.sleep(500);
                 showPokemonInfo(myPoke, enemyPoke);
 
                 myPoke = myPoke.withStatusAilment(myPoke.getStatusAilment().comeTurn());
@@ -93,7 +93,7 @@ public class BattleSimulation {
 
     private OnBattleField endTurnProcess(PokemonInfo myPoke, PokemonInfo enemyPoke, Field field) throws InterruptedException {
 
-        Thread.sleep(100);
+        Thread.sleep(500);
         showPokemonInfo(myPoke, enemyPoke);
         field = field.elapseTurn();
 
