@@ -60,7 +60,7 @@ public class BattleSimulation {
                     field = onBattleField.getField();
                 }
 
-                if(myPoke.getCurrentHitPoint().isDead()) { break; }
+                if(myPoke.getCurrentHitPoint().isDead() || enemyPoke.getCurrentHitPoint().isDead()) { break; }
                 Thread.sleep(100);
                 showPokemonInfo(myPoke, enemyPoke);
 
