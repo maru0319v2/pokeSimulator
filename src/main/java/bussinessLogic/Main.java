@@ -75,7 +75,7 @@ public class Main {
                                 new IndividualValueImpl(10, 10, 10, 10, 10 , 10),
                                 new EffortValueImpl(6, 0, 0, 252, 0, 252),
                                 new LevelImpl(50),
-                                List.of(new MoveImpl(BaseMPrm.FLAMETHROWER), new MoveImpl(BaseMPrm.SUNNY_DAY), new MoveImpl(BaseMPrm.WILL_O_WISP), new MoveImpl(BaseMPrm.SAND_STORM))
+                                List.of(new MoveImpl(BaseMPrm.FLAMETHROWER), new MoveImpl(BaseMPrm.SUNNY_DAY), new MoveImpl(BaseMPrm.WILL_O_WISP), new MoveImpl(BaseMPrm.DOUBLE_TEAM))
                         ),
                         new PokemonInfoImpl(
                                 BasePrm.VENUSAUR,
