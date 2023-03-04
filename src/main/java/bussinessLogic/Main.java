@@ -70,13 +70,13 @@ public class Main {
                 case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, new PokemonInfoImpl(BasePrm.CHARMANDER));
                 case "f" -> myPokemon = new BattleSimulation().battleSimulation(
                         new PokemonInfoImpl(
-                                BasePrm.CHARIZARD,
+                                BasePrm.RHYDON,
                                 Gender.MALE,
                                 Nature.MODEST,
                                 new IndividualValueImpl(10, 10, 10, 10, 10 , 10),
                                 new EffortValueImpl(6, 0, 0, 252, 0, 252),
                                 new LevelImpl(50),
-                                List.of(new MoveImpl(BaseMPrm.FLAMETHROWER), new MoveImpl(BaseMPrm.SUNNY_DAY), new MoveImpl(BaseMPrm.WILL_O_WISP), new MoveImpl(BaseMPrm.DOUBLE_TEAM))
+                                List.of(new MoveImpl(BaseMPrm.SAND_STORM), new MoveImpl(BaseMPrm.SUNNY_DAY), new MoveImpl(BaseMPrm.WILL_O_WISP), new MoveImpl(BaseMPrm.DOUBLE_TEAM))
                         ),
                         new PokemonInfoImpl(
                                 BasePrm.VENUSAUR,

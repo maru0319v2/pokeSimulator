@@ -64,11 +64,13 @@ public class FieldImpl implements Field {
     }
 
     public PokemonInfo slipDamageBySandStorm(PokemonInfo target) throws InterruptedException {
+        showMessageParChar(target.getBasePrm().getName() + "はすなあらしでダメージをうけた！");
         int damage = target.getRealValHitPoint() / 16;
         return target.damagePoke(damage);
     }
 
     public PokemonInfo slipDamageByHail(PokemonInfo target) throws InterruptedException {
+        showMessageParChar(target.getBasePrm().getName() + "はあられでダメージをうけた！");
         int damage = target.getRealValHitPoint() / 16;
         return target.damagePoke(damage);
     }

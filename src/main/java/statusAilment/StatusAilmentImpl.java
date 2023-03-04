@@ -140,16 +140,19 @@ public class StatusAilmentImpl implements StatusAilment {
     }
 
     public PokemonInfo slipDamageByBurn(PokemonInfo target) throws InterruptedException {
+        showMessageParChar(target.getBasePrm().getName() + "はやけどでダメージをうけた！");
         int damage = target.getRealValHitPoint() / 8;
         return target.damagePoke(damage);
     }
 
     public PokemonInfo slipDamageByPoison(PokemonInfo target) throws InterruptedException {
+        showMessageParChar(target.getBasePrm().getName() + "はどくでダメージをうけた！");
         int damage = target.getRealValHitPoint() / 8;
         return target.damagePoke(damage);
     }
 
     public PokemonInfo slipDamageByBadPoison(PokemonInfo target) throws InterruptedException {
+        showMessageParChar(target.getBasePrm().getName() + "はどくでダメージをうけた！");
         int rate = elapsedTurn / 16;
         int damage = target.getRealValHitPoint() / rate;
         return target.damagePoke(damage);
