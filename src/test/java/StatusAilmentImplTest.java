@@ -249,17 +249,17 @@ public class StatusAilmentImplTest {
     public void test9() throws InterruptedException {
         PokemonInfo myPokemon = new PokemonInfoImpl(BasePrm.BULBASAUR);
         myPokemon = myPokemon.withStatusAilment(changeAilment(myPokemon, Ailment.SLEEP));
-        myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn());
+        myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
         // 1ターン経過後
         assertEquals(Ailment.SLEEP, myPokemon.getStatusAilment().getValue());
-        assertFalse(myPokemon.getStatusAilment().canMove());
-        myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn());
-        myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn());
-        myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn());
-        myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn());
+        assertFalse(myPokemon.getStatusAilment().canMove(myPokemon.getBasePrm().getName()));
+        myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
+        myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
+        myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
+        myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
         // 5ターン経過後
         assertEquals(Ailment.FINE, myPokemon.getStatusAilment().getValue());
-        assertTrue(myPokemon.getStatusAilment().canMove());
+        assertTrue(myPokemon.getStatusAilment().canMove(myPokemon.getBasePrm().getName()));
     }
 
     @Test
@@ -279,7 +279,7 @@ public class StatusAilmentImplTest {
     public void test11() throws InterruptedException {
         PokemonInfo poke = new PokemonInfoImpl(BasePrm.BULBASAUR);
         poke = poke.withStatusAilment(changeAilment(poke, Ailment.SLEEP));
-        poke = poke.withStatusAilment(poke.getStatusAilment().comeTurn());
+        poke = poke.withStatusAilment(poke.getStatusAilment().comeTurn(poke.getBasePrm().getName()));
         poke = poke.withStatusAilment(changeAilment(poke, Ailment.SLEEP));
 
         assertEquals(1, poke.getStatusAilment().getElapsedTurn());

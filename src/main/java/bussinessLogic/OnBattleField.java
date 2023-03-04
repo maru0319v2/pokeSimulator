@@ -19,4 +19,8 @@ public class OnBattleField {
     public boolean isBothFine() {
         return attackPoke.getCurrentHitPoint().isAlive() && defencePoke.getCurrentHitPoint().isAlive();
     }
+
+    public boolean isDeadEither() {
+        return attackPoke.getCurrentHitPoint().isDead() || defencePoke.getCurrentHitPoint().isDead();
+    }
 }

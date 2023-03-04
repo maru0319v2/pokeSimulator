@@ -89,12 +89,12 @@ public class StatusAilmentImpl implements StatusAilment {
         return false;
     }
 
-    public StatusAilment comeTurn() throws InterruptedException {
+    public StatusAilment comeTurn(String pokeName) throws InterruptedException {
 
         // ねむりの場合、経過ターンを1増やしカウンタを同じになればねむりを解く
         if(this.value == Ailment.SLEEP) {
             if(this.countRecoverySleep <= this.elapsedTurn + 1) {
-                showMessageParChar("めをさました!");
+                showMessageParChar(pokeName + "はめをさました!");
                 return initializeAilment();
             }
             return keepAilment(this.value, this.countRecoverySleep, this.elapsedTurn + 1);
@@ -102,7 +102,7 @@ public class StatusAilmentImpl implements StatusAilment {
         // こおりの場合、20%の確率でこおりを解く
         if(this.value == Ailment.FREEZE) {
             if((new Random().nextInt(5)) == 0) {
-                showMessageParChar("こおりがとけた!");
+                showMessageParChar(pokeName + "のこおりがとけた!");
                 return initializeAilment();
             }
         }
@@ -110,25 +110,26 @@ public class StatusAilmentImpl implements StatusAilment {
         return keepAilment(this.value, this.countRecoverySleep, this.elapsedTurn);
     }
 
-    public boolean canMove() throws InterruptedException {
+    public boolean canMove(String pokeName) throws InterruptedException {
         if(this.value == Ailment.SLEEP) {
-            showMessageParChar("ぐうぐうねむっている・・・");
+            showMessageParChar(pokeName + "はぐうぐうねむっている・・・");
             return false;
         }
         if(this.value == Ailment.FREEZE) {
-            showMessageParChar("こおってしまってうごけない！");
+            showMessageParChar(pokeName + "はこおってしまってうごけない！");
             return false;
         }
         if(this.value == Ailment.PARALYSIS && (new Random().nextInt(4)) == 0) {
-            showMessageParChar("しびれてうごけない!");
+            showMessageParChar(pokeName + "はしびれてうごけない!");
             return false;
         }
         return true;
     }
 
-    public boolean isNoAilment() {
+    public boolean isFine() {
         return this.value == Ailment.FINE;
     }
+    public boolean isSick() { return this.value != Ailment.FINE; }
 
     public double damageRateByBurn() {
         return Objects.equals(this.value, Ailment.BURN) ? 0.5 : 1.0;
