@@ -1,7 +1,11 @@
 package field;
 
 import lombok.Getter;
+import move.Move;
 import pokemon.PokemonInfo;
+import Enum.*;
+
+import java.util.Objects;
 
 import static bussinessLogic.ConsoleOutManager.*;
 
@@ -67,5 +71,18 @@ public class FieldImpl implements Field {
     public PokemonInfo slipDamageByHail(PokemonInfo target) throws InterruptedException {
         int damage = target.getRealValHitPoint() / 16;
         return target.damagePoke(damage);
+    }
+
+    public double damageRateByWeather(Move move) {
+        Type useType = move.baseMPrm().getMoveType();
+        if(useType == Type.FIRE) {
+            if(this.weather == Weather.DROUGHT) { return 1.5;}
+            if(this.weather == Weather.RAIN) { return 0.5;}
+        }
+        if(useType == Type.WATER) {
+            if(this.weather == Weather.DROUGHT) { return 0.5;}
+            if(this.weather == Weather.RAIN) { return 1.5;}
+        }
+        return 1.0;
     }
 }

@@ -96,7 +96,7 @@ public class BattleLogic {
         // TODO 型で処理を分けてif文なくせそう
         if (move.baseMPrm().getMoveSpecies() == MoveSpecies.PHYSICAL || move.baseMPrm().getMoveSpecies() == MoveSpecies.SPECIAL) {
             if (move.isHit()) {
-                int damage = calcDamage(attackPoke, defencePoke, move);
+                int damage = calcDamage(attackPoke, defencePoke, field, move);
                 defencePoke = defencePoke.damagePoke(damage);
                 return move.baseMPrm().effect(attackPoke, defencePoke, field, damage);
             } else {
@@ -116,7 +116,7 @@ public class BattleLogic {
         }
     }
 
-    private static int calcDamage(PokemonInfo attackPoke, PokemonInfo defencePoke, Move move) throws InterruptedException {
+    private static int calcDamage(PokemonInfo attackPoke, PokemonInfo defencePoke, Field field, Move move) throws InterruptedException {
         // ダメージ計算参考　https://latest.pokewiki.net/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F
         // 攻撃側のレベル
         int attackPokeLv = attackPoke.getLevel().value();
@@ -141,6 +141,10 @@ public class BattleLogic {
         double effectiveRate = Type.damageRateByType(defencePoke.getBasePrm().getType1(), defencePoke.getBasePrm().getType2(), move);
         // やけど判定
         double burnedRate = moveSpecies == MoveSpecies.PHYSICAL? attackPoke.getStatusAilment().damageRateByBurn() : 1.0;
+        // 天候によるダメージ倍率
+        double weatherRate = field.damageRateByWeather(move);
+        // ダメージ倍率合算
+        double totalDamageRate = randomNum * criticalRate * typeMatchRate * effectiveRate * burnedRate * weatherRate;
 
         int attackVal = 0;
         int defenceVal = 0;
@@ -153,7 +157,7 @@ public class BattleLogic {
             defenceVal = (int)(defencePoke.getRealValDefense() * defenseRateByStatusRank);
         }
 
-        int result = (int)Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * randomNum * criticalRate * typeMatchRate * effectiveRate * burnedRate);
+        int result = (int)Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * totalDamageRate);
         showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "!");
         if(isCritical) { showMessageParChar("急所に当った!"); }
         if(effectiveRate >= 2.0) { showMessageParChar("効果は抜群だ!"); }

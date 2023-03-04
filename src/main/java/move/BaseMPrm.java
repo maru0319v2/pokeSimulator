@@ -62,6 +62,15 @@ public enum BaseMPrm {
             return new OnBattleField(attackPoke, defensePoke, field);
         }
     },
+    WATER_PULSE("みずのはどう", Type.WATER, MoveSpecies.SPECIAL, 60, 100, 20, 0, 0,
+            false, false, true, false, false, false
+    ) {
+        @Override
+        public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) {
+            // TODO 20%の確率で相手を1~4ターン混乱する
+            return new OnBattleField(attackPoke, defensePoke, field);
+        }
+    },
     VINE_WHIP("つるのムチ", Type.GRASS, MoveSpecies.PHYSICAL, 45, 100, 25, 0, 0,
             true, false, true, false, false, false
     ) {

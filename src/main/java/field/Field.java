@@ -1,5 +1,6 @@
 package field;
 
+import move.Move;
 import pokemon.PokemonInfo;
 
 public interface Field {
@@ -9,4 +10,5 @@ public interface Field {
     Field elapseTurn() throws InterruptedException;
     PokemonInfo slipDamageBySandStorm(PokemonInfo target) throws InterruptedException;
     PokemonInfo slipDamageByHail(PokemonInfo target) throws InterruptedException;
+    double damageRateByWeather(Move move);
 }

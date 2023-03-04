@@ -1,5 +1,7 @@
 import field.Field;
 import field.Weather;
+import move.BaseMPrm;
+import move.MoveImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -63,5 +65,31 @@ public class FieldTest {
 
         // ひでり -> 天候なし
         assertEquals(Weather.NONE, field.getWeather());
+    }
+
+    @Test
+    @DisplayName("晴れのとき炎技が1.5倍、水技が0.5倍になること")
+    public void test4() throws InterruptedException {
+        Field field = initializeField();
+        field = changeField(field, Weather.DROUGHT);
+
+        double result1 = field.damageRateByWeather(new MoveImpl(BaseMPrm.FLAMETHROWER));
+        double result2 = field.damageRateByWeather(new MoveImpl(BaseMPrm.WATER_PULSE));
+
+        assertEquals(1.5, result1);
+        assertEquals(0.5, result2);
+    }
+
+    @Test
+    @DisplayName("雨のとき炎技が0.5倍、水技が1.5倍になること")
+    public void test5() throws InterruptedException {
+        Field field = initializeField();
+        field = changeField(field, Weather.RAIN);
+
+        double result1 = field.damageRateByWeather(new MoveImpl(BaseMPrm.FLAMETHROWER));
+        double result2 = field.damageRateByWeather(new MoveImpl(BaseMPrm.WATER_PULSE));
+
+        assertEquals(0.5, result1);
+        assertEquals(1.5, result2);
     }
 }
