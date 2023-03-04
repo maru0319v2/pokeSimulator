@@ -39,8 +39,8 @@ public class BattleLogicTest {
                 List.of(new MoveImpl(BaseMPrm.TACKLE))
         );
 
-        assertTrue(BattleLogic.isPreemptiveMe(myPoke, enemyPoke, new MoveImpl(BaseMPrm.QUICK_ATTACK), new MoveImpl(BaseMPrm.TACKLE)));
-        assertFalse(BattleLogic.isPreemptiveMe(myPoke, enemyPoke, new MoveImpl(BaseMPrm.TACKLE), new MoveImpl(BaseMPrm.QUICK_ATTACK)));
+        assertTrue(BattleLogic.isFirstMe(myPoke, enemyPoke, new MoveImpl(BaseMPrm.QUICK_ATTACK), new MoveImpl(BaseMPrm.TACKLE)));
+        assertFalse(BattleLogic.isFirstMe(myPoke, enemyPoke, new MoveImpl(BaseMPrm.TACKLE), new MoveImpl(BaseMPrm.QUICK_ATTACK)));
     }
 
 

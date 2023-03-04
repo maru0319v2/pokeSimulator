@@ -6,9 +6,9 @@ import pokemon.PokemonInfo;
 
 @Getter
 public class OnBattleField {
-    PokemonInfo attackPoke;
-    PokemonInfo defencePoke;
-    Field field;
+    private final PokemonInfo attackPoke;
+    private final PokemonInfo defencePoke;
+    private final Field field;
 
     public OnBattleField(PokemonInfo attackPoke, PokemonInfo defencePoke, Field field) {
         this.attackPoke = attackPoke;

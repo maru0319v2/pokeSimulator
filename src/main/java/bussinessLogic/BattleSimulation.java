@@ -13,130 +13,130 @@ import static bussinessLogic.ConsoleOutManager.showPokemonInfo;
 import static field.FieldImpl.initializeField;
 
 public class BattleSimulation {
-    public PokemonInfo battleSimulation(PokemonInfo myPokemon, PokemonInfo enemyPokemon) throws InterruptedException {
+    public PokemonInfo battleSimulation(PokemonInfo myPoke, PokemonInfo enemyPoke) throws InterruptedException {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        showMessageParChar("野生の" + enemyPokemon.getBasePrm().getName() + "が飛び出してきた!");
-        showMessageParChar("ゆけっ!" + myPokemon.getBasePrm().getName() + "!");
+        showMessageParChar("野生の" + enemyPoke.getBasePrm().getName() + "が飛び出してきた!");
+        showMessageParChar("ゆけっ!" + myPoke.getBasePrm().getName() + "!");
 
         OnBattleField onBattleField;
         Field field = initializeField();
 
-        while (myPokemon.getCurrentHitPoint().isAlive() && enemyPokemon.getCurrentHitPoint().isAlive()) {
+        while (myPoke.getCurrentHitPoint().isAlive() && enemyPoke.getCurrentHitPoint().isAlive()) {
             Thread.sleep(100);
-            showPokemonInfo(myPokemon, enemyPokemon);
-            Move selectedMove = BattleLogic.selectMove(myPokemon.getHaveMove(), myPokemon);
-            Move enemyMove = BattleLogic.enemySelectMove(enemyPokemon, myPokemon);
-            showPokemonInfo(myPokemon, enemyPokemon);
+            showPokemonInfo(myPoke, enemyPoke);
+            Move selectedMove = BattleLogic.selectMove(myPoke.getHaveMove(), myPoke);
+            Move enemyMove = BattleLogic.enemySelectMove(enemyPoke, myPoke);
+            showPokemonInfo(myPoke, enemyPoke);
 
-            if(BattleLogic.isPreemptiveMe(myPokemon, enemyPokemon, selectedMove, enemyMove)) {
+            if(isFirstMe(myPoke, enemyPoke, selectedMove, enemyMove)) {
                 // 自分が先行の場合
-                myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn());
-                if(myPokemon.getStatusAilment().canMove()) {
-                    onBattleField = doAction(myPokemon, enemyPokemon, field, selectedMove);
-                    myPokemon = onBattleField.attackPoke;
-                    enemyPokemon = onBattleField.defencePoke;
-                    field = onBattleField.field;
+                myPoke = myPoke.withStatusAilment(myPoke.getStatusAilment().comeTurn());
+                if(myPoke.getStatusAilment().canMove()) {
+                    onBattleField = doAction(myPoke, enemyPoke, field, selectedMove);
+                    myPoke = onBattleField.getAttackPoke();
+                    enemyPoke = onBattleField.getDefencePoke();
+                    field = onBattleField.getField();
                 }
 
-                if(enemyPokemon.getCurrentHitPoint().isDead()) { break; }
+                if(enemyPoke.getCurrentHitPoint().isDead()) { break; }
                 Thread.sleep(100);
-                showPokemonInfo(myPokemon, enemyPokemon);
+                showPokemonInfo(myPoke, enemyPoke);
 
-                enemyPokemon = enemyPokemon.withStatusAilment(enemyPokemon.getStatusAilment().comeTurn());
-                if(enemyPokemon.getStatusAilment().canMove()) {
-                    onBattleField = doAction(enemyPokemon, myPokemon, field, enemyMove);
-                    myPokemon = onBattleField.defencePoke;
-                    enemyPokemon = onBattleField.attackPoke;
-                    field = onBattleField.field;
+                enemyPoke = enemyPoke.withStatusAilment(enemyPoke.getStatusAilment().comeTurn());
+                if(enemyPoke.getStatusAilment().canMove()) {
+                    onBattleField = doAction(enemyPoke, myPoke, field, enemyMove);
+                    myPoke = onBattleField.getDefencePoke();
+                    enemyPoke = onBattleField.getAttackPoke();
+                    field = onBattleField.getField();
                 }
             } else {
                 // 自分が後攻の場合
-                enemyPokemon = enemyPokemon.withStatusAilment(enemyPokemon.getStatusAilment().comeTurn());
-                if(enemyPokemon.getStatusAilment().canMove()) {
-                    onBattleField = doAction(enemyPokemon, myPokemon, field,  enemyMove);
-                    myPokemon = onBattleField.defencePoke;
-                    enemyPokemon = onBattleField.attackPoke;
-                    field = onBattleField.field;
+                enemyPoke = enemyPoke.withStatusAilment(enemyPoke.getStatusAilment().comeTurn());
+                if(enemyPoke.getStatusAilment().canMove()) {
+                    onBattleField = doAction(enemyPoke, myPoke, field,  enemyMove);
+                    myPoke = onBattleField.getDefencePoke();
+                    enemyPoke = onBattleField.getAttackPoke();
+                    field = onBattleField.getField();
                 }
 
-                if(myPokemon.getCurrentHitPoint().isDead()) { break; }
+                if(myPoke.getCurrentHitPoint().isDead()) { break; }
                 Thread.sleep(100);
-                showPokemonInfo(myPokemon, enemyPokemon);
+                showPokemonInfo(myPoke, enemyPoke);
 
-                myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn());
-                if(myPokemon.getStatusAilment().canMove()) {
-                    onBattleField = doAction(myPokemon, enemyPokemon, field,  selectedMove);
-                    myPokemon = onBattleField.attackPoke;
-                    enemyPokemon = onBattleField.defencePoke;
-                    field = onBattleField.field;
+                myPoke = myPoke.withStatusAilment(myPoke.getStatusAilment().comeTurn());
+                if(myPoke.getStatusAilment().canMove()) {
+                    onBattleField = doAction(myPoke, enemyPoke, field,  selectedMove);
+                    myPoke = onBattleField.getAttackPoke();
+                    enemyPoke = onBattleField.getDefencePoke();
+                    field = onBattleField.getField();
                 }
             }
-            if(myPokemon.getCurrentHitPoint().isDead() || enemyPokemon.getCurrentHitPoint().isDead()) { break; }
+            if(myPoke.getCurrentHitPoint().isDead() || enemyPoke.getCurrentHitPoint().isDead()) { break; }
             // ターン終了処理
-            onBattleField = endTurnProcess(myPokemon, enemyPokemon, field);
-            myPokemon = onBattleField.attackPoke;
-            enemyPokemon = onBattleField.defencePoke;
+            onBattleField = endTurnProcess(myPoke, enemyPoke, field);
+            myPoke = onBattleField.getAttackPoke();
+            enemyPoke = onBattleField.getDefencePoke();
         }
 
-        showPokemonInfo(myPokemon, enemyPokemon);
-        if(myPokemon.getCurrentHitPoint().isAlive()) {
-            System.out.println("野生の" + enemyPokemon.getBasePrm().getName() + "は倒れた!");
-            int addExp = enemyPokemon.giveExp();
-            myPokemon = myPokemon.addExp(addExp);
+        showPokemonInfo(myPoke, enemyPoke);
+        if(myPoke.getCurrentHitPoint().isAlive()) {
+            System.out.println("野生の" + enemyPoke.getBasePrm().getName() + "は倒れた!");
+            int addExp = enemyPoke.giveExp();
+            myPoke = myPoke.addExp(addExp);
         } else {
-            System.out.println(myPokemon.getBasePrm().getName() + "は倒れた");
+            System.out.println(myPoke.getBasePrm().getName() + "は倒れた");
         }
-        return myPokemon.withResetStatusRank();
+        return myPoke.withResetStatusRank();
     }
 
-    private OnBattleField endTurnProcess(PokemonInfo myPokemon, PokemonInfo enemyPokemon, Field field) throws InterruptedException {
+    private OnBattleField endTurnProcess(PokemonInfo myPoke, PokemonInfo enemyPoke, Field field) throws InterruptedException {
 
         Thread.sleep(100);
-        showPokemonInfo(myPokemon, enemyPokemon);
+        showPokemonInfo(myPoke, enemyPoke);
         field = field.elapseTurn();
 
         // TODO　この辺のテストしたい
         if(field.getWeather() == Weather.SANDSTORM) {
-            if(myPokemon.getBasePrm().getType1() != Type.ROCK || myPokemon.getBasePrm().getType2() != Type.ROCK ||
-                    myPokemon.getBasePrm().getType1() != Type.GROUND || myPokemon.getBasePrm().getType2() != Type.GROUND ||
-                    myPokemon.getBasePrm().getType1() != Type.STEEL || myPokemon.getBasePrm().getType2() != Type.STEEL) {
-                myPokemon = field.slipDamageBySandStorm(myPokemon);
+            if(myPoke.getBasePrm().getType1() != Type.ROCK || myPoke.getBasePrm().getType2() != Type.ROCK ||
+                    myPoke.getBasePrm().getType1() != Type.GROUND || myPoke.getBasePrm().getType2() != Type.GROUND ||
+                    myPoke.getBasePrm().getType1() != Type.STEEL || myPoke.getBasePrm().getType2() != Type.STEEL) {
+                myPoke = field.slipDamageBySandStorm(myPoke);
             }
-            if(enemyPokemon.getBasePrm().getType1() != Type.ROCK || enemyPokemon.getBasePrm().getType2() != Type.ROCK ||
-                    enemyPokemon.getBasePrm().getType1() != Type.GROUND || enemyPokemon.getBasePrm().getType2() != Type.GROUND ||
-                    enemyPokemon.getBasePrm().getType1() != Type.STEEL || enemyPokemon.getBasePrm().getType2() != Type.STEEL) {
-                enemyPokemon = field.slipDamageBySandStorm(enemyPokemon);
+            if(enemyPoke.getBasePrm().getType1() != Type.ROCK || enemyPoke.getBasePrm().getType2() != Type.ROCK ||
+                    enemyPoke.getBasePrm().getType1() != Type.GROUND || enemyPoke.getBasePrm().getType2() != Type.GROUND ||
+                    enemyPoke.getBasePrm().getType1() != Type.STEEL || enemyPoke.getBasePrm().getType2() != Type.STEEL) {
+                enemyPoke = field.slipDamageBySandStorm(enemyPoke);
             }
         }
         if(field.getWeather() == Weather.HAIL) {
-            if(myPokemon.getBasePrm().getType1() != Type.ICE || myPokemon.getBasePrm().getType2() != Type.ICE) {
-                myPokemon = field.slipDamageByHail(myPokemon);
+            if(myPoke.getBasePrm().getType1() != Type.ICE || myPoke.getBasePrm().getType2() != Type.ICE) {
+                myPoke = field.slipDamageByHail(myPoke);
             }
-            if(enemyPokemon.getBasePrm().getType1() != Type.ICE || enemyPokemon.getBasePrm().getType2() != Type.ICE) {
-                enemyPokemon = field.slipDamageByHail(enemyPokemon);
+            if(enemyPoke.getBasePrm().getType1() != Type.ICE || enemyPoke.getBasePrm().getType2() != Type.ICE) {
+                enemyPoke = field.slipDamageByHail(enemyPoke);
             }
         }
-        if(myPokemon.getStatusAilment().getValue() == Ailment.POISON) {
-            myPokemon.getStatusAilment().slipDamageByPoison(myPokemon);
+        if(myPoke.getStatusAilment().getValue() == Ailment.POISON) {
+            myPoke.getStatusAilment().slipDamageByPoison(myPoke);
         }
-        if(myPokemon.getStatusAilment().getValue() == Ailment.BAD_POISON) {
-            myPokemon.getStatusAilment().slipDamageByPoison(myPokemon);
+        if(myPoke.getStatusAilment().getValue() == Ailment.BAD_POISON) {
+            myPoke.getStatusAilment().slipDamageByPoison(myPoke);
         }
-        if(myPokemon.getStatusAilment().getValue() == Ailment.BURN) {
-            myPokemon.getStatusAilment().slipDamageByPoison(myPokemon);
+        if(myPoke.getStatusAilment().getValue() == Ailment.BURN) {
+            myPoke.getStatusAilment().slipDamageByPoison(myPoke);
         }
-        if(enemyPokemon.getStatusAilment().getValue() == Ailment.POISON) {
-            enemyPokemon.getStatusAilment().slipDamageByPoison(enemyPokemon);
+        if(enemyPoke.getStatusAilment().getValue() == Ailment.POISON) {
+            enemyPoke.getStatusAilment().slipDamageByPoison(enemyPoke);
         }
-        if(enemyPokemon.getStatusAilment().getValue() == Ailment.BAD_POISON) {
-            enemyPokemon.getStatusAilment().slipDamageByPoison(enemyPokemon);
+        if(enemyPoke.getStatusAilment().getValue() == Ailment.BAD_POISON) {
+            enemyPoke.getStatusAilment().slipDamageByPoison(enemyPoke);
         }
-        if(enemyPokemon.getStatusAilment().getValue() == Ailment.BURN) {
-            enemyPokemon.getStatusAilment().slipDamageByPoison(enemyPokemon);
+        if(enemyPoke.getStatusAilment().getValue() == Ailment.BURN) {
+            enemyPoke.getStatusAilment().slipDamageByPoison(enemyPoke);
         }
 
-        return new OnBattleField(myPokemon, enemyPokemon, field);
+        return new OnBattleField(myPoke, enemyPoke, field);
     }
 
 
