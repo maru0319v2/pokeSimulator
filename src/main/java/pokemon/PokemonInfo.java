@@ -60,7 +60,7 @@ public interface PokemonInfo {
     PokemonInfo withCurrentHitPoint(CurrentHitPoint currentHitPoint);
     PokemonInfo withExperience(int addingExperience);
     PokemonInfo withLevel(int addLevel);
-    PokemonInfo withAddedStatusRank(int attack, int block, int contact, int defense, int speed);
+    PokemonInfo withAddedStatusRank(int attack, int block, int contact, int defense, int speed, int hitRate, int avoidRate);
     PokemonInfo withResetStatusRank();
     PokemonInfo withMove(Move move);
     PokemonInfo withStatusAilment(StatusAilment statusAilment);

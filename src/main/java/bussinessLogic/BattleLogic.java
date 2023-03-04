@@ -95,7 +95,7 @@ public class BattleLogic {
 
         // TODO 型で処理を分けてif文なくせそう
         if (move.baseMPrm().getMoveSpecies() == MoveSpecies.PHYSICAL || move.baseMPrm().getMoveSpecies() == MoveSpecies.SPECIAL) {
-            if (move.isHit()) {
+            if (isHit(attackPoke, defencePoke, move)) {
                 int damage = calcDamage(attackPoke, defencePoke, field, move);
                 defencePoke = defencePoke.damagePoke(damage);
                 return move.baseMPrm().effect(attackPoke, defencePoke, field, damage);
@@ -105,7 +105,7 @@ public class BattleLogic {
                 return new OnBattleField(attackPoke, defencePoke, field);
             }
         } else {
-            if (move.isHit()) {
+            if (isHit(attackPoke, defencePoke, move)) {
                 showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "!");
                 return move.baseMPrm().effect(attackPoke, defencePoke , field, 0);
             } else {
@@ -166,5 +166,18 @@ public class BattleLogic {
         if(effectiveRate <= 0.5) { showMessageParChar("効果はいまひとつのようだ"); }
         if(effectiveRate == 0.0) { showMessageParChar("効果はないようだ"); }
         return result;
+    }
+
+    public static boolean isHit(PokemonInfo attackPoke, PokemonInfo defencePoke, Move move) {
+        // 技の命中率が-1のときは必中
+        if(move.baseMPrm().getHitRate() == -1) { return true; }
+        // 攻撃側の命中ランクと防御側の回避ランクから算出した命中補正
+        double statusRank = attackPoke.getStatusRank().hitRateByStatusRank(defencePoke);
+        // ランダムな数値(1~100)
+        int randomNum = (new Random().nextInt(100) + 1);
+        // 技の命中率
+        int hitRate = move.baseMPrm().getHitRate();
+
+        return randomNum <= hitRate * statusRank;
     }
 }

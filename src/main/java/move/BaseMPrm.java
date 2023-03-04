@@ -95,7 +95,7 @@ public enum BaseMPrm {
         @Override
         public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
             showMessageParChar(defensePoke.getBasePrm().getName() + "の攻撃が下がった!");
-            return new OnBattleField(attackPoke, defensePoke.withAddedStatusRank(-1,0, 0, 0, 0), field);
+            return new OnBattleField(attackPoke, defensePoke.withAddedStatusRank(-1,0, 0, 0, 0, 0, 0), field);
         }
     },
     GROWTH("せいちょう", Type.NORMAL, MoveSpecies.CHANGE, 0, 100, 20, 0, 0,
@@ -103,7 +103,7 @@ public enum BaseMPrm {
         @Override
         public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
             showMessageParChar(attackPoke.getBasePrm().getName() + "の特攻が上がった!");
-            return new OnBattleField(attackPoke.withAddedStatusRank(0,0, 1, 0, 0), defensePoke, field);
+            return new OnBattleField(attackPoke.withAddedStatusRank(0,0, 1, 0, 0, 0, 0), defensePoke, field);
         }
     },
     SWORDS_DANCE("つるぎのまい", Type.NORMAL, MoveSpecies.CHANGE, 0, 100, 20, 0, 0,
@@ -111,7 +111,7 @@ public enum BaseMPrm {
         @Override
         public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
             showMessageParChar(attackPoke.getBasePrm().getName() + "の攻撃がぐーんと上がった!");
-            return new OnBattleField(attackPoke.withAddedStatusRank(2,0, 0, 0, 0), defensePoke, field);
+            return new OnBattleField(attackPoke.withAddedStatusRank(2,0, 0, 0, 0, 0, 0), defensePoke, field);
         }
     },
     SLEEP_POWDER("ねむりごな", Type.GRASS, MoveSpecies.CHANGE, 0, 75, 15, 0, 0,
