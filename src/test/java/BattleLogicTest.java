@@ -1,9 +1,10 @@
-import Enum.*;
+import Enum.Gender;
+import Enum.Nature;
+import bussinessLogic.BattleLogic;
 import move.BaseMPrm;
 import move.MoveImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import bussinessLogic.BattleLogic;
 import pokemon.BasePrm;
 import pokemon.PokemonInfo;
 import pokemon.PokemonInfoImpl;
@@ -11,10 +12,10 @@ import pokemonStatus.impl.EffortValueImpl;
 import pokemonStatus.impl.IndividualValueImpl;
 import pokemonStatus.impl.LevelImpl;
 
-
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BattleLogicTest {
     @Test

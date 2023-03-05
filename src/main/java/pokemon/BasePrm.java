@@ -1,9 +1,12 @@
 package pokemon;
 
-import Enum.*;
+import Enum.ExperienceType;
+import Enum.Type;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import move.*;
+import move.BaseMPrm;
+import move.Move;
+import move.MoveImpl;
 
 import java.util.List;
 

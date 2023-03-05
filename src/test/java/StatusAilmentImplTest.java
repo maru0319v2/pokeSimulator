@@ -1,6 +1,5 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import pokemon.BasePrm;
 import pokemon.PokemonInfo;
 import pokemon.PokemonInfoImpl;

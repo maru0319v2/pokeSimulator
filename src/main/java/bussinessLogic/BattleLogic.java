@@ -1,11 +1,15 @@
 package bussinessLogic;
 
-import Enum.*;
+import Enum.MoveSpecies;
+import Enum.Type;
 import field.Field;
 import move.Move;
 import pokemon.PokemonInfo;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+import java.util.Scanner;
 
 import static bussinessLogic.ConsoleOutManager.*;
 
@@ -13,16 +17,16 @@ public class BattleLogic {
 
     // 先行後攻を決める
     public static boolean isFirstMe(PokemonInfo myPokemon, PokemonInfo enemyPokemon, Move selectedMove, Move enemyMove) {
-        int calculatedMySpeed = (int)(myPokemon.getRealValSpeed() * myPokemon.getStatusRank().speedRateByStatusRank() * myPokemon.getStatusAilment().speedRateByParalysis());
-        int calculatedEnemySpeed = (int)(enemyPokemon.getRealValSpeed() * enemyPokemon.getStatusRank().speedRateByStatusRank() * enemyPokemon.getStatusAilment().speedRateByParalysis());
+        int calculatedMySpeed = (int) (myPokemon.getRealValSpeed() * myPokemon.getStatusRank().speedRateByStatusRank() * myPokemon.getStatusAilment().speedRateByParalysis());
+        int calculatedEnemySpeed = (int) (enemyPokemon.getRealValSpeed() * enemyPokemon.getStatusRank().speedRateByStatusRank() * enemyPokemon.getStatusAilment().speedRateByParalysis());
         int myPriority = selectedMove.baseMPrm().getPriority();
         int enemyPriority = enemyMove.baseMPrm().getPriority();
 
-        if(myPriority != enemyPriority) {
+        if (myPriority != enemyPriority) {
             return myPriority > enemyPriority;
         }
 
-        if(calculatedMySpeed == calculatedEnemySpeed) {
+        if (calculatedMySpeed == calculatedEnemySpeed) {
             // 同速の場合は0~1をランダムで生成して0なら先行
             return (new Random().nextInt(2)) == 0;
         }
@@ -36,7 +40,7 @@ public class BattleLogic {
         int i = 1;
         for (Move move : moves) {
             System.out.print(i + ": " + move.baseMPrm().getName());
-            for(int j = 0;j < 8 - move.baseMPrm().getName().length(); j++) {
+            for (int j = 0; j < 8 - move.baseMPrm().getName().length(); j++) {
                 System.out.print("　");
             }
             System.out.println(move.getCurrentPowerPoint().value() + "/" + move.baseMPrm().getPowerPoint() + " " + move.baseMPrm().getMoveType().getValue());
@@ -53,15 +57,15 @@ public class BattleLogic {
             String inputCommand = scanner.nextLine();
             System.out.println("");
 
-            if(Objects.equals(inputCommand, "i")) {
+            if (Objects.equals(inputCommand, "i")) {
                 showParametersInBattle(target);
             } else if (Objects.equals(inputCommand, "m")) {
                 showMoveDetail(target.getHaveMove());
             } else {
-                for(int j = 1; i > j; j++) {
+                for (int j = 1; i > j; j++) {
                     if (Integer.parseInt(inputCommand) == j) {
-                        if(moves.get(j-1).canUse()) {
-                            result = moves.get(j-1);
+                        if (moves.get(j - 1).canUse()) {
+                            result = moves.get(j - 1);
                             isNoNumberSelected = false;
                         } else {
                             System.out.println("技のPPが足りない!");
@@ -107,7 +111,7 @@ public class BattleLogic {
         } else {
             if (isHit(attackPoke, defencePoke, move)) {
                 showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "!");
-                return move.baseMPrm().effect(attackPoke, defencePoke , field, 0);
+                return move.baseMPrm().effect(attackPoke, defencePoke, field, 0);
             } else {
                 showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "!");
                 showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "は外れた");
@@ -130,17 +134,17 @@ public class BattleLogic {
         boolean isCritical = (new Random().nextInt(24) + 1) == 1;
         double criticalRate = isCritical ? 1.5 : 1;
         // 急所の場合は攻撃側のランク下降、防御側のランク上昇補正を無視する
-        double attackRateByStatusRank  = isCritical? Math.max(attackPoke.getStatusRank().attackRateByStatusRank(), 1.0) : attackPoke.getStatusRank().attackRateByStatusRank();
-        double blockRateByStatusRank   = isCritical? Math.min(defencePoke.getStatusRank().blockRateByStatusRank(), 1.0) : defencePoke.getStatusRank().blockRateByStatusRank();
-        double contactRateByStatusRank = isCritical? Math.max(attackPoke.getStatusRank().contactRateByStatusRank(), 1.0) : attackPoke.getStatusRank().contactRateByStatusRank();
-        double defenseRateByStatusRank = isCritical? Math.min(defencePoke.getStatusRank().defenseRateByStatusRank(), 1.0) : defencePoke.getStatusRank().defenseRateByStatusRank();
+        double attackRateByStatusRank = isCritical ? Math.max(attackPoke.getStatusRank().attackRateByStatusRank(), 1.0) : attackPoke.getStatusRank().attackRateByStatusRank();
+        double blockRateByStatusRank = isCritical ? Math.min(defencePoke.getStatusRank().blockRateByStatusRank(), 1.0) : defencePoke.getStatusRank().blockRateByStatusRank();
+        double contactRateByStatusRank = isCritical ? Math.max(attackPoke.getStatusRank().contactRateByStatusRank(), 1.0) : attackPoke.getStatusRank().contactRateByStatusRank();
+        double defenseRateByStatusRank = isCritical ? Math.min(defencePoke.getStatusRank().defenseRateByStatusRank(), 1.0) : defencePoke.getStatusRank().defenseRateByStatusRank();
         // タイプ一致判定
         boolean isTypeMatch = (Objects.equals(move.baseMPrm().getMoveType(), attackPoke.getBasePrm().getType1())) || (Objects.equals(move.baseMPrm().getMoveType(), attackPoke.getBasePrm().getType2()));
         double typeMatchRate = isTypeMatch ? 1.5 : 1;
         // タイプ相性判定
         double effectiveRate = Type.damageRateByType(defencePoke.getBasePrm().getType1(), defencePoke.getBasePrm().getType2(), move);
         // やけど判定
-        double burnedRate = moveSpecies == MoveSpecies.PHYSICAL? attackPoke.getStatusAilment().damageRateByBurn() : 1.0;
+        double burnedRate = moveSpecies == MoveSpecies.PHYSICAL ? attackPoke.getStatusAilment().damageRateByBurn() : 1.0;
         // 天候によるダメージ倍率
         double weatherRate = field.damageRateByWeather(move);
         // ダメージ倍率合算
@@ -151,26 +155,36 @@ public class BattleLogic {
         int attackVal = 0;
         int defenceVal = 0;
         // ステータス実数値にランク補正を乗せる
-        if(moveSpecies == MoveSpecies.PHYSICAL) {
-            attackVal = (int)(attackPoke.getRealValAttack() * attackRateByStatusRank);
-            defenceVal = (int)(defencePoke.getRealValBlock() * blockRateByStatusRank);
+        if (moveSpecies == MoveSpecies.PHYSICAL) {
+            attackVal = (int) (attackPoke.getRealValAttack() * attackRateByStatusRank);
+            defenceVal = (int) (defencePoke.getRealValBlock() * blockRateByStatusRank);
         } else if (moveSpecies == MoveSpecies.SPECIAL) {
-            attackVal = (int)(attackPoke.getRealValContact() * contactRateByStatusRank);
-            defenceVal = (int)(defencePoke.getRealValDefense() * defenseRateByStatusRank * defenceRateRock);
+            attackVal = (int) (attackPoke.getRealValContact() * contactRateByStatusRank);
+            defenceVal = (int) (defencePoke.getRealValDefense() * defenseRateByStatusRank * defenceRateRock);
         }
 
-        int result = (int)Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * totalDamageRate);
+        int result = (int) Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * totalDamageRate);
         showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "!");
-        if(isCritical) { showMessageParChar("急所に当った!"); }
-        if(effectiveRate >= 2.0) { showMessageParChar("効果は抜群だ!"); }
-        if(effectiveRate <= 0.5) { showMessageParChar("効果はいまひとつのようだ"); }
-        if(effectiveRate == 0.0) { showMessageParChar("効果はないようだ"); }
+        if (isCritical) {
+            showMessageParChar("急所に当った!");
+        }
+        if (effectiveRate >= 2.0) {
+            showMessageParChar("効果は抜群だ!");
+        }
+        if (effectiveRate <= 0.5) {
+            showMessageParChar("効果はいまひとつのようだ");
+        }
+        if (effectiveRate == 0.0) {
+            showMessageParChar("効果はないようだ");
+        }
         return result;
     }
 
     public static boolean isHit(PokemonInfo attackPoke, PokemonInfo defencePoke, Move move) {
         // 技の命中率が-1のときは必中
-        if(move.baseMPrm().getHitRate() == -1) { return true; }
+        if (move.baseMPrm().getHitRate() == -1) {
+            return true;
+        }
         // 攻撃側の命中ランクと防御側の回避ランクから算出した命中補正
         double statusRank = attackPoke.getStatusRank().hitRateByStatusRank(defencePoke);
         // ランダムな数値(1~100)

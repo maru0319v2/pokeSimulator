@@ -1,10 +1,10 @@
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import pokemon.BasePrm;
 import pokemon.PokemonInfo;
 import pokemon.PokemonInfoImpl;
 import pokemonStatus.StatusRank;
 import pokemonStatus.impl.StatusRankImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -101,21 +101,21 @@ public class StatusRankTest {
         StatusRank sr3 = new StatusRankImpl(3, 4, 5, 6, 7, 0, 0);
 
         // ランク補正計算後、小数点は切り捨てられる
-        assertEquals(25, (int)(100 * sr1.attackRateByStatusRank()));
-        assertEquals(25, (int)(100 * sr1.blockRateByStatusRank()));
-        assertEquals(28, (int)(100 * sr1.contactRateByStatusRank()));
-        assertEquals(33, (int)(100 * sr1.defenseRateByStatusRank()));
-        assertEquals(40, (int)(100 * sr1.speedRateByStatusRank()));
-        assertEquals(50, (int)(100 * sr2.attackRateByStatusRank()));
-        assertEquals(66, (int)(100 * sr2.blockRateByStatusRank()));
-        assertEquals(100, (int)(100 * sr2.contactRateByStatusRank()));
-        assertEquals(150, (int)(100 * sr2.defenseRateByStatusRank()));
-        assertEquals(200, (int)(100 * sr2.speedRateByStatusRank()));
-        assertEquals(250, (int)(100 * sr3.attackRateByStatusRank()));
-        assertEquals(300, (int)(100 * sr3.blockRateByStatusRank()));
-        assertEquals(350, (int)(100 * sr3.contactRateByStatusRank()));
-        assertEquals(400, (int)(100 * sr3.defenseRateByStatusRank()));
-        assertEquals(400, (int)(100 * sr3.speedRateByStatusRank()));
+        assertEquals(25, (int) (100 * sr1.attackRateByStatusRank()));
+        assertEquals(25, (int) (100 * sr1.blockRateByStatusRank()));
+        assertEquals(28, (int) (100 * sr1.contactRateByStatusRank()));
+        assertEquals(33, (int) (100 * sr1.defenseRateByStatusRank()));
+        assertEquals(40, (int) (100 * sr1.speedRateByStatusRank()));
+        assertEquals(50, (int) (100 * sr2.attackRateByStatusRank()));
+        assertEquals(66, (int) (100 * sr2.blockRateByStatusRank()));
+        assertEquals(100, (int) (100 * sr2.contactRateByStatusRank()));
+        assertEquals(150, (int) (100 * sr2.defenseRateByStatusRank()));
+        assertEquals(200, (int) (100 * sr2.speedRateByStatusRank()));
+        assertEquals(250, (int) (100 * sr3.attackRateByStatusRank()));
+        assertEquals(300, (int) (100 * sr3.blockRateByStatusRank()));
+        assertEquals(350, (int) (100 * sr3.contactRateByStatusRank()));
+        assertEquals(400, (int) (100 * sr3.defenseRateByStatusRank()));
+        assertEquals(400, (int) (100 * sr3.speedRateByStatusRank()));
     }
 
     @Test

@@ -1,16 +1,18 @@
 package bussinessLogic;
 
+import Enum.Gender;
+import Enum.Nature;
 import move.BaseMPrm;
 import move.MoveImpl;
+import pokemon.BasePrm;
 import pokemon.PokemonInfo;
-import pokemon.*;
-import pokemonStatus.impl.*;
-import Enum.*;
+import pokemon.PokemonInfoImpl;
+import pokemonStatus.impl.EffortValueImpl;
+import pokemonStatus.impl.IndividualValueImpl;
+import pokemonStatus.impl.LevelImpl;
 
 import java.util.List;
 import java.util.Scanner;
-
-import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 
 // TODO やることリスト
 // 初期経験値固定値問題
@@ -68,13 +70,14 @@ public class Main {
                 case "m" -> ConsoleOutManager.showMoveDetail(myPokemon.getHaveMove());
                 case "e" -> myPokemon = myPokemon.addExp(200);
                 case "r" -> myPokemon = myPokemon.recoveryAll();
-                case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, new PokemonInfoImpl(BasePrm.CHARMANDER));
+                case "b" ->
+                        myPokemon = new BattleSimulation().battleSimulation(myPokemon, new PokemonInfoImpl(BasePrm.CHARMANDER));
                 case "f" -> myPokemon = new BattleSimulation().battleSimulation(
                         new PokemonInfoImpl(
                                 BasePrm.CHARIZARD,
                                 Gender.MALE,
                                 Nature.MODEST,
-                                new IndividualValueImpl(10, 10, 10, 10, 10 , 10),
+                                new IndividualValueImpl(10, 10, 10, 10, 10, 10),
                                 new EffortValueImpl(6, 0, 0, 252, 0, 252),
                                 new LevelImpl(50),
                                 List.of(new MoveImpl(BaseMPrm.SAND_STORM), new MoveImpl(BaseMPrm.FLAMETHROWER), new MoveImpl(BaseMPrm.WILL_O_WISP), new MoveImpl(BaseMPrm.DOUBLE_TEAM))
@@ -83,8 +86,8 @@ public class Main {
                                 BasePrm.VENUSAUR,
                                 Gender.MALE,
                                 Nature.MODEST,
-                                new IndividualValueImpl(10, 10, 10, 10, 10 , 10),
-                                new EffortValueImpl(252, 0, 0, 252, 0 , 6),
+                                new IndividualValueImpl(10, 10, 10, 10, 10, 10),
+                                new EffortValueImpl(252, 0, 0, 252, 0, 6),
                                 new LevelImpl(50),
                                 List.of(new MoveImpl(BaseMPrm.SLEEP_POWDER), new MoveImpl(BaseMPrm.GIGA_DRAIN), new MoveImpl(BaseMPrm.QUICK_ATTACK), new MoveImpl(BaseMPrm.RAIN_DANCE))
                         ));

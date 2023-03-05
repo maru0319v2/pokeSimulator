@@ -1,7 +1,8 @@
 package move;
 
-import Enum.*;
-import bussinessLogic.*;
+import Enum.MoveSpecies;
+import Enum.Type;
+import bussinessLogic.OnBattleField;
 import field.Field;
 import field.Weather;
 import lombok.AllArgsConstructor;
@@ -48,10 +49,10 @@ public enum BaseMPrm {
     ) {
         @Override
         public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
-            if((new Random().nextInt(10)) == 0) {
+            if ((new Random().nextInt(10)) == 0) {
                 return new OnBattleField(attackPoke, defensePoke.withStatusAilment(changeAilment(defensePoke, Ailment.BURN)), field);
             }
-            return new OnBattleField(attackPoke, defensePoke ,field);
+            return new OnBattleField(attackPoke, defensePoke, field);
         }
     },
     DRAGON_CLAW("ドラゴンクロー", Type.DRAGON, MoveSpecies.PHYSICAL, 80, 100, 15, 0, 0,
@@ -84,7 +85,7 @@ public enum BaseMPrm {
     ) {
         @Override
         public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
-            int recovery = recoveryHP/2;
+            int recovery = recoveryHP / 2;
             return new OnBattleField(attackPoke.withCurrentHitPoint(attackPoke.getCurrentHitPoint().recovery(attackPoke, new CurrentHitPointImpl(recovery))), defensePoke, field);
         }
     },
@@ -94,7 +95,7 @@ public enum BaseMPrm {
         @Override
         public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
             showMessageParChar(defensePoke.getBasePrm().getName() + "の攻撃が下がった!");
-            return new OnBattleField(attackPoke, defensePoke.withAddedStatusRank(-1,0, 0, 0, 0, 0, 0), field);
+            return new OnBattleField(attackPoke, defensePoke.withAddedStatusRank(-1, 0, 0, 0, 0, 0, 0), field);
         }
     },
     DOUBLE_TEAM("かげぶんしん", Type.NORMAL, MoveSpecies.CHANGE, 0, -1, 15, 0, 0,
@@ -103,7 +104,7 @@ public enum BaseMPrm {
         @Override
         public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
             showMessageParChar(attackPoke.getBasePrm().getName() + "の回避率が上がった!");
-            return new OnBattleField(attackPoke.withAddedStatusRank(0,0, 0, 0, 0, 0, 1), defensePoke, field);
+            return new OnBattleField(attackPoke.withAddedStatusRank(0, 0, 0, 0, 0, 0, 1), defensePoke, field);
         }
     },
     GROWTH("せいちょう", Type.NORMAL, MoveSpecies.CHANGE, 0, -1, 20, 0, 0,
@@ -111,7 +112,7 @@ public enum BaseMPrm {
         @Override
         public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
             showMessageParChar(attackPoke.getBasePrm().getName() + "の特攻が上がった!");
-            return new OnBattleField(attackPoke.withAddedStatusRank(0,0, 1, 0, 0, 0, 0), defensePoke, field);
+            return new OnBattleField(attackPoke.withAddedStatusRank(0, 0, 1, 0, 0, 0, 0), defensePoke, field);
         }
     },
     SWORDS_DANCE("つるぎのまい", Type.NORMAL, MoveSpecies.CHANGE, 0, -1, 20, 0, 0,
@@ -119,7 +120,7 @@ public enum BaseMPrm {
         @Override
         public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
             showMessageParChar(attackPoke.getBasePrm().getName() + "の攻撃がぐーんと上がった!");
-            return new OnBattleField(attackPoke.withAddedStatusRank(2,0, 0, 0, 0, 0, 0), defensePoke, field);
+            return new OnBattleField(attackPoke.withAddedStatusRank(2, 0, 0, 0, 0, 0, 0), defensePoke, field);
         }
     },
     SLEEP_POWDER("ねむりごな", Type.GRASS, MoveSpecies.CHANGE, 0, 75, 15, 0, 0,
@@ -193,6 +194,7 @@ public enum BaseMPrm {
     private final boolean isSeizure;
     // みがわりを貫通できる
     private final boolean isPenetrationScapegoat;
+
     // 効果
     public abstract OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException;
 }

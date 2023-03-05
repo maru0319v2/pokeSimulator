@@ -3,7 +3,8 @@ package statusAilment;
 import lombok.Getter;
 import pokemon.PokemonInfo;
 
-import java.util.*;
+import java.util.Objects;
+import java.util.Random;
 
 import static bussinessLogic.ConsoleOutManager.showChangeAilmentMessage;
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;

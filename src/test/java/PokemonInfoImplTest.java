@@ -5,8 +5,7 @@ import pokemon.PokemonInfo;
 import pokemon.PokemonInfoImpl;
 import statusAilment.Ailment;
 
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PokemonInfoImplTest {
     @Test

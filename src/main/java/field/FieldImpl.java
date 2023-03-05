@@ -1,9 +1,9 @@
 package field;
 
+import Enum.Type;
 import lombok.Getter;
 import move.Move;
 import pokemon.PokemonInfo;
-import Enum.*;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -22,6 +22,7 @@ public class FieldImpl implements Field {
     private static Field keepField(Weather weather, int elapsedTurn, int countRecovery) {
         return new FieldImpl(weather, elapsedTurn, countRecovery);
     }
+
     private FieldImpl(Weather weather, int elapsedTurn, int countForRecovery) {
         this.weather = weather;
         this.elapsedTurn = elapsedTurn;
@@ -32,6 +33,7 @@ public class FieldImpl implements Field {
     public static Field initializeField() {
         return new FieldImpl();
     }
+
     private FieldImpl() {
         this.weather = Weather.NONE;
         this.elapsedTurn = 0;
@@ -42,9 +44,10 @@ public class FieldImpl implements Field {
     public static Field changeField(Field field, Weather weather) throws InterruptedException {
         return new FieldImpl(field, weather);
     }
+
     private FieldImpl(Field field, Weather weather) throws InterruptedException {
 
-        if(field.getWeather() != weather){
+        if (field.getWeather() != weather) {
             // 引数の天候がもとの天候以外なら上書きする
             this.weather = weather;
             this.elapsedTurn = 0;
@@ -58,7 +61,7 @@ public class FieldImpl implements Field {
     }
 
     public Field elapseTurn() throws InterruptedException {
-        if(this.countForRecovery <= this.elapsedTurn + 1) {
+        if (this.countForRecovery <= this.elapsedTurn + 1) {
             showUndoWeather(this.weather);
             return initializeField();
         }
@@ -72,10 +75,10 @@ public class FieldImpl implements Field {
         Set<Type> roGrSt = new HashSet<>(Arrays.asList(Type.ROCK, Type.GROUND, Type.STEEL));
         int damage;
 
-        if(this.getWeather() == Weather.SANDSTORM && roGrSt.stream().noneMatch(types::contains)) {
+        if (this.getWeather() == Weather.SANDSTORM && roGrSt.stream().noneMatch(types::contains)) {
             showMessageParChar(target.getBasePrm().getName() + "はすなあらしでダメージをうけた！");
             damage = target.getRealValHitPoint() / 16;
-        } else if(this.getWeather() == Weather.HAIL && !types.contains(Type.ICE)) {
+        } else if (this.getWeather() == Weather.HAIL && !types.contains(Type.ICE)) {
             showMessageParChar(target.getBasePrm().getName() + "はあられでダメージをうけた！");
             damage = target.getRealValHitPoint() / 16;
         } else {
@@ -87,13 +90,21 @@ public class FieldImpl implements Field {
 
     public double damageRateByWeather(Move move) {
         Type useType = move.baseMPrm().getMoveType();
-        if(useType == Type.FIRE) {
-            if(this.weather == Weather.DROUGHT) { return 1.5;}
-            if(this.weather == Weather.RAIN) { return 0.5;}
+        if (useType == Type.FIRE) {
+            if (this.weather == Weather.DROUGHT) {
+                return 1.5;
+            }
+            if (this.weather == Weather.RAIN) {
+                return 0.5;
+            }
         }
-        if(useType == Type.WATER) {
-            if(this.weather == Weather.DROUGHT) { return 0.5;}
-            if(this.weather == Weather.RAIN) { return 1.5;}
+        if (useType == Type.WATER) {
+            if (this.weather == Weather.DROUGHT) {
+                return 0.5;
+            }
+            if (this.weather == Weather.RAIN) {
+                return 1.5;
+            }
         }
         return 1.0;
     }
@@ -102,7 +113,7 @@ public class FieldImpl implements Field {
         Type type1 = defencePoke.getBasePrm().getType1();
         Type type2 = defencePoke.getBasePrm().getType2();
         if (this.weather == Weather.SANDSTORM) {
-            return type1 == Type.ROCK || type2 == Type.ROCK? 1.5 : 1.0;
+            return type1 == Type.ROCK || type2 == Type.ROCK ? 1.5 : 1.0;
         }
         return 1.0;
     }

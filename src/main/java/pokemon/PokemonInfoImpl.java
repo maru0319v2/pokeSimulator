@@ -1,10 +1,11 @@
 package pokemon;
 
+import Enum.Gender;
+import Enum.Nature;
 import lombok.Getter;
-import move.*;
+import move.Move;
 import pokemonStatus.*;
 import pokemonStatus.impl.*;
-import Enum.*;
 import statusAilment.Ailment;
 import statusAilment.StatusAilment;
 
@@ -33,20 +34,25 @@ public class PokemonInfoImpl implements PokemonInfo {
     public int getRealValHitPoint() {
         return ((this.basePrm.getHitPoint() * 2 + this.individualValue.hitPoint() + (this.effortValue.hitPoint() / 4)) * this.level.value() / 100) + 10 + this.level.value();
     }
+
     public int getRealValAttack() {
-        return (int)((((this.basePrm.getAttack() * 2 + this.individualValue.attack() + (this.effortValue.attack() / 4)) * this.level.value() / 100) + 5) * this.nature.getAttackRate());
+        return (int) ((((this.basePrm.getAttack() * 2 + this.individualValue.attack() + (this.effortValue.attack() / 4)) * this.level.value() / 100) + 5) * this.nature.getAttackRate());
     }
+
     public int getRealValBlock() {
-        return (int)((((this.basePrm.getBlock() * 2 + this.individualValue.block() + (this.effortValue.block() / 4)) * this.level.value() / 100) + 5) * this.nature.getBlockRate());
+        return (int) ((((this.basePrm.getBlock() * 2 + this.individualValue.block() + (this.effortValue.block() / 4)) * this.level.value() / 100) + 5) * this.nature.getBlockRate());
     }
+
     public int getRealValContact() {
-        return (int)((((this.basePrm.getContact() * 2 + this.individualValue.contact() + (this.effortValue.contact() / 4)) * this.level.value() / 100) + 5) * this.nature.getContactRate());
+        return (int) ((((this.basePrm.getContact() * 2 + this.individualValue.contact() + (this.effortValue.contact() / 4)) * this.level.value() / 100) + 5) * this.nature.getContactRate());
     }
+
     public int getRealValDefense() {
-        return (int)((((this.basePrm.getDefense() * 2 + this.individualValue.defense() + (this.effortValue.defense() / 4)) * this.level.value() / 100) + 5) * this.nature.getDefenceRate());
+        return (int) ((((this.basePrm.getDefense() * 2 + this.individualValue.defense() + (this.effortValue.defense() / 4)) * this.level.value() / 100) + 5) * this.nature.getDefenceRate());
     }
+
     public int getRealValSpeed() {
-        return (int)((((this.basePrm.getSpeed() * 2 + this.individualValue.speed() + (this.effortValue.speed() / 4)) * this.level.value() / 100) + 5) * this.nature.getSpeedRate());
+        return (int) ((((this.basePrm.getSpeed() * 2 + this.individualValue.speed() + (this.effortValue.speed() / 4)) * this.level.value() / 100) + 5) * this.nature.getSpeedRate());
     }
 
     @Override
@@ -58,7 +64,7 @@ public class PokemonInfoImpl implements PokemonInfo {
     public PokemonInfo addExp(int exp) throws InterruptedException {
         PokemonInfo result = this.withExperience(exp);
         showMessageParChar(result.getBasePrm().getName() + "は" + exp + "の経験値を獲得!");
-        while(result.getExperience().isLevelUp(result)) {
+        while (result.getExperience().isLevelUp(result)) {
             result = result.withLevel(1);
             showMessageParChar(result.getBasePrm().getName() + "はLv." + result.getLevel().value() + "にレベルアップした!");
         }
@@ -77,7 +83,9 @@ public class PokemonInfoImpl implements PokemonInfo {
     public PokemonInfo damagePoke(int value) throws InterruptedException {
         PokemonInfo result = this.withCurrentHitPoint(this.getCurrentHitPoint().damage(new CurrentHitPointImpl(value)));
         showMessageParChar(result.getBasePrm().getName() + "は" + value + "のダメージ!");
-        if (result.getCurrentHitPoint().isDead()) { return result.withStatusAilment(changeAilment(result, Ailment.FAINTING)); }
+        if (result.getCurrentHitPoint().isDead()) {
+            return result.withStatusAilment(changeAilment(result, Ailment.FAINTING));
+        }
         return result;
     }
 
@@ -85,8 +93,8 @@ public class PokemonInfoImpl implements PokemonInfo {
     public PokemonInfo recoveryPowerPoint(Move move, int value) {
         Move targetMoves = null;
         List<Move> haveMoves = this.getHaveMove();
-        for(Move haveMove : haveMoves) {
-            if(move.getClass() == haveMove.getClass()) {
+        for (Move haveMove : haveMoves) {
+            if (move.getClass() == haveMove.getClass()) {
                 targetMoves = haveMove;
             }
         }
@@ -101,7 +109,7 @@ public class PokemonInfoImpl implements PokemonInfo {
     public PokemonInfo recoveryAll() throws InterruptedException {
         PokemonInfo result = this.recoveryHitPoint(999);
 
-        for(Move move : result.getHaveMove()) {
+        for (Move move : result.getHaveMove()) {
             result = result.recoveryPowerPoint(move, 99);
         }
         return result;
@@ -180,29 +188,34 @@ public class PokemonInfoImpl implements PokemonInfo {
 
     @Override
     public PokemonInfo withCurrentHitPoint(CurrentHitPoint currentHitPoint) {
-        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience,this.haveMove, currentHitPoint, this.statusRank, this.statusAilment);
+        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, currentHitPoint, this.statusRank, this.statusAilment);
     }
+
     @Override
     public PokemonInfo withExperience(int addingExperience) {
-        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience.add(addingExperience),this.haveMove, this.currentHitPoint, this.statusRank, this.statusAilment);
+        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience.add(addingExperience), this.haveMove, this.currentHitPoint, this.statusRank, this.statusAilment);
     }
+
     @Override
     public PokemonInfo withLevel(int addLevel) {
-        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level.add(addLevel), this.experience,this.haveMove, this.currentHitPoint, this.statusRank, this.statusAilment);
+        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level.add(addLevel), this.experience, this.haveMove, this.currentHitPoint, this.statusRank, this.statusAilment);
     }
+
     @Override
     public PokemonInfo withAddedStatusRank(final int attack, final int block, final int contact, final int defense, final int speed, final int hitRate, final int avoidRate) {
-        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience,this.haveMove, this.currentHitPoint, this.statusRank.add(attack, block, contact, defense, speed, hitRate, avoidRate), this.statusAilment);
+        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank.add(attack, block, contact, defense, speed, hitRate, avoidRate), this.statusAilment);
     }
+
     @Override
     public PokemonInfo withResetStatusRank() {
         return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank.reset(), this.statusAilment);
     }
+
     @Override
     public PokemonInfo withMove(Move move) {
         List<Move> newMoves = new ArrayList<>(4);
-        for(Move haveMove : this.haveMove) {
-            if(Objects.equals(move.baseMPrm().getName(), haveMove.baseMPrm().getName())) {
+        for (Move haveMove : this.haveMove) {
+            if (Objects.equals(move.baseMPrm().getName(), haveMove.baseMPrm().getName())) {
                 newMoves.add(move);
             } else {
                 newMoves.add(haveMove);
@@ -210,6 +223,7 @@ public class PokemonInfoImpl implements PokemonInfo {
         }
         return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, newMoves, this.currentHitPoint, this.statusRank, this.statusAilment);
     }
+
     @Override
     public PokemonInfo withStatusAilment(StatusAilment statusAilment) {
         return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, statusAilment);
