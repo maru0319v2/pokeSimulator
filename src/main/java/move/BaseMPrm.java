@@ -1,5 +1,6 @@
 package move;
 
+import Enum.DetailedMoveSpecies;
 import Enum.MoveSpecies;
 import Enum.Type;
 import bussinessLogic.OnBattleField;
@@ -20,7 +21,7 @@ import static statusAilment.StatusAilmentImpl.changeAilment;
 @Getter
 @AllArgsConstructor
 public enum BaseMPrm {
-    TACKLE("たいあたり", Type.NORMAL, MoveSpecies.PHYSICAL, 40, 95, 35, 0, 0,
+    TACKLE("たいあたり", Type.NORMAL, MoveSpecies.PHYSICAL, DetailedMoveSpecies.DAMAGE, 40, 95, 35, 0, 0,
             true, false, true, false, false, false
     ) {
         @Override
@@ -28,7 +29,7 @@ public enum BaseMPrm {
             return new OnBattleField(attackPoke, defensePoke, field);
         }
     },
-    AERIAL_ACE("つばめがえし", Type.FLYING, MoveSpecies.PHYSICAL, 60, -1, 20, 0, 0,
+    AERIAL_ACE("つばめがえし", Type.FLYING, MoveSpecies.PHYSICAL, DetailedMoveSpecies.HIT, 60, -1, 20, 0, 0,
             true, false, true, false, false, false
     ) {
         @Override
@@ -36,7 +37,7 @@ public enum BaseMPrm {
             return new OnBattleField(attackPoke, defensePoke, field);
         }
     },
-    QUICK_ATTACK("でんこうせっか", Type.NORMAL, MoveSpecies.PHYSICAL, 40, 100, 30, 0, 1,
+    QUICK_ATTACK("でんこうせっか", Type.NORMAL, MoveSpecies.PHYSICAL, DetailedMoveSpecies.PRIORITY, 40, 100, 30, 0, 1,
             true, false, true, false, false, false
     ) {
         @Override
@@ -44,7 +45,7 @@ public enum BaseMPrm {
             return new OnBattleField(attackPoke, defensePoke, field);
         }
     },
-    FLAMETHROWER("かえんほうしゃ", Type.FIRE, MoveSpecies.SPECIAL, 90, 100, 15, 0, 0,
+    FLAMETHROWER("かえんほうしゃ", Type.FIRE, MoveSpecies.SPECIAL, DetailedMoveSpecies.DAMAGE, 90, 100, 15, 0, 0,
             false, false, true, false, false, false
     ) {
         @Override
@@ -55,7 +56,7 @@ public enum BaseMPrm {
             return new OnBattleField(attackPoke, defensePoke, field);
         }
     },
-    DRAGON_CLAW("ドラゴンクロー", Type.DRAGON, MoveSpecies.PHYSICAL, 80, 100, 15, 0, 0,
+    DRAGON_CLAW("ドラゴンクロー", Type.DRAGON, MoveSpecies.PHYSICAL, DetailedMoveSpecies.DAMAGE, 80, 100, 15, 0, 0,
             true, false, true, false, false, false
     ) {
         @Override
@@ -63,7 +64,7 @@ public enum BaseMPrm {
             return new OnBattleField(attackPoke, defensePoke, field);
         }
     },
-    WATER_PULSE("みずのはどう", Type.WATER, MoveSpecies.SPECIAL, 60, 100, 20, 0, 0,
+    WATER_PULSE("みずのはどう", Type.WATER, MoveSpecies.SPECIAL, DetailedMoveSpecies.DAMAGE, 60, 100, 20, 0, 0,
             false, false, true, false, false, false
     ) {
         @Override
@@ -72,7 +73,7 @@ public enum BaseMPrm {
             return new OnBattleField(attackPoke, defensePoke, field);
         }
     },
-    VINE_WHIP("つるのムチ", Type.GRASS, MoveSpecies.PHYSICAL, 45, 100, 25, 0, 0,
+    VINE_WHIP("つるのムチ", Type.GRASS, MoveSpecies.PHYSICAL, DetailedMoveSpecies.DAMAGE, 45, 100, 25, 0, 0,
             true, false, true, false, false, false
     ) {
         @Override
@@ -80,7 +81,7 @@ public enum BaseMPrm {
             return new OnBattleField(attackPoke, defensePoke, field);
         }
     },
-    GIGA_DRAIN("ギガドレイン", Type.GRASS, MoveSpecies.SPECIAL, 75, 100, 10, 0, 0,
+    GIGA_DRAIN("ギガドレイン", Type.GRASS, MoveSpecies.SPECIAL, DetailedMoveSpecies.DAMAGE, 75, 100, 10, 0, 0,
             false, false, true, false, false, false
     ) {
         @Override
@@ -89,7 +90,7 @@ public enum BaseMPrm {
             return new OnBattleField(attackPoke.withCurrentHitPoint(attackPoke.getCurrentHitPoint().recovery(attackPoke, new CurrentHitPointImpl(recovery))), defensePoke, field);
         }
     },
-    GROWL("なきごえ", Type.NORMAL, MoveSpecies.CHANGE, 0, 100, 20, 0, 0,
+    GROWL("なきごえ", Type.NORMAL, MoveSpecies.CHANGE, DetailedMoveSpecies.DOWN_A, 0, 100, 20, 0, 0,
             false, true, true, false, true, true
     ) {
         @Override
@@ -98,7 +99,7 @@ public enum BaseMPrm {
             return new OnBattleField(attackPoke, defensePoke.withAddedStatusRank(-1, 0, 0, 0, 0, 0, 0), field);
         }
     },
-    DOUBLE_TEAM("かげぶんしん", Type.NORMAL, MoveSpecies.CHANGE, 0, -1, 15, 0, 0,
+    DOUBLE_TEAM("かげぶんしん", Type.NORMAL, MoveSpecies.CHANGE, DetailedMoveSpecies.UP_AV, 0, -1, 15, 0, 0,
             false, false, false, false, true, false
     ) {
         @Override
@@ -107,7 +108,7 @@ public enum BaseMPrm {
             return new OnBattleField(attackPoke.withAddedStatusRank(0, 0, 0, 0, 0, 0, 1), defensePoke, field);
         }
     },
-    GROWTH("せいちょう", Type.NORMAL, MoveSpecies.CHANGE, 0, -1, 20, 0, 0,
+    GROWTH("せいちょう", Type.NORMAL, MoveSpecies.CHANGE, DetailedMoveSpecies.UP_C, 0, -1, 20, 0, 0,
             false, false, true, false, true, false) {
         @Override
         public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
@@ -115,7 +116,7 @@ public enum BaseMPrm {
             return new OnBattleField(attackPoke.withAddedStatusRank(0, 0, 1, 0, 0, 0, 0), defensePoke, field);
         }
     },
-    SWORDS_DANCE("つるぎのまい", Type.NORMAL, MoveSpecies.CHANGE, 0, -1, 20, 0, 0,
+    SWORDS_DANCE("つるぎのまい", Type.NORMAL, MoveSpecies.CHANGE, DetailedMoveSpecies.UP_A, 0, -1, 20, 0, 0,
             false, false, true, false, true, false) {
         @Override
         public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
@@ -123,42 +124,42 @@ public enum BaseMPrm {
             return new OnBattleField(attackPoke.withAddedStatusRank(2, 0, 0, 0, 0, 0, 0), defensePoke, field);
         }
     },
-    SLEEP_POWDER("ねむりごな", Type.GRASS, MoveSpecies.CHANGE, 0, 75, 15, 0, 0,
+    SLEEP_POWDER("ねむりごな", Type.GRASS, MoveSpecies.CHANGE, DetailedMoveSpecies.AILMENT, 0, 75, 15, 0, 0,
             false, true, true, false, false, false) {
         @Override
         public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
             return new OnBattleField(attackPoke, defensePoke.withStatusAilment(changeAilment(defensePoke, Ailment.SLEEP)), field);
         }
     },
-    WILL_O_WISP("おにび", Type.FIRE, MoveSpecies.CHANGE, 0, 85, 15, 0, 0,
+    WILL_O_WISP("おにび", Type.FIRE, MoveSpecies.CHANGE, DetailedMoveSpecies.AILMENT, 0, 85, 15, 0, 0,
             false, true, true, false, false, false) {
         @Override
         public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
             return new OnBattleField(attackPoke, defensePoke.withStatusAilment(changeAilment(defensePoke, Ailment.BURN)), field);
         }
     },
-    SUNNY_DAY("にほんばれ", Type.FIRE, MoveSpecies.CHANGE, 0, -1, 5, 0, 0,
+    SUNNY_DAY("にほんばれ", Type.FIRE, MoveSpecies.CHANGE, DetailedMoveSpecies.WEATHER, 0, -1, 5, 0, 0,
             false, false, false, false, false, false) {
         @Override
         public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
             return new OnBattleField(attackPoke, defensePoke, changeField(field, Weather.DROUGHT));
         }
     },
-    RAIN_DANCE("あまごい", Type.WATER, MoveSpecies.CHANGE, 0, -1, 5, 0, 0,
+    RAIN_DANCE("あまごい", Type.WATER, MoveSpecies.CHANGE, DetailedMoveSpecies.WEATHER, 0, -1, 5, 0, 0,
             false, false, false, false, false, false) {
         @Override
         public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
             return new OnBattleField(attackPoke, defensePoke, changeField(field, Weather.RAIN));
         }
     },
-    SAND_STORM("すなあらし", Type.ROCK, MoveSpecies.CHANGE, 0, -1, 10, 0, 0,
+    SAND_STORM("すなあらし", Type.ROCK, MoveSpecies.CHANGE, DetailedMoveSpecies.WEATHER, 0, -1, 10, 0, 0,
             false, false, false, false, false, false) {
         @Override
         public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
             return new OnBattleField(attackPoke, defensePoke, changeField(field, Weather.SANDSTORM));
         }
     },
-    HAIL("あられ", Type.ICE, MoveSpecies.CHANGE, 0, -1, 10, 0, 0,
+    HAIL("あられ", Type.ICE, MoveSpecies.CHANGE, DetailedMoveSpecies.WEATHER, 0, -1, 10, 0, 0,
             false, false, false, false, false, false) {
         @Override
         public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
@@ -172,6 +173,8 @@ public enum BaseMPrm {
     private final Type moveType;
     // 分類
     private final MoveSpecies moveSpecies;
+    // 詳細な分類 CPUの技選択時に使用
+    private final DetailedMoveSpecies detailedSpecies;
     // 威力
     private final int damage;
     // 命中率
