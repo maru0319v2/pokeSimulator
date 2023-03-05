@@ -1,4 +1,4 @@
-package Enum;
+package move;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

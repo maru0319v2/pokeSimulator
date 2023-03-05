@@ -1,6 +1,5 @@
 package move;
 
-import Enum.DetailedMoveSpecies;
 import Enum.MoveSpecies;
 import Enum.Type;
 import bussinessLogic.OnBattleField;
