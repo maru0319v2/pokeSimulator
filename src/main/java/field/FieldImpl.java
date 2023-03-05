@@ -5,7 +5,10 @@ import move.Move;
 import pokemon.PokemonInfo;
 import Enum.*;
 
-import java.util.Objects;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static bussinessLogic.ConsoleOutManager.*;
 
@@ -63,15 +66,21 @@ public class FieldImpl implements Field {
         return keepField(this.weather, this.elapsedTurn + 1, this.countForRecovery);
     }
 
-    public PokemonInfo slipDamageBySandStorm(PokemonInfo target) throws InterruptedException {
-        showMessageParChar(target.getBasePrm().getName() + "はすなあらしでダメージをうけた！");
-        int damage = target.getRealValHitPoint() / 16;
-        return target.damagePoke(damage);
-    }
+    @Override
+    public PokemonInfo slipDamageByWeather(PokemonInfo target) throws InterruptedException {
+        List<Type> types = List.of(target.getBasePrm().getType1(), target.getBasePrm().getType2());
+        Set<Type> roGrSt = new HashSet<>(Arrays.asList(Type.ROCK, Type.GROUND, Type.STEEL));
+        int damage;
 
-    public PokemonInfo slipDamageByHail(PokemonInfo target) throws InterruptedException {
-        showMessageParChar(target.getBasePrm().getName() + "はあられでダメージをうけた！");
-        int damage = target.getRealValHitPoint() / 16;
+        if(this.getWeather() == Weather.SANDSTORM && roGrSt.stream().noneMatch(types::contains)) {
+            showMessageParChar(target.getBasePrm().getName() + "はすなあらしでダメージをうけた！");
+            damage = target.getRealValHitPoint() / 16;
+        } else if(this.getWeather() == Weather.HAIL && !types.contains(Type.ICE)) {
+            showMessageParChar(target.getBasePrm().getName() + "はあられでダメージをうけた！");
+            damage = target.getRealValHitPoint() / 16;
+        } else {
+            return target;
+        }
         return target.damagePoke(damage);
     }
 

@@ -127,26 +127,9 @@ public class BattleSimulation {
         Thread.sleep(500);
         showPokemonInfo(myPoke, enemyPoke);
         field = field.elapseTurn();
-        List<Type> myTypes = List.of(myPoke.getBasePrm().getType1(), myPoke.getBasePrm().getType2());
-        List<Type> eneTypes = List.of(enemyPoke.getBasePrm().getType1(), enemyPoke.getBasePrm().getType2());
 
-        if(field.getWeather() == Weather.SANDSTORM) {
-            Set<Type> rockGroundSteel = new HashSet<>(Arrays.asList(Type.ROCK, Type.GROUND, Type.STEEL));
-            if(rockGroundSteel.stream().noneMatch(myTypes::contains)) {
-                myPoke = field.slipDamageBySandStorm(myPoke);
-            }
-            if(rockGroundSteel.stream().noneMatch(eneTypes::contains)) {
-                enemyPoke = field.slipDamageBySandStorm(enemyPoke);
-            }
-        }
-        if(field.getWeather() == Weather.HAIL) {
-            if(!myTypes.contains(Type.ICE)) {
-                myPoke = field.slipDamageByHail(myPoke);
-            }
-            if(!eneTypes.contains(Type.ICE)) {
-                enemyPoke = field.slipDamageByHail(enemyPoke);
-            }
-        }
+        myPoke = field.slipDamageByWeather(myPoke);
+        enemyPoke = field.slipDamageByWeather(enemyPoke);
         return new OnBattleField(myPoke, enemyPoke, field);
     }
 }

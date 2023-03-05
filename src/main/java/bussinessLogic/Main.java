@@ -71,7 +71,7 @@ public class Main {
                 case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, new PokemonInfoImpl(BasePrm.CHARMANDER));
                 case "f" -> myPokemon = new BattleSimulation().battleSimulation(
                         new PokemonInfoImpl(
-                                BasePrm.CHARIZARD,
+                                BasePrm.RHYDON,
                                 Gender.MALE,
                                 Nature.MODEST,
                                 new IndividualValueImpl(10, 10, 10, 10, 10 , 10),
