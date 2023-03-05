@@ -118,12 +118,8 @@ public class BattleSimulation {
         Thread.sleep(500);
         showPokemonInfo(myPoke, enemyPoke);
 
-        if(SLIP_DAMAGE_AILMENT.contains(myPoke.getStatusAilment().getValue())) {
-            myPoke = myPoke.getStatusAilment().slipDamageByAilment(myPoke);
-        }
-        if(SLIP_DAMAGE_AILMENT.contains(enemyPoke.getStatusAilment().getValue())) {
-            enemyPoke = enemyPoke.getStatusAilment().slipDamageByAilment(enemyPoke);
-        }
+        myPoke = myPoke.getStatusAilment().slipDamageByAilment(myPoke);
+        enemyPoke = enemyPoke.getStatusAilment().slipDamageByAilment(enemyPoke);
         return new OnBattleField(myPoke, enemyPoke, field);
     }
 

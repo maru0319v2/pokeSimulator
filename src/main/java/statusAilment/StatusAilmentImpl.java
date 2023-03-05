@@ -140,7 +140,7 @@ public class StatusAilmentImpl implements StatusAilment {
 
     public PokemonInfo slipDamageByAilment(PokemonInfo target) throws InterruptedException {
         Ailment ailment = target.getStatusAilment().getValue();
-        int damage = 0;
+        int damage;
         switch (ailment) {
             case POISON -> {
                 showMessageParChar(target.getBasePrm().getName() + "はどくでダメージをうけた！");
@@ -156,6 +156,7 @@ public class StatusAilmentImpl implements StatusAilment {
                 damage = target.getRealValHitPoint() / 8;
             }
             default -> {
+                return target;
             }
         }
         return target.damagePoke(damage);
