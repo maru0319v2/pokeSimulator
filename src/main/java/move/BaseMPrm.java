@@ -55,6 +55,17 @@ public enum BaseMPrm {
             return new OnBattleField(attackPoke, defensePoke, field);
         }
     },
+    THUNDERBOLT("10まんボルト", Type.ELECTRIC, MoveSpecies.SPECIAL, DetailedMoveSpecies.DAMAGE, 90, 100, 15, 0, 0,
+            false, false, true, false, false, false
+    ) {
+        @Override
+        public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
+            if ((new Random().nextInt(10)) == 0) {
+                return new OnBattleField(attackPoke, defensePoke.withStatusAilment(changeAilment(defensePoke, Ailment.PARALYSIS)), field);
+            }
+            return new OnBattleField(attackPoke, defensePoke, field);
+        }
+    },
     DRAGON_CLAW("ドラゴンクロー", Type.DRAGON, MoveSpecies.PHYSICAL, DetailedMoveSpecies.DAMAGE, 80, 100, 15, 0, 0,
             true, false, true, false, false, false
     ) {
@@ -77,6 +88,17 @@ public enum BaseMPrm {
     ) {
         @Override
         public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) {
+            return new OnBattleField(attackPoke, defensePoke, field);
+        }
+    },
+    IRON_TAIL("アイアンテール", Type.STEEL, MoveSpecies.PHYSICAL, DetailedMoveSpecies.DAMAGE, 100, 75, 15, 0, 0,
+            true, false, true, false, false, false
+    ) {
+        @Override
+        public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
+            if ((new Random().nextInt(10)) <= 2) {
+                return new OnBattleField(attackPoke, defensePoke.withAddedStatusRank(0, -1, 0, 0, 0, 0, 0), field);
+            }
             return new OnBattleField(attackPoke, defensePoke, field);
         }
     },

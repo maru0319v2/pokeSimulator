@@ -3,6 +3,9 @@ package bussinessLogic;
 import Enum.MoveSpecies;
 import Enum.Type;
 import field.Field;
+import field.Weather;
+import move.BaseMPrm;
+import move.DetailedMoveSpecies;
 import move.Move;
 import pokemon.PokemonInfo;
 
@@ -13,8 +16,101 @@ public class EnemySelectMove {
     public static Move enemySelectMove(PokemonInfo enemyPokemon, PokemonInfo myPokemon, Field field) {
         // 持つ技の個数
         int moveSize = enemyPokemon.getHaveMove().size();
+        // ランダムな数値1~20
+        int r = new Random().nextInt(20) + 1;
+        // 選んだ技のindex
+        int selectedIndex = 0;
 
-        return enemyPokemon.getHaveMove().get(0);
+        if (r < 13) {
+            selectedIndex = highPriorityCanDefeat(enemyPokemon, myPokemon, field, moveSize);
+        } else {
+            selectedIndex = completelyRandom(moveSize);
+        }
+
+        return enemyPokemon.getHaveMove().get(selectedIndex);
+    }
+
+    // 敵の回避ランクが2以上の場合は、必中技だけ候補にする
+    private static List<Move> filterEffectiveHit(PokemonInfo enemyPokemon, PokemonInfo myPokemon) {
+        // 敵の回避ランク
+        int avoidRank = myPokemon.getStatusRank().getAvoidRate();
+        // 回避ランクが2以上の場合、必中技を使用する
+        List<Move> filteredMoves = null;
+        if (avoidRank >= 2) {
+            filteredMoves = enemyPokemon.getHaveMove().stream().filter(e -> e.baseMPrm().getDetailedSpecies() == DetailedMoveSpecies.HIT).toList();
+        } else {
+            filteredMoves = enemyPokemon.getHaveMove();
+        }
+        if (filteredMoves.size() == 0) {
+            // フィルターした結果技候補がなくなる場合はすべての技を候補に入れる
+            filteredMoves = enemyPokemon.getHaveMove();
+        }
+        return filteredMoves;
+    }
+
+    // 残HPが75%以上の場合は回復技を候補からはずす
+    private static List<Move> filterDisableRecovery(PokemonInfo enemyPokemon) {
+        // 残HP
+        int remainingHP = enemyPokemon.getCurrentHitPoint().value();
+        // 最大HP
+        int maxHP = enemyPokemon.getRealValHitPoint();
+        // 残HPの%
+        int remainingHPRate = remainingHP / maxHP * 100;
+        // 残HPが75%以下なら回復技を候補から外す
+        List<Move> filteredMoves;
+        if (remainingHPRate <= 75) {
+            filteredMoves = enemyPokemon.getHaveMove().stream().filter(e -> e.baseMPrm().getDetailedSpecies() != DetailedMoveSpecies.RECOVERY).toList();
+        } else {
+            filteredMoves = enemyPokemon.getHaveMove();
+        }
+        if (filteredMoves.size() == 0) {
+            // フィルターした結果技候補がなくなる場合はすべての技を候補に入れる
+            return enemyPokemon.getHaveMove();
+        }
+        return filteredMoves;
+    }
+
+    // 敵が既に状態異常になっている場合は状態異常になる技を技候補からはずす
+    private static List<Move> filterDisableAilment(PokemonInfo enemyPokemon, PokemonInfo myPokemon) {
+        // 敵の状態異常を取得
+        boolean isAilment = myPokemon.getStatusAilment().isSick();
+        List<Move> filteredMoves;
+        if (isAilment) {
+            // すでに状態異常になっている場合、状態異常にする技以外でフィルターする
+            filteredMoves = enemyPokemon.getHaveMove().stream().filter(m -> m.baseMPrm().getDetailedSpecies() != DetailedMoveSpecies.AILMENT).toList();
+        } else {
+            // 状態異常になっていない場合、すべての技を候補に入れる
+            filteredMoves = enemyPokemon.getHaveMove();
+        }
+        if (filteredMoves.size() == 0) {
+            // フィルターした結果技候補がなくなる場合はすべての技を候補に入れる
+            return enemyPokemon.getHaveMove();
+        }
+        return filteredMoves;
+    }
+
+    // すでに変更される天候と同じ天候にする技を候補から外す
+    private static List<Move> filterDisableWeather(PokemonInfo enemyPokemon, Field field) {
+        // 現在の天候
+        Weather weather = field.getWeather();
+        List<Move> filteredMoves;
+        // 天候操作技を持っている場合、天候が重複する技を候補からはずす
+        switch (weather) {
+            case DROUGHT ->
+                    filteredMoves = enemyPokemon.getHaveMove().stream().filter(m -> m.baseMPrm() != BaseMPrm.SUNNY_DAY).toList();
+            case RAIN ->
+                    filteredMoves = enemyPokemon.getHaveMove().stream().filter(m -> m.baseMPrm() != BaseMPrm.RAIN_DANCE).toList();
+            case SANDSTORM ->
+                    filteredMoves = enemyPokemon.getHaveMove().stream().filter(m -> m.baseMPrm() != BaseMPrm.SAND_STORM).toList();
+            case HAIL ->
+                    filteredMoves = enemyPokemon.getHaveMove().stream().filter(m -> m.baseMPrm() != BaseMPrm.HAIL).toList();
+            default -> filteredMoves = enemyPokemon.getHaveMove();
+        }
+        if (filteredMoves.size() == 0) {
+            // フィルターした結果技候補がなくなる場合はすべての技を候補に入れる
+            return enemyPokemon.getHaveMove();
+        }
+        return filteredMoves;
     }
 
     // 技を完全ランダムに選択する 戻り値は技番号0~4
