@@ -35,19 +35,20 @@ public class Main {
         System.out.println("3:ゼニガメ");
 
         PokemonInfo myPokemon = null;
-        while (myPokemon == null) {
-            System.out.print("あなたのポケモンを選択してください > ");
-            String selectPokeCommand = scanner.nextLine();
-            switch (selectPokeCommand) {
-                case "1" -> myPokemon = new PokemonInfoImpl(BasePrm.BULBASAUR);
-                case "2" -> myPokemon = new PokemonInfoImpl(BasePrm.CHARMANDER);
-                case "3" -> myPokemon = new PokemonInfoImpl(BasePrm.SQUIRTLE);
-            }
-        }
+//        while (myPokemon == null) {
+//            System.out.print("あなたのポケモンを選択してください > ");
+//            String selectPokeCommand = scanner.nextLine();
+//            switch (selectPokeCommand) {
+//                case "1" -> myPokemon = new PokemonInfoImpl(BasePrm.BULBASAUR);
+//                case "2" -> myPokemon = new PokemonInfoImpl(BasePrm.CHARMANDER);
+//                case "3" -> myPokemon = new PokemonInfoImpl(BasePrm.SQUIRTLE);
+//            }
+//        }
+        myPokemon = new PokemonInfoImpl(BasePrm.BULBASAUR);
 
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        showMessageParChar(myPokemon.getBasePrm().getName() + "を仲間にした!");
+        //showMessageParChar(myPokemon.getBasePrm().getName() + "を仲間にした!");
 
         String inputCommand = "";
         while (!inputCommand.equals("q")) {
@@ -70,13 +71,13 @@ public class Main {
                 case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, new PokemonInfoImpl(BasePrm.CHARMANDER));
                 case "f" -> myPokemon = new BattleSimulation().battleSimulation(
                         new PokemonInfoImpl(
-                                BasePrm.RHYDON,
+                                BasePrm.CHARIZARD,
                                 Gender.MALE,
                                 Nature.MODEST,
                                 new IndividualValueImpl(10, 10, 10, 10, 10 , 10),
                                 new EffortValueImpl(6, 0, 0, 252, 0, 252),
                                 new LevelImpl(50),
-                                List.of(new MoveImpl(BaseMPrm.SAND_STORM), new MoveImpl(BaseMPrm.SUNNY_DAY), new MoveImpl(BaseMPrm.WILL_O_WISP), new MoveImpl(BaseMPrm.DOUBLE_TEAM))
+                                List.of(new MoveImpl(BaseMPrm.SAND_STORM), new MoveImpl(BaseMPrm.FLAMETHROWER), new MoveImpl(BaseMPrm.WILL_O_WISP), new MoveImpl(BaseMPrm.DOUBLE_TEAM))
                         ),
                         new PokemonInfoImpl(
                                 BasePrm.VENUSAUR,

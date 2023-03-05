@@ -2,7 +2,12 @@ package statusAilment;
 
 import pokemon.PokemonInfo;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 public interface StatusAilment {
+    Set<Ailment> SLIP_DAMAGE_AILMENT = new HashSet<>(Arrays.asList(Ailment.POISON, Ailment.BAD_POISON, Ailment.BURN));
     Ailment getValue();
     int getElapsedTurn();
     int getCountRecoverySleep();
@@ -12,8 +17,6 @@ public interface StatusAilment {
     boolean isSick();
     double damageRateByBurn();
     double speedRateByParalysis();
-    PokemonInfo slipDamageByBurn(PokemonInfo target) throws InterruptedException;
-    PokemonInfo slipDamageByPoison(PokemonInfo target) throws InterruptedException;
-    PokemonInfo slipDamageByBadPoison(PokemonInfo target) throws InterruptedException;
+    PokemonInfo slipDamageByAilment(PokemonInfo target) throws InterruptedException;
 
 }

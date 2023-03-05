@@ -13,6 +13,7 @@ import static bussinessLogic.BattleLogic.*;
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 import static bussinessLogic.ConsoleOutManager.showPokemonInfo;
 import static field.FieldImpl.initializeField;
+import static statusAilment.StatusAilment.SLIP_DAMAGE_AILMENT;
 
 public class BattleSimulation {
     public PokemonInfo battleSimulation(PokemonInfo myPoke, PokemonInfo enemyPoke) throws InterruptedException {
@@ -116,16 +117,13 @@ public class BattleSimulation {
     private OnBattleField endTurnProcessAilment(PokemonInfo myPoke, PokemonInfo enemyPoke, Field field) throws InterruptedException {
         Thread.sleep(500);
         showPokemonInfo(myPoke, enemyPoke);
-        Ailment myAilment = myPoke.getStatusAilment().getValue();
-        Ailment eneAilment = enemyPoke.getStatusAilment().getValue();
 
-        myPoke = myAilment == Ailment.POISON? myPoke.getStatusAilment().slipDamageByPoison(myPoke) : myPoke;
-        myPoke = myAilment == Ailment.BAD_POISON? myPoke.getStatusAilment().slipDamageByBadPoison(myPoke) : myPoke;
-        myPoke = myAilment == Ailment.BURN? myPoke.getStatusAilment().slipDamageByBurn(myPoke) : myPoke;
-        enemyPoke = eneAilment == Ailment.POISON? enemyPoke.getStatusAilment().slipDamageByPoison(enemyPoke) : enemyPoke;
-        enemyPoke = eneAilment == Ailment.BAD_POISON? enemyPoke.getStatusAilment().slipDamageByBadPoison(enemyPoke) : enemyPoke;
-        enemyPoke = eneAilment == Ailment.BURN? enemyPoke.getStatusAilment().slipDamageByBurn(enemyPoke) : enemyPoke;
-
+        if(SLIP_DAMAGE_AILMENT.contains(myPoke.getStatusAilment().getValue())) {
+            myPoke = myPoke.getStatusAilment().slipDamageByAilment(myPoke);
+        }
+        if(SLIP_DAMAGE_AILMENT.contains(enemyPoke.getStatusAilment().getValue())) {
+            enemyPoke = enemyPoke.getStatusAilment().slipDamageByAilment(enemyPoke);
+        }
         return new OnBattleField(myPoke, enemyPoke, field);
     }
 
@@ -133,7 +131,7 @@ public class BattleSimulation {
         Thread.sleep(500);
         showPokemonInfo(myPoke, enemyPoke);
         field = field.elapseTurn();
-        List<Type> myTypes = List.of(myPoke.getBasePrm().getType1(), myPoke.getBasePrm().getType2());;
+        List<Type> myTypes = List.of(myPoke.getBasePrm().getType1(), myPoke.getBasePrm().getType2());
         List<Type> eneTypes = List.of(enemyPoke.getBasePrm().getType1(), enemyPoke.getBasePrm().getType2());
 
         if(field.getWeather() == Weather.SANDSTORM) {

@@ -3,8 +3,7 @@ package statusAilment;
 import lombok.Getter;
 import pokemon.PokemonInfo;
 
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 import static bussinessLogic.ConsoleOutManager.showChangeAilmentMessage;
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
@@ -139,22 +138,26 @@ public class StatusAilmentImpl implements StatusAilment {
         return Objects.equals(this.value, Ailment.PARALYSIS) ? 0.5 : 1.0;
     }
 
-    public PokemonInfo slipDamageByBurn(PokemonInfo target) throws InterruptedException {
-        showMessageParChar(target.getBasePrm().getName() + "はやけどでダメージをうけた！");
-        int damage = target.getRealValHitPoint() / 8;
-        return target.damagePoke(damage);
-    }
-
-    public PokemonInfo slipDamageByPoison(PokemonInfo target) throws InterruptedException {
-        showMessageParChar(target.getBasePrm().getName() + "はどくでダメージをうけた！");
-        int damage = target.getRealValHitPoint() / 8;
-        return target.damagePoke(damage);
-    }
-
-    public PokemonInfo slipDamageByBadPoison(PokemonInfo target) throws InterruptedException {
-        showMessageParChar(target.getBasePrm().getName() + "はどくでダメージをうけた！");
-        int rate = elapsedTurn / 16;
-        int damage = target.getRealValHitPoint() / rate;
+    public PokemonInfo slipDamageByAilment(PokemonInfo target) throws InterruptedException {
+        Ailment ailment = target.getStatusAilment().getValue();
+        int damage = 0;
+        switch (ailment) {
+            case POISON -> {
+                showMessageParChar(target.getBasePrm().getName() + "はどくでダメージをうけた！");
+                damage = target.getRealValHitPoint() / 8;
+            }
+            case BAD_POISON -> {
+                showMessageParChar(target.getBasePrm().getName() + "はどくでダメージをうけた！");
+                int rate = elapsedTurn / 16;
+                damage = target.getRealValHitPoint() / rate;
+            }
+            case BURN -> {
+                showMessageParChar(target.getBasePrm().getName() + "はやけどでダメージをうけた！");
+                damage = target.getRealValHitPoint() / 8;
+            }
+            default -> {
+            }
+        }
         return target.damagePoke(damage);
     }
 }
