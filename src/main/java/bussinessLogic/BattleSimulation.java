@@ -21,12 +21,12 @@ public class BattleSimulation {
         System.out.flush();
         showMessageParChar("野生の" + enemyPoke.getBasePrm().getName() + "が飛び出してきた!");
         showMessageParChar("ゆけっ!" + myPoke.getBasePrm().getName() + "!");
+        Thread.sleep(500);
 
         Field field = initializeField();
         OnBattleField onBF = new OnBattleField(myPoke, enemyPoke, field);
 
         while (onBF.isBothFine()) {
-            Thread.sleep(500);
             // 技選択
             showPokemonInfo(myPoke, enemyPoke);
             Move selectedMove = BattleLogic.selectMove(myPoke.getHaveMove(), myPoke);
@@ -88,16 +88,15 @@ public class BattleSimulation {
                     field = onBF.getField();
                 }
             }
+            Thread.sleep(500);
             if(onBF.isDeadEither()) { break; }
             // ターン終了処理
-            // TODO 天候がなし以外の場合のif文
             onBF = endTurnProcessWeather(myPoke, enemyPoke, field);
             myPoke = onBF.getAttackPoke();
             enemyPoke = onBF.getDefencePoke();
 
             if(onBF.isDeadEither()) { break; }
 
-            // TODO どちらが状態異常の場合のif文
             onBF = endTurnProcessAilment(myPoke, enemyPoke, field);
             myPoke = onBF.getAttackPoke();
             enemyPoke = onBF.getDefencePoke();
@@ -115,7 +114,6 @@ public class BattleSimulation {
     }
 
     private OnBattleField endTurnProcessAilment(PokemonInfo myPoke, PokemonInfo enemyPoke, Field field) throws InterruptedException {
-        Thread.sleep(500);
         showPokemonInfo(myPoke, enemyPoke);
 
         myPoke = myPoke.getStatusAilment().slipDamageByAilment(myPoke);
@@ -124,7 +122,6 @@ public class BattleSimulation {
     }
 
     private OnBattleField endTurnProcessWeather(PokemonInfo myPoke, PokemonInfo enemyPoke, Field field) throws InterruptedException {
-        Thread.sleep(500);
         showPokemonInfo(myPoke, enemyPoke);
         field = field.elapseTurn();
 

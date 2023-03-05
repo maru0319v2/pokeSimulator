@@ -81,6 +81,7 @@ public class FieldImpl implements Field {
         } else {
             return target;
         }
+        Thread.sleep(500);
         return target.damagePoke(damage);
     }
 

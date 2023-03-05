@@ -213,6 +213,36 @@ public class ConsoleOutManager {
             i++;
         }
         System.out.println("");
+
+        i = 0;
+        System.out.print("命中ランク ");
+        for(;i < Math.abs(target.getStatusRank().getHitRate()); i++) {
+            if (target.getStatusRank().getHitRate() > 0) {
+                System.out.print("△");
+            } else {
+                System.out.print("▼");
+            }
+        }
+        while (i < 6) {
+            System.out.print(".");
+            i++;
+        }
+        System.out.println("");
+
+        i = 0;
+        System.out.print("回避ランク ");
+        for(;i < Math.abs(target.getStatusRank().getAvoidRate()); i++) {
+            if (target.getStatusRank().getAvoidRate() > 0) {
+                System.out.print("△");
+            } else {
+                System.out.print("▼");
+            }
+        }
+        while (i < 6) {
+            System.out.print(".");
+            i++;
+        }
+        System.out.println("");
         System.out.println("");
     }
 

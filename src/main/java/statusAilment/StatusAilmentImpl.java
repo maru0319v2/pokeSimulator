@@ -159,6 +159,7 @@ public class StatusAilmentImpl implements StatusAilment {
                 return target;
             }
         }
+        Thread.sleep(500);
         return target.damagePoke(damage);
     }
 }
