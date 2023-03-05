@@ -8,6 +8,7 @@ import static bussinessLogic.BattleLogic.doAction;
 import static bussinessLogic.BattleLogic.isFirstMe;
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 import static bussinessLogic.ConsoleOutManager.showPokemonInfo;
+import static bussinessLogic.EnemySelectMove.enemySelectMove;
 import static field.FieldImpl.initializeField;
 
 public class BattleSimulation {
@@ -25,7 +26,7 @@ public class BattleSimulation {
             // 技選択
             showPokemonInfo(myPoke, enemyPoke);
             Move selectedMove = BattleLogic.selectMove(myPoke.getHaveMove(), myPoke);
-            Move enemyMove = BattleLogic.enemySelectMove(enemyPoke, myPoke);
+            Move enemyMove = enemySelectMove(enemyPoke, myPoke, field);
             showPokemonInfo(myPoke, enemyPoke);
             String myName = myPoke.getBasePrm().getName();
             String enemyName = enemyPoke.getBasePrm().getName();
