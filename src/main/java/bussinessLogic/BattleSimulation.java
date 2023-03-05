@@ -7,6 +7,8 @@ import pokemon.PokemonInfo;
 import statusAilment.Ailment;
 import Enum.*;
 
+import java.util.*;
+
 import static bussinessLogic.BattleLogic.*;
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 import static bussinessLogic.ConsoleOutManager.showPokemonInfo;
@@ -87,7 +89,15 @@ public class BattleSimulation {
             }
             if(onBF.isDeadEither()) { break; }
             // ターン終了処理
-            onBF = endTurnProcess(myPoke, enemyPoke, field);
+            // TODO 天候がなし以外の場合のif文
+            onBF = endTurnProcessWeather(myPoke, enemyPoke, field);
+            myPoke = onBF.getAttackPoke();
+            enemyPoke = onBF.getDefencePoke();
+
+            if(onBF.isDeadEither()) { break; }
+
+            // TODO どちらが状態異常の場合のif文
+            onBF = endTurnProcessAilment(myPoke, enemyPoke, field);
             myPoke = onBF.getAttackPoke();
             enemyPoke = onBF.getDefencePoke();
         }
@@ -103,64 +113,46 @@ public class BattleSimulation {
         return myPoke.withResetStatusRank();
     }
 
-    private OnBattleField endTurnProcess(PokemonInfo myPoke, PokemonInfo enemyPoke, Field field) throws InterruptedException {
-
+    private OnBattleField endTurnProcessAilment(PokemonInfo myPoke, PokemonInfo enemyPoke, Field field) throws InterruptedException {
         Thread.sleep(500);
         showPokemonInfo(myPoke, enemyPoke);
-        field = field.elapseTurn();
+        Ailment myAilment = myPoke.getStatusAilment().getValue();
+        Ailment eneAilment = enemyPoke.getStatusAilment().getValue();
 
-        // TODO　この辺のテストしたい
-        if(field.getWeather() == Weather.SANDSTORM) {
-            if(myPoke.getBasePrm().getType1() != Type.ROCK || myPoke.getBasePrm().getType2() != Type.ROCK ||
-                    myPoke.getBasePrm().getType1() != Type.GROUND || myPoke.getBasePrm().getType2() != Type.GROUND ||
-                    myPoke.getBasePrm().getType1() != Type.STEEL || myPoke.getBasePrm().getType2() != Type.STEEL) {
-                showMessageParChar(myPoke.getBasePrm().getName() + "はすなあらしでダメージをうけた！");
-                myPoke = field.slipDamageBySandStorm(myPoke);
-            }
-            if(enemyPoke.getBasePrm().getType1() != Type.ROCK || enemyPoke.getBasePrm().getType2() != Type.ROCK ||
-                    enemyPoke.getBasePrm().getType1() != Type.GROUND || enemyPoke.getBasePrm().getType2() != Type.GROUND ||
-                    enemyPoke.getBasePrm().getType1() != Type.STEEL || enemyPoke.getBasePrm().getType2() != Type.STEEL) {
-                showMessageParChar(enemyPoke.getBasePrm().getName() + "はすなあらしでダメージをうけた！");
-                enemyPoke = field.slipDamageBySandStorm(enemyPoke);
-            }
-        }
-        if(field.getWeather() == Weather.HAIL) {
-            if(myPoke.getBasePrm().getType1() != Type.ICE || myPoke.getBasePrm().getType2() != Type.ICE) {
-                showMessageParChar(myPoke.getBasePrm().getName() + "はあられでダメージをうけた！");
-                myPoke = field.slipDamageByHail(myPoke);
-            }
-            if(enemyPoke.getBasePrm().getType1() != Type.ICE || enemyPoke.getBasePrm().getType2() != Type.ICE) {
-                showMessageParChar(enemyPoke.getBasePrm().getName() + "はあられでダメージをうけた！");
-                enemyPoke = field.slipDamageByHail(enemyPoke);
-            }
-        }
-        if(myPoke.getStatusAilment().getValue() == Ailment.POISON) {
-            showMessageParChar(myPoke.getBasePrm().getName() + "はどくでダメージをうけた！");
-            myPoke = myPoke.getStatusAilment().slipDamageByPoison(myPoke);
-        }
-        if(myPoke.getStatusAilment().getValue() == Ailment.BAD_POISON) {
-            showMessageParChar(myPoke.getBasePrm().getName() + "はどくでダメージをうけた！");
-            myPoke = myPoke.getStatusAilment().slipDamageByBadPoison(myPoke);
-        }
-        if(myPoke.getStatusAilment().getValue() == Ailment.BURN) {
-            showMessageParChar(myPoke.getBasePrm().getName() + "はやけどでダメージをうけた！");
-            myPoke = myPoke.getStatusAilment().slipDamageByBurn(myPoke);
-        }
-        if(enemyPoke.getStatusAilment().getValue() == Ailment.POISON) {
-            showMessageParChar(enemyPoke.getBasePrm().getName() + "はどくでダメージをうけた！");
-            enemyPoke = enemyPoke.getStatusAilment().slipDamageByPoison(enemyPoke);
-        }
-        if(enemyPoke.getStatusAilment().getValue() == Ailment.BAD_POISON) {
-            showMessageParChar(enemyPoke.getBasePrm().getName() + "はどくでダメージをうけた！");
-            enemyPoke = enemyPoke.getStatusAilment().slipDamageByBadPoison(enemyPoke);
-        }
-        if(enemyPoke.getStatusAilment().getValue() == Ailment.BURN) {
-            showMessageParChar(enemyPoke.getBasePrm().getName() + "はやけどでダメージをうけた！");
-            enemyPoke = enemyPoke.getStatusAilment().slipDamageByBurn(enemyPoke);
-        }
+        myPoke = myAilment == Ailment.POISON? myPoke.getStatusAilment().slipDamageByPoison(myPoke) : myPoke;
+        myPoke = myAilment == Ailment.BAD_POISON? myPoke.getStatusAilment().slipDamageByBadPoison(myPoke) : myPoke;
+        myPoke = myAilment == Ailment.BURN? myPoke.getStatusAilment().slipDamageByBurn(myPoke) : myPoke;
+        enemyPoke = eneAilment == Ailment.POISON? enemyPoke.getStatusAilment().slipDamageByPoison(enemyPoke) : enemyPoke;
+        enemyPoke = eneAilment == Ailment.BAD_POISON? enemyPoke.getStatusAilment().slipDamageByBadPoison(enemyPoke) : enemyPoke;
+        enemyPoke = eneAilment == Ailment.BURN? enemyPoke.getStatusAilment().slipDamageByBurn(enemyPoke) : enemyPoke;
 
         return new OnBattleField(myPoke, enemyPoke, field);
     }
 
+    private OnBattleField endTurnProcessWeather(PokemonInfo myPoke, PokemonInfo enemyPoke, Field field) throws InterruptedException {
+        Thread.sleep(500);
+        showPokemonInfo(myPoke, enemyPoke);
+        field = field.elapseTurn();
+        List<Type> myTypes = List.of(myPoke.getBasePrm().getType1(), myPoke.getBasePrm().getType2());;
+        List<Type> eneTypes = List.of(enemyPoke.getBasePrm().getType1(), enemyPoke.getBasePrm().getType2());
 
+        if(field.getWeather() == Weather.SANDSTORM) {
+            Set<Type> rockGroundSteel = new HashSet<>(Arrays.asList(Type.ROCK, Type.GROUND, Type.STEEL));
+            if(rockGroundSteel.stream().noneMatch(myTypes::contains)) {
+                myPoke = field.slipDamageBySandStorm(myPoke);
+            }
+            if(rockGroundSteel.stream().noneMatch(eneTypes::contains)) {
+                enemyPoke = field.slipDamageBySandStorm(enemyPoke);
+            }
+        }
+        if(field.getWeather() == Weather.HAIL) {
+            if(!myTypes.contains(Type.ICE)) {
+                myPoke = field.slipDamageByHail(myPoke);
+            }
+            if(!eneTypes.contains(Type.ICE)) {
+                enemyPoke = field.slipDamageByHail(enemyPoke);
+            }
+        }
+        return new OnBattleField(myPoke, enemyPoke, field);
+    }
 }
