@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import pokemon.PokemonInfo;
 import pokemonStatus.impl.CurrentHitPointImpl;
+import pokemonStatus.impl.FlinchImpl;
 import statusAilment.Ailment;
 
 import java.util.Random;
@@ -20,7 +21,18 @@ import static statusAilment.StatusAilmentImpl.changeAilment;
 @Getter
 @AllArgsConstructor
 public enum BaseMPrm {
+    /**
+     * ここから通常攻撃
+     */
     TACKLE("たいあたり", Type.NORMAL, MoveSpecies.PHYSICAL, DetailedMoveSpecies.DAMAGE, 40, 95, 35, 0, 0,
+            true, false, true, false, false, false
+    ) {
+        @Override
+        public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) {
+            return new OnBattleField(attackPoke, defensePoke, field);
+        }
+    },
+    QUICK_ATTACK("でんこうせっか", Type.NORMAL, MoveSpecies.PHYSICAL, DetailedMoveSpecies.PRIORITY, 40, 100, 30, 0, 1,
             true, false, true, false, false, false
     ) {
         @Override
@@ -36,11 +48,14 @@ public enum BaseMPrm {
             return new OnBattleField(attackPoke, defensePoke, field);
         }
     },
-    QUICK_ATTACK("でんこうせっか", Type.NORMAL, MoveSpecies.PHYSICAL, DetailedMoveSpecies.PRIORITY, 40, 100, 30, 0, 1,
-            true, false, true, false, false, false
+    AIR_SLASH("エアスラッシュ", Type.FLYING, MoveSpecies.SPECIAL, DetailedMoveSpecies.DAMAGE, 75, 95, 15, 0, 0,
+            false, false, true, false, false, false
     ) {
         @Override
-        public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) {
+        public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
+            if ((new Random().nextInt(10)) <= 2) {
+                return new OnBattleField(attackPoke, defensePoke.withFlinch(new FlinchImpl(true)), field);
+            }
             return new OnBattleField(attackPoke, defensePoke, field);
         }
     },
@@ -91,6 +106,15 @@ public enum BaseMPrm {
             return new OnBattleField(attackPoke, defensePoke, field);
         }
     },
+    GIGA_DRAIN("ギガドレイン", Type.GRASS, MoveSpecies.SPECIAL, DetailedMoveSpecies.DAMAGE, 75, 100, 10, 0, 0,
+            false, false, true, false, false, false
+    ) {
+        @Override
+        public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
+            int recovery = recoveryHP / 2;
+            return new OnBattleField(attackPoke.withCurrentHitPoint(attackPoke.getCurrentHitPoint().recovery(attackPoke, new CurrentHitPointImpl(recovery))), defensePoke, field);
+        }
+    },
     IRON_TAIL("アイアンテール", Type.STEEL, MoveSpecies.PHYSICAL, DetailedMoveSpecies.DAMAGE, 100, 75, 15, 0, 0,
             true, false, true, false, false, false
     ) {
@@ -102,15 +126,9 @@ public enum BaseMPrm {
             return new OnBattleField(attackPoke, defensePoke, field);
         }
     },
-    GIGA_DRAIN("ギガドレイン", Type.GRASS, MoveSpecies.SPECIAL, DetailedMoveSpecies.DAMAGE, 75, 100, 10, 0, 0,
-            false, false, true, false, false, false
-    ) {
-        @Override
-        public OnBattleField effect(PokemonInfo attackPoke, PokemonInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
-            int recovery = recoveryHP / 2;
-            return new OnBattleField(attackPoke.withCurrentHitPoint(attackPoke.getCurrentHitPoint().recovery(attackPoke, new CurrentHitPointImpl(recovery))), defensePoke, field);
-        }
-    },
+    /**
+     * ここからランク変化技
+     */
     GROWL("なきごえ", Type.NORMAL, MoveSpecies.CHANGE, DetailedMoveSpecies.DOWN_A, 0, 100, 20, 0, 0,
             false, true, true, false, true, true
     ) {
@@ -145,6 +163,9 @@ public enum BaseMPrm {
             return new OnBattleField(attackPoke.withAddedStatusRank(2, 0, 0, 0, 0, 0, 0), defensePoke, field);
         }
     },
+    /**
+     * ここから状態異常技
+     */
     SLEEP_POWDER("ねむりごな", Type.GRASS, MoveSpecies.CHANGE, DetailedMoveSpecies.AILMENT, 0, 75, 15, 0, 0,
             false, true, true, false, false, false) {
         @Override
@@ -159,6 +180,9 @@ public enum BaseMPrm {
             return new OnBattleField(attackPoke, defensePoke.withStatusAilment(changeAilment(defensePoke, Ailment.BURN)), field);
         }
     },
+    /**
+     * ここから天候技
+     */
     SUNNY_DAY("にほんばれ", Type.FIRE, MoveSpecies.CHANGE, DetailedMoveSpecies.WEATHER, 0, -1, 5, 0, 0,
             false, false, false, false, false, false) {
         @Override

@@ -58,6 +58,9 @@ public interface PokemonInfo {
     // ステータスランク
     StatusRank getStatusRank();
 
+    // 怯み判定
+    Flinch getFlinch();
+
     // 状態異常1
     StatusAilment getStatusAilment();
 
@@ -95,4 +98,6 @@ public interface PokemonInfo {
     PokemonInfo withMove(Move move);
 
     PokemonInfo withStatusAilment(StatusAilment statusAilment);
+
+    PokemonInfo withFlinch(Flinch flinch);
 }

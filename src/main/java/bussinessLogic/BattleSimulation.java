@@ -3,6 +3,7 @@ package bussinessLogic;
 import field.Field;
 import move.Move;
 import pokemon.PokemonInfo;
+import pokemonStatus.impl.FlinchImpl;
 
 import static bussinessLogic.BattleLogic.doAction;
 import static bussinessLogic.BattleLogic.isFirstMe;
@@ -37,7 +38,7 @@ public class BattleSimulation {
                 // 状態異常の場合、経過ターン+1
                 myPoke = myPoke.withStatusAilment(myPoke.getStatusAilment().comeTurn(myName));
                 // 行動可能な場合、技を使う
-                if (myPoke.getStatusAilment().canMove(myName)) {
+                if (canMove(myPoke)) {
                     onBF = doAction(myPoke, enemyPoke, field, selectedMove);
                     myPoke = onBF.getAttackPoke();
                     enemyPoke = onBF.getDefencePoke();
@@ -53,7 +54,7 @@ public class BattleSimulation {
                 // 状態異常の場合、経過ターン+1
                 enemyPoke = enemyPoke.withStatusAilment(enemyPoke.getStatusAilment().comeTurn(enemyName));
                 // 行動可能な場合、技を使う
-                if (enemyPoke.getStatusAilment().canMove(enemyName)) {
+                if (canMove(enemyPoke)) {
                     onBF = doAction(enemyPoke, myPoke, field, enemyMove);
                     myPoke = onBF.getDefencePoke();
                     enemyPoke = onBF.getAttackPoke();
@@ -65,7 +66,7 @@ public class BattleSimulation {
                 // 状態異常の場合、経過ターン+1
                 enemyPoke = enemyPoke.withStatusAilment(enemyPoke.getStatusAilment().comeTurn(enemyName));
                 // 行動可能な場合、技を使う
-                if (enemyPoke.getStatusAilment().canMove(enemyName)) {
+                if (canMove(enemyPoke)) {
                     onBF = doAction(enemyPoke, myPoke, field, enemyMove);
                     myPoke = onBF.getDefencePoke();
                     enemyPoke = onBF.getAttackPoke();
@@ -81,7 +82,7 @@ public class BattleSimulation {
                 // 状態異常の場合、経過ターン+1
                 myPoke = myPoke.withStatusAilment(myPoke.getStatusAilment().comeTurn(myName));
                 // 行動可能な場合、技を使う
-                if (myPoke.getStatusAilment().canMove(myName)) {
+                if (canMove(myPoke)) {
                     onBF = doAction(myPoke, enemyPoke, field, selectedMove);
                     myPoke = onBF.getAttackPoke();
                     enemyPoke = onBF.getDefencePoke();
@@ -104,6 +105,10 @@ public class BattleSimulation {
             onBF = endTurnProcessAilment(myPoke, enemyPoke, field);
             myPoke = onBF.getAttackPoke();
             enemyPoke = onBF.getDefencePoke();
+
+            // 怯み状態をリセットする
+            myPoke = myPoke.withFlinch(new FlinchImpl(false));
+            enemyPoke = enemyPoke.withFlinch(new FlinchImpl(false));
         }
 
         showPokemonInfo(myPoke, enemyPoke);
@@ -115,6 +120,19 @@ public class BattleSimulation {
             System.out.println(myPoke.getBasePrm().getName() + "は倒れた");
         }
         return myPoke.withResetStatusRank();
+    }
+
+    private boolean canMove(PokemonInfo target) throws InterruptedException {
+        String name = target.getBasePrm().getName();
+        boolean flinchResult = target.getFlinch().canMove(name);
+        boolean ailmentResult = target.getStatusAilment().canMove(name);
+        if (!flinchResult) {
+            return false;
+        }
+        if (!ailmentResult) {
+            return false;
+        }
+        return true;
     }
 
     private OnBattleField endTurnProcessAilment(PokemonInfo myPoke, PokemonInfo enemyPoke, Field field) throws InterruptedException {

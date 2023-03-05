@@ -25,7 +25,6 @@ import java.util.Scanner;
 // PPが0のときはわるあがきする
 // 草タイプはねむりごな等無効、炎タイプはやけどにならない、氷タイプは氷状態にならない、鋼タイプはどくにならない、毒タイプはどくにならない
 // とくせい
-// ひるみ判定
 // こんらん、バインド、のろい、ちょうはつ、こだわり
 // テストを充実させる
 public class Main {
@@ -80,16 +79,16 @@ public class Main {
                                 new IndividualValueImpl(10, 10, 10, 10, 10, 10),
                                 new EffortValueImpl(6, 0, 0, 252, 0, 252),
                                 new LevelImpl(50),
-                                List.of(new MoveImpl(BaseMPrm.SAND_STORM), new MoveImpl(BaseMPrm.FLAMETHROWER), new MoveImpl(BaseMPrm.WILL_O_WISP), new MoveImpl(BaseMPrm.DOUBLE_TEAM))
+                                List.of(new MoveImpl(BaseMPrm.AIR_SLASH), new MoveImpl(BaseMPrm.FLAMETHROWER), new MoveImpl(BaseMPrm.WILL_O_WISP), new MoveImpl(BaseMPrm.DOUBLE_TEAM))
                         ),
                         new PokemonInfoImpl(
-                                BasePrm.VENUSAUR,
+                                BasePrm.RHYDON,
                                 Gender.MALE,
                                 Nature.MODEST,
                                 new IndividualValueImpl(10, 10, 10, 10, 10, 10),
                                 new EffortValueImpl(252, 0, 0, 252, 0, 6),
                                 new LevelImpl(50),
-                                List.of(new MoveImpl(BaseMPrm.SLEEP_POWDER), new MoveImpl(BaseMPrm.GIGA_DRAIN), new MoveImpl(BaseMPrm.QUICK_ATTACK), new MoveImpl(BaseMPrm.RAIN_DANCE))
+                                List.of(new MoveImpl(BaseMPrm.SLEEP_POWDER), new MoveImpl(BaseMPrm.GIGA_DRAIN), new MoveImpl(BaseMPrm.QUICK_ATTACK), new MoveImpl(BaseMPrm.AERIAL_ACE))
                         ));
             }
         }

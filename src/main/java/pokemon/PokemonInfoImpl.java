@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
+import static pokemonStatus.impl.FlinchImpl.initializeFlinch;
 import static statusAilment.StatusAilmentImpl.changeAilment;
 import static statusAilment.StatusAilmentImpl.initializeAilment;
 
@@ -30,6 +31,7 @@ public class PokemonInfoImpl implements PokemonInfo {
     private final CurrentHitPoint currentHitPoint;
     private final StatusRank statusRank;
     private final StatusAilment statusAilment;
+    private final Flinch flinch;
 
     public int getRealValHitPoint() {
         return ((this.basePrm.getHitPoint() * 2 + this.individualValue.hitPoint() + (this.effortValue.hitPoint() / 4)) * this.level.value() / 100) + 10 + this.level.value();
@@ -135,6 +137,7 @@ public class PokemonInfoImpl implements PokemonInfo {
         this.currentHitPoint = new CurrentHitPointImpl(getRealValHitPoint());
         this.statusRank = new StatusRankImpl();
         this.statusAilment = initializeAilment();
+        this.flinch = initializeFlinch();
     }
 
     // 指定パラメータポケモンインスタンスを作成する。
@@ -158,6 +161,7 @@ public class PokemonInfoImpl implements PokemonInfo {
         this.currentHitPoint = new CurrentHitPointImpl(getRealValHitPoint());
         this.statusRank = new StatusRankImpl();
         this.statusAilment = initializeAilment();
+        this.flinch = initializeFlinch();
     }
 
     private PokemonInfoImpl(
@@ -171,7 +175,8 @@ public class PokemonInfoImpl implements PokemonInfo {
             List<Move> haveMove,
             CurrentHitPoint currentHitPoint,
             StatusRank statusRankImpl,
-            StatusAilment statusAilment
+            StatusAilment statusAilment,
+            Flinch flinch
     ) {
         this.basePrm = basePokemonInfo;
         this.gender = gender;
@@ -184,31 +189,32 @@ public class PokemonInfoImpl implements PokemonInfo {
         this.currentHitPoint = new CurrentHitPointImpl(currentHitPoint.value());
         this.statusRank = new StatusRankImpl(statusRankImpl.getAttack(), statusRankImpl.getBlock(), statusRankImpl.getContact(), statusRankImpl.getDefense(), statusRankImpl.getSpeed(), statusRankImpl.getHitRate(), statusRankImpl.getAvoidRate());
         this.statusAilment = statusAilment;
+        this.flinch = flinch;
     }
 
     @Override
     public PokemonInfo withCurrentHitPoint(CurrentHitPoint currentHitPoint) {
-        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, currentHitPoint, this.statusRank, this.statusAilment);
+        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, currentHitPoint, this.statusRank, this.statusAilment, this.flinch);
     }
 
     @Override
     public PokemonInfo withExperience(int addingExperience) {
-        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience.add(addingExperience), this.haveMove, this.currentHitPoint, this.statusRank, this.statusAilment);
+        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience.add(addingExperience), this.haveMove, this.currentHitPoint, this.statusRank, this.statusAilment, this.flinch);
     }
 
     @Override
     public PokemonInfo withLevel(int addLevel) {
-        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level.add(addLevel), this.experience, this.haveMove, this.currentHitPoint, this.statusRank, this.statusAilment);
+        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level.add(addLevel), this.experience, this.haveMove, this.currentHitPoint, this.statusRank, this.statusAilment, this.flinch);
     }
 
     @Override
     public PokemonInfo withAddedStatusRank(final int attack, final int block, final int contact, final int defense, final int speed, final int hitRate, final int avoidRate) {
-        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank.add(attack, block, contact, defense, speed, hitRate, avoidRate), this.statusAilment);
+        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank.add(attack, block, contact, defense, speed, hitRate, avoidRate), this.statusAilment, this.flinch);
     }
 
     @Override
     public PokemonInfo withResetStatusRank() {
-        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank.reset(), this.statusAilment);
+        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank.reset(), this.statusAilment, this.flinch);
     }
 
     @Override
@@ -221,11 +227,16 @@ public class PokemonInfoImpl implements PokemonInfo {
                 newMoves.add(haveMove);
             }
         }
-        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, newMoves, this.currentHitPoint, this.statusRank, this.statusAilment);
+        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, newMoves, this.currentHitPoint, this.statusRank, this.statusAilment, this.flinch);
     }
 
     @Override
     public PokemonInfo withStatusAilment(StatusAilment statusAilment) {
-        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, statusAilment);
+        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, statusAilment, this.flinch);
+    }
+
+    @Override
+    public PokemonInfo withFlinch(Flinch flinch) {
+        return new PokemonInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, this.statusAilment, flinch);
     }
 }
