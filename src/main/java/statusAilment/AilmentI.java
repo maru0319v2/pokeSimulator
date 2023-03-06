@@ -65,15 +65,15 @@ public class AilmentI implements Ailment {
             this.elapsedTurn = 0;
             showChangeAilmentMessage(target, value);
         } else {
-            this.val = target.getStatusAilment().val();
-            this.countRecoverySleep = target.getStatusAilment().countRecoverySleep();
-            this.elapsedTurn = target.getStatusAilment().elapsedTurn();
+            this.val = target.ailment().val();
+            this.countRecoverySleep = target.ailment().countRecoverySleep();
+            this.elapsedTurn = target.ailment().elapsedTurn();
         }
     }
 
     private boolean isOverwrite(PokeInfo target, AilmentE value) {
         // 元の状態異常
-        AilmentE beforeAilment = target.getStatusAilment().val();
+        AilmentE beforeAilment = target.ailment().val();
 
         if (beforeAilment == AilmentE.FINE) {
             // 元の状態が健康ならすべて上書きされる
@@ -88,7 +88,7 @@ public class AilmentI implements Ailment {
         }
         if (beforeAilment == AilmentE.SLEEP) {
             // 元の状態がねむりの場合、引数の経過ターンが大きい、またはひんしか健康の場合上書きする
-            if (target.getStatusAilment().elapsedTurn() < this.elapsedTurn() || value == AilmentE.FINE || value == AilmentE.FAINTING) {
+            if (target.ailment().elapsedTurn() < this.elapsedTurn() || value == AilmentE.FINE || value == AilmentE.FAINTING) {
                 return true;
             }
         }
@@ -156,27 +156,27 @@ public class AilmentI implements Ailment {
     }
 
     public PokeInfo slipDamageByAilment(PokeInfo target) throws InterruptedException {
-        AilmentE ailment = target.getStatusAilment().val();
+        AilmentE ailment = target.ailment().val();
         int damage;
         switch (ailment) {
             case POISON -> {
-                showMessageParChar(target.getBasePrm().pName() + "はどくでダメージをうけた！");
-                damage = target.getRealValHitPoint() / 8;
+                showMessageParChar(target.basePrm().pName() + "はどくでダメージをうけた！");
+                damage = target.realHP() / 8;
             }
             case BAD_POISON -> {
-                showMessageParChar(target.getBasePrm().pName() + "はどくでダメージをうけた！");
+                showMessageParChar(target.basePrm().pName() + "はどくでダメージをうけた！");
                 int rate = elapsedTurn / 16;
-                damage = target.getRealValHitPoint() / rate;
+                damage = target.realHP() / rate;
             }
             case BURN -> {
-                showMessageParChar(target.getBasePrm().pName() + "はやけどでダメージをうけた！");
-                damage = target.getRealValHitPoint() / 8;
+                showMessageParChar(target.basePrm().pName() + "はやけどでダメージをうけた！");
+                damage = target.realHP() / 8;
             }
             default -> {
                 return target;
             }
         }
         Thread.sleep(500);
-        return target.damagePoke(damage);
+        return target.damage(damage);
     }
 }

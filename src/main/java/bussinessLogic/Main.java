@@ -14,6 +14,8 @@ import pokemonStatus.impl.LevelI;
 import java.util.List;
 import java.util.Scanner;
 
+import static pokemon.PokeInfoI.initialize;
+
 // TODO やることリスト
 // 初期経験値固定値問題
 // 覚える技リスト
@@ -45,7 +47,7 @@ public class Main {
 //                case "3" -> myPokemon = new PokemonInfoImpl(BasePrm.SQUIRTLE);
 //            }
 //        }
-        myPokemon = new PokeInfoI(BasePrm.BULBASAUR);
+        myPokemon = initialize(BasePrm.BULBASAUR);
 
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -66,11 +68,11 @@ public class Main {
 
             switch (inputCommand) {
                 case "i" -> ConsoleOutManager.showAllParameters(myPokemon);
-                case "m" -> ConsoleOutManager.showMoveDetail(myPokemon.getHaveMove());
+                case "m" -> ConsoleOutManager.showMoveDetail(myPokemon.haveMove());
                 case "e" -> myPokemon = myPokemon.addExp(200);
                 case "r" -> myPokemon = myPokemon.recoveryAll();
                 case "b" ->
-                        myPokemon = new BattleSimulation().battleSimulation(myPokemon, new PokeInfoI(BasePrm.CHARMANDER));
+                        myPokemon = new BattleSimulation().battleSimulation(myPokemon, initialize(BasePrm.CHARMANDER));
                 case "f" -> myPokemon = new BattleSimulation().battleSimulation(
                         new PokeInfoI(
                                 BasePrm.CHARIZARD,

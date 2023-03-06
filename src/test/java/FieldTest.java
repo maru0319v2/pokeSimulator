@@ -6,11 +6,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pokemon.BasePrm;
 import pokemon.PokeInfo;
-import pokemon.PokeInfoI;
 
 import static field.FieldI.changeField;
 import static field.FieldI.initializeField;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static pokemon.PokeInfoI.initialize;
 
 public class FieldTest {
     @Test
@@ -99,8 +99,8 @@ public class FieldTest {
     @Test
     @DisplayName("砂嵐のときに岩タイプの特防が1.5倍になること")
     public void test6() throws InterruptedException {
-        PokeInfo myPoke1 = new PokeInfoI(BasePrm.RHYDON);
-        PokeInfo myPoke2 = new PokeInfoI(BasePrm.CHARIZARD);
+        PokeInfo myPoke1 = initialize(BasePrm.RHYDON);
+        PokeInfo myPoke2 = initialize(BasePrm.CHARIZARD);
 
         Field field = initializeField();
         double result1 = field.defenceRateBySandStorm(myPoke1);

@@ -65,7 +65,7 @@ public enum BaseMvPrm {
         @Override
         public OnBattleField effect(PokeInfo attackPoke, PokeInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
             if ((new Random().nextInt(10)) == 0) {
-                return new OnBattleField(attackPoke, defensePoke.withStatusAilment(changeAilment(defensePoke, AilmentE.BURN)), field);
+                return new OnBattleField(attackPoke, defensePoke.withAilment(changeAilment(defensePoke, AilmentE.BURN)), field);
             }
             return new OnBattleField(attackPoke, defensePoke, field);
         }
@@ -76,7 +76,7 @@ public enum BaseMvPrm {
         @Override
         public OnBattleField effect(PokeInfo attackPoke, PokeInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
             if ((new Random().nextInt(10)) == 0) {
-                return new OnBattleField(attackPoke, defensePoke.withStatusAilment(changeAilment(defensePoke, AilmentE.PARALYSIS)), field);
+                return new OnBattleField(attackPoke, defensePoke.withAilment(changeAilment(defensePoke, AilmentE.PARALYSIS)), field);
             }
             return new OnBattleField(attackPoke, defensePoke, field);
         }
@@ -112,7 +112,7 @@ public enum BaseMvPrm {
         @Override
         public OnBattleField effect(PokeInfo attackPoke, PokeInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
             int recovery = recoveryHP / 2;
-            return new OnBattleField(attackPoke.withCurrentHitPoint(attackPoke.getCurrentHitPoint().recovery(attackPoke, new CurrentHPI(recovery))), defensePoke, field);
+            return new OnBattleField(attackPoke.withCurrentHP(attackPoke.currentHP().recovery(attackPoke, new CurrentHPI(recovery))), defensePoke, field);
         }
     },
     IRON_TAIL("アイアンテール", Type.STEEL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 100, 75, 15, 0, 0,
@@ -121,7 +121,7 @@ public enum BaseMvPrm {
         @Override
         public OnBattleField effect(PokeInfo attackPoke, PokeInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
             if ((new Random().nextInt(10)) <= 2) {
-                return new OnBattleField(attackPoke, defensePoke.withAddedStatusRank(0, -1, 0, 0, 0, 0, 0), field);
+                return new OnBattleField(attackPoke, defensePoke.withChStatusRank(0, -1, 0, 0, 0, 0, 0), field);
             }
             return new OnBattleField(attackPoke, defensePoke, field);
         }
@@ -134,8 +134,8 @@ public enum BaseMvPrm {
     ) {
         @Override
         public OnBattleField effect(PokeInfo attackPoke, PokeInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
-            showMessageParChar(defensePoke.getBasePrm().pName() + "の攻撃が下がった!");
-            return new OnBattleField(attackPoke, defensePoke.withAddedStatusRank(-1, 0, 0, 0, 0, 0, 0), field);
+            showMessageParChar(defensePoke.basePrm().pName() + "の攻撃が下がった!");
+            return new OnBattleField(attackPoke, defensePoke.withChStatusRank(-1, 0, 0, 0, 0, 0, 0), field);
         }
     },
     DOUBLE_TEAM("かげぶんしん", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.UP_AV, 0, -1, 15, 0, 0,
@@ -143,24 +143,24 @@ public enum BaseMvPrm {
     ) {
         @Override
         public OnBattleField effect(PokeInfo attackPoke, PokeInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
-            showMessageParChar(attackPoke.getBasePrm().pName() + "の回避率が上がった!");
-            return new OnBattleField(attackPoke.withAddedStatusRank(0, 0, 0, 0, 0, 0, 1), defensePoke, field);
+            showMessageParChar(attackPoke.basePrm().pName() + "の回避率が上がった!");
+            return new OnBattleField(attackPoke.withChStatusRank(0, 0, 0, 0, 0, 0, 1), defensePoke, field);
         }
     },
     GROWTH("せいちょう", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.UP_C, 0, -1, 20, 0, 0,
             false, false, true, false, true, false) {
         @Override
         public OnBattleField effect(PokeInfo attackPoke, PokeInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
-            showMessageParChar(attackPoke.getBasePrm().pName() + "の特攻が上がった!");
-            return new OnBattleField(attackPoke.withAddedStatusRank(0, 0, 1, 0, 0, 0, 0), defensePoke, field);
+            showMessageParChar(attackPoke.basePrm().pName() + "の特攻が上がった!");
+            return new OnBattleField(attackPoke.withChStatusRank(0, 0, 1, 0, 0, 0, 0), defensePoke, field);
         }
     },
     SWORDS_DANCE("つるぎのまい", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.UP_A, 0, -1, 20, 0, 0,
             false, false, true, false, true, false) {
         @Override
         public OnBattleField effect(PokeInfo attackPoke, PokeInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
-            showMessageParChar(attackPoke.getBasePrm().pName() + "の攻撃がぐーんと上がった!");
-            return new OnBattleField(attackPoke.withAddedStatusRank(2, 0, 0, 0, 0, 0, 0), defensePoke, field);
+            showMessageParChar(attackPoke.basePrm().pName() + "の攻撃がぐーんと上がった!");
+            return new OnBattleField(attackPoke.withChStatusRank(2, 0, 0, 0, 0, 0, 0), defensePoke, field);
         }
     },
     /**
@@ -170,14 +170,14 @@ public enum BaseMvPrm {
             false, true, true, false, false, false) {
         @Override
         public OnBattleField effect(PokeInfo attackPoke, PokeInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
-            return new OnBattleField(attackPoke, defensePoke.withStatusAilment(changeAilment(defensePoke, AilmentE.SLEEP)), field);
+            return new OnBattleField(attackPoke, defensePoke.withAilment(changeAilment(defensePoke, AilmentE.SLEEP)), field);
         }
     },
     WILL_O_WISP("おにび", Type.FIRE, MoveSpecies.CHANGE, DetailMvSpecies.AILMENT, 0, 85, 15, 0, 0,
             false, true, true, false, false, false) {
         @Override
         public OnBattleField effect(PokeInfo attackPoke, PokeInfo defensePoke, Field field, int recoveryHP) throws InterruptedException {
-            return new OnBattleField(attackPoke, defensePoke.withStatusAilment(changeAilment(defensePoke, AilmentE.BURN)), field);
+            return new OnBattleField(attackPoke, defensePoke.withAilment(changeAilment(defensePoke, AilmentE.BURN)), field);
         }
     },
     /**

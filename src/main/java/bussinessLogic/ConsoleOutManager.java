@@ -13,19 +13,19 @@ public class ConsoleOutManager {
     public static void showAllParameters(PokeInfo target) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.print("図鑑No:" + target.getBasePrm().pokeDexNo() + " ");
-        System.out.println("名前:" + target.getBasePrm().pName() + " ");
-        System.out.println("タイプ1: " + target.getBasePrm().type1().getValue() + " タイプ2: " + target.getBasePrm().type2().getValue());
-        System.out.println("状態: " + target.getStatusAilment().val());
-        System.out.print("レベル: " + target.getLevel().val());
-        System.out.print("  次のレベルまで: " + target.getExperience().nextRequireExp(target) + " exp.");
-        System.out.println("  総経験値: " + target.getExperience().totalExp() + " exp.");
+        System.out.print("図鑑No:" + target.basePrm().pokeDexNo() + " ");
+        System.out.println("名前:" + target.basePrm().pName() + " ");
+        System.out.println("タイプ1: " + target.basePrm().type1().getValue() + " タイプ2: " + target.basePrm().type2().getValue());
+        System.out.println("状態: " + target.ailment().val());
+        System.out.print("レベル: " + target.level().val());
+        System.out.print("  次のレベルまで: " + target.experience().nextRequireExp(target) + " exp.");
+        System.out.println("  総経験値: " + target.experience().totalExp() + " exp.");
 
         //  System.out.println("  経験値タイプ: " + target.experienceType());
-        System.out.println("性別: " + target.getGender().getValue());
-        System.out.println("性格: " + target.getNature().getValue());
+        System.out.println("性別: " + target.gender().getValue());
+        System.out.println("性格: " + target.nature().getValue());
         System.out.print("覚えている技: ");
-        for (Move move : target.getHaveMove()) {
+        for (Move move : target.haveMove()) {
             System.out.print(move.baseMPrm().getName() + "  ");
         }
         System.out.println("");
@@ -56,14 +56,14 @@ public class ConsoleOutManager {
 //        System.out.print(" 特攻 " + target.effortValue().contact());
 //        System.out.print(" 特防 " + target.effortValue().defense());
 //        System.out.println(" 素早 " + target.effortValue().speed());
-        System.out.print("HP: " + target.getCurrentHitPoint().val() + "/" + target.getRealValHitPoint() + " ");
+        System.out.print("HP: " + target.currentHP().val() + "/" + target.realHP() + " ");
         showProgressBar(target);
         System.out.println("");
-        System.out.println("攻撃 " + target.getRealValAttack());
-        System.out.println("防御 " + target.getRealValBlock());
-        System.out.println("特攻 " + target.getRealValContact());
-        System.out.println("特防 " + target.getRealValDefense());
-        System.out.println("素早 " + target.getRealValSpeed());
+        System.out.println("攻撃 " + target.realAttack());
+        System.out.println("防御 " + target.realBlock());
+        System.out.println("特攻 " + target.realContact());
+        System.out.println("特防 " + target.realDefense());
+        System.out.println("素早 " + target.realSpeed());
     }
 
     public static void showMoveDetail(List<Move> moves) {
@@ -80,7 +80,7 @@ public class ConsoleOutManager {
 
     public static void showProgressBar(PokeInfo target) {
         // 残りHPのパーセントを出す
-        double i = ((double) target.getCurrentHitPoint().val()) / ((double) target.getRealValHitPoint()) * 20;
+        double i = ((double) target.currentHP().val()) / ((double) target.realHP()) * 20;
         System.out.print("[");
         int j;
         for (j = 0; i > j; j++) {
@@ -96,53 +96,53 @@ public class ConsoleOutManager {
     public static void showPokemonInfo(PokeInfo myPokemon, PokeInfo enemyPokemon) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.print(enemyPokemon.getBasePrm().pName() + " " + enemyPokemon.getGender().getValue() + "    Lv." + enemyPokemon.getLevel().val());
-        if (enemyPokemon.getStatusAilment().val() == AilmentE.FINE) {
+        System.out.print(enemyPokemon.basePrm().pName() + " " + enemyPokemon.gender().getValue() + "    Lv." + enemyPokemon.level().val());
+        if (enemyPokemon.ailment().val() == AilmentE.FINE) {
             System.out.println("");
         } else {
-            System.out.println(" " + enemyPokemon.getStatusAilment().val().val());
+            System.out.println(" " + enemyPokemon.ailment().val().val());
         }
         System.out.print("HP");
         showProgressBar(enemyPokemon);
         System.out.println("           ■");
-        System.out.print("   " + enemyPokemon.getCurrentHitPoint().val() + " / " + enemyPokemon.getRealValHitPoint());
+        System.out.print("   " + enemyPokemon.currentHP().val() + " / " + enemyPokemon.realHP());
         System.out.println("");
         System.out.println("");
         System.out.println("");
         // ↑相手側　↓こっち側
         System.out.print("                        ");
-        System.out.print(myPokemon.getBasePrm().pName() + " " + myPokemon.getGender().getValue() + "    Lv." + myPokemon.getLevel().val());
-        if (myPokemon.getStatusAilment().val() == AilmentE.FINE) {
+        System.out.print(myPokemon.basePrm().pName() + " " + myPokemon.gender().getValue() + "    Lv." + myPokemon.level().val());
+        if (myPokemon.ailment().val() == AilmentE.FINE) {
             System.out.println("");
         } else {
-            System.out.println(" " + myPokemon.getStatusAilment().val().val());
+            System.out.println(" " + myPokemon.ailment().val().val());
         }
         System.out.print("            ■           HP");
         showProgressBar(myPokemon);
         System.out.println("");
-        System.out.println("                           " + myPokemon.getCurrentHitPoint().val() + " / " + myPokemon.getRealValHitPoint());
+        System.out.println("                           " + myPokemon.currentHP().val() + " / " + myPokemon.realHP());
         System.out.println("");
         System.out.println("-------------------------------------------------");
     }
 
     public static void showParametersInBattle(PokeInfo target) {
-        System.out.println("名前:" + target.getBasePrm().pName() + " ");
-        System.out.println("タイプ1: " + target.getBasePrm().type1().getValue() + " タイプ2: " + target.getBasePrm().type2().getValue());
-        System.out.println("レベル: " + target.getLevel().val());
-        System.out.print("HP: " + target.getCurrentHitPoint().val() + "/" + target.getRealValHitPoint() + " ");
+        System.out.println("名前:" + target.basePrm().pName() + " ");
+        System.out.println("タイプ1: " + target.basePrm().type1().getValue() + " タイプ2: " + target.basePrm().type2().getValue());
+        System.out.println("レベル: " + target.level().val());
+        System.out.print("HP: " + target.currentHP().val() + "/" + target.realHP() + " ");
         showProgressBar(target);
         System.out.println("");
-        System.out.println("攻撃 " + target.getRealValAttack());
-        System.out.println("防御 " + target.getRealValBlock());
-        System.out.println("特攻 " + target.getRealValContact());
-        System.out.println("特防 " + target.getRealValDefense());
-        System.out.println("素早 " + target.getRealValSpeed());
+        System.out.println("攻撃 " + target.realAttack());
+        System.out.println("防御 " + target.realBlock());
+        System.out.println("特攻 " + target.realContact());
+        System.out.println("特防 " + target.realDefense());
+        System.out.println("素早 " + target.realSpeed());
         System.out.println("");
 
         System.out.print("攻撃ランク ");
         int i = 0;
-        for (; i < Math.abs(target.getStatusRank().attack()); i++) {
-            if (target.getStatusRank().attack() > 0) {
+        for (; i < Math.abs(target.statusRank().attack()); i++) {
+            if (target.statusRank().attack() > 0) {
                 System.out.print("△");
             } else {
                 System.out.print("▼");
@@ -156,8 +156,8 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("防御ランク ");
-        for (; i < Math.abs(target.getStatusRank().block()); i++) {
-            if (target.getStatusRank().block() > 0) {
+        for (; i < Math.abs(target.statusRank().block()); i++) {
+            if (target.statusRank().block() > 0) {
                 System.out.print("△");
             } else {
                 System.out.print("▼");
@@ -171,8 +171,8 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("特攻ランク ");
-        for (; i < Math.abs(target.getStatusRank().contact()); i++) {
-            if (target.getStatusRank().contact() > 0) {
+        for (; i < Math.abs(target.statusRank().contact()); i++) {
+            if (target.statusRank().contact() > 0) {
                 System.out.print("△");
             } else {
                 System.out.print("▼");
@@ -186,8 +186,8 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("特防ランク ");
-        for (; i < Math.abs(target.getStatusRank().defense()); i++) {
-            if (target.getStatusRank().defense() > 0) {
+        for (; i < Math.abs(target.statusRank().defense()); i++) {
+            if (target.statusRank().defense() > 0) {
                 System.out.print("△");
             } else {
                 System.out.print("▼");
@@ -201,8 +201,8 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("素早ランク ");
-        for (; i < Math.abs(target.getStatusRank().speed()); i++) {
-            if (target.getStatusRank().speed() > 0) {
+        for (; i < Math.abs(target.statusRank().speed()); i++) {
+            if (target.statusRank().speed() > 0) {
                 System.out.print("△");
             } else {
                 System.out.print("▼");
@@ -216,8 +216,8 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("命中ランク ");
-        for (; i < Math.abs(target.getStatusRank().hitRate()); i++) {
-            if (target.getStatusRank().hitRate() > 0) {
+        for (; i < Math.abs(target.statusRank().hitRate()); i++) {
+            if (target.statusRank().hitRate() > 0) {
                 System.out.print("△");
             } else {
                 System.out.print("▼");
@@ -231,8 +231,8 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("回避ランク ");
-        for (; i < Math.abs(target.getStatusRank().avoidRate()); i++) {
-            if (target.getStatusRank().avoidRate() > 0) {
+        for (; i < Math.abs(target.statusRank().avoidRate()); i++) {
+            if (target.statusRank().avoidRate() > 0) {
                 System.out.print("△");
             } else {
                 System.out.print("▼");
@@ -248,14 +248,14 @@ public class ConsoleOutManager {
 
     public static void showChangeAilmentMessage(PokeInfo target, AilmentE value) throws InterruptedException {
         switch (value) {
-            case PARALYSIS -> showMessageParChar(target.getBasePrm().pName() + "はしびれてしまった!");
-            case POISON -> showMessageParChar(target.getBasePrm().pName() + "はどくをあびた!");
-            case BAD_POISON -> showMessageParChar(target.getBasePrm().pName() + "はもうどくをあびた!");
-            case BURN -> showMessageParChar(target.getBasePrm().pName() + "はやけどをおった!");
-            case FREEZE -> showMessageParChar(target.getBasePrm().pName() + "はこおりついてしまった!");
-            case SLEEP -> showMessageParChar(target.getBasePrm().pName() + "はねむってしまった!");
-            case FINE -> showMessageParChar(target.getBasePrm().pName() + "はけんこうになった!");
-            case FAINTING -> showMessageParChar(target.getBasePrm().pName() + "はたおれてしまった!");
+            case PARALYSIS -> showMessageParChar(target.basePrm().pName() + "はしびれてしまった!");
+            case POISON -> showMessageParChar(target.basePrm().pName() + "はどくをあびた!");
+            case BAD_POISON -> showMessageParChar(target.basePrm().pName() + "はもうどくをあびた!");
+            case BURN -> showMessageParChar(target.basePrm().pName() + "はやけどをおった!");
+            case FREEZE -> showMessageParChar(target.basePrm().pName() + "はこおりついてしまった!");
+            case SLEEP -> showMessageParChar(target.basePrm().pName() + "はねむってしまった!");
+            case FINE -> showMessageParChar(target.basePrm().pName() + "はけんこうになった!");
+            case FAINTING -> showMessageParChar(target.basePrm().pName() + "はたおれてしまった!");
         }
     }
 

@@ -11,58 +11,58 @@ import java.util.List;
 // ポケモンの情報を表現するクラス
 public interface PokeInfo {
     // ポケモン固有の値
-    BasePrm getBasePrm();
+    BasePrm basePrm();
 
     // 個体値
-    IndividualValue getIndividualValue();
+    IndividualValue individualValue();
 
     // 努力値
-    EffortValue getEffortValue();
+    EffortValue effortValue();
 
     // レベル
-    Level getLevel();
+    Level level();
 
     // 性別
-    Gender getGender();
+    Gender gender();
 
     // 性格
-    Nature getNature();
+    Nature nature();
 
     // 覚えている技
-    List<Move> getHaveMove();
+    List<Move> haveMove();
 
     // 現在の残りHP
-    CurrentHP getCurrentHitPoint();
+    CurrentHP currentHP();
 
     // HP実数値
-    int getRealValHitPoint();
+    int realHP();
 
     // 攻撃実数値
-    int getRealValAttack();
+    int realAttack();
 
     // 防御実数値
-    int getRealValBlock();
+    int realBlock();
 
     // 特攻実数値
-    int getRealValContact();
+    int realContact();
 
     // 特防実数値
-    int getRealValDefense();
+    int realDefense();
 
     // 素早実数値
-    int getRealValSpeed();
+    int realSpeed();
 
     // 総獲得経験値
-    Experience getExperience();
+    Experience experience();
 
     // ステータスランク
-    StatusRank getStatusRank();
+    StatusRank statusRank();
 
     // 怯み判定
-    Flinch getFlinch();
+    Flinch flinch();
 
     // 状態異常1
-    Ailment getStatusAilment();
+    Ailment ailment();
 
     // 与える経験値
     int giveExp();
@@ -71,33 +71,33 @@ public interface PokeInfo {
     PokeInfo addExp(int exp) throws InterruptedException;
 
     // 体力を回復
-    PokeInfo recoveryHitPoint(int value) throws InterruptedException;
+    PokeInfo recoveryHP(int value) throws InterruptedException;
 
     // ダメージを受ける
-    PokeInfo damagePoke(int value) throws InterruptedException;
+    PokeInfo damage(int value) throws InterruptedException;
 
     // 指定PPを回復
-    PokeInfo recoveryPowerPoint(Move move, int value);
+    PokeInfo recoveryPP(Move move, int value);
 
     // 体力、PP全回復
     PokeInfo recoveryAll() throws InterruptedException;
 
     // PPを使う
-    PokeInfo decrementPowerPoint(Move usedMove);
+    PokeInfo decrementPP(Move usedMove);
 
-    PokeInfo withCurrentHitPoint(CurrentHP currentHitPoint);
+    PokeInfo withCurrentHP(CurrentHP currentHitPoint);
 
-    PokeInfo withExperience(int addingExperience);
+    PokeInfo withExp(int addingExperience);
 
     PokeInfo withLevel(int addLevel);
 
-    PokeInfo withAddedStatusRank(int attack, int block, int contact, int defense, int speed, int hitRate, int avoidRate);
+    PokeInfo withChStatusRank(int attack, int block, int contact, int defense, int speed, int hitRate, int avoidRate);
 
     PokeInfo withResetStatusRank();
 
     PokeInfo withMove(Move move);
 
-    PokeInfo withStatusAilment(Ailment statusAilment);
+    PokeInfo withAilment(Ailment statusAilment);
 
     PokeInfo withFlinch(Flinch flinch);
 }

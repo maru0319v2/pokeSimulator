@@ -21,8 +21,8 @@ public class CurrentHPI implements CurrentHP {
             throw new IllegalArgumentException("回復量は1以上を指定してください。");
         }
         final int added = this.val + currentHP.val();
-        int result = Math.min(added, target.getRealValHitPoint());
-        showMessageParChar(target.getBasePrm().pName() + "は体力を" + currentHP.val() + "回復!");
+        int result = Math.min(added, target.realHP());
+        showMessageParChar(target.basePrm().pName() + "は体力を" + currentHP.val() + "回復!");
         return new CurrentHPI(result);
     }
 

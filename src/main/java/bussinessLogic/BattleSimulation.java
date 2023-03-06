@@ -16,8 +16,8 @@ public class BattleSimulation {
     public PokeInfo battleSimulation(PokeInfo myPoke, PokeInfo enemyPoke) throws InterruptedException {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        showMessageParChar("野生の" + enemyPoke.getBasePrm().pName() + "が飛び出してきた!");
-        showMessageParChar("ゆけっ!" + myPoke.getBasePrm().pName() + "!");
+        showMessageParChar("野生の" + enemyPoke.basePrm().pName() + "が飛び出してきた!");
+        showMessageParChar("ゆけっ!" + myPoke.basePrm().pName() + "!");
         Thread.sleep(500);
 
         Field field = initializeField();
@@ -26,17 +26,17 @@ public class BattleSimulation {
         while (onBF.isBothFine()) {
             // 技選択
             showPokemonInfo(myPoke, enemyPoke);
-            Move selectedMove = BattleLogic.selectMove(myPoke.getHaveMove(), myPoke);
+            Move selectedMove = BattleLogic.selectMove(myPoke.haveMove(), myPoke);
             Move enemyMove = enemySelectMove(enemyPoke, myPoke, field);
             showPokemonInfo(myPoke, enemyPoke);
-            String myName = myPoke.getBasePrm().pName();
-            String enemyName = enemyPoke.getBasePrm().pName();
+            String myName = myPoke.basePrm().pName();
+            String enemyName = enemyPoke.basePrm().pName();
 
             if (isFirstMe(myPoke, enemyPoke, selectedMove, enemyMove)) {
                 // 自分が先行の場合
 
                 // 状態異常の場合、経過ターン+1
-                myPoke = myPoke.withStatusAilment(myPoke.getStatusAilment().comeTurn(myName));
+                myPoke = myPoke.withAilment(myPoke.ailment().comeTurn(myName));
                 // 行動可能な場合、技を使う
                 if (canMove(myPoke)) {
                     onBF = doAction(myPoke, enemyPoke, field, selectedMove);
@@ -52,7 +52,7 @@ public class BattleSimulation {
                 showPokemonInfo(myPoke, enemyPoke);
 
                 // 状態異常の場合、経過ターン+1
-                enemyPoke = enemyPoke.withStatusAilment(enemyPoke.getStatusAilment().comeTurn(enemyName));
+                enemyPoke = enemyPoke.withAilment(enemyPoke.ailment().comeTurn(enemyName));
                 // 行動可能な場合、技を使う
                 if (canMove(enemyPoke)) {
                     onBF = doAction(enemyPoke, myPoke, field, enemyMove);
@@ -64,7 +64,7 @@ public class BattleSimulation {
                 // 自分が後攻の場合
 
                 // 状態異常の場合、経過ターン+1
-                enemyPoke = enemyPoke.withStatusAilment(enemyPoke.getStatusAilment().comeTurn(enemyName));
+                enemyPoke = enemyPoke.withAilment(enemyPoke.ailment().comeTurn(enemyName));
                 // 行動可能な場合、技を使う
                 if (canMove(enemyPoke)) {
                     onBF = doAction(enemyPoke, myPoke, field, enemyMove);
@@ -80,7 +80,7 @@ public class BattleSimulation {
                 showPokemonInfo(myPoke, enemyPoke);
 
                 // 状態異常の場合、経過ターン+1
-                myPoke = myPoke.withStatusAilment(myPoke.getStatusAilment().comeTurn(myName));
+                myPoke = myPoke.withAilment(myPoke.ailment().comeTurn(myName));
                 // 行動可能な場合、技を使う
                 if (canMove(myPoke)) {
                     onBF = doAction(myPoke, enemyPoke, field, selectedMove);
@@ -112,20 +112,20 @@ public class BattleSimulation {
         }
 
         showPokemonInfo(myPoke, enemyPoke);
-        if (myPoke.getCurrentHitPoint().isAlive()) {
-            System.out.println("野生の" + enemyPoke.getBasePrm().pName() + "は倒れた!");
+        if (myPoke.currentHP().isAlive()) {
+            System.out.println("野生の" + enemyPoke.basePrm().pName() + "は倒れた!");
             int addExp = enemyPoke.giveExp();
             myPoke = myPoke.addExp(addExp);
         } else {
-            System.out.println(myPoke.getBasePrm().pName() + "は倒れた");
+            System.out.println(myPoke.basePrm().pName() + "は倒れた");
         }
         return myPoke.withResetStatusRank();
     }
 
     private boolean canMove(PokeInfo target) throws InterruptedException {
-        String name = target.getBasePrm().pName();
-        boolean flinchResult = target.getFlinch().canMove(name);
-        boolean ailmentResult = target.getStatusAilment().canMove(name);
+        String name = target.basePrm().pName();
+        boolean flinchResult = target.flinch().canMove(name);
+        boolean ailmentResult = target.ailment().canMove(name);
         if (!flinchResult) {
             return false;
         }
@@ -138,8 +138,8 @@ public class BattleSimulation {
     private OnBattleField endTurnProcessAilment(PokeInfo myPoke, PokeInfo enemyPoke, Field field) throws InterruptedException {
         showPokemonInfo(myPoke, enemyPoke);
 
-        myPoke = myPoke.getStatusAilment().slipDamageByAilment(myPoke);
-        enemyPoke = enemyPoke.getStatusAilment().slipDamageByAilment(enemyPoke);
+        myPoke = myPoke.ailment().slipDamageByAilment(myPoke);
+        enemyPoke = enemyPoke.ailment().slipDamageByAilment(enemyPoke);
         return new OnBattleField(myPoke, enemyPoke, field);
     }
 

@@ -141,7 +141,7 @@ public class StatusRankI implements StatusRank {
 
     public double hitRateByStatusRank(PokeInfo defencePoke) {
         double result;
-        int avoidRate = defencePoke.getStatusRank().avoidRate();
+        int avoidRate = defencePoke.statusRank().avoidRate();
         int total = this.hitRate - avoidRate;
         if (total >= 0) {
             result = (double) (3 + total) / 3;
