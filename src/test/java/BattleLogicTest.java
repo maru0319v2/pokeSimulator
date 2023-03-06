@@ -6,8 +6,8 @@ import move.MoveImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pokemon.BasePrm;
-import pokemon.PokemonInfo;
-import pokemon.PokemonInfoImpl;
+import pokemon.PokeInfo;
+import pokemon.PokeInfoImpl;
 import pokemonStatus.impl.EffortValueImpl;
 import pokemonStatus.impl.IndividualValueImpl;
 import pokemonStatus.impl.LevelImpl;
@@ -21,7 +21,7 @@ public class BattleLogicTest {
     @Test
     @DisplayName("技の優先度によって先攻後攻が決まること")
     public void testBattleLogic1() {
-        PokemonInfo myPoke = new PokemonInfoImpl(
+        PokeInfo myPoke = new PokeInfoImpl(
                 BasePrm.CHARIZARD,
                 Gender.MALE,
                 Nature.MODEST,
@@ -30,7 +30,7 @@ public class BattleLogicTest {
                 new LevelImpl(5),
                 List.of(new MoveImpl(BaseMPrm.QUICK_ATTACK))
         );
-        PokemonInfo enemyPoke = new PokemonInfoImpl(
+        PokeInfo enemyPoke = new PokeInfoImpl(
                 BasePrm.BLASTOISE,
                 Gender.MALE,
                 Nature.MODEST,

@@ -1,6 +1,6 @@
 package pokemonStatus;
 
-import pokemon.PokemonInfo;
+import pokemon.PokeInfo;
 
 // 経験値を表現するクラス
 public interface Experience {
@@ -9,14 +9,14 @@ public interface Experience {
     public int totalExperience();
 
     // 次のレベルに必要な経験値
-    public int nextRequireExperience(PokemonInfo target);
+    public int nextRequireExperience(PokeInfo target);
 
     // 経験値を加算する
     public Experience add(int addExperience);
 
     // そのレベルに達するまでに必要な経験値
-    public int requireExperience(PokemonInfo target);
+    public int requireExperience(PokeInfo target);
 
     // レベルアップ可能か
-    public boolean isLevelUp(PokemonInfo target);
+    public boolean isLevelUp(PokeInfo target);
 }

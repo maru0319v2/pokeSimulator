@@ -1,14 +1,20 @@
 package field;
 
 import move.Move;
-import pokemon.PokemonInfo;
+import pokemon.PokeInfo;
 
 public interface Field {
     Weather getWeather();
+
     int getElapsedTurn();
+
     int getCountForRecovery();
+
     Field elapseTurn() throws InterruptedException;
-    PokemonInfo slipDamageByWeather(PokemonInfo target) throws InterruptedException;
+
+    PokeInfo slipDamageByWeather(PokeInfo target) throws InterruptedException;
+
     double damageRateByWeather(Move move);
-    double defenceRateBySandStorm(PokemonInfo defencePoke);
+
+    double defenceRateBySandStorm(PokeInfo defencePoke);
 }

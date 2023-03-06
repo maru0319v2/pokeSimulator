@@ -3,7 +3,7 @@ package field;
 import Enum.Type;
 import lombok.Getter;
 import move.Move;
-import pokemon.PokemonInfo;
+import pokemon.PokeInfo;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -70,7 +70,7 @@ public class FieldImpl implements Field {
     }
 
     @Override
-    public PokemonInfo slipDamageByWeather(PokemonInfo target) throws InterruptedException {
+    public PokeInfo slipDamageByWeather(PokeInfo target) throws InterruptedException {
         List<Type> types = List.of(target.getBasePrm().getType1(), target.getBasePrm().getType2());
         Set<Type> roGrSt = new HashSet<>(Arrays.asList(Type.ROCK, Type.GROUND, Type.STEEL));
         int damage;
@@ -109,7 +109,7 @@ public class FieldImpl implements Field {
         return 1.0;
     }
 
-    public double defenceRateBySandStorm(PokemonInfo defencePoke) {
+    public double defenceRateBySandStorm(PokeInfo defencePoke) {
         Type type1 = defencePoke.getBasePrm().getType1();
         Type type2 = defencePoke.getBasePrm().getType2();
         if (this.weather == Weather.SANDSTORM) {

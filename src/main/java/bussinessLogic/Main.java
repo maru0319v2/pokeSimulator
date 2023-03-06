@@ -5,8 +5,8 @@ import Enum.Nature;
 import move.BaseMPrm;
 import move.MoveImpl;
 import pokemon.BasePrm;
-import pokemon.PokemonInfo;
-import pokemon.PokemonInfoImpl;
+import pokemon.PokeInfo;
+import pokemon.PokeInfoImpl;
 import pokemonStatus.impl.EffortValueImpl;
 import pokemonStatus.impl.IndividualValueImpl;
 import pokemonStatus.impl.LevelImpl;
@@ -35,7 +35,7 @@ public class Main {
         System.out.println("2:ヒトカゲ");
         System.out.println("3:ゼニガメ");
 
-        PokemonInfo myPokemon = null;
+        PokeInfo myPokemon = null;
 //        while (myPokemon == null) {
 //            System.out.print("あなたのポケモンを選択してください > ");
 //            String selectPokeCommand = scanner.nextLine();
@@ -45,7 +45,7 @@ public class Main {
 //                case "3" -> myPokemon = new PokemonInfoImpl(BasePrm.SQUIRTLE);
 //            }
 //        }
-        myPokemon = new PokemonInfoImpl(BasePrm.BULBASAUR);
+        myPokemon = new PokeInfoImpl(BasePrm.BULBASAUR);
 
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -70,9 +70,9 @@ public class Main {
                 case "e" -> myPokemon = myPokemon.addExp(200);
                 case "r" -> myPokemon = myPokemon.recoveryAll();
                 case "b" ->
-                        myPokemon = new BattleSimulation().battleSimulation(myPokemon, new PokemonInfoImpl(BasePrm.CHARMANDER));
+                        myPokemon = new BattleSimulation().battleSimulation(myPokemon, new PokeInfoImpl(BasePrm.CHARMANDER));
                 case "f" -> myPokemon = new BattleSimulation().battleSimulation(
-                        new PokemonInfoImpl(
+                        new PokeInfoImpl(
                                 BasePrm.CHARIZARD,
                                 Gender.MALE,
                                 Nature.MODEST,
@@ -81,7 +81,7 @@ public class Main {
                                 new LevelImpl(50),
                                 List.of(new MoveImpl(BaseMPrm.AIR_SLASH), new MoveImpl(BaseMPrm.FLAMETHROWER), new MoveImpl(BaseMPrm.WILL_O_WISP), new MoveImpl(BaseMPrm.DOUBLE_TEAM))
                         ),
-                        new PokemonInfoImpl(
+                        new PokeInfoImpl(
                                 BasePrm.RHYDON,
                                 Gender.MALE,
                                 Nature.MODEST,

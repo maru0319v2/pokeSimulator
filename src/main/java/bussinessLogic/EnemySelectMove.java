@@ -7,13 +7,13 @@ import field.Weather;
 import move.BaseMPrm;
 import move.DetailedMoveSpecies;
 import move.Move;
-import pokemon.PokemonInfo;
+import pokemon.PokeInfo;
 
 import java.util.*;
 
 public class EnemySelectMove {
     // 相手が技を選択する際のアルゴリズムを実装するクラス
-    public static Move enemySelectMove(PokemonInfo enemyPokemon, PokemonInfo myPokemon, Field field) {
+    public static Move enemySelectMove(PokeInfo enemyPokemon, PokeInfo myPokemon, Field field) {
         // 持つ技の個数
         int moveSize = enemyPokemon.getHaveMove().size();
         // ランダムな数値1~20
@@ -31,7 +31,7 @@ public class EnemySelectMove {
     }
 
     // 敵の回避ランクが2以上の場合は、必中技だけ候補にする
-    private static List<Move> filterEffectiveHit(PokemonInfo enemyPokemon, PokemonInfo myPokemon) {
+    private static List<Move> filterEffectiveHit(PokeInfo enemyPokemon, PokeInfo myPokemon) {
         // 敵の回避ランク
         int avoidRank = myPokemon.getStatusRank().getAvoidRate();
         // 回避ランクが2以上の場合、必中技を使用する
@@ -49,7 +49,7 @@ public class EnemySelectMove {
     }
 
     // 残HPが75%以上の場合は回復技を候補からはずす
-    private static List<Move> filterDisableRecovery(PokemonInfo enemyPokemon) {
+    private static List<Move> filterDisableRecovery(PokeInfo enemyPokemon) {
         // 残HP
         int remainingHP = enemyPokemon.getCurrentHitPoint().value();
         // 最大HP
@@ -71,7 +71,7 @@ public class EnemySelectMove {
     }
 
     // 敵が既に状態異常になっている場合は状態異常になる技を技候補からはずす
-    private static List<Move> filterDisableAilment(PokemonInfo enemyPokemon, PokemonInfo myPokemon) {
+    private static List<Move> filterDisableAilment(PokeInfo enemyPokemon, PokeInfo myPokemon) {
         // 敵の状態異常を取得
         boolean isAilment = myPokemon.getStatusAilment().isSick();
         List<Move> filteredMoves;
@@ -90,7 +90,7 @@ public class EnemySelectMove {
     }
 
     // すでに変更される天候と同じ天候にする技を候補から外す
-    private static List<Move> filterDisableWeather(PokemonInfo enemyPokemon, Field field) {
+    private static List<Move> filterDisableWeather(PokeInfo enemyPokemon, Field field) {
         // 現在の天候
         Weather weather = field.getWeather();
         List<Move> filteredMoves;
@@ -119,7 +119,7 @@ public class EnemySelectMove {
     }
 
     // 持つ技の中から最もダメージを与えられる技を選択する。
-    private static int maxDamage(PokemonInfo enemyPokemon, PokemonInfo myPokemon, Field field, int moveSize) {
+    private static int maxDamage(PokeInfo enemyPokemon, PokeInfo myPokemon, Field field, int moveSize) {
         List<Integer> damageList = new ArrayList<>(moveSize);
         for (Move move : enemyPokemon.getHaveMove()) {
             damageList.add(calcDamageForCPU(enemyPokemon, myPokemon, field, move));
@@ -128,7 +128,7 @@ public class EnemySelectMove {
     }
 
     // 先制技を持っていてかつ、その技で相手を倒せる可能性がある場合は先制技を選択する。先制技で倒せない場合はすべての技から最大打点を選択。
-    private static int highPriorityCanDefeat(PokemonInfo enemyPokemon, PokemonInfo myPokemon, Field field, int moveSize) {
+    private static int highPriorityCanDefeat(PokeInfo enemyPokemon, PokeInfo myPokemon, Field field, int moveSize) {
         // 優先度1以上の技でフィルターする
         List<Move> priorityMove = enemyPokemon.getHaveMove().stream().filter(m -> m.baseMPrm().getPriority() >= 1).toList();
         // 優先度1以上の技で仮ダメージ計算する
@@ -152,7 +152,7 @@ public class EnemySelectMove {
 
 
     // CPUが技を選択するときに事前にダメージ計算を行う為の処理、乱数固定、急所は当たらない
-    private static int calcDamageForCPU(PokemonInfo attackPoke, PokemonInfo defencePoke, Field field, Move move) {
+    private static int calcDamageForCPU(PokeInfo attackPoke, PokeInfo defencePoke, Field field, Move move) {
         // 攻撃側のレベル
         int attackPokeLv = attackPoke.getLevel().value();
         // 技の威力

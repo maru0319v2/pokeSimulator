@@ -1,8 +1,8 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pokemon.BasePrm;
-import pokemon.PokemonInfo;
-import pokemon.PokemonInfoImpl;
+import pokemon.PokeInfo;
+import pokemon.PokeInfoImpl;
 import statusAilment.Ailment;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,8 +12,8 @@ public class StatusAilmentImplTest {
     @Test
     @DisplayName("やけど状態が健康とひんし状態以外に上書きされないこと")
     public void test1() throws InterruptedException {
-        PokemonInfo poke1 = new PokemonInfoImpl(BasePrm.BULBASAUR);
-        PokemonInfo poke2 = new PokemonInfoImpl(BasePrm.CHARIZARD);
+        PokeInfo poke1 = new PokeInfoImpl(BasePrm.BULBASAUR);
+        PokeInfo poke2 = new PokeInfoImpl(BasePrm.CHARIZARD);
         poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.BURN));
         poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.BURN));
 
@@ -42,8 +42,8 @@ public class StatusAilmentImplTest {
     @Test
     @DisplayName("こおり状態が健康とひんし状態以外に上書きされないこと")
     public void test2() throws InterruptedException {
-        PokemonInfo poke1 = new PokemonInfoImpl(BasePrm.BULBASAUR);
-        PokemonInfo poke2 = new PokemonInfoImpl(BasePrm.CHARIZARD);
+        PokeInfo poke1 = new PokeInfoImpl(BasePrm.BULBASAUR);
+        PokeInfo poke2 = new PokeInfoImpl(BasePrm.CHARIZARD);
         poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FREEZE));
         poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.FREEZE));
 
@@ -72,8 +72,8 @@ public class StatusAilmentImplTest {
     @Test
     @DisplayName("まひ状態が健康とひんし状態以外に上書きされないこと")
     public void test3() throws InterruptedException {
-        PokemonInfo poke1 = new PokemonInfoImpl(BasePrm.BULBASAUR);
-        PokemonInfo poke2 = new PokemonInfoImpl(BasePrm.CHARIZARD);
+        PokeInfo poke1 = new PokeInfoImpl(BasePrm.BULBASAUR);
+        PokeInfo poke2 = new PokeInfoImpl(BasePrm.CHARIZARD);
         poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.PARALYSIS));
         poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.PARALYSIS));
 
@@ -102,8 +102,8 @@ public class StatusAilmentImplTest {
     @Test
     @DisplayName("どく状態が健康とひんし状態以外に上書きされないこと")
     public void test4() throws InterruptedException {
-        PokemonInfo poke1 = new PokemonInfoImpl(BasePrm.BULBASAUR);
-        PokemonInfo poke2 = new PokemonInfoImpl(BasePrm.CHARIZARD);
+        PokeInfo poke1 = new PokeInfoImpl(BasePrm.BULBASAUR);
+        PokeInfo poke2 = new PokeInfoImpl(BasePrm.CHARIZARD);
         poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.POISON));
         poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.POISON));
 
@@ -132,8 +132,8 @@ public class StatusAilmentImplTest {
     @Test
     @DisplayName("もうどく状態が健康とひんし状態以外に上書きされないこと")
     public void test5() throws InterruptedException {
-        PokemonInfo poke1 = new PokemonInfoImpl(BasePrm.BULBASAUR);
-        PokemonInfo poke2 = new PokemonInfoImpl(BasePrm.CHARIZARD);
+        PokeInfo poke1 = new PokeInfoImpl(BasePrm.BULBASAUR);
+        PokeInfo poke2 = new PokeInfoImpl(BasePrm.CHARIZARD);
         poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.BAD_POISON));
         poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.BAD_POISON));
 
@@ -162,8 +162,8 @@ public class StatusAilmentImplTest {
     @Test
     @DisplayName("ねむり状態が健康とひんし状態以外に上書きされないこと")
     public void test6() throws InterruptedException {
-        PokemonInfo poke1 = new PokemonInfoImpl(BasePrm.BULBASAUR);
-        PokemonInfo poke2 = new PokemonInfoImpl(BasePrm.CHARIZARD);
+        PokeInfo poke1 = new PokeInfoImpl(BasePrm.BULBASAUR);
+        PokeInfo poke2 = new PokeInfoImpl(BasePrm.CHARIZARD);
         poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.SLEEP));
         poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.SLEEP));
 
@@ -192,7 +192,7 @@ public class StatusAilmentImplTest {
     @Test
     @DisplayName("ひんし状態が健康と状態以外に上書きされないこと")
     public void test7() throws InterruptedException {
-        PokemonInfo poke1 = new PokemonInfoImpl(BasePrm.BULBASAUR);
+        PokeInfo poke1 = new PokeInfoImpl(BasePrm.BULBASAUR);
         poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FAINTING));
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.PARALYSIS));
@@ -217,12 +217,12 @@ public class StatusAilmentImplTest {
     @Test
     @DisplayName("健康状態がすべての状態に上書きできること")
     public void test8() throws InterruptedException {
-        PokemonInfo poke1 = new PokemonInfoImpl(BasePrm.BULBASAUR);
-        PokemonInfo poke2 = new PokemonInfoImpl(BasePrm.BULBASAUR);
-        PokemonInfo poke3 = new PokemonInfoImpl(BasePrm.BULBASAUR);
-        PokemonInfo poke4 = new PokemonInfoImpl(BasePrm.BULBASAUR);
-        PokemonInfo poke5 = new PokemonInfoImpl(BasePrm.BULBASAUR);
-        PokemonInfo poke6 = new PokemonInfoImpl(BasePrm.BULBASAUR);
+        PokeInfo poke1 = new PokeInfoImpl(BasePrm.BULBASAUR);
+        PokeInfo poke2 = new PokeInfoImpl(BasePrm.BULBASAUR);
+        PokeInfo poke3 = new PokeInfoImpl(BasePrm.BULBASAUR);
+        PokeInfo poke4 = new PokeInfoImpl(BasePrm.BULBASAUR);
+        PokeInfo poke5 = new PokeInfoImpl(BasePrm.BULBASAUR);
+        PokeInfo poke6 = new PokeInfoImpl(BasePrm.BULBASAUR);
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.PARALYSIS));
         assertEquals(Ailment.PARALYSIS, poke1.getStatusAilment().getValue());
@@ -246,7 +246,7 @@ public class StatusAilmentImplTest {
     @Test
     @DisplayName("ねむり状態が1ターン経過後は継続され行動できず、5ターン経過後は解除され行動できること")
     public void test9() throws InterruptedException {
-        PokemonInfo myPokemon = new PokemonInfoImpl(BasePrm.BULBASAUR);
+        PokeInfo myPokemon = new PokeInfoImpl(BasePrm.BULBASAUR);
         myPokemon = myPokemon.withStatusAilment(changeAilment(myPokemon, Ailment.SLEEP));
         myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
         // 1ターン経過後
@@ -264,7 +264,7 @@ public class StatusAilmentImplTest {
     @Test
     @DisplayName("ねむり状態から0ターン経過後、新たにねむり状態になってもねむり解除ターンがリセットされないこと")
     public void test10() throws InterruptedException {
-        PokemonInfo poke = new PokemonInfoImpl(BasePrm.BULBASAUR);
+        PokeInfo poke = new PokeInfoImpl(BasePrm.BULBASAUR);
         poke = poke.withStatusAilment(changeAilment(poke, Ailment.SLEEP));
         int beforeCount = poke.getStatusAilment().getCountRecoverySleep();
         poke = poke.withStatusAilment(changeAilment(poke, Ailment.SLEEP));
@@ -276,7 +276,7 @@ public class StatusAilmentImplTest {
     @Test
     @DisplayName("ねむり状態から1ターン経過後、新たにねむり状態になっても経過ターンがリセットされないこと")
     public void test11() throws InterruptedException {
-        PokemonInfo poke = new PokemonInfoImpl(BasePrm.BULBASAUR);
+        PokeInfo poke = new PokeInfoImpl(BasePrm.BULBASAUR);
         poke = poke.withStatusAilment(changeAilment(poke, Ailment.SLEEP));
         poke = poke.withStatusAilment(poke.getStatusAilment().comeTurn(poke.getBasePrm().getName()));
         poke = poke.withStatusAilment(changeAilment(poke, Ailment.SLEEP));
@@ -287,8 +287,8 @@ public class StatusAilmentImplTest {
     @Test
     @DisplayName("やけど状態によるダメージ倍率が正しいこと")
     public void test12() throws InterruptedException {
-        PokemonInfo myPokemon1 = new PokemonInfoImpl(BasePrm.CHARMANDER);
-        PokemonInfo myPokemon2 = new PokemonInfoImpl(BasePrm.SQUIRTLE);
+        PokeInfo myPokemon1 = new PokeInfoImpl(BasePrm.CHARMANDER);
+        PokeInfo myPokemon2 = new PokeInfoImpl(BasePrm.SQUIRTLE);
         myPokemon1 = myPokemon1.withStatusAilment(changeAilment(myPokemon1, Ailment.BURN));
 
         assertEquals(0.5, myPokemon1.getStatusAilment().damageRateByBurn());

@@ -1,6 +1,6 @@
 package pokemonStatus.impl;
 
-import pokemon.PokemonInfo;
+import pokemon.PokeInfo;
 import pokemonStatus.CurrentHitPoint;
 
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
@@ -19,7 +19,7 @@ public class CurrentHitPointImpl implements CurrentHitPoint {
     }
 
     @Override
-    public CurrentHitPointImpl recovery(PokemonInfo target, CurrentHitPointImpl currentHitPointImpl) throws InterruptedException {
+    public CurrentHitPointImpl recovery(PokeInfo target, CurrentHitPointImpl currentHitPointImpl) throws InterruptedException {
         if (currentHitPointImpl.value <= MIN) {
             throw new IllegalArgumentException("回復量は1以上を指定してください。");
         }
@@ -35,7 +35,7 @@ public class CurrentHitPointImpl implements CurrentHitPoint {
             throw new IllegalArgumentException("ダメージは1以上を指定してください。");
         }
         final int damaged = this.value - currentHitPointImpl.value;
-        if(damaged <= MIN) {
+        if (damaged <= MIN) {
             // TODO 瀕死状態になる
             return new CurrentHitPointImpl(0);
         }

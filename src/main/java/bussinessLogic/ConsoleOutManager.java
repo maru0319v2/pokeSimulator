@@ -2,7 +2,7 @@ package bussinessLogic;
 
 import field.Weather;
 import move.Move;
-import pokemon.PokemonInfo;
+import pokemon.PokeInfo;
 import statusAilment.Ailment;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 public class ConsoleOutManager {
     // コンソール出力を管理するクラス
 
-    public static void showAllParameters(PokemonInfo target) {
+    public static void showAllParameters(PokeInfo target) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         System.out.print("図鑑No:" + target.getBasePrm().getPokeDexNo() + " ");
@@ -78,12 +78,12 @@ public class ConsoleOutManager {
         }
     }
 
-    public static void showProgressBar(PokemonInfo target) {
+    public static void showProgressBar(PokeInfo target) {
         // 残りHPのパーセントを出す
-        double i = ((double)target.getCurrentHitPoint().value()) / ((double)target.getRealValHitPoint()) * 20;
+        double i = ((double) target.getCurrentHitPoint().value()) / ((double) target.getRealValHitPoint()) * 20;
         System.out.print("[");
         int j;
-        for(j = 0; i > j; j++) {
+        for (j = 0; i > j; j++) {
             System.out.print("=");
         }
         while (j < 20) {
@@ -93,11 +93,11 @@ public class ConsoleOutManager {
         System.out.print("]");
     }
 
-    public static void showPokemonInfo(PokemonInfo myPokemon, PokemonInfo enemyPokemon) {
+    public static void showPokemonInfo(PokeInfo myPokemon, PokeInfo enemyPokemon) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         System.out.print(enemyPokemon.getBasePrm().getName() + " " + enemyPokemon.getGender().getValue() + "    Lv." + enemyPokemon.getLevel().value());
-        if(enemyPokemon.getStatusAilment().getValue() == Ailment.FINE) {
+        if (enemyPokemon.getStatusAilment().getValue() == Ailment.FINE) {
             System.out.println("");
         } else {
             System.out.println(" " + enemyPokemon.getStatusAilment().getValue().value);
@@ -112,7 +112,7 @@ public class ConsoleOutManager {
         // ↑相手側　↓こっち側
         System.out.print("                        ");
         System.out.print(myPokemon.getBasePrm().getName() + " " + myPokemon.getGender().getValue() + "    Lv." + myPokemon.getLevel().value());
-        if(myPokemon.getStatusAilment().getValue() == Ailment.FINE) {
+        if (myPokemon.getStatusAilment().getValue() == Ailment.FINE) {
             System.out.println("");
         } else {
             System.out.println(" " + myPokemon.getStatusAilment().getValue().value);
@@ -125,7 +125,7 @@ public class ConsoleOutManager {
         System.out.println("-------------------------------------------------");
     }
 
-    public static void showParametersInBattle(PokemonInfo target) {
+    public static void showParametersInBattle(PokeInfo target) {
         System.out.println("名前:" + target.getBasePrm().getName() + " ");
         System.out.println("タイプ1: " + target.getBasePrm().getType1().getValue() + " タイプ2: " + target.getBasePrm().getType2().getValue());
         System.out.println("レベル: " + target.getLevel().value());
@@ -141,7 +141,7 @@ public class ConsoleOutManager {
 
         System.out.print("攻撃ランク ");
         int i = 0;
-        for(;i < Math.abs(target.getStatusRank().getAttack()); i++) {
+        for (; i < Math.abs(target.getStatusRank().getAttack()); i++) {
             if (target.getStatusRank().getAttack() > 0) {
                 System.out.print("△");
             } else {
@@ -156,7 +156,7 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("防御ランク ");
-        for(;i < Math.abs(target.getStatusRank().getBlock()); i++) {
+        for (; i < Math.abs(target.getStatusRank().getBlock()); i++) {
             if (target.getStatusRank().getBlock() > 0) {
                 System.out.print("△");
             } else {
@@ -171,7 +171,7 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("特攻ランク ");
-        for(;i < Math.abs(target.getStatusRank().getContact()); i++) {
+        for (; i < Math.abs(target.getStatusRank().getContact()); i++) {
             if (target.getStatusRank().getContact() > 0) {
                 System.out.print("△");
             } else {
@@ -186,7 +186,7 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("特防ランク ");
-        for(;i < Math.abs(target.getStatusRank().getDefense()); i++) {
+        for (; i < Math.abs(target.getStatusRank().getDefense()); i++) {
             if (target.getStatusRank().getDefense() > 0) {
                 System.out.print("△");
             } else {
@@ -201,7 +201,7 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("素早ランク ");
-        for(;i < Math.abs(target.getStatusRank().getSpeed()); i++) {
+        for (; i < Math.abs(target.getStatusRank().getSpeed()); i++) {
             if (target.getStatusRank().getSpeed() > 0) {
                 System.out.print("△");
             } else {
@@ -216,7 +216,7 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("命中ランク ");
-        for(;i < Math.abs(target.getStatusRank().getHitRate()); i++) {
+        for (; i < Math.abs(target.getStatusRank().getHitRate()); i++) {
             if (target.getStatusRank().getHitRate() > 0) {
                 System.out.print("△");
             } else {
@@ -231,7 +231,7 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("回避ランク ");
-        for(;i < Math.abs(target.getStatusRank().getAvoidRate()); i++) {
+        for (; i < Math.abs(target.getStatusRank().getAvoidRate()); i++) {
             if (target.getStatusRank().getAvoidRate() > 0) {
                 System.out.print("△");
             } else {
@@ -246,7 +246,7 @@ public class ConsoleOutManager {
         System.out.println("");
     }
 
-    public static void showChangeAilmentMessage(PokemonInfo target, Ailment value) throws InterruptedException {
+    public static void showChangeAilmentMessage(PokeInfo target, Ailment value) throws InterruptedException {
         switch (value) {
             case PARALYSIS -> showMessageParChar(target.getBasePrm().getName() + "はしびれてしまった!");
             case POISON -> showMessageParChar(target.getBasePrm().getName() + "はどくをあびた!");
@@ -287,7 +287,7 @@ public class ConsoleOutManager {
     }
 
     public static void showMessageParChar(String message) throws InterruptedException {
-        for(int i = 0; i < message.length(); i++) {
+        for (int i = 0; i < message.length(); i++) {
             System.out.print(message.charAt(i));
             Thread.sleep(20);
         }

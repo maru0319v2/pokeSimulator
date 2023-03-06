@@ -4,7 +4,7 @@ import Enum.MoveSpecies;
 import Enum.Type;
 import field.Field;
 import move.Move;
-import pokemon.PokemonInfo;
+import pokemon.PokeInfo;
 
 import java.util.List;
 import java.util.Objects;
@@ -16,7 +16,7 @@ import static bussinessLogic.ConsoleOutManager.*;
 public class BattleLogic {
 
     // 先行後攻を決める
-    public static boolean isFirstMe(PokemonInfo myPokemon, PokemonInfo enemyPokemon, Move selectedMove, Move enemyMove) {
+    public static boolean isFirstMe(PokeInfo myPokemon, PokeInfo enemyPokemon, Move selectedMove, Move enemyMove) {
         int calculatedMySpeed = (int) (myPokemon.getRealValSpeed() * myPokemon.getStatusRank().speedRateByStatusRank() * myPokemon.getStatusAilment().speedRateByParalysis());
         int calculatedEnemySpeed = (int) (enemyPokemon.getRealValSpeed() * enemyPokemon.getStatusRank().speedRateByStatusRank() * enemyPokemon.getStatusAilment().speedRateByParalysis());
         int myPriority = selectedMove.baseMPrm().getPriority();
@@ -34,7 +34,7 @@ public class BattleLogic {
     }
 
     // 技を選択する
-    public static Move selectMove(List<Move> moves, PokemonInfo target) {
+    public static Move selectMove(List<Move> moves, PokeInfo target) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("　 　　　　　　     PP    タイプ");
         int i = 1;
@@ -78,7 +78,7 @@ public class BattleLogic {
     }
 
     // ターンごとの行動 命中判定、ダメージ計算、ダメージ付与を一括で行う
-    public static OnBattleField doAction(PokemonInfo attackPoke, PokemonInfo defencePoke, Field field, Move move) throws InterruptedException {
+    public static OnBattleField doAction(PokeInfo attackPoke, PokeInfo defencePoke, Field field, Move move) throws InterruptedException {
         // PPを1減らす
         attackPoke = attackPoke.decrementPowerPoint(move);
 
@@ -105,7 +105,7 @@ public class BattleLogic {
         }
     }
 
-    private static int calcDamage(PokemonInfo attackPoke, PokemonInfo defencePoke, Field field, Move move) throws InterruptedException {
+    private static int calcDamage(PokeInfo attackPoke, PokeInfo defencePoke, Field field, Move move) throws InterruptedException {
         // ダメージ計算参考　https://latest.pokewiki.net/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F
         // 攻撃側のレベル
         int attackPokeLv = attackPoke.getLevel().value();
@@ -165,7 +165,7 @@ public class BattleLogic {
         return result;
     }
 
-    public static boolean isHit(PokemonInfo attackPoke, PokemonInfo defencePoke, Move move) {
+    public static boolean isHit(PokeInfo attackPoke, PokeInfo defencePoke, Move move) {
         // 技の命中率が-1のときは必中
         if (move.baseMPrm().getHitRate() == -1) {
             return true;

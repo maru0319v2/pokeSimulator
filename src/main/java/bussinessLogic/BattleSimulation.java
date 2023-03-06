@@ -2,7 +2,7 @@ package bussinessLogic;
 
 import field.Field;
 import move.Move;
-import pokemon.PokemonInfo;
+import pokemon.PokeInfo;
 import pokemonStatus.impl.FlinchImpl;
 
 import static bussinessLogic.BattleLogic.doAction;
@@ -13,7 +13,7 @@ import static bussinessLogic.EnemySelectMove.enemySelectMove;
 import static field.FieldImpl.initializeField;
 
 public class BattleSimulation {
-    public PokemonInfo battleSimulation(PokemonInfo myPoke, PokemonInfo enemyPoke) throws InterruptedException {
+    public PokeInfo battleSimulation(PokeInfo myPoke, PokeInfo enemyPoke) throws InterruptedException {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         showMessageParChar("野生の" + enemyPoke.getBasePrm().getName() + "が飛び出してきた!");
@@ -122,7 +122,7 @@ public class BattleSimulation {
         return myPoke.withResetStatusRank();
     }
 
-    private boolean canMove(PokemonInfo target) throws InterruptedException {
+    private boolean canMove(PokeInfo target) throws InterruptedException {
         String name = target.getBasePrm().getName();
         boolean flinchResult = target.getFlinch().canMove(name);
         boolean ailmentResult = target.getStatusAilment().canMove(name);
@@ -135,7 +135,7 @@ public class BattleSimulation {
         return true;
     }
 
-    private OnBattleField endTurnProcessAilment(PokemonInfo myPoke, PokemonInfo enemyPoke, Field field) throws InterruptedException {
+    private OnBattleField endTurnProcessAilment(PokeInfo myPoke, PokeInfo enemyPoke, Field field) throws InterruptedException {
         showPokemonInfo(myPoke, enemyPoke);
 
         myPoke = myPoke.getStatusAilment().slipDamageByAilment(myPoke);
@@ -143,7 +143,7 @@ public class BattleSimulation {
         return new OnBattleField(myPoke, enemyPoke, field);
     }
 
-    private OnBattleField endTurnProcessWeather(PokemonInfo myPoke, PokemonInfo enemyPoke, Field field) throws InterruptedException {
+    private OnBattleField endTurnProcessWeather(PokeInfo myPoke, PokeInfo enemyPoke, Field field) throws InterruptedException {
         showPokemonInfo(myPoke, enemyPoke);
         field = field.elapseTurn();
 

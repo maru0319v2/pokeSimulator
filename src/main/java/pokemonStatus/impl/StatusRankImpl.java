@@ -1,7 +1,7 @@
 package pokemonStatus.impl;
 
 import lombok.Getter;
-import pokemon.PokemonInfo;
+import pokemon.PokeInfo;
 import pokemonStatus.StatusRank;
 
 @Getter
@@ -28,37 +28,37 @@ public class StatusRankImpl implements StatusRank {
 
     public StatusRankImpl(int attack, int block, int contact, int defense, int speed, int hitRate, int avoidRate) {
         int resultAttack;
-        if(attack < MIN) {
+        if (attack < MIN) {
             resultAttack = MIN;
         } else resultAttack = Math.min(attack, MAX);
 
         int resultBlock;
-        if(block < MIN) {
+        if (block < MIN) {
             resultBlock = MIN;
         } else resultBlock = Math.min(block, MAX);
 
         int resultContact;
-        if(contact < MIN) {
+        if (contact < MIN) {
             resultContact = MIN;
         } else resultContact = Math.min(contact, MAX);
 
         int resultDefense;
-        if(defense < MIN) {
+        if (defense < MIN) {
             resultDefense = MIN;
         } else resultDefense = Math.min(defense, MAX);
 
         int resultSpeed;
-        if(speed < MIN) {
+        if (speed < MIN) {
             resultSpeed = MIN;
         } else resultSpeed = Math.min(speed, MAX);
 
         int resultHitRate;
-        if(hitRate < MIN) {
+        if (hitRate < MIN) {
             resultHitRate = MIN;
         } else resultHitRate = Math.min(hitRate, MAX);
 
         int resultAvoidRate;
-        if(avoidRate < MIN) {
+        if (avoidRate < MIN) {
             resultAvoidRate = MIN;
         } else resultAvoidRate = Math.min(avoidRate, MAX);
 
@@ -89,62 +89,62 @@ public class StatusRankImpl implements StatusRank {
 
     public double attackRateByStatusRank() {
         double result;
-        if(this.attack >= 0) {
-            result = (double)(2 + this.attack) / 2;
+        if (this.attack >= 0) {
+            result = (double) (2 + this.attack) / 2;
         } else {
-            result = (2 / (double)(2 + Math.abs(this.attack)));
+            result = (2 / (double) (2 + Math.abs(this.attack)));
         }
         return result;
     }
 
     public double blockRateByStatusRank() {
         double result;
-        if(this.block >= 0) {
-            result = (double)(2 + this.block) / 2;
+        if (this.block >= 0) {
+            result = (double) (2 + this.block) / 2;
         } else {
-            result = (2 / (double)(2 + Math.abs(this.block)));
+            result = (2 / (double) (2 + Math.abs(this.block)));
         }
         return result;
     }
 
     public double contactRateByStatusRank() {
         double result;
-        if(this.contact >= 0) {
-            result = (double)(2 + this.contact) / 2;
+        if (this.contact >= 0) {
+            result = (double) (2 + this.contact) / 2;
         } else {
-            result = (2 / (double)(2 + Math.abs(this.contact)));
+            result = (2 / (double) (2 + Math.abs(this.contact)));
         }
         return result;
     }
 
     public double defenseRateByStatusRank() {
         double result;
-        if(this.defense >= 0) {
-            result = (double)(2 + this.defense) / 2;
+        if (this.defense >= 0) {
+            result = (double) (2 + this.defense) / 2;
         } else {
-            result = (2 / (double)(2 + Math.abs(this.defense)));
+            result = (2 / (double) (2 + Math.abs(this.defense)));
         }
         return result;
     }
 
     public double speedRateByStatusRank() {
         double result;
-        if(this.speed >= 0) {
-            result = (double)(2 + this.speed) / 2;
+        if (this.speed >= 0) {
+            result = (double) (2 + this.speed) / 2;
         } else {
-            result = (2 / (double)(2 + Math.abs(this.speed)));
+            result = (2 / (double) (2 + Math.abs(this.speed)));
         }
         return result;
     }
 
-    public double hitRateByStatusRank(PokemonInfo defencePoke) {
+    public double hitRateByStatusRank(PokeInfo defencePoke) {
         double result;
         int avoidRate = defencePoke.getStatusRank().getAvoidRate();
         int total = this.hitRate - avoidRate;
-        if(total >= 0) {
-            result = (double)(3 + total) / 3;
+        if (total >= 0) {
+            result = (double) (3 + total) / 3;
         } else {
-            result = (3 / (double)(3 + Math.abs(total)));
+            result = (3 / (double) (3 + Math.abs(total)));
         }
         return result;
     }

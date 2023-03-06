@@ -9,7 +9,7 @@ import statusAilment.StatusAilment;
 import java.util.List;
 
 // ポケモンの情報を表現するクラス
-public interface PokemonInfo {
+public interface PokeInfo {
     // ポケモン固有の値
     BasePrm getBasePrm();
 
@@ -68,36 +68,36 @@ public interface PokemonInfo {
     int giveExp();
 
     // 経験値を得る
-    PokemonInfo addExp(int exp) throws InterruptedException;
+    PokeInfo addExp(int exp) throws InterruptedException;
 
     // 体力を回復
-    PokemonInfo recoveryHitPoint(int value) throws InterruptedException;
+    PokeInfo recoveryHitPoint(int value) throws InterruptedException;
 
     // ダメージを受ける
-    PokemonInfo damagePoke(int value) throws InterruptedException;
+    PokeInfo damagePoke(int value) throws InterruptedException;
 
     // 指定PPを回復
-    PokemonInfo recoveryPowerPoint(Move move, int value);
+    PokeInfo recoveryPowerPoint(Move move, int value);
 
     // 体力、PP全回復
-    PokemonInfo recoveryAll() throws InterruptedException;
+    PokeInfo recoveryAll() throws InterruptedException;
 
     // PPを使う
-    PokemonInfo decrementPowerPoint(Move usedMove);
+    PokeInfo decrementPowerPoint(Move usedMove);
 
-    PokemonInfo withCurrentHitPoint(CurrentHitPoint currentHitPoint);
+    PokeInfo withCurrentHitPoint(CurrentHitPoint currentHitPoint);
 
-    PokemonInfo withExperience(int addingExperience);
+    PokeInfo withExperience(int addingExperience);
 
-    PokemonInfo withLevel(int addLevel);
+    PokeInfo withLevel(int addLevel);
 
-    PokemonInfo withAddedStatusRank(int attack, int block, int contact, int defense, int speed, int hitRate, int avoidRate);
+    PokeInfo withAddedStatusRank(int attack, int block, int contact, int defense, int speed, int hitRate, int avoidRate);
 
-    PokemonInfo withResetStatusRank();
+    PokeInfo withResetStatusRank();
 
-    PokemonInfo withMove(Move move);
+    PokeInfo withMove(Move move);
 
-    PokemonInfo withStatusAilment(StatusAilment statusAilment);
+    PokeInfo withStatusAilment(StatusAilment statusAilment);
 
-    PokemonInfo withFlinch(Flinch flinch);
+    PokeInfo withFlinch(Flinch flinch);
 }

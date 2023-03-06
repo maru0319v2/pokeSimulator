@@ -1,8 +1,8 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pokemon.BasePrm;
-import pokemon.PokemonInfo;
-import pokemon.PokemonInfoImpl;
+import pokemon.PokeInfo;
+import pokemon.PokeInfoImpl;
 import pokemonStatus.StatusRank;
 import pokemonStatus.impl.StatusRankImpl;
 
@@ -124,8 +124,8 @@ public class StatusRankTest {
     public void testStatusRank6() {
         StatusRank mySr1 = new StatusRankImpl(0, 0, 0, 0, 0, 0, 0);
         StatusRank mySr2 = new StatusRankImpl(0, 0, 0, 0, 0, 3, 0);
-        PokemonInfo enemyPoke1 = new PokemonInfoImpl(BasePrm.CHARMANDER);
-        PokemonInfo enemyPoke2 = new PokemonInfoImpl(BasePrm.CHARMANDER);
+        PokeInfo enemyPoke1 = new PokeInfoImpl(BasePrm.CHARMANDER);
+        PokeInfo enemyPoke2 = new PokeInfoImpl(BasePrm.CHARMANDER);
         enemyPoke2 = enemyPoke2.withAddedStatusRank(0, 0, 0, 0, 0, 0, 5);
 
         assertEquals(1.0, mySr1.hitRateByStatusRank(enemyPoke1));

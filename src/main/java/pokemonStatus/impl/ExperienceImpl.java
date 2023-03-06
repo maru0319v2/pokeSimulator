@@ -1,7 +1,7 @@
 package pokemonStatus.impl;
 
 import Enum.ExperienceType;
-import pokemon.PokemonInfo;
+import pokemon.PokeInfo;
 import pokemonStatus.Experience;
 
 import java.util.Objects;
@@ -26,20 +26,20 @@ public class ExperienceImpl implements Experience {
 
 
     // TODO 初期から持っている経験値
-    public int initialExperience(PokemonInfo target, ExperienceType experienceType) {
+    public int initialExperience(PokeInfo target, ExperienceType experienceType) {
         return requireExperienceAsType(target);
     }
 
     // 次のレベルアップに必要な経験値
-    public int nextRequireExperience(PokemonInfo target) {
+    public int nextRequireExperience(PokeInfo target) {
         return requireExperienceAsType(target) - target.getExperience().totalExperience();
     }
 
-    public int requireExperience(PokemonInfo target) {
+    public int requireExperience(PokeInfo target) {
         return requireExperienceAsType(target);
     }
 
-    private int requireExperienceAsType(PokemonInfo target) {
+    private int requireExperienceAsType(PokeInfo target) {
         ExperienceType experienceType = target.getBasePrm().getExperienceType();
         int level = target.getLevel().value() + 1;
         int result = 10;
@@ -82,7 +82,7 @@ public class ExperienceImpl implements Experience {
         return result;
     }
 
-    public boolean isLevelUp(PokemonInfo target) {
+    public boolean isLevelUp(PokeInfo target) {
         int totalExp = this.totalExperience();
         int requireExp = this.requireExperience(target);
         return totalExp >= requireExp;
