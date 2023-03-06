@@ -34,7 +34,7 @@ public class PokeInfoI implements PokeInfo {
     private final Flinch flinch;
 
     public int getRealValHitPoint() {
-        return ((this.basePrm.getHitPoint() * 2 + this.individualValue.hitPoint() + (this.effortValue.hitPoint() / 4)) * this.level.value() / 100) + 10 + this.level.value();
+        return ((this.basePrm.getHitPoint() * 2 + this.individualValue.hitPoint() + (this.effortValue.hp() / 4)) * this.level.value() / 100) + 10 + this.level.value();
     }
 
     public int getRealValAttack() {
@@ -154,7 +154,7 @@ public class PokeInfoI implements PokeInfo {
         this.gender = gender;
         this.nature = nature;
         this.individualValue = new IndividualValueI(individualValue.hitPoint(), individualValue.attack(), individualValue.block(), individualValue.contact(), individualValue.defense(), individualValue.speed());
-        this.effortValue = new EffortValueI(effortValue.hitPoint(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());
+        this.effortValue = new EffortValueI(effortValue.hp(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());
         this.level = new LevelI(level.value());
         this.haveMove = haveMove;
         this.experience = new ExperienceI(0);
@@ -182,10 +182,10 @@ public class PokeInfoI implements PokeInfo {
         this.gender = gender;
         this.nature = nature;
         this.individualValue = new IndividualValueI(individualValue.hitPoint(), individualValue.attack(), individualValue.block(), individualValue.contact(), individualValue.defense(), individualValue.speed());
-        this.effortValue = new EffortValueI(effortValue.hitPoint(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());
+        this.effortValue = new EffortValueI(effortValue.hp(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());
         this.level = new LevelI(level.value());
         this.haveMove = haveMove;
-        this.experience = new ExperienceI(experience.totalExperience());
+        this.experience = new ExperienceI(experience.totalExp());
         this.currentHitPoint = new CurrentHPI(currentHitPoint.val());
         this.statusRank = new StatusRankI(statusRankImpl.getAttack(), statusRankImpl.getBlock(), statusRankImpl.getContact(), statusRankImpl.getDefense(), statusRankImpl.getSpeed(), statusRankImpl.getHitRate(), statusRankImpl.getAvoidRate());
         this.statusAilment = statusAilment;

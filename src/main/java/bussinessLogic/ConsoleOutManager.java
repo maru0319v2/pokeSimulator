@@ -18,8 +18,8 @@ public class ConsoleOutManager {
         System.out.println("タイプ1: " + target.getBasePrm().getType1().getValue() + " タイプ2: " + target.getBasePrm().getType2().getValue());
         System.out.println("状態: " + target.getStatusAilment().getValue());
         System.out.print("レベル: " + target.getLevel().value());
-        System.out.print("  次のレベルまで: " + target.getExperience().nextRequireExperience(target) + " exp.");
-        System.out.println("  総経験値: " + target.getExperience().totalExperience() + " exp.");
+        System.out.print("  次のレベルまで: " + target.getExperience().nextRequireExp(target) + " exp.");
+        System.out.println("  総経験値: " + target.getExperience().totalExp() + " exp.");
 
         //  System.out.println("  経験値タイプ: " + target.experienceType());
         System.out.println("性別: " + target.getGender().getValue());
