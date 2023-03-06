@@ -1,12 +1,10 @@
 package Enum;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 import java.util.Random;
 
 // 性格を表現するクラス
-@Getter
 @AllArgsConstructor
 public enum Nature {
     LONELY("さみしがり", 1.1, 0.9, 1, 1, 1),
@@ -35,7 +33,7 @@ public enum Nature {
     BASHFUL("てれや", 1, 1, 1, 1, 1),
     QUIRKY("きまぐれ", 1, 1, 1, 1, 1);
 
-    private final String value;
+    private final String val;
     private final double attackRate;
     private final double blockRate;
     private final double contactRate;
@@ -45,5 +43,29 @@ public enum Nature {
     public static Nature initNature() {
         int index = new Random().nextInt(Nature.values().length);
         return Nature.values()[index];
+    }
+
+    public String val() {
+        return this.val;
+    }
+
+    public double attackRate() {
+        return this.attackRate;
+    }
+
+    public double blockRate() {
+        return this.blockRate;
+    }
+
+    public double contactRate() {
+        return this.contactRate;
+    }
+
+    public double defenceRate() {
+        return this.defenceRate;
+    }
+
+    public double speedRate() {
+        return this.speedRate;
     }
 }

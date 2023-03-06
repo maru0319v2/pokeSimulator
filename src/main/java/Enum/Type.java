@@ -1,11 +1,9 @@
 package Enum;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import move.Move;
 
 // タイプを表現するクラス
-@Getter
 @AllArgsConstructor
 public enum Type {
     // 倍率は定数側が防御、フィールド側が攻撃とする
@@ -29,47 +27,51 @@ public enum Type {
     FAIRY("フェアリー", 1, 1, 1, 1, 1, 1, 0.5, 2.0, 1, 1, 1, 0.5, 1, 1, 0, 0.5, 2.0, 1),
     NONE("-", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
-    private final String value;
-    private final double damageRateNormal;
-    private final double damageRateFire;
-    private final double damageRateWater;
-    private final double damageRateElectric;
-    private final double damageRateGrass;
-    private final double damageRateIce;
-    private final double damageRateFighting;
-    private final double damageRatePoison;
-    private final double damageRateGround;
-    private final double damageRateFlying;
-    private final double damageRatePsychic;
-    private final double damageRateBug;
-    private final double damageRateRock;
-    private final double damageRateGhost;
-    private final double damageRateDragon;
-    private final double damageRateDark;
-    private final double damageRateSteel;
-    private final double damageRateFairy;
+    private final String val;
+    private final double dmgRateNormal;
+    private final double dmgRateFire;
+    private final double dmgRateWater;
+    private final double dmgRateElectric;
+    private final double dmgRateGrass;
+    private final double dmgRateIce;
+    private final double dmgRateFighting;
+    private final double dmgRatePoison;
+    private final double dmgRateGround;
+    private final double dmgRateFlying;
+    private final double dmgRatePsychic;
+    private final double dmgRateBug;
+    private final double dmgRateRock;
+    private final double dmgRateGhost;
+    private final double dmgRateDragon;
+    private final double dmgRateDark;
+    private final double dmgRateSteel;
+    private final double dmgRateFairy;
+
+    public String val() {
+        return this.val;
+    }
 
     public static double damageRateByType(Type type1, Type type2, Move affectedMove) {
         double result = 0;
         switch (affectedMove.baseMPrm().moveType()) {
-            case NORMAL -> result = type1.damageRateNormal * type2.damageRateNormal;
-            case FIGHTING -> result = type1.damageRateFighting * type2.damageRateFighting;
-            case FLYING -> result = type1.damageRateFlying * type2.damageRateFlying;
-            case POISON -> result = type1.damageRatePoison * type2.damageRatePoison;
-            case GROUND -> result = type1.damageRateGround * type2.damageRateGround;
-            case ROCK -> result = type1.damageRateRock * type2.damageRateRock;
-            case BUG -> result = type1.damageRateBug * type2.damageRateBug;
-            case GHOST -> result = type1.damageRateGhost * type2.damageRateGhost;
-            case STEEL -> result = type1.damageRateSteel * type2.damageRateSteel;
-            case FIRE -> result = type1.damageRateFire * type2.damageRateFire;
-            case WATER -> result = type1.damageRateWater * type2.damageRateWater;
-            case GRASS -> result = type1.damageRateGrass * type2.damageRateGrass;
-            case ELECTRIC -> result = type1.damageRateElectric * type2.damageRateElectric;
-            case PSYCHIC -> result = type1.damageRatePsychic * type2.damageRatePsychic;
-            case ICE -> result = type1.damageRateIce * type2.damageRateIce;
-            case DRAGON -> result = type1.damageRateDragon * type2.damageRateDragon;
-            case DARK -> result = type1.damageRateDark * type2.damageRateDark;
-            case FAIRY -> result = type1.damageRateFairy * type2.damageRateFairy;
+            case NORMAL -> result = type1.dmgRateNormal * type2.dmgRateNormal;
+            case FIGHTING -> result = type1.dmgRateFighting * type2.dmgRateFighting;
+            case FLYING -> result = type1.dmgRateFlying * type2.dmgRateFlying;
+            case POISON -> result = type1.dmgRatePoison * type2.dmgRatePoison;
+            case GROUND -> result = type1.dmgRateGround * type2.dmgRateGround;
+            case ROCK -> result = type1.dmgRateRock * type2.dmgRateRock;
+            case BUG -> result = type1.dmgRateBug * type2.dmgRateBug;
+            case GHOST -> result = type1.dmgRateGhost * type2.dmgRateGhost;
+            case STEEL -> result = type1.dmgRateSteel * type2.dmgRateSteel;
+            case FIRE -> result = type1.dmgRateFire * type2.dmgRateFire;
+            case WATER -> result = type1.dmgRateWater * type2.dmgRateWater;
+            case GRASS -> result = type1.dmgRateGrass * type2.dmgRateGrass;
+            case ELECTRIC -> result = type1.dmgRateElectric * type2.dmgRateElectric;
+            case PSYCHIC -> result = type1.dmgRatePsychic * type2.dmgRatePsychic;
+            case ICE -> result = type1.dmgRateIce * type2.dmgRateIce;
+            case DRAGON -> result = type1.dmgRateDragon * type2.dmgRateDragon;
+            case DARK -> result = type1.dmgRateDark * type2.dmgRateDark;
+            case FAIRY -> result = type1.dmgRateFairy * type2.dmgRateFairy;
         }
         return result;
     }

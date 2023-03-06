@@ -1,9 +1,7 @@
 package Enum;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
-@Getter
 @AllArgsConstructor
 public enum ExpType {
     TYPE600000("600,000タイプ"),
@@ -13,5 +11,9 @@ public enum ExpType {
     TYPE1250000("1,250,000タイプ"),
     TYPE1640000("1,640,000タイプ");
 
-    private final String value;
+    private final String val;
+
+    public String val() {
+        return this.val;
+    }
 }

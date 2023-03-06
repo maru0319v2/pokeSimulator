@@ -15,15 +15,15 @@ public class ConsoleOutManager {
         System.out.flush();
         System.out.print("図鑑No:" + target.basePrm().pokeDexNo() + " ");
         System.out.println("名前:" + target.basePrm().pName() + " ");
-        System.out.println("タイプ1: " + target.basePrm().type1().getValue() + " タイプ2: " + target.basePrm().type2().getValue());
+        System.out.println("タイプ1: " + target.basePrm().type1().val() + " タイプ2: " + target.basePrm().type2().val());
         System.out.println("状態: " + target.ailment().val());
         System.out.print("レベル: " + target.level().val());
         System.out.print("  次のレベルまで: " + target.experience().nextRequireExp(target) + " exp.");
         System.out.println("  総経験値: " + target.experience().totalExp() + " exp.");
 
         //  System.out.println("  経験値タイプ: " + target.experienceType());
-        System.out.println("性別: " + target.gender().getValue());
-        System.out.println("性格: " + target.nature().getValue());
+        System.out.println("性別: " + target.gender().val());
+        System.out.println("性格: " + target.nature().val());
         System.out.print("覚えている技: ");
         for (Move move : target.haveMove()) {
             System.out.print(move.baseMPrm().mvName() + "  ");
@@ -70,8 +70,8 @@ public class ConsoleOutManager {
         System.out.println("【 技詳細表示 】");
         for (Move move : moves) {
             System.out.println("技　名: " + move.baseMPrm().mvName());
-            System.out.println("タイプ: " + move.baseMPrm().moveType().getValue());
-            System.out.println("分　類: " + move.baseMPrm().moveSpecies().getValue());
+            System.out.println("タイプ: " + move.baseMPrm().moveType().val());
+            System.out.println("分　類: " + move.baseMPrm().moveSpecies().val());
             System.out.println("威　力: " + move.baseMPrm().damage());
             System.out.println("命中率: " + move.baseMPrm().hitRate());
             System.out.println("");
@@ -96,7 +96,7 @@ public class ConsoleOutManager {
     public static void showPokemonInfo(PokeInfo myPokemon, PokeInfo enemyPokemon) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.print(enemyPokemon.basePrm().pName() + " " + enemyPokemon.gender().getValue() + "    Lv." + enemyPokemon.level().val());
+        System.out.print(enemyPokemon.basePrm().pName() + " " + enemyPokemon.gender().val() + "    Lv." + enemyPokemon.level().val());
         if (enemyPokemon.ailment().val() == AilmentE.FINE) {
             System.out.println("");
         } else {
@@ -111,7 +111,7 @@ public class ConsoleOutManager {
         System.out.println("");
         // ↑相手側　↓こっち側
         System.out.print("                        ");
-        System.out.print(myPokemon.basePrm().pName() + " " + myPokemon.gender().getValue() + "    Lv." + myPokemon.level().val());
+        System.out.print(myPokemon.basePrm().pName() + " " + myPokemon.gender().val() + "    Lv." + myPokemon.level().val());
         if (myPokemon.ailment().val() == AilmentE.FINE) {
             System.out.println("");
         } else {
@@ -127,7 +127,7 @@ public class ConsoleOutManager {
 
     public static void showParametersInBattle(PokeInfo target) {
         System.out.println("名前:" + target.basePrm().pName() + " ");
-        System.out.println("タイプ1: " + target.basePrm().type1().getValue() + " タイプ2: " + target.basePrm().type2().getValue());
+        System.out.println("タイプ1: " + target.basePrm().type1().val() + " タイプ2: " + target.basePrm().type2().val());
         System.out.println("レベル: " + target.level().val());
         System.out.print("HP: " + target.currentHP().val() + "/" + target.realHP() + " ");
         showProgressBar(target);
