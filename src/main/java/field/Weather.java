@@ -1,9 +1,7 @@
 package field;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
-@Getter
 @AllArgsConstructor
 public enum Weather {
     DROUGHT("ひでり"),
@@ -12,5 +10,9 @@ public enum Weather {
     HAIL("あられ"),
     NONE("-");
 
-    public final String value;
+    private final String val;
+
+    public String val() {
+        return this.val;
+    }
 }

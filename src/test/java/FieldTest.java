@@ -18,15 +18,15 @@ public class FieldTest {
     public void test1() throws InterruptedException {
         // 初期化 天候なし
         Field field = initField();
-        assertEquals(Weather.NONE, field.getWeather());
+        assertEquals(Weather.NONE, field.weather());
 
         // 天候なし -> ひでり
         field = changeField(field, Weather.DROUGHT);
-        assertEquals(Weather.DROUGHT, field.getWeather());
+        assertEquals(Weather.DROUGHT, field.weather());
 
         // ひでり -> あめ
         field = changeField(field, Weather.RAIN);
-        assertEquals(Weather.RAIN, field.getWeather());
+        assertEquals(Weather.RAIN, field.weather());
     }
 
     @Test
@@ -34,18 +34,18 @@ public class FieldTest {
     public void test2() throws InterruptedException {
         // 初期化 天候なし
         Field field = initField();
-        assertEquals(Weather.NONE, field.getWeather());
+        assertEquals(Weather.NONE, field.weather());
 
         // 天候なし -> ひでり
         field = changeField(field, Weather.DROUGHT);
-        assertEquals(Weather.DROUGHT, field.getWeather());
+        assertEquals(Weather.DROUGHT, field.weather());
 
         // 1ターン経過される
         field = field.elapseTurn();
 
         // ひでり -> ひでり
         field = changeField(field, Weather.DROUGHT);
-        assertEquals(1, field.getElapsedTurn());
+        assertEquals(1, field.elapsedTurn());
     }
 
     @Test
@@ -53,11 +53,11 @@ public class FieldTest {
     public void test3() throws InterruptedException {
         // 初期化 天候なし
         Field field = initField();
-        assertEquals(Weather.NONE, field.getWeather());
+        assertEquals(Weather.NONE, field.weather());
 
         // 天候なし -> ひでり
         field = changeField(field, Weather.DROUGHT);
-        assertEquals(Weather.DROUGHT, field.getWeather());
+        assertEquals(Weather.DROUGHT, field.weather());
 
         // 1ターン経過される
         field = field.elapseTurn();
@@ -67,7 +67,7 @@ public class FieldTest {
         field = field.elapseTurn();
 
         // ひでり -> 天候なし
-        assertEquals(Weather.NONE, field.getWeather());
+        assertEquals(Weather.NONE, field.weather());
     }
 
     @Test

@@ -92,7 +92,7 @@ public class EnemySelectMove {
     // すでに変更される天候と同じ天候にする技を候補から外す
     private static List<Move> filterDisableWeather(PokeInfo enemyPokemon, Field field) {
         // 現在の天候
-        Weather weather = field.getWeather();
+        Weather weather = field.weather();
         List<Move> filteredMoves;
         // 天候操作技を持っている場合、天候が重複する技を候補からはずす
         switch (weather) {

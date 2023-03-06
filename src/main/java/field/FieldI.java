@@ -1,7 +1,6 @@
 package field;
 
 import Enum.Type;
-import lombok.Getter;
 import move.Move;
 import pokemon.PokeInfo;
 
@@ -12,11 +11,22 @@ import java.util.Set;
 
 import static bussinessLogic.ConsoleOutManager.*;
 
-@Getter
 public class FieldI implements Field {
     private final Weather weather;
     private final int elapsedTurn;
     private final int countForRecovery;
+
+    public Weather weather() {
+        return this.weather;
+    }
+
+    public int elapsedTurn() {
+        return this.elapsedTurn;
+    }
+
+    public int countForRecovery() {
+        return this.countForRecovery;
+    }
 
     // フィールドを継続する場合(経過ターン+1)
     private static Field keepField(Weather weather, int elapsedTurn, int countRecovery) {
@@ -47,16 +57,16 @@ public class FieldI implements Field {
 
     private FieldI(Field field, Weather weather) throws InterruptedException {
 
-        if (field.getWeather() != weather) {
+        if (field.weather() != weather) {
             // 引数の天候がもとの天候以外なら上書きする
             this.weather = weather;
             this.elapsedTurn = 0;
             this.countForRecovery = 5;
             showChangeWeather(weather);
         } else {
-            this.weather = field.getWeather();
-            this.elapsedTurn = field.getElapsedTurn();
-            this.countForRecovery = field.getCountForRecovery();
+            this.weather = field.weather();
+            this.elapsedTurn = field.elapsedTurn();
+            this.countForRecovery = field.countForRecovery();
         }
     }
 
@@ -75,10 +85,10 @@ public class FieldI implements Field {
         Set<Type> roGrSt = new HashSet<>(Arrays.asList(Type.ROCK, Type.GROUND, Type.STEEL));
         int damage;
 
-        if (this.getWeather() == Weather.SANDSTORM && roGrSt.stream().noneMatch(types::contains)) {
+        if (this.weather() == Weather.SANDSTORM && roGrSt.stream().noneMatch(types::contains)) {
             showMessageParChar(target.basePrm().pName() + "はすなあらしでダメージをうけた！");
             damage = target.realHP() / 16;
-        } else if (this.getWeather() == Weather.HAIL && !types.contains(Type.ICE)) {
+        } else if (this.weather() == Weather.HAIL && !types.contains(Type.ICE)) {
             showMessageParChar(target.basePrm().pName() + "はあられでダメージをうけた！");
             damage = target.realHP() / 16;
         } else {

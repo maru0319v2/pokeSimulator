@@ -4,11 +4,11 @@ import move.Move;
 import pokemon.PokeInfo;
 
 public interface Field {
-    Weather getWeather();
+    Weather weather();
 
-    int getElapsedTurn();
+    int elapsedTurn();
 
-    int getCountForRecovery();
+    int countForRecovery();
 
     Field elapseTurn() throws InterruptedException;
 
