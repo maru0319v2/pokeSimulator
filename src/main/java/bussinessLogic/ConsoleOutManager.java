@@ -141,8 +141,8 @@ public class ConsoleOutManager {
 
         System.out.print("攻撃ランク ");
         int i = 0;
-        for (; i < Math.abs(target.getStatusRank().getAttack()); i++) {
-            if (target.getStatusRank().getAttack() > 0) {
+        for (; i < Math.abs(target.getStatusRank().attack()); i++) {
+            if (target.getStatusRank().attack() > 0) {
                 System.out.print("△");
             } else {
                 System.out.print("▼");
@@ -156,8 +156,8 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("防御ランク ");
-        for (; i < Math.abs(target.getStatusRank().getBlock()); i++) {
-            if (target.getStatusRank().getBlock() > 0) {
+        for (; i < Math.abs(target.getStatusRank().block()); i++) {
+            if (target.getStatusRank().block() > 0) {
                 System.out.print("△");
             } else {
                 System.out.print("▼");
@@ -171,8 +171,8 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("特攻ランク ");
-        for (; i < Math.abs(target.getStatusRank().getContact()); i++) {
-            if (target.getStatusRank().getContact() > 0) {
+        for (; i < Math.abs(target.getStatusRank().contact()); i++) {
+            if (target.getStatusRank().contact() > 0) {
                 System.out.print("△");
             } else {
                 System.out.print("▼");
@@ -186,8 +186,8 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("特防ランク ");
-        for (; i < Math.abs(target.getStatusRank().getDefense()); i++) {
-            if (target.getStatusRank().getDefense() > 0) {
+        for (; i < Math.abs(target.getStatusRank().defense()); i++) {
+            if (target.getStatusRank().defense() > 0) {
                 System.out.print("△");
             } else {
                 System.out.print("▼");
@@ -201,8 +201,8 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("素早ランク ");
-        for (; i < Math.abs(target.getStatusRank().getSpeed()); i++) {
-            if (target.getStatusRank().getSpeed() > 0) {
+        for (; i < Math.abs(target.getStatusRank().speed()); i++) {
+            if (target.getStatusRank().speed() > 0) {
                 System.out.print("△");
             } else {
                 System.out.print("▼");
@@ -216,8 +216,8 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("命中ランク ");
-        for (; i < Math.abs(target.getStatusRank().getHitRate()); i++) {
-            if (target.getStatusRank().getHitRate() > 0) {
+        for (; i < Math.abs(target.getStatusRank().hitRate()); i++) {
+            if (target.getStatusRank().hitRate() > 0) {
                 System.out.print("△");
             } else {
                 System.out.print("▼");
@@ -231,8 +231,8 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("回避ランク ");
-        for (; i < Math.abs(target.getStatusRank().getAvoidRate()); i++) {
-            if (target.getStatusRank().getAvoidRate() > 0) {
+        for (; i < Math.abs(target.getStatusRank().avoidRate()); i++) {
+            if (target.getStatusRank().avoidRate() > 0) {
                 System.out.print("△");
             } else {
                 System.out.print("▼");

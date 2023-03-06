@@ -3,19 +3,19 @@ package pokemonStatus;
 import pokemon.PokeInfo;
 
 public interface StatusRank {
-    int getAttack();
+    int attack();
 
-    int getBlock();
+    int block();
 
-    int getContact();
+    int contact();
 
-    int getDefense();
+    int defense();
 
-    int getSpeed();
+    int speed();
 
-    int getHitRate();
+    int hitRate();
 
-    int getAvoidRate();
+    int avoidRate();
 
     double attackRateByStatusRank();
 

@@ -17,6 +17,7 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 import static pokemonStatus.impl.EffortValueI.initializeEffortValue;
 import static pokemonStatus.impl.FlinchI.initializeFlinch;
 import static pokemonStatus.impl.IndividualValueI.initializeIndividualValue;
+import static pokemonStatus.impl.StatusRankI.initializeStatusRank;
 import static statusAilment.AilmentI.changeAilment;
 import static statusAilment.AilmentI.initializeAilment;
 
@@ -137,7 +138,7 @@ public class PokeInfoI implements PokeInfo {
         this.haveMove = basePokemonInfo.getInitialMove();
         this.experience = new ExperienceI(135); // TODO 固定化したくない
         this.currentHitPoint = new CurrentHPI(getRealValHitPoint());
-        this.statusRank = new StatusRankI();
+        this.statusRank = initializeStatusRank();
         this.statusAilment = initializeAilment();
         this.flinch = initializeFlinch();
     }
@@ -161,7 +162,7 @@ public class PokeInfoI implements PokeInfo {
         this.haveMove = haveMove;
         this.experience = new ExperienceI(0);
         this.currentHitPoint = new CurrentHPI(getRealValHitPoint());
-        this.statusRank = new StatusRankI();
+        this.statusRank = initializeStatusRank();
         this.statusAilment = initializeAilment();
         this.flinch = initializeFlinch();
     }
@@ -189,7 +190,7 @@ public class PokeInfoI implements PokeInfo {
         this.haveMove = haveMove;
         this.experience = new ExperienceI(experience.totalExp());
         this.currentHitPoint = new CurrentHPI(currentHitPoint.val());
-        this.statusRank = new StatusRankI(statusRankImpl.getAttack(), statusRankImpl.getBlock(), statusRankImpl.getContact(), statusRankImpl.getDefense(), statusRankImpl.getSpeed(), statusRankImpl.getHitRate(), statusRankImpl.getAvoidRate());
+        this.statusRank = new StatusRankI(statusRankImpl.attack(), statusRankImpl.block(), statusRankImpl.contact(), statusRankImpl.defense(), statusRankImpl.speed(), statusRankImpl.hitRate(), statusRankImpl.avoidRate());
         this.statusAilment = statusAilment;
         this.flinch = flinch;
     }

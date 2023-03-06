@@ -1,10 +1,8 @@
 package pokemonStatus.impl;
 
-import lombok.Getter;
 import pokemon.PokeInfo;
 import pokemonStatus.StatusRank;
 
-@Getter
 public class StatusRankI implements StatusRank {
     private static final int MIN = -6;
     private static final int MAX = 6;
@@ -16,7 +14,11 @@ public class StatusRankI implements StatusRank {
     private final int hitRate;
     private final int avoidRate;
 
-    public StatusRankI() {
+    public static StatusRank initializeStatusRank() {
+        return new StatusRankI();
+    }
+
+    private StatusRankI() {
         this.attack = 0;
         this.block = 0;
         this.contact = 0;
@@ -139,7 +141,7 @@ public class StatusRankI implements StatusRank {
 
     public double hitRateByStatusRank(PokeInfo defencePoke) {
         double result;
-        int avoidRate = defencePoke.getStatusRank().getAvoidRate();
+        int avoidRate = defencePoke.getStatusRank().avoidRate();
         int total = this.hitRate - avoidRate;
         if (total >= 0) {
             result = (double) (3 + total) / 3;
@@ -147,5 +149,33 @@ public class StatusRankI implements StatusRank {
             result = (3 / (double) (3 + Math.abs(total)));
         }
         return result;
+    }
+
+    public int attack() {
+        return this.attack;
+    }
+
+    public int block() {
+        return this.block;
+    }
+
+    public int contact() {
+        return this.contact;
+    }
+
+    public int defense() {
+        return this.defense;
+    }
+
+    public int speed() {
+        return this.speed;
+    }
+
+    public int hitRate() {
+        return this.hitRate;
+    }
+
+    public int avoidRate() {
+        return this.avoidRate;
     }
 }

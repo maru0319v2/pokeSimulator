@@ -7,19 +7,20 @@ import pokemonStatus.StatusRank;
 import pokemonStatus.impl.StatusRankI;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static pokemonStatus.impl.StatusRankI.initializeStatusRank;
 
 public class StatusRankTest {
     @Test
     @DisplayName("引数なしコンストラクタを呼んだときにすべてのステータスランクが0になること")
     public void testStatusRank1() {
-        StatusRank sr = new StatusRankI();
-        int a = sr.getAttack();
-        int b = sr.getBlock();
-        int c = sr.getContact();
-        int d = sr.getDefense();
-        int s = sr.getSpeed();
-        int h = sr.getHitRate();
-        int av = sr.getAvoidRate();
+        StatusRank sr = initializeStatusRank();
+        int a = sr.attack();
+        int b = sr.block();
+        int c = sr.contact();
+        int d = sr.defense();
+        int s = sr.speed();
+        int h = sr.hitRate();
+        int av = sr.avoidRate();
         assertEquals(0, a);
         assertEquals(0, b);
         assertEquals(0, c);
@@ -33,13 +34,13 @@ public class StatusRankTest {
     @DisplayName("コンストラクタを呼んだときに引数で渡した通りのステータスランクが取得できること")
     public void testStatusRank2() {
         StatusRank sr = new StatusRankI(1, 2, 3, 4, 5, 6, -4);
-        int a = sr.getAttack();
-        int b = sr.getBlock();
-        int c = sr.getContact();
-        int d = sr.getDefense();
-        int s = sr.getSpeed();
-        int h = sr.getHitRate();
-        int av = sr.getAvoidRate();
+        int a = sr.attack();
+        int b = sr.block();
+        int c = sr.contact();
+        int d = sr.defense();
+        int s = sr.speed();
+        int h = sr.hitRate();
+        int av = sr.avoidRate();
         assertEquals(1, a);
         assertEquals(2, b);
         assertEquals(3, c);
@@ -52,15 +53,15 @@ public class StatusRankTest {
     @Test
     @DisplayName("ステータスランクが正しく変化していること")
     public void testStatusRank3() {
-        StatusRank sr = new StatusRankI();
+        StatusRank sr = initializeStatusRank();
         sr = sr.add(0, -2, -9, 2, 9, -3, 3);
-        int a = sr.getAttack();
-        int b = sr.getBlock();
-        int c = sr.getContact();
-        int d = sr.getDefense();
-        int s = sr.getSpeed();
-        int h = sr.getHitRate();
-        int av = sr.getAvoidRate();
+        int a = sr.attack();
+        int b = sr.block();
+        int c = sr.contact();
+        int d = sr.defense();
+        int s = sr.speed();
+        int h = sr.hitRate();
+        int av = sr.avoidRate();
 
         assertEquals(0, a);
         assertEquals(-2, b);
@@ -76,13 +77,13 @@ public class StatusRankTest {
     public void testStatusRank4() {
         StatusRank sr = new StatusRankI(1, 2, 3, 4, 5, 6, -6);
         sr = sr.reset();
-        int a = sr.getAttack();
-        int b = sr.getBlock();
-        int c = sr.getContact();
-        int d = sr.getDefense();
-        int s = sr.getSpeed();
-        int h = sr.getHitRate();
-        int av = sr.getAvoidRate();
+        int a = sr.attack();
+        int b = sr.block();
+        int c = sr.contact();
+        int d = sr.defense();
+        int s = sr.speed();
+        int h = sr.hitRate();
+        int av = sr.avoidRate();
         assertEquals(0, a);
         assertEquals(0, b);
         assertEquals(0, c);

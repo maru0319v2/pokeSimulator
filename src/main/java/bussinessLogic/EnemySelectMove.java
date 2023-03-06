@@ -33,7 +33,7 @@ public class EnemySelectMove {
     // 敵の回避ランクが2以上の場合は、必中技だけ候補にする
     private static List<Move> filterEffectiveHit(PokeInfo enemyPokemon, PokeInfo myPokemon) {
         // 敵の回避ランク
-        int avoidRank = myPokemon.getStatusRank().getAvoidRate();
+        int avoidRank = myPokemon.getStatusRank().avoidRate();
         // 回避ランクが2以上の場合、必中技を使用する
         List<Move> filteredMoves = null;
         if (avoidRank >= 2) {
