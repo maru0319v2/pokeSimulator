@@ -16,7 +16,7 @@ public class ConsoleOutManager {
         System.out.print("図鑑No:" + target.getBasePrm().getPokeDexNo() + " ");
         System.out.println("名前:" + target.getBasePrm().getName() + " ");
         System.out.println("タイプ1: " + target.getBasePrm().getType1().getValue() + " タイプ2: " + target.getBasePrm().getType2().getValue());
-        System.out.println("状態: " + target.getStatusAilment().getValue());
+        System.out.println("状態: " + target.getStatusAilment().val());
         System.out.print("レベル: " + target.getLevel().val());
         System.out.print("  次のレベルまで: " + target.getExperience().nextRequireExp(target) + " exp.");
         System.out.println("  総経験値: " + target.getExperience().totalExp() + " exp.");
@@ -97,10 +97,10 @@ public class ConsoleOutManager {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         System.out.print(enemyPokemon.getBasePrm().getName() + " " + enemyPokemon.getGender().getValue() + "    Lv." + enemyPokemon.getLevel().val());
-        if (enemyPokemon.getStatusAilment().getValue() == AilmentE.FINE) {
+        if (enemyPokemon.getStatusAilment().val() == AilmentE.FINE) {
             System.out.println("");
         } else {
-            System.out.println(" " + enemyPokemon.getStatusAilment().getValue().value);
+            System.out.println(" " + enemyPokemon.getStatusAilment().val().val());
         }
         System.out.print("HP");
         showProgressBar(enemyPokemon);
@@ -112,10 +112,10 @@ public class ConsoleOutManager {
         // ↑相手側　↓こっち側
         System.out.print("                        ");
         System.out.print(myPokemon.getBasePrm().getName() + " " + myPokemon.getGender().getValue() + "    Lv." + myPokemon.getLevel().val());
-        if (myPokemon.getStatusAilment().getValue() == AilmentE.FINE) {
+        if (myPokemon.getStatusAilment().val() == AilmentE.FINE) {
             System.out.println("");
         } else {
-            System.out.println(" " + myPokemon.getStatusAilment().getValue().value);
+            System.out.println(" " + myPokemon.getStatusAilment().val().val());
         }
         System.out.print("            ■           HP");
         showProgressBar(myPokemon);

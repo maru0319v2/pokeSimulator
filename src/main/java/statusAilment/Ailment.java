@@ -2,18 +2,13 @@ package statusAilment;
 
 import pokemon.PokeInfo;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 public interface Ailment {
-    Set<AilmentE> SLIP_DAMAGE_AILMENT = new HashSet<>(Arrays.asList(AilmentE.POISON, AilmentE.BAD_POISON, AilmentE.BURN));
 
-    AilmentE getValue();
+    AilmentE val();
 
-    int getElapsedTurn();
+    int elapsedTurn();
 
-    int getCountRecoverySleep();
+    int countRecoverySleep();
 
     Ailment comeTurn(String pokeName) throws InterruptedException;
 

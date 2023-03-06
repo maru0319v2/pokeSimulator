@@ -13,9 +13,9 @@ public class PokemonInfoImplTest {
     public void testBattleLogic1() throws InterruptedException {
         PokeInfo myPoke = new PokeInfoI(BasePrm.CHARMANDER);
         myPoke = myPoke.damagePoke(200);
-        assertEquals(AilmentE.FAINTING, myPoke.getStatusAilment().getValue());
+        assertEquals(AilmentE.FAINTING, myPoke.getStatusAilment().val());
 
         myPoke = myPoke.recoveryHitPoint(50);
-        assertEquals(AilmentE.FINE, myPoke.getStatusAilment().getValue());
+        assertEquals(AilmentE.FINE, myPoke.getStatusAilment().val());
     }
 }

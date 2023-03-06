@@ -1,9 +1,7 @@
 package statusAilment;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
-@Getter
 @AllArgsConstructor
 public enum AilmentE {
     BURN("やけど"),
@@ -15,5 +13,9 @@ public enum AilmentE {
     FAINTING("ひんし"),
     FINE("-");
 
-    public final String value;
+    public final String val;
+
+    public String val() {
+        return this.val;
+    }
 }

@@ -18,25 +18,25 @@ public class StatusAilmentImplTest {
         poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.BURN));
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.POISON));
-        assertEquals(AilmentE.BURN, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.BURN, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BAD_POISON));
-        assertEquals(AilmentE.BURN, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.BURN, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.PARALYSIS));
-        assertEquals(AilmentE.BURN, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.BURN, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.SLEEP));
-        assertEquals(AilmentE.BURN, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.BURN, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FREEZE));
-        assertEquals(AilmentE.BURN, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.BURN, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FAINTING));
-        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().val());
 
         poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.FINE));
-        assertEquals(AilmentE.FINE, poke2.getStatusAilment().getValue());
+        assertEquals(AilmentE.FINE, poke2.getStatusAilment().val());
     }
 
     @Test
@@ -48,25 +48,25 @@ public class StatusAilmentImplTest {
         poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.FREEZE));
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.POISON));
-        assertEquals(AilmentE.FREEZE, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.FREEZE, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BAD_POISON));
-        assertEquals(AilmentE.FREEZE, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.FREEZE, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.PARALYSIS));
-        assertEquals(AilmentE.FREEZE, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.FREEZE, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.SLEEP));
-        assertEquals(AilmentE.FREEZE, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.FREEZE, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BURN));
-        assertEquals(AilmentE.FREEZE, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.FREEZE, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FAINTING));
-        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().val());
 
         poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.FINE));
-        assertEquals(AilmentE.FINE, poke2.getStatusAilment().getValue());
+        assertEquals(AilmentE.FINE, poke2.getStatusAilment().val());
     }
 
     @Test
@@ -78,25 +78,25 @@ public class StatusAilmentImplTest {
         poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.PARALYSIS));
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.POISON));
-        assertEquals(AilmentE.PARALYSIS, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.PARALYSIS, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BAD_POISON));
-        assertEquals(AilmentE.PARALYSIS, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.PARALYSIS, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FREEZE));
-        assertEquals(AilmentE.PARALYSIS, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.PARALYSIS, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.SLEEP));
-        assertEquals(AilmentE.PARALYSIS, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.PARALYSIS, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BURN));
-        assertEquals(AilmentE.PARALYSIS, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.PARALYSIS, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FAINTING));
-        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().val());
 
         poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.FINE));
-        assertEquals(AilmentE.FINE, poke2.getStatusAilment().getValue());
+        assertEquals(AilmentE.FINE, poke2.getStatusAilment().val());
     }
 
     @Test
@@ -108,25 +108,25 @@ public class StatusAilmentImplTest {
         poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.POISON));
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.PARALYSIS));
-        assertEquals(AilmentE.POISON, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.POISON, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BAD_POISON));
-        assertEquals(AilmentE.POISON, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.POISON, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FREEZE));
-        assertEquals(AilmentE.POISON, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.POISON, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.SLEEP));
-        assertEquals(AilmentE.POISON, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.POISON, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BURN));
-        assertEquals(AilmentE.POISON, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.POISON, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FAINTING));
-        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().val());
 
         poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.FINE));
-        assertEquals(AilmentE.FINE, poke2.getStatusAilment().getValue());
+        assertEquals(AilmentE.FINE, poke2.getStatusAilment().val());
     }
 
     @Test
@@ -138,25 +138,25 @@ public class StatusAilmentImplTest {
         poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.BAD_POISON));
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.PARALYSIS));
-        assertEquals(AilmentE.BAD_POISON, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.BAD_POISON, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.POISON));
-        assertEquals(AilmentE.BAD_POISON, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.BAD_POISON, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FREEZE));
-        assertEquals(AilmentE.BAD_POISON, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.BAD_POISON, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.SLEEP));
-        assertEquals(AilmentE.BAD_POISON, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.BAD_POISON, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BURN));
-        assertEquals(AilmentE.BAD_POISON, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.BAD_POISON, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FAINTING));
-        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().val());
 
         poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.FINE));
-        assertEquals(AilmentE.FINE, poke2.getStatusAilment().getValue());
+        assertEquals(AilmentE.FINE, poke2.getStatusAilment().val());
     }
 
     @Test
@@ -168,25 +168,25 @@ public class StatusAilmentImplTest {
         poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.SLEEP));
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.PARALYSIS));
-        assertEquals(AilmentE.SLEEP, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.SLEEP, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.POISON));
-        assertEquals(AilmentE.SLEEP, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.SLEEP, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FREEZE));
-        assertEquals(AilmentE.SLEEP, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.SLEEP, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BAD_POISON));
-        assertEquals(AilmentE.SLEEP, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.SLEEP, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BURN));
-        assertEquals(AilmentE.SLEEP, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.SLEEP, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FAINTING));
-        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().val());
 
         poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.FINE));
-        assertEquals(AilmentE.FINE, poke2.getStatusAilment().getValue());
+        assertEquals(AilmentE.FINE, poke2.getStatusAilment().val());
     }
 
     @Test
@@ -196,22 +196,22 @@ public class StatusAilmentImplTest {
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FAINTING));
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.PARALYSIS));
-        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.POISON));
-        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FREEZE));
-        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BAD_POISON));
-        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BURN));
-        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().val());
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FINE));
-        assertEquals(AilmentE.FINE, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.FINE, poke1.getStatusAilment().val());
     }
 
     @Test
@@ -225,22 +225,22 @@ public class StatusAilmentImplTest {
         PokeInfo poke6 = new PokeInfoI(BasePrm.BULBASAUR);
 
         poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.PARALYSIS));
-        assertEquals(AilmentE.PARALYSIS, poke1.getStatusAilment().getValue());
+        assertEquals(AilmentE.PARALYSIS, poke1.getStatusAilment().val());
 
         poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.POISON));
-        assertEquals(AilmentE.POISON, poke2.getStatusAilment().getValue());
+        assertEquals(AilmentE.POISON, poke2.getStatusAilment().val());
 
         poke3 = poke3.withStatusAilment(changeAilment(poke3, AilmentE.FREEZE));
-        assertEquals(AilmentE.FREEZE, poke3.getStatusAilment().getValue());
+        assertEquals(AilmentE.FREEZE, poke3.getStatusAilment().val());
 
         poke4 = poke4.withStatusAilment(changeAilment(poke4, AilmentE.BAD_POISON));
-        assertEquals(AilmentE.BAD_POISON, poke4.getStatusAilment().getValue());
+        assertEquals(AilmentE.BAD_POISON, poke4.getStatusAilment().val());
 
         poke5 = poke5.withStatusAilment(changeAilment(poke5, AilmentE.BURN));
-        assertEquals(AilmentE.BURN, poke5.getStatusAilment().getValue());
+        assertEquals(AilmentE.BURN, poke5.getStatusAilment().val());
 
         poke6 = poke6.withStatusAilment(changeAilment(poke6, AilmentE.FAINTING));
-        assertEquals(AilmentE.FAINTING, poke6.getStatusAilment().getValue());
+        assertEquals(AilmentE.FAINTING, poke6.getStatusAilment().val());
     }
 
     @Test
@@ -250,14 +250,14 @@ public class StatusAilmentImplTest {
         myPokemon = myPokemon.withStatusAilment(changeAilment(myPokemon, AilmentE.SLEEP));
         myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
         // 1ターン経過後
-        assertEquals(AilmentE.SLEEP, myPokemon.getStatusAilment().getValue());
+        assertEquals(AilmentE.SLEEP, myPokemon.getStatusAilment().val());
         assertFalse(myPokemon.getStatusAilment().canMove(myPokemon.getBasePrm().getName()));
         myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
         myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
         myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
         myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
         // 5ターン経過後
-        assertEquals(AilmentE.FINE, myPokemon.getStatusAilment().getValue());
+        assertEquals(AilmentE.FINE, myPokemon.getStatusAilment().val());
         assertTrue(myPokemon.getStatusAilment().canMove(myPokemon.getBasePrm().getName()));
     }
 
@@ -266,9 +266,9 @@ public class StatusAilmentImplTest {
     public void test10() throws InterruptedException {
         PokeInfo poke = new PokeInfoI(BasePrm.BULBASAUR);
         poke = poke.withStatusAilment(changeAilment(poke, AilmentE.SLEEP));
-        int beforeCount = poke.getStatusAilment().getCountRecoverySleep();
+        int beforeCount = poke.getStatusAilment().countRecoverySleep();
         poke = poke.withStatusAilment(changeAilment(poke, AilmentE.SLEEP));
-        int afterCount = poke.getStatusAilment().getCountRecoverySleep();
+        int afterCount = poke.getStatusAilment().countRecoverySleep();
 
         assertEquals(beforeCount, afterCount);
     }
@@ -281,7 +281,7 @@ public class StatusAilmentImplTest {
         poke = poke.withStatusAilment(poke.getStatusAilment().comeTurn(poke.getBasePrm().getName()));
         poke = poke.withStatusAilment(changeAilment(poke, AilmentE.SLEEP));
 
-        assertEquals(1, poke.getStatusAilment().getElapsedTurn());
+        assertEquals(1, poke.getStatusAilment().elapsedTurn());
     }
 
     @Test

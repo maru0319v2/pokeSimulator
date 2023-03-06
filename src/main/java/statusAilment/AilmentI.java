@@ -1,6 +1,5 @@
 package statusAilment;
 
-import lombok.Getter;
 import pokemon.PokeInfo;
 
 import java.util.Objects;
@@ -9,11 +8,22 @@ import java.util.Random;
 import static bussinessLogic.ConsoleOutManager.showChangeAilmentMessage;
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 
-@Getter
 public class AilmentI implements Ailment {
-    private final AilmentE value;
+    private final AilmentE val;
     private final int countRecoverySleep;
     private final int elapsedTurn;
+
+    public AilmentE val() {
+        return this.val;
+    }
+
+    public int countRecoverySleep() {
+        return this.countRecoverySleep;
+    }
+
+    public int elapsedTurn() {
+        return this.elapsedTurn;
+    }
 
     // 状態異常の継続する場合(ねむり経過ターン+1)
     public static Ailment keepAilment(AilmentE value, int countForRecovery, int elapsedTurn) {
@@ -21,7 +31,7 @@ public class AilmentI implements Ailment {
     }
 
     private AilmentI(AilmentE value, int countForRecovery, int elapsedTurn) {
-        this.value = value;
+        this.val = value;
         this.countRecoverySleep = countForRecovery;
         this.elapsedTurn = elapsedTurn;
     }
@@ -32,7 +42,7 @@ public class AilmentI implements Ailment {
     }
 
     private AilmentI() {
-        this.value = AilmentE.FINE;
+        this.val = AilmentE.FINE;
         this.countRecoverySleep = 0;
         this.elapsedTurn = 0;
     }
@@ -50,20 +60,20 @@ public class AilmentI implements Ailment {
                 // 2~5ターン
                 count = (new Random().nextInt(4) + 2);
             }
-            this.value = value;
+            this.val = value;
             this.countRecoverySleep = count;
             this.elapsedTurn = 0;
             showChangeAilmentMessage(target, value);
         } else {
-            this.value = target.getStatusAilment().getValue();
-            this.countRecoverySleep = target.getStatusAilment().getCountRecoverySleep();
-            this.elapsedTurn = target.getStatusAilment().getElapsedTurn();
+            this.val = target.getStatusAilment().val();
+            this.countRecoverySleep = target.getStatusAilment().countRecoverySleep();
+            this.elapsedTurn = target.getStatusAilment().elapsedTurn();
         }
     }
 
     private boolean isOverwrite(PokeInfo target, AilmentE value) {
         // 元の状態異常
-        AilmentE beforeAilment = target.getStatusAilment().getValue();
+        AilmentE beforeAilment = target.getStatusAilment().val();
 
         if (beforeAilment == AilmentE.FINE) {
             // 元の状態が健康ならすべて上書きされる
@@ -78,7 +88,7 @@ public class AilmentI implements Ailment {
         }
         if (beforeAilment == AilmentE.SLEEP) {
             // 元の状態がねむりの場合、引数の経過ターンが大きい、またはひんしか健康の場合上書きする
-            if (target.getStatusAilment().getElapsedTurn() < this.getElapsedTurn() || value == AilmentE.FINE || value == AilmentE.FAINTING) {
+            if (target.getStatusAilment().elapsedTurn() < this.elapsedTurn() || value == AilmentE.FINE || value == AilmentE.FAINTING) {
                 return true;
             }
         }
@@ -95,34 +105,34 @@ public class AilmentI implements Ailment {
     public Ailment comeTurn(String pokeName) throws InterruptedException {
 
         // ねむりの場合、経過ターンを1増やしカウンタを同じになればねむりを解く
-        if (this.value == AilmentE.SLEEP) {
+        if (this.val == AilmentE.SLEEP) {
             if (this.countRecoverySleep <= this.elapsedTurn + 1) {
                 showMessageParChar(pokeName + "はめをさました!");
                 return initializeAilment();
             }
-            return keepAilment(this.value, this.countRecoverySleep, this.elapsedTurn + 1);
+            return keepAilment(this.val, this.countRecoverySleep, this.elapsedTurn + 1);
         }
         // こおりの場合、20%の確率でこおりを解く
-        if (this.value == AilmentE.FREEZE) {
+        if (this.val == AilmentE.FREEZE) {
             if ((new Random().nextInt(5)) == 0) {
                 showMessageParChar(pokeName + "のこおりがとけた!");
                 return initializeAilment();
             }
         }
         // その他の状態異常の場合、継続
-        return keepAilment(this.value, this.countRecoverySleep, this.elapsedTurn);
+        return keepAilment(this.val, this.countRecoverySleep, this.elapsedTurn);
     }
 
     public boolean canMove(String pokeName) throws InterruptedException {
-        if (this.value == AilmentE.SLEEP) {
+        if (this.val == AilmentE.SLEEP) {
             showMessageParChar(pokeName + "はぐうぐうねむっている・・・");
             return false;
         }
-        if (this.value == AilmentE.FREEZE) {
+        if (this.val == AilmentE.FREEZE) {
             showMessageParChar(pokeName + "はこおってしまってうごけない！");
             return false;
         }
-        if (this.value == AilmentE.PARALYSIS && (new Random().nextInt(4)) == 0) {
+        if (this.val == AilmentE.PARALYSIS && (new Random().nextInt(4)) == 0) {
             showMessageParChar(pokeName + "はしびれてうごけない!");
             return false;
         }
@@ -130,23 +140,23 @@ public class AilmentI implements Ailment {
     }
 
     public boolean isFine() {
-        return this.value == AilmentE.FINE;
+        return this.val == AilmentE.FINE;
     }
 
     public boolean isSick() {
-        return this.value != AilmentE.FINE;
+        return this.val != AilmentE.FINE;
     }
 
     public double damageRateByBurn() {
-        return Objects.equals(this.value, AilmentE.BURN) ? 0.5 : 1.0;
+        return Objects.equals(this.val, AilmentE.BURN) ? 0.5 : 1.0;
     }
 
     public double speedRateByParalysis() {
-        return Objects.equals(this.value, AilmentE.PARALYSIS) ? 0.5 : 1.0;
+        return Objects.equals(this.val, AilmentE.PARALYSIS) ? 0.5 : 1.0;
     }
 
     public PokeInfo slipDamageByAilment(PokeInfo target) throws InterruptedException {
-        AilmentE ailment = target.getStatusAilment().getValue();
+        AilmentE ailment = target.getStatusAilment().val();
         int damage;
         switch (ailment) {
             case POISON -> {
