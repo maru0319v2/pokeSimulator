@@ -47,7 +47,7 @@ public interface PokeInfo {
     int realContact();
 
     // 特防実数値
-    int realDefense();
+    int realDefence();
 
     // 素早実数値
     int realSpeed();
@@ -91,7 +91,7 @@ public interface PokeInfo {
 
     PokeInfo withLevel(int addLevel);
 
-    PokeInfo withChStatusRank(int attack, int block, int contact, int defense, int speed, int hitRate, int avoidRate);
+    PokeInfo withChStatusRank(int attack, int block, int contact, int defence, int speed, int hitRate, int avoidRate);
 
     PokeInfo withResetStatusRank();
 

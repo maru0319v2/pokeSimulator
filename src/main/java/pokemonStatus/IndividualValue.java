@@ -10,7 +10,7 @@ public interface IndividualValue {
 
     int contact();
 
-    int defense();
+    int defence();
 
     int speed();
 }

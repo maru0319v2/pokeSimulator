@@ -11,7 +11,7 @@ public class EffortValueI implements EffortValue {
     private final int attack;
     private final int block;
     private final int contact;
-    private final int defense;
+    private final int defence;
     private final int speed;
 
     public static EffortValue initEffortValue() {
@@ -23,11 +23,11 @@ public class EffortValueI implements EffortValue {
         this.attack = MIN;
         this.block = MIN;
         this.contact = MIN;
-        this.defense = MIN;
+        this.defence = MIN;
         this.speed = MIN;
     }
 
-    public EffortValueI(final int hp, final int attack, final int block, final int contact, final int defense, final int speed) {
+    public EffortValueI(final int hp, final int attack, final int block, final int contact, final int defence, final int speed) {
 
         int resultHp;
         if (hp < MIN) {
@@ -49,43 +49,43 @@ public class EffortValueI implements EffortValue {
             resultContact = MIN;
         } else resultContact = Math.min(contact, MAX_OF_EACH);
 
-        int resultDefense;
-        if (defense < MIN) {
-            resultDefense = MIN;
-        } else resultDefense = Math.min(defense, MAX_OF_EACH);
+        int resultDefence;
+        if (defence < MIN) {
+            resultDefence = MIN;
+        } else resultDefence = Math.min(defence, MAX_OF_EACH);
 
         int resultSpeed;
         if (speed < MIN) {
             resultSpeed = MIN;
         } else resultSpeed = Math.min(speed, MAX_OF_EACH);
 
-        if (resultHp + resultAttack + resultBlock + resultContact + resultDefense + resultSpeed > MAX_OF_TOTAL) {
+        if (resultHp + resultAttack + resultBlock + resultContact + resultDefence + resultSpeed > MAX_OF_TOTAL) {
             // TODO 合計努力値が510を超えた場合、暫定で努力値加算をしない
             this.hp = hp;
             this.attack = attack;
             this.block = block;
             this.contact = contact;
-            this.defense = defense;
+            this.defence = defence;
             this.speed = speed;
         } else {
             this.hp = resultHp;
             this.attack = resultAttack;
             this.block = resultBlock;
             this.contact = resultContact;
-            this.defense = resultDefense;
+            this.defence = resultDefence;
             this.speed = resultSpeed;
         }
     }
 
-    public EffortValueI add(final int hp, final int attack, final int block, final int contact, final int defense, final int speed) {
+    public EffortValueI add(final int hp, final int attack, final int block, final int contact, final int defence, final int speed) {
         int addedHitPoint = this.hp + hp;
         int addedAttack = this.attack + attack;
         int addedBlock = this.block + block;
         int addedContact = this.contact + contact;
-        int addedDefense = this.defense + defense;
+        int addedDefence = this.defence + defence;
         int addedSpeed = this.speed + speed;
 
-        return new EffortValueI(addedHitPoint, addedAttack, addedBlock, addedContact, addedDefense, addedSpeed);
+        return new EffortValueI(addedHitPoint, addedAttack, addedBlock, addedContact, addedDefence, addedSpeed);
     }
 
     public EffortValue reset() {
@@ -108,8 +108,8 @@ public class EffortValueI implements EffortValue {
         return this.contact;
     }
 
-    public int defense() {
-        return this.defense;
+    public int defence() {
+        return this.defence;
     }
 
     public int speed() {

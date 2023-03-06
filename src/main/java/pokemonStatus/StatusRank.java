@@ -9,7 +9,7 @@ public interface StatusRank {
 
     int contact();
 
-    int defense();
+    int defence();
 
     int speed();
 
@@ -17,19 +17,19 @@ public interface StatusRank {
 
     int avoidRate();
 
-    double attackRateByStatusRank();
+    double atkRateByStatusRank();
 
-    double blockRateByStatusRank();
+    double blcRateByStatusRank();
 
-    double contactRateByStatusRank();
+    double cntRateByStatusRank();
 
-    double defenseRateByStatusRank();
+    double dfcRateByStatusRank();
 
-    double speedRateByStatusRank();
+    double spdRateByStatusRank();
 
     double hitRateByStatusRank(PokeInfo defencePoke);
 
-    StatusRank add(int attack, int block, int contact, int defense, int speed, int hitRate, int avoidRate);
+    StatusRank add(int attack, int block, int contact, int defence, int speed, int hitRate, int avoidRate);
 
     StatusRank reset();
 }

@@ -183,7 +183,7 @@ public class EnemySelectMove {
             defenceVal = defencePoke.realBlock();
         } else if (moveSpecies == MoveSpecies.SPECIAL) {
             attackVal = attackPoke.realContact();
-            defenceVal = (int) (defencePoke.realDefense() * defenceRateRock);
+            defenceVal = (int) (defencePoke.realDefence() * defenceRateRock);
         }
         return (int) Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * totalDamageRate);
     }

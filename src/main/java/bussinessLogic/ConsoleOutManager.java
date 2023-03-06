@@ -62,7 +62,7 @@ public class ConsoleOutManager {
         System.out.println("攻撃 " + target.realAttack());
         System.out.println("防御 " + target.realBlock());
         System.out.println("特攻 " + target.realContact());
-        System.out.println("特防 " + target.realDefense());
+        System.out.println("特防 " + target.realDefence());
         System.out.println("素早 " + target.realSpeed());
     }
 
@@ -135,7 +135,7 @@ public class ConsoleOutManager {
         System.out.println("攻撃 " + target.realAttack());
         System.out.println("防御 " + target.realBlock());
         System.out.println("特攻 " + target.realContact());
-        System.out.println("特防 " + target.realDefense());
+        System.out.println("特防 " + target.realDefence());
         System.out.println("素早 " + target.realSpeed());
         System.out.println("");
 
@@ -186,8 +186,8 @@ public class ConsoleOutManager {
 
         i = 0;
         System.out.print("特防ランク ");
-        for (; i < Math.abs(target.statusRank().defense()); i++) {
-            if (target.statusRank().defense() > 0) {
+        for (; i < Math.abs(target.statusRank().defence()); i++) {
+            if (target.statusRank().defence() > 0) {
                 System.out.print("△");
             } else {
                 System.out.print("▼");

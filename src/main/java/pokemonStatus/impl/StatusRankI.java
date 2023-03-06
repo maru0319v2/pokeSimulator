@@ -9,7 +9,7 @@ public class StatusRankI implements StatusRank {
     private final int attack;
     private final int block;
     private final int contact;
-    private final int defense;
+    private final int defence;
     private final int speed;
     private final int hitRate;
     private final int avoidRate;
@@ -22,13 +22,13 @@ public class StatusRankI implements StatusRank {
         this.attack = 0;
         this.block = 0;
         this.contact = 0;
-        this.defense = 0;
+        this.defence = 0;
         this.speed = 0;
         this.hitRate = 0;
         this.avoidRate = 0;
     }
 
-    public StatusRankI(int attack, int block, int contact, int defense, int speed, int hitRate, int avoidRate) {
+    public StatusRankI(int attack, int block, int contact, int defence, int speed, int hitRate, int avoidRate) {
         int resultAttack;
         if (attack < MIN) {
             resultAttack = MIN;
@@ -44,10 +44,10 @@ public class StatusRankI implements StatusRank {
             resultContact = MIN;
         } else resultContact = Math.min(contact, MAX);
 
-        int resultDefense;
-        if (defense < MIN) {
-            resultDefense = MIN;
-        } else resultDefense = Math.min(defense, MAX);
+        int resultDefence;
+        if (defence < MIN) {
+            resultDefence = MIN;
+        } else resultDefence = Math.min(defence, MAX);
 
         int resultSpeed;
         if (speed < MIN) {
@@ -67,29 +67,29 @@ public class StatusRankI implements StatusRank {
         this.attack = resultAttack;
         this.block = resultBlock;
         this.contact = resultContact;
-        this.defense = resultDefense;
+        this.defence = resultDefence;
         this.speed = resultSpeed;
         this.hitRate = resultHitRate;
         this.avoidRate = resultAvoidRate;
     }
 
-    public StatusRankI add(final int attack, final int block, final int contact, final int defense, final int speed, final int hitRate, final int avoidRate) {
+    public StatusRankI add(final int attack, final int block, final int contact, final int defence, final int speed, final int hitRate, final int avoidRate) {
         int addedAttack = this.attack + attack;
         int addedBlock = this.block + block;
         int addedContact = this.contact + contact;
-        int addedDefense = this.defense + defense;
+        int addedDefence = this.defence + defence;
         int addedSpeed = this.speed + speed;
         int addedHitRate = this.hitRate + hitRate;
         int addedAvoidRate = this.avoidRate + avoidRate;
 
-        return new StatusRankI(addedAttack, addedBlock, addedContact, addedDefense, addedSpeed, addedHitRate, addedAvoidRate);
+        return new StatusRankI(addedAttack, addedBlock, addedContact, addedDefence, addedSpeed, addedHitRate, addedAvoidRate);
     }
 
     public StatusRankI reset() {
         return new StatusRankI(0, 0, 0, 0, 0, 0, 0);
     }
 
-    public double attackRateByStatusRank() {
+    public double atkRateByStatusRank() {
         double result;
         if (this.attack >= 0) {
             result = (double) (2 + this.attack) / 2;
@@ -99,7 +99,7 @@ public class StatusRankI implements StatusRank {
         return result;
     }
 
-    public double blockRateByStatusRank() {
+    public double blcRateByStatusRank() {
         double result;
         if (this.block >= 0) {
             result = (double) (2 + this.block) / 2;
@@ -109,7 +109,7 @@ public class StatusRankI implements StatusRank {
         return result;
     }
 
-    public double contactRateByStatusRank() {
+    public double cntRateByStatusRank() {
         double result;
         if (this.contact >= 0) {
             result = (double) (2 + this.contact) / 2;
@@ -119,17 +119,17 @@ public class StatusRankI implements StatusRank {
         return result;
     }
 
-    public double defenseRateByStatusRank() {
+    public double dfcRateByStatusRank() {
         double result;
-        if (this.defense >= 0) {
-            result = (double) (2 + this.defense) / 2;
+        if (this.defence >= 0) {
+            result = (double) (2 + this.defence) / 2;
         } else {
-            result = (2 / (double) (2 + Math.abs(this.defense)));
+            result = (2 / (double) (2 + Math.abs(this.defence)));
         }
         return result;
     }
 
-    public double speedRateByStatusRank() {
+    public double spdRateByStatusRank() {
         double result;
         if (this.speed >= 0) {
             result = (double) (2 + this.speed) / 2;
@@ -163,8 +163,8 @@ public class StatusRankI implements StatusRank {
         return this.contact;
     }
 
-    public int defense() {
-        return this.defense;
+    public int defence() {
+        return this.defence;
     }
 
     public int speed() {

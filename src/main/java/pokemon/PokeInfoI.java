@@ -98,8 +98,8 @@ public class PokeInfoI implements PokeInfo {
         return (int) ((((this.basePrm.contact() * 2 + this.individualValue.contact() + (this.effortValue.contact() / 4)) * this.level.val() / 100) + 5) * this.nature.contactRate());
     }
 
-    public int realDefense() {
-        return (int) ((((this.basePrm.defense() * 2 + this.individualValue.defense() + (this.effortValue.defense() / 4)) * this.level.val() / 100) + 5) * this.nature.defenceRate());
+    public int realDefence() {
+        return (int) ((((this.basePrm.defence() * 2 + this.individualValue.defence() + (this.effortValue.defence() / 4)) * this.level.val() / 100) + 5) * this.nature.defenceRate());
     }
 
     public int realSpeed() {
@@ -205,8 +205,8 @@ public class PokeInfoI implements PokeInfo {
         this.basePrm = basePrm;
         this.gender = gender;
         this.nature = nature;
-        this.individualValue = new IndividualValueI(iv.hp(), iv.attack(), iv.block(), iv.contact(), iv.defense(), iv.speed());
-        this.effortValue = new EffortValueI(ev.hp(), ev.attack(), ev.block(), ev.contact(), ev.defense(), ev.speed());
+        this.individualValue = new IndividualValueI(iv.hp(), iv.attack(), iv.block(), iv.contact(), iv.defence(), iv.speed());
+        this.effortValue = new EffortValueI(ev.hp(), ev.attack(), ev.block(), ev.contact(), ev.defence(), ev.speed());
         this.level = new LevelI(level.val());
         this.haveMove = haveMove;
         this.experience = new ExperienceI(0);
@@ -234,13 +234,13 @@ public class PokeInfoI implements PokeInfo {
         this.basePrm = basePrm;
         this.gender = gender;
         this.nature = nature;
-        this.individualValue = new IndividualValueI(iv.hp(), iv.attack(), iv.block(), iv.contact(), iv.defense(), iv.speed());
-        this.effortValue = new EffortValueI(ev.hp(), ev.attack(), ev.block(), ev.contact(), ev.defense(), ev.speed());
+        this.individualValue = new IndividualValueI(iv.hp(), iv.attack(), iv.block(), iv.contact(), iv.defence(), iv.speed());
+        this.effortValue = new EffortValueI(ev.hp(), ev.attack(), ev.block(), ev.contact(), ev.defence(), ev.speed());
         this.level = new LevelI(level.val());
         this.haveMove = haveMove;
         this.experience = new ExperienceI(exp.totalExp());
         this.currentHP = new CurrentHPI(currentHP.val());
-        this.statusRank = new StatusRankI(sr.attack(), sr.block(), sr.contact(), sr.defense(), sr.speed(), sr.hitRate(), sr.avoidRate());
+        this.statusRank = new StatusRankI(sr.attack(), sr.block(), sr.contact(), sr.defence(), sr.speed(), sr.hitRate(), sr.avoidRate());
         this.ailment = ailment;
         this.flinch = flinch;
     }
@@ -261,8 +261,8 @@ public class PokeInfoI implements PokeInfo {
     }
 
     @Override
-    public PokeInfo withChStatusRank(int attack, int block, int contact, int defense, int speed, int hitRate, int avoidRate) {
-        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHP, this.statusRank.add(attack, block, contact, defense, speed, hitRate, avoidRate), this.ailment, this.flinch);
+    public PokeInfo withChStatusRank(int attack, int block, int contact, int defence, int speed, int hitRate, int avoidRate) {
+        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHP, this.statusRank.add(attack, block, contact, defence, speed, hitRate, avoidRate), this.ailment, this.flinch);
     }
 
     @Override

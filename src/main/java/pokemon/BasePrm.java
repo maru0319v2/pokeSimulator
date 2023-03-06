@@ -103,7 +103,7 @@ public enum BasePrm {
     private final int attack;
     private final int block;
     private final int contact;
-    private final int defense;
+    private final int defence;
     private final int speed;
     private final ExpType expType;
     private final int basicExp;
@@ -147,8 +147,8 @@ public enum BasePrm {
         return this.contact;
     }
 
-    public int defense() {
-        return this.defense;
+    public int defence() {
+        return this.defence;
     }
 
     public int speed() {

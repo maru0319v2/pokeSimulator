@@ -10,7 +10,7 @@ public class IndividualValueI implements IndividualValue {
     private final int attack;
     private final int block;
     private final int contact;
-    private final int defense;
+    private final int defence;
     private final int speed;
 
     public static IndividualValue initIndividualValue() {
@@ -23,16 +23,16 @@ public class IndividualValueI implements IndividualValue {
         this.attack = r.nextInt(32);
         this.block = r.nextInt(32);
         this.contact = r.nextInt(32);
-        this.defense = r.nextInt(32);
+        this.defence = r.nextInt(32);
         this.speed = r.nextInt(32);
     }
 
-    public IndividualValueI(int hp, int attack, int block, int contact, int defense, int speed) {
+    public IndividualValueI(int hp, int attack, int block, int contact, int defence, int speed) {
         this.hp = hp;
         this.attack = attack;
         this.block = block;
         this.contact = contact;
-        this.defense = defense;
+        this.defence = defence;
         this.speed = speed;
     }
 
@@ -52,8 +52,8 @@ public class IndividualValueI implements IndividualValue {
         return this.contact;
     }
 
-    public int defense() {
-        return this.defense;
+    public int defence() {
+        return this.defence;
     }
 
     public int speed() {
