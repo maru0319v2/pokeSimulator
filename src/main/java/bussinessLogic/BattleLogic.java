@@ -108,7 +108,7 @@ public class BattleLogic {
     private static int calcDamage(PokeInfo attackPoke, PokeInfo defencePoke, Field field, Move move) throws InterruptedException {
         // ダメージ計算参考　https://latest.pokewiki.net/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F
         // 攻撃側のレベル
-        int attackPokeLv = attackPoke.getLevel().value();
+        int attackPokeLv = attackPoke.getLevel().val();
         // 技の威力
         int moveDamage = move.baseMPrm().getDamage();
         // 技の分類

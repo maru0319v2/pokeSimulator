@@ -36,32 +36,32 @@ public class PokeInfoI implements PokeInfo {
     private final Flinch flinch;
 
     public int getRealValHitPoint() {
-        return ((this.basePrm.getHitPoint() * 2 + this.individualValue.hp() + (this.effortValue.hp() / 4)) * this.level.value() / 100) + 10 + this.level.value();
+        return ((this.basePrm.getHitPoint() * 2 + this.individualValue.hp() + (this.effortValue.hp() / 4)) * this.level.val() / 100) + 10 + this.level.val();
     }
 
     public int getRealValAttack() {
-        return (int) ((((this.basePrm.getAttack() * 2 + this.individualValue.attack() + (this.effortValue.attack() / 4)) * this.level.value() / 100) + 5) * this.nature.getAttackRate());
+        return (int) ((((this.basePrm.getAttack() * 2 + this.individualValue.attack() + (this.effortValue.attack() / 4)) * this.level.val() / 100) + 5) * this.nature.getAttackRate());
     }
 
     public int getRealValBlock() {
-        return (int) ((((this.basePrm.getBlock() * 2 + this.individualValue.block() + (this.effortValue.block() / 4)) * this.level.value() / 100) + 5) * this.nature.getBlockRate());
+        return (int) ((((this.basePrm.getBlock() * 2 + this.individualValue.block() + (this.effortValue.block() / 4)) * this.level.val() / 100) + 5) * this.nature.getBlockRate());
     }
 
     public int getRealValContact() {
-        return (int) ((((this.basePrm.getContact() * 2 + this.individualValue.contact() + (this.effortValue.contact() / 4)) * this.level.value() / 100) + 5) * this.nature.getContactRate());
+        return (int) ((((this.basePrm.getContact() * 2 + this.individualValue.contact() + (this.effortValue.contact() / 4)) * this.level.val() / 100) + 5) * this.nature.getContactRate());
     }
 
     public int getRealValDefense() {
-        return (int) ((((this.basePrm.getDefense() * 2 + this.individualValue.defense() + (this.effortValue.defense() / 4)) * this.level.value() / 100) + 5) * this.nature.getDefenceRate());
+        return (int) ((((this.basePrm.getDefense() * 2 + this.individualValue.defense() + (this.effortValue.defense() / 4)) * this.level.val() / 100) + 5) * this.nature.getDefenceRate());
     }
 
     public int getRealValSpeed() {
-        return (int) ((((this.basePrm.getSpeed() * 2 + this.individualValue.speed() + (this.effortValue.speed() / 4)) * this.level.value() / 100) + 5) * this.nature.getSpeedRate());
+        return (int) ((((this.basePrm.getSpeed() * 2 + this.individualValue.speed() + (this.effortValue.speed() / 4)) * this.level.val() / 100) + 5) * this.nature.getSpeedRate());
     }
 
     @Override
     public int giveExp() {
-        return this.getLevel().value() * this.getBasePrm().getBasicExperience() / 7;
+        return this.getLevel().val() * this.getBasePrm().getBasicExperience() / 7;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class PokeInfoI implements PokeInfo {
         showMessageParChar(result.getBasePrm().getName() + "は" + exp + "の経験値を獲得!");
         while (result.getExperience().isLevelUp(result)) {
             result = result.withLevel(1);
-            showMessageParChar(result.getBasePrm().getName() + "はLv." + result.getLevel().value() + "にレベルアップした!");
+            showMessageParChar(result.getBasePrm().getName() + "はLv." + result.getLevel().val() + "にレベルアップした!");
         }
         return result;
     }
@@ -157,7 +157,7 @@ public class PokeInfoI implements PokeInfo {
         this.nature = nature;
         this.individualValue = new IndividualValueI(individualValue.hp(), individualValue.attack(), individualValue.block(), individualValue.contact(), individualValue.defense(), individualValue.speed());
         this.effortValue = new EffortValueI(effortValue.hp(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());
-        this.level = new LevelI(level.value());
+        this.level = new LevelI(level.val());
         this.haveMove = haveMove;
         this.experience = new ExperienceI(0);
         this.currentHitPoint = new CurrentHPI(getRealValHitPoint());
@@ -185,7 +185,7 @@ public class PokeInfoI implements PokeInfo {
         this.nature = nature;
         this.individualValue = new IndividualValueI(individualValue.hp(), individualValue.attack(), individualValue.block(), individualValue.contact(), individualValue.defense(), individualValue.speed());
         this.effortValue = new EffortValueI(effortValue.hp(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());
-        this.level = new LevelI(level.value());
+        this.level = new LevelI(level.val());
         this.haveMove = haveMove;
         this.experience = new ExperienceI(experience.totalExp());
         this.currentHitPoint = new CurrentHPI(currentHitPoint.val());

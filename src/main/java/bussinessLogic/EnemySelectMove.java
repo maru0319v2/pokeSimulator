@@ -154,7 +154,7 @@ public class EnemySelectMove {
     // CPUが技を選択するときに事前にダメージ計算を行う為の処理、乱数固定、急所は当たらない
     private static int calcDamageForCPU(PokeInfo attackPoke, PokeInfo defencePoke, Field field, Move move) {
         // 攻撃側のレベル
-        int attackPokeLv = attackPoke.getLevel().value();
+        int attackPokeLv = attackPoke.getLevel().val();
         // 技の威力
         int moveDamage = move.baseMPrm().getDamage();
         // 技の分類

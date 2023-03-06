@@ -2,9 +2,9 @@ package pokemonStatus;
 
 // レベルを表現するクラス
 public interface Level {
-    public Level add();
+    Level add();
 
-    public int value();
+    int val();
 
-    public Level add(int value);
+    Level add(int value);
 }

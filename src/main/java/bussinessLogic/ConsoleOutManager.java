@@ -17,7 +17,7 @@ public class ConsoleOutManager {
         System.out.println("名前:" + target.getBasePrm().getName() + " ");
         System.out.println("タイプ1: " + target.getBasePrm().getType1().getValue() + " タイプ2: " + target.getBasePrm().getType2().getValue());
         System.out.println("状態: " + target.getStatusAilment().getValue());
-        System.out.print("レベル: " + target.getLevel().value());
+        System.out.print("レベル: " + target.getLevel().val());
         System.out.print("  次のレベルまで: " + target.getExperience().nextRequireExp(target) + " exp.");
         System.out.println("  総経験値: " + target.getExperience().totalExp() + " exp.");
 
@@ -96,7 +96,7 @@ public class ConsoleOutManager {
     public static void showPokemonInfo(PokeInfo myPokemon, PokeInfo enemyPokemon) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.print(enemyPokemon.getBasePrm().getName() + " " + enemyPokemon.getGender().getValue() + "    Lv." + enemyPokemon.getLevel().value());
+        System.out.print(enemyPokemon.getBasePrm().getName() + " " + enemyPokemon.getGender().getValue() + "    Lv." + enemyPokemon.getLevel().val());
         if (enemyPokemon.getStatusAilment().getValue() == AilmentE.FINE) {
             System.out.println("");
         } else {
@@ -111,7 +111,7 @@ public class ConsoleOutManager {
         System.out.println("");
         // ↑相手側　↓こっち側
         System.out.print("                        ");
-        System.out.print(myPokemon.getBasePrm().getName() + " " + myPokemon.getGender().getValue() + "    Lv." + myPokemon.getLevel().value());
+        System.out.print(myPokemon.getBasePrm().getName() + " " + myPokemon.getGender().getValue() + "    Lv." + myPokemon.getLevel().val());
         if (myPokemon.getStatusAilment().getValue() == AilmentE.FINE) {
             System.out.println("");
         } else {
@@ -128,7 +128,7 @@ public class ConsoleOutManager {
     public static void showParametersInBattle(PokeInfo target) {
         System.out.println("名前:" + target.getBasePrm().getName() + " ");
         System.out.println("タイプ1: " + target.getBasePrm().getType1().getValue() + " タイプ2: " + target.getBasePrm().getType2().getValue());
-        System.out.println("レベル: " + target.getLevel().value());
+        System.out.println("レベル: " + target.getLevel().val());
         System.out.print("HP: " + target.getCurrentHitPoint().val() + "/" + target.getRealValHitPoint() + " ");
         showProgressBar(target);
         System.out.println("");
