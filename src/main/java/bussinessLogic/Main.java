@@ -3,7 +3,6 @@ package bussinessLogic;
 import Enum.Gender;
 import Enum.Nature;
 import move.BaseMvPrm;
-import move.MoveI;
 import pokemon.BasePrm;
 import pokemon.PokeInfo;
 import pokemon.PokeInfoI;
@@ -14,6 +13,7 @@ import pokemonStatus.impl.LevelI;
 import java.util.List;
 import java.util.Scanner;
 
+import static move.MoveI.initMv;
 import static pokemon.PokeInfoI.initialize;
 
 // TODO やることリスト
@@ -81,7 +81,7 @@ public class Main {
                                 new IndividualValueI(10, 10, 10, 10, 10, 10),
                                 new EffortValueI(6, 0, 0, 252, 0, 252),
                                 new LevelI(50),
-                                List.of(new MoveI(BaseMvPrm.AIR_SLASH), new MoveI(BaseMvPrm.FLAMETHROWER), new MoveI(BaseMvPrm.WILL_O_WISP), new MoveI(BaseMvPrm.DOUBLE_TEAM))
+                                List.of(initMv(BaseMvPrm.AIR_SLASH), initMv(BaseMvPrm.FLAMETHROWER), initMv(BaseMvPrm.WILL_O_WISP), initMv(BaseMvPrm.DOUBLE_TEAM))
                         ),
                         new PokeInfoI(
                                 BasePrm.RHYDON,
@@ -90,7 +90,7 @@ public class Main {
                                 new IndividualValueI(10, 10, 10, 10, 10, 10),
                                 new EffortValueI(252, 0, 0, 252, 0, 6),
                                 new LevelI(50),
-                                List.of(new MoveI(BaseMvPrm.SLEEP_POWDER), new MoveI(BaseMvPrm.GIGA_DRAIN), new MoveI(BaseMvPrm.QUICK_ATTACK), new MoveI(BaseMvPrm.AERIAL_ACE))
+                                List.of(initMv(BaseMvPrm.SLEEP_POWDER), initMv(BaseMvPrm.GIGA_DRAIN), initMv(BaseMvPrm.QUICK_ATTACK), initMv(BaseMvPrm.AERIAL_ACE))
                         ));
             }
         }

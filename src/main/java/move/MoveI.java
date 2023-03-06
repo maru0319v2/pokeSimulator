@@ -1,23 +1,25 @@
 package move;
 
-import lombok.Getter;
 import pokemonStatus.CurrentPP;
 import pokemonStatus.impl.CurrentPPI;
 
 
-@Getter
 public class MoveI implements Move {
     BaseMvPrm baseMPrm;
-    CurrentPP currentPowerPoint;
+    CurrentPP currentPP;
 
-    public MoveI(BaseMvPrm baseMPrm) {
-        this.baseMPrm = baseMPrm;
-        this.currentPowerPoint = new CurrentPPI(baseMPrm().pp());
+    public static Move initMv(BaseMvPrm baseMPrm) {
+        return new MoveI(baseMPrm);
     }
 
-    public MoveI(Move move, CurrentPP currentPowerPoint) {
+    private MoveI(BaseMvPrm baseMPrm) {
+        this.baseMPrm = baseMPrm;
+        this.currentPP = new CurrentPPI(baseMPrm().pp());
+    }
+
+    public MoveI(Move move, CurrentPP currentPP) {
         this.baseMPrm = move.baseMPrm();
-        this.currentPowerPoint = currentPowerPoint;
+        this.currentPP = currentPP;
     }
 
     @Override
@@ -26,17 +28,17 @@ public class MoveI implements Move {
     }
 
     @Override
-    public CurrentPP getCurrentPowerPoint() {
-        return this.currentPowerPoint;
+    public CurrentPP currentPP() {
+        return this.currentPP;
     }
 
     @Override
-    public Move withCurrentPowerPoint(Move move, CurrentPP decrementedPowerPoint) {
+    public Move withCurrentPP(Move move, CurrentPP decrementedPowerPoint) {
         return new MoveI(move, decrementedPowerPoint);
     }
 
     @Override
     public boolean canUse() {
-        return this.getCurrentPowerPoint().val() > 0;
+        return this.currentPP().val() > 0;
     }
 }

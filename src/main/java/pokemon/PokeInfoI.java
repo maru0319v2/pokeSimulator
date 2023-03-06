@@ -149,8 +149,8 @@ public class PokeInfoI implements PokeInfo {
                 targetMoves = haveMove;
             }
         }
-        CurrentPP recoveredPP = targetMoves.getCurrentPowerPoint().recovery(targetMoves, new CurrentPPI(value));
-        Move recoveredPPMove = targetMoves.withCurrentPowerPoint(targetMoves, recoveredPP);
+        CurrentPP recoveredPP = targetMoves.currentPP().recovery(targetMoves, new CurrentPPI(value));
+        Move recoveredPPMove = targetMoves.withCurrentPP(targetMoves, recoveredPP);
         PokeInfo result = this.withMove(recoveredPPMove);
 
         return result;
@@ -168,8 +168,8 @@ public class PokeInfoI implements PokeInfo {
 
     @Override
     public PokeInfo decrementPP(Move usedMove) {
-        CurrentPP decrementedPowerPoint = usedMove.getCurrentPowerPoint().decrement(new CurrentPPI(1));
-        Move decrementedPPMove = usedMove.withCurrentPowerPoint(usedMove, decrementedPowerPoint);
+        CurrentPP decrementedPowerPoint = usedMove.currentPP().decrement(new CurrentPPI(1));
+        Move decrementedPPMove = usedMove.withCurrentPP(usedMove, decrementedPowerPoint);
         return this.withMove(decrementedPPMove);
     }
 

@@ -5,9 +5,10 @@ import Enum.Type;
 import lombok.AllArgsConstructor;
 import move.BaseMvPrm;
 import move.Move;
-import move.MoveI;
 
 import java.util.List;
+
+import static move.MoveI.initMv;
 
 @SuppressWarnings("ALL")
 @AllArgsConstructor
@@ -19,7 +20,7 @@ public enum BasePrm {
             45, 49, 49, 65, 65, 45,
             ExpType.TYPE1050000, 64,
             0, 0, 0, 1, 0, 0,
-            List.of(new MoveI(BaseMvPrm.TACKLE), new MoveI(BaseMvPrm.VINE_WHIP), new MoveI(BaseMvPrm.GROWL), new MoveI(BaseMvPrm.SWORDS_DANCE))
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.VINE_WHIP), initMv(BaseMvPrm.GROWL), initMv(BaseMvPrm.SWORDS_DANCE))
     ),
     IVYSAUR(
             "002", "フシギソウ",
@@ -27,7 +28,7 @@ public enum BasePrm {
             60, 62, 63, 80, 80, 60,
             ExpType.TYPE1050000, 142,
             0, 0, 0, 1, 1, 0,
-            List.of(new MoveI(BaseMvPrm.TACKLE), new MoveI(BaseMvPrm.VINE_WHIP), new MoveI(BaseMvPrm.GROWL), new MoveI(BaseMvPrm.SWORDS_DANCE))
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.VINE_WHIP), initMv(BaseMvPrm.GROWL), initMv(BaseMvPrm.SWORDS_DANCE))
     ),
     VENUSAUR(
             "003", "フシギバナ",
@@ -35,7 +36,7 @@ public enum BasePrm {
             80, 82, 83, 100, 100, 80,
             ExpType.TYPE1050000, 263,
             0, 0, 0, 2, 1, 0,
-            List.of(new MoveI(BaseMvPrm.TACKLE), new MoveI(BaseMvPrm.VINE_WHIP), new MoveI(BaseMvPrm.GROWL), new MoveI(BaseMvPrm.SWORDS_DANCE))
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.VINE_WHIP), initMv(BaseMvPrm.GROWL), initMv(BaseMvPrm.SWORDS_DANCE))
     ),
     CHARMANDER(
             "004", "ヒトカゲ",
@@ -43,7 +44,7 @@ public enum BasePrm {
             39, 52, 43, 60, 50, 65,
             ExpType.TYPE1050000, 62,
             0, 0, 0, 0, 0, 1,
-            List.of(new MoveI(BaseMvPrm.TACKLE), new MoveI(BaseMvPrm.GROWL))
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
     ),
     CHARMELEON(
             "005", "リザード",
@@ -51,7 +52,7 @@ public enum BasePrm {
             58, 64, 58, 80, 65, 80,
             ExpType.TYPE1050000, 142,
             0, 0, 0, 1, 0, 1,
-            List.of(new MoveI(BaseMvPrm.TACKLE), new MoveI(BaseMvPrm.GROWL))
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
     ),
     CHARIZARD(
             "006", "リザードン",
@@ -59,7 +60,7 @@ public enum BasePrm {
             78, 84, 78, 109, 85, 100,
             ExpType.TYPE1050000, 267,
             0, 0, 0, 3, 0, 0,
-            List.of(new MoveI(BaseMvPrm.TACKLE), new MoveI(BaseMvPrm.GROWL))
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
     ),
     SQUIRTLE(
             "007", "ゼニガメ",
@@ -67,7 +68,7 @@ public enum BasePrm {
             44, 48, 65, 50, 64, 43,
             ExpType.TYPE1050000, 63,
             0, 0, 1, 0, 0, 0,
-            List.of(new MoveI(BaseMvPrm.TACKLE), new MoveI(BaseMvPrm.GROWL))
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
     ),
     WARTORTLE(
             "008", "カメール",
@@ -75,7 +76,7 @@ public enum BasePrm {
             59, 63, 80, 65, 80, 58,
             ExpType.TYPE1050000, 142,
             0, 0, 1, 0, 1, 0,
-            List.of(new MoveI(BaseMvPrm.TACKLE), new MoveI(BaseMvPrm.GROWL))
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
     ),
     BLASTOISE(
             "009", "カメックス",
@@ -83,7 +84,7 @@ public enum BasePrm {
             79, 83, 100, 85, 105, 78,
             ExpType.TYPE1050000, 265,
             0, 0, 0, 0, 3, 0,
-            List.of(new MoveI(BaseMvPrm.TACKLE), new MoveI(BaseMvPrm.GROWL))
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
     ),
     RHYDON(
             "112", "サイドン",
@@ -91,7 +92,7 @@ public enum BasePrm {
             105, 130, 120, 45, 45, 40,
             ExpType.TYPE1250000, 170,
             0, 2, 0, 0, 0, 0,
-            List.of(new MoveI(BaseMvPrm.TACKLE), new MoveI(BaseMvPrm.GROWL))
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
     );
 
     private final String pokeDexNo;

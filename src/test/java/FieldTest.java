@@ -1,7 +1,6 @@
 import field.Field;
 import field.Weather;
 import move.BaseMvPrm;
-import move.MoveI;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pokemon.BasePrm;
@@ -9,6 +8,7 @@ import pokemon.PokeInfo;
 
 import static field.FieldI.changeField;
 import static field.FieldI.initializeField;
+import static move.MoveI.initMv;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static pokemon.PokeInfoI.initialize;
 
@@ -76,8 +76,8 @@ public class FieldTest {
         Field field = initializeField();
         field = changeField(field, Weather.DROUGHT);
 
-        double result1 = field.damageRateByWeather(new MoveI(BaseMvPrm.FLAMETHROWER));
-        double result2 = field.damageRateByWeather(new MoveI(BaseMvPrm.WATER_PULSE));
+        double result1 = field.damageRateByWeather(initMv(BaseMvPrm.FLAMETHROWER));
+        double result2 = field.damageRateByWeather(initMv(BaseMvPrm.WATER_PULSE));
 
         assertEquals(1.5, result1);
         assertEquals(0.5, result2);
@@ -89,8 +89,8 @@ public class FieldTest {
         Field field = initializeField();
         field = changeField(field, Weather.RAIN);
 
-        double result1 = field.damageRateByWeather(new MoveI(BaseMvPrm.FLAMETHROWER));
-        double result2 = field.damageRateByWeather(new MoveI(BaseMvPrm.WATER_PULSE));
+        double result1 = field.damageRateByWeather(initMv(BaseMvPrm.FLAMETHROWER));
+        double result2 = field.damageRateByWeather(initMv(BaseMvPrm.WATER_PULSE));
 
         assertEquals(0.5, result1);
         assertEquals(1.5, result2);

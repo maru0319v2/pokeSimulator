@@ -8,9 +8,9 @@ public interface Move {
     BaseMvPrm baseMPrm();
 
     // 現在のPP
-    CurrentPP getCurrentPowerPoint();
+    CurrentPP currentPP();
 
-    Move withCurrentPowerPoint(Move move, CurrentPP decrementedPowerPoint);
+    Move withCurrentPP(Move move, CurrentPP decrementedPowerPoint);
 
     boolean canUse();
 }
