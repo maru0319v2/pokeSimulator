@@ -1,9 +1,7 @@
 package move;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
-@Getter
 @AllArgsConstructor
 public enum DetailMvSpecies {
     // CPUの技選択時に使用する技の詳細な分類
@@ -28,5 +26,9 @@ public enum DetailMvSpecies {
     AILMENT("状態異常"),
     WEATHER("天候");
 
-    private final String value;
+    private final String val;
+
+    public String val() {
+        return this.val;
+    }
 }

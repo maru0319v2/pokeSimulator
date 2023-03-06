@@ -12,7 +12,7 @@ public class MoveI implements Move {
 
     public MoveI(BaseMvPrm baseMPrm) {
         this.baseMPrm = baseMPrm;
-        this.currentPowerPoint = new CurrentPPI(baseMPrm().getPowerPoint());
+        this.currentPowerPoint = new CurrentPPI(baseMPrm().pp());
     }
 
     public MoveI(Move move, CurrentPP currentPowerPoint) {

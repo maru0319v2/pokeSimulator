@@ -37,7 +37,7 @@ public class EnemySelectMove {
         // 回避ランクが2以上の場合、必中技を使用する
         List<Move> filteredMoves = null;
         if (avoidRank >= 2) {
-            filteredMoves = enemyPokemon.haveMove().stream().filter(e -> e.baseMPrm().getDetailedSpecies() == DetailMvSpecies.HIT).toList();
+            filteredMoves = enemyPokemon.haveMove().stream().filter(e -> e.baseMPrm().detailedSpecies() == DetailMvSpecies.HIT).toList();
         } else {
             filteredMoves = enemyPokemon.haveMove();
         }
@@ -59,7 +59,7 @@ public class EnemySelectMove {
         // 残HPが75%以下なら回復技を候補から外す
         List<Move> filteredMoves;
         if (remainingHPRate <= 75) {
-            filteredMoves = enemyPokemon.haveMove().stream().filter(e -> e.baseMPrm().getDetailedSpecies() != DetailMvSpecies.RECOVERY).toList();
+            filteredMoves = enemyPokemon.haveMove().stream().filter(e -> e.baseMPrm().detailedSpecies() != DetailMvSpecies.RECOVERY).toList();
         } else {
             filteredMoves = enemyPokemon.haveMove();
         }
@@ -77,7 +77,7 @@ public class EnemySelectMove {
         List<Move> filteredMoves;
         if (isAilment) {
             // すでに状態異常になっている場合、状態異常にする技以外でフィルターする
-            filteredMoves = enemyPokemon.haveMove().stream().filter(m -> m.baseMPrm().getDetailedSpecies() != DetailMvSpecies.AILMENT).toList();
+            filteredMoves = enemyPokemon.haveMove().stream().filter(m -> m.baseMPrm().detailedSpecies() != DetailMvSpecies.AILMENT).toList();
         } else {
             // 状態異常になっていない場合、すべての技を候補に入れる
             filteredMoves = enemyPokemon.haveMove();
@@ -130,7 +130,7 @@ public class EnemySelectMove {
     // 先制技を持っていてかつ、その技で相手を倒せる可能性がある場合は先制技を選択する。先制技で倒せない場合はすべての技から最大打点を選択。
     private static int highPriorityCanDefeat(PokeInfo enemyPokemon, PokeInfo myPokemon, Field field, int moveSize) {
         // 優先度1以上の技でフィルターする
-        List<Move> priorityMove = enemyPokemon.haveMove().stream().filter(m -> m.baseMPrm().getPriority() >= 1).toList();
+        List<Move> priorityMove = enemyPokemon.haveMove().stream().filter(m -> m.baseMPrm().priority() >= 1).toList();
         // 優先度1以上の技で仮ダメージ計算する
         List<Integer> damageList = new ArrayList<>(priorityMove.size());
         for (Move move : priorityMove) {
@@ -156,13 +156,13 @@ public class EnemySelectMove {
         // 攻撃側のレベル
         int attackPokeLv = attackPoke.level().val();
         // 技の威力
-        int moveDamage = move.baseMPrm().getDamage();
+        int moveDamage = move.baseMPrm().damage();
         // 技の分類
-        MoveSpecies moveSpecies = move.baseMPrm().getMoveSpecies();
+        MoveSpecies moveSpecies = move.baseMPrm().moveSpecies();
         // ダメージの乱数
         double randomNum = 93;
         // タイプ一致判定
-        boolean isTypeMatch = (Objects.equals(move.baseMPrm().getMoveType(), attackPoke.basePrm().type1())) || (Objects.equals(move.baseMPrm().getMoveType(), attackPoke.basePrm().type2()));
+        boolean isTypeMatch = (Objects.equals(move.baseMPrm().moveType(), attackPoke.basePrm().type1())) || (Objects.equals(move.baseMPrm().moveType(), attackPoke.basePrm().type2()));
         double typeMatchRate = isTypeMatch ? 1.5 : 1;
         // タイプ相性判定
         double effectiveRate = Type.damageRateByType(defencePoke.basePrm().type1(), defencePoke.basePrm().type2(), move);

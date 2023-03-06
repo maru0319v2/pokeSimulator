@@ -89,7 +89,7 @@ public class FieldI implements Field {
     }
 
     public double damageRateByWeather(Move move) {
-        Type useType = move.baseMPrm().getMoveType();
+        Type useType = move.baseMPrm().moveType();
         if (useType == Type.FIRE) {
             if (this.weather == Weather.DROUGHT) {
                 return 1.5;

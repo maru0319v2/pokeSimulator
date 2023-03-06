@@ -19,7 +19,7 @@ public class CurrentPPI implements CurrentPP {
             throw new IllegalArgumentException("PP回復量は1以上を指定してください。");
         }
         final int recovered = this.val() + currentPP.val();
-        int result = Math.min(recovered, target.baseMPrm().getPowerPoint());
+        int result = Math.min(recovered, target.baseMPrm().pp());
 
         return new CurrentPPI(result);
     }

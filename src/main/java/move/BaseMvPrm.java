@@ -6,7 +6,6 @@ import bussinessLogic.OnBattleField;
 import field.Field;
 import field.Weather;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import pokemon.PokeInfo;
 import pokemonStatus.impl.CurrentHPI;
 import pokemonStatus.impl.FlinchI;
@@ -18,7 +17,6 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 import static field.FieldI.changeField;
 import static statusAilment.AilmentI.changeAilment;
 
-@Getter
 @AllArgsConstructor
 public enum BaseMvPrm {
     /**
@@ -213,7 +211,7 @@ public enum BaseMvPrm {
     };
 
     // わざめい
-    private final String name;
+    private final String mvName;
     // わざタイプ
     private final Type moveType;
     // 分類
@@ -225,7 +223,7 @@ public enum BaseMvPrm {
     // 命中率
     private final int hitRate;
     // PP
-    private final int powerPoint;
+    private final int pp;
     // 急所ランク
     private final int criticalRank;
     // 優先度
@@ -242,6 +240,66 @@ public enum BaseMvPrm {
     private final boolean isSeizure;
     // みがわりを貫通できる
     private final boolean isPenetrationScapegoat;
+
+    public String mvName() {
+        return this.mvName;
+    }
+
+    public Type moveType() {
+        return this.moveType;
+    }
+
+    public MoveSpecies moveSpecies() {
+        return this.moveSpecies;
+    }
+
+    public DetailMvSpecies detailedSpecies() {
+        return this.detailedSpecies;
+    }
+
+    public int damage() {
+        return this.damage;
+    }
+
+    public int hitRate() {
+        return this.hitRate;
+    }
+
+    public int pp() {
+        return this.pp;
+    }
+
+    public int criticalRank() {
+        return this.criticalRank;
+    }
+
+    public int priority() {
+        return this.priority;
+    }
+
+    public boolean direct() {
+        return this.direct;
+    }
+
+    public boolean isReflect() {
+        return this.isReflect;
+    }
+
+    public boolean isParrot() {
+        return this.isParrot;
+    }
+
+    public boolean isPenetrationDefence() {
+        return this.isPenetrationDefence;
+    }
+
+    public boolean isSeizure() {
+        return this.isSeizure;
+    }
+
+    public boolean isPenetrationScapegoat() {
+        return this.isPenetrationScapegoat;
+    }
 
     // 効果
     public abstract OnBattleField effect(PokeInfo attackPoke, PokeInfo defensePoke, Field field, int recoveryHP) throws InterruptedException;

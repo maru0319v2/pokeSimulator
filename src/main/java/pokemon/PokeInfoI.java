@@ -274,7 +274,7 @@ public class PokeInfoI implements PokeInfo {
     public PokeInfo withMove(Move move) {
         List<Move> newMoves = new ArrayList<>(4);
         for (Move haveMove : this.haveMove) {
-            if (Objects.equals(move.baseMPrm().getName(), haveMove.baseMPrm().getName())) {
+            if (Objects.equals(move.baseMPrm().mvName(), haveMove.baseMPrm().mvName())) {
                 newMoves.add(move);
             } else {
                 newMoves.add(haveMove);
