@@ -37,7 +37,7 @@ public class AilmentI implements Ailment {
     }
 
     // 初期化したい場合
-    public static Ailment initializeAilment() {
+    public static Ailment initAilment() {
         return new AilmentI();
     }
 
@@ -108,7 +108,7 @@ public class AilmentI implements Ailment {
         if (this.val == AilmentE.SLEEP) {
             if (this.countRecoverySleep <= this.elapsedTurn + 1) {
                 showMessageParChar(pokeName + "はめをさました!");
-                return initializeAilment();
+                return initAilment();
             }
             return keepAilment(this.val, this.countRecoverySleep, this.elapsedTurn + 1);
         }
@@ -116,7 +116,7 @@ public class AilmentI implements Ailment {
         if (this.val == AilmentE.FREEZE) {
             if ((new Random().nextInt(5)) == 0) {
                 showMessageParChar(pokeName + "のこおりがとけた!");
-                return initializeAilment();
+                return initAilment();
             }
         }
         // その他の状態異常の場合、継続

@@ -14,7 +14,7 @@ public class EffortValueI implements EffortValue {
     private final int defense;
     private final int speed;
 
-    public static EffortValue initializeEffortValue() {
+    public static EffortValue initEffortValue() {
         return new EffortValueI();
     }
 

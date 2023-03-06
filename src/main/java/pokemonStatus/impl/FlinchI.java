@@ -14,7 +14,7 @@ public class FlinchI implements Flinch {
     }
 
     // 初期化のときに使う
-    public static Flinch initializeFlinch() {
+    public static Flinch initFlinch() {
         return new FlinchI();
     }
 

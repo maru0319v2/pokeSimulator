@@ -13,12 +13,12 @@ import java.util.List;
 import java.util.Objects;
 
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
-import static pokemonStatus.impl.EffortValueI.initializeEffortValue;
-import static pokemonStatus.impl.FlinchI.initializeFlinch;
-import static pokemonStatus.impl.IndividualValueI.initializeIndividualValue;
-import static pokemonStatus.impl.StatusRankI.initializeStatusRank;
+import static pokemonStatus.impl.EffortValueI.initEffortValue;
+import static pokemonStatus.impl.FlinchI.initFlinch;
+import static pokemonStatus.impl.IndividualValueI.initIndividualValue;
+import static pokemonStatus.impl.StatusRankI.initStatusRank;
 import static statusAilment.AilmentI.changeAilment;
-import static statusAilment.AilmentI.initializeAilment;
+import static statusAilment.AilmentI.initAilment;
 
 public class PokeInfoI implements PokeInfo {
     private final BasePrm basePrm;
@@ -179,17 +179,17 @@ public class PokeInfoI implements PokeInfo {
 
     private PokeInfoI(BasePrm basePrm) {
         this.basePrm = basePrm;
-        this.gender = Gender.initializeGender();
-        this.nature = Nature.initializeNature();
-        this.individualValue = initializeIndividualValue();
-        this.effortValue = initializeEffortValue();
+        this.gender = Gender.initGender();
+        this.nature = Nature.initNature();
+        this.individualValue = initIndividualValue();
+        this.effortValue = initEffortValue();
         this.level = new LevelI(5);
         this.haveMove = basePrm.initialMove();
         this.experience = new ExperienceI(135); // TODO 固定化したくない
         this.currentHP = new CurrentHPI(realHP());
-        this.statusRank = initializeStatusRank();
-        this.ailment = initializeAilment();
-        this.flinch = initializeFlinch();
+        this.statusRank = initStatusRank();
+        this.ailment = initAilment();
+        this.flinch = initFlinch();
     }
 
     // 指定パラメータポケモンインスタンスを作成する。
@@ -211,9 +211,9 @@ public class PokeInfoI implements PokeInfo {
         this.haveMove = haveMove;
         this.experience = new ExperienceI(0);
         this.currentHP = new CurrentHPI(realHP());
-        this.statusRank = initializeStatusRank();
-        this.ailment = initializeAilment();
-        this.flinch = initializeFlinch();
+        this.statusRank = initStatusRank();
+        this.ailment = initAilment();
+        this.flinch = initFlinch();
         // TODO　Builderパターンで作る
     }
 

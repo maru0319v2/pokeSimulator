@@ -13,7 +13,7 @@ public class IndividualValueI implements IndividualValue {
     private final int defense;
     private final int speed;
 
-    public static IndividualValue initializeIndividualValue() {
+    public static IndividualValue initIndividualValue() {
         return new IndividualValueI();
     }
 

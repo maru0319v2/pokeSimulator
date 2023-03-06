@@ -10,7 +10,7 @@ import static bussinessLogic.BattleLogic.isFirstMe;
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 import static bussinessLogic.ConsoleOutManager.showPokemonInfo;
 import static bussinessLogic.EnemySelectMove.enemySelectMove;
-import static field.FieldI.initializeField;
+import static field.FieldI.initField;
 
 public class BattleSimulation {
     public PokeInfo battleSimulation(PokeInfo myPoke, PokeInfo enemyPoke) throws InterruptedException {
@@ -20,7 +20,7 @@ public class BattleSimulation {
         showMessageParChar("ゆけっ!" + myPoke.basePrm().pName() + "!");
         Thread.sleep(500);
 
-        Field field = initializeField();
+        Field field = initField();
         OnBattleField onBF = new OnBattleField(myPoke, enemyPoke, field);
 
         while (onBF.isBothFine()) {

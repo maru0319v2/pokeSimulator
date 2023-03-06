@@ -7,13 +7,13 @@ import pokemonStatus.impl.StatusRankI;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static pokemon.PokeInfoI.initialize;
-import static pokemonStatus.impl.StatusRankI.initializeStatusRank;
+import static pokemonStatus.impl.StatusRankI.initStatusRank;
 
 public class StatusRankTest {
     @Test
     @DisplayName("引数なしコンストラクタを呼んだときにすべてのステータスランクが0になること")
     public void testStatusRank1() {
-        StatusRank sr = initializeStatusRank();
+        StatusRank sr = initStatusRank();
         int a = sr.attack();
         int b = sr.block();
         int c = sr.contact();
@@ -53,7 +53,7 @@ public class StatusRankTest {
     @Test
     @DisplayName("ステータスランクが正しく変化していること")
     public void testStatusRank3() {
-        StatusRank sr = initializeStatusRank();
+        StatusRank sr = initStatusRank();
         sr = sr.add(0, -2, -9, 2, 9, -3, 3);
         int a = sr.attack();
         int b = sr.block();

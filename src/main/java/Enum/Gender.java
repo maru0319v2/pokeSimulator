@@ -14,7 +14,7 @@ public enum Gender {
 
     public final String value;
 
-    public static Gender initializeGender() {
+    public static Gender initGender() {
         int index = new Random().nextInt(Gender.values().length);
         return Gender.values()[index];
     }

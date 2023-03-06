@@ -30,7 +30,7 @@ public class FieldI implements Field {
     }
 
     // 初期化したい場合
-    public static Field initializeField() {
+    public static Field initField() {
         return new FieldI();
     }
 
@@ -63,7 +63,7 @@ public class FieldI implements Field {
     public Field elapseTurn() throws InterruptedException {
         if (this.countForRecovery <= this.elapsedTurn + 1) {
             showUndoWeather(this.weather);
-            return initializeField();
+            return initField();
         }
         showKeepWeather(this.weather);
         return keepField(this.weather, this.elapsedTurn + 1, this.countForRecovery);

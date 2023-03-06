@@ -7,7 +7,7 @@ import pokemon.BasePrm;
 import pokemon.PokeInfo;
 
 import static field.FieldI.changeField;
-import static field.FieldI.initializeField;
+import static field.FieldI.initField;
 import static move.MoveI.initMv;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static pokemon.PokeInfoI.initialize;
@@ -17,7 +17,7 @@ public class FieldTest {
     @DisplayName("天候が上書きできること")
     public void test1() throws InterruptedException {
         // 初期化 天候なし
-        Field field = initializeField();
+        Field field = initField();
         assertEquals(Weather.NONE, field.getWeather());
 
         // 天候なし -> ひでり
@@ -33,7 +33,7 @@ public class FieldTest {
     @DisplayName("変更する天候がもとの天候と同じ場合上書きできないこと")
     public void test2() throws InterruptedException {
         // 初期化 天候なし
-        Field field = initializeField();
+        Field field = initField();
         assertEquals(Weather.NONE, field.getWeather());
 
         // 天候なし -> ひでり
@@ -52,7 +52,7 @@ public class FieldTest {
     @DisplayName("5ターン経過後にもとの天候にもどること")
     public void test3() throws InterruptedException {
         // 初期化 天候なし
-        Field field = initializeField();
+        Field field = initField();
         assertEquals(Weather.NONE, field.getWeather());
 
         // 天候なし -> ひでり
@@ -73,7 +73,7 @@ public class FieldTest {
     @Test
     @DisplayName("晴れのとき炎技が1.5倍、水技が0.5倍になること")
     public void test4() throws InterruptedException {
-        Field field = initializeField();
+        Field field = initField();
         field = changeField(field, Weather.DROUGHT);
 
         double result1 = field.damageRateByWeather(initMv(BaseMvPrm.FLAMETHROWER));
@@ -86,7 +86,7 @@ public class FieldTest {
     @Test
     @DisplayName("雨のとき炎技が0.5倍、水技が1.5倍になること")
     public void test5() throws InterruptedException {
-        Field field = initializeField();
+        Field field = initField();
         field = changeField(field, Weather.RAIN);
 
         double result1 = field.damageRateByWeather(initMv(BaseMvPrm.FLAMETHROWER));
@@ -102,7 +102,7 @@ public class FieldTest {
         PokeInfo myPoke1 = initialize(BasePrm.RHYDON);
         PokeInfo myPoke2 = initialize(BasePrm.CHARIZARD);
 
-        Field field = initializeField();
+        Field field = initField();
         double result1 = field.defenceRateBySandStorm(myPoke1);
         double result2 = field.defenceRateBySandStorm(myPoke2);
         assertEquals(1.0, result1);
