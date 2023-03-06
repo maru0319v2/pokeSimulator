@@ -14,7 +14,11 @@ public class EffortValueI implements EffortValue {
     private final int defense;
     private final int speed;
 
-    public EffortValueI() {
+    public static EffortValue initializeEffortValue() {
+        return new EffortValueI();
+    }
+
+    private EffortValueI() {
         this.hp = MIN;
         this.attack = MIN;
         this.block = MIN;

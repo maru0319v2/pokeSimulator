@@ -14,7 +14,9 @@ import java.util.List;
 import java.util.Objects;
 
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
+import static pokemonStatus.impl.EffortValueI.initializeEffortValue;
 import static pokemonStatus.impl.FlinchI.initializeFlinch;
+import static pokemonStatus.impl.IndividualValueI.initializeIndividualValue;
 import static statusAilment.AilmentI.changeAilment;
 import static statusAilment.AilmentI.initializeAilment;
 
@@ -34,7 +36,7 @@ public class PokeInfoI implements PokeInfo {
     private final Flinch flinch;
 
     public int getRealValHitPoint() {
-        return ((this.basePrm.getHitPoint() * 2 + this.individualValue.hitPoint() + (this.effortValue.hp() / 4)) * this.level.value() / 100) + 10 + this.level.value();
+        return ((this.basePrm.getHitPoint() * 2 + this.individualValue.hp() + (this.effortValue.hp() / 4)) * this.level.value() / 100) + 10 + this.level.value();
     }
 
     public int getRealValAttack() {
@@ -129,8 +131,8 @@ public class PokeInfoI implements PokeInfo {
         this.basePrm = basePokemonInfo;
         this.gender = Gender.decide();
         this.nature = Nature.decide();
-        this.individualValue = new IndividualValueI();
-        this.effortValue = new EffortValueI();
+        this.individualValue = initializeIndividualValue();
+        this.effortValue = initializeEffortValue();
         this.level = new LevelI(5);
         this.haveMove = basePokemonInfo.getInitialMove();
         this.experience = new ExperienceI(135); // TODO 固定化したくない
@@ -153,7 +155,7 @@ public class PokeInfoI implements PokeInfo {
         this.basePrm = basePokemonInfo;
         this.gender = gender;
         this.nature = nature;
-        this.individualValue = new IndividualValueI(individualValue.hitPoint(), individualValue.attack(), individualValue.block(), individualValue.contact(), individualValue.defense(), individualValue.speed());
+        this.individualValue = new IndividualValueI(individualValue.hp(), individualValue.attack(), individualValue.block(), individualValue.contact(), individualValue.defense(), individualValue.speed());
         this.effortValue = new EffortValueI(effortValue.hp(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());
         this.level = new LevelI(level.value());
         this.haveMove = haveMove;
@@ -181,7 +183,7 @@ public class PokeInfoI implements PokeInfo {
         this.basePrm = basePokemonInfo;
         this.gender = gender;
         this.nature = nature;
-        this.individualValue = new IndividualValueI(individualValue.hitPoint(), individualValue.attack(), individualValue.block(), individualValue.contact(), individualValue.defense(), individualValue.speed());
+        this.individualValue = new IndividualValueI(individualValue.hp(), individualValue.attack(), individualValue.block(), individualValue.contact(), individualValue.defense(), individualValue.speed());
         this.effortValue = new EffortValueI(effortValue.hp(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());
         this.level = new LevelI(level.value());
         this.haveMove = haveMove;

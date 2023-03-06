@@ -6,7 +6,12 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 
 public class FlinchI implements Flinch {
     // 怯んでいるならtrue,怯んでいないならfalse
-    private boolean value;
+    private final boolean val;
+
+    @Override
+    public boolean val() {
+        return this.val;
+    }
 
     // 初期化のときに使う
     public static Flinch initializeFlinch() {
@@ -14,16 +19,15 @@ public class FlinchI implements Flinch {
     }
 
     private FlinchI() {
-        this.value = false;
+        this.val = false;
     }
 
     public FlinchI(boolean value) {
-        this.value = value;
+        this.val = value;
     }
 
-
     public boolean canMove(String pokeName) throws InterruptedException {
-        if (this.value) {
+        if (this.val) {
             showMessageParChar(pokeName + "はひるんでうごけない!");
             return false;
         }

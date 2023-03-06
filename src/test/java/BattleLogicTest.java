@@ -8,14 +8,14 @@ import org.junit.jupiter.api.Test;
 import pokemon.BasePrm;
 import pokemon.PokeInfo;
 import pokemon.PokeInfoI;
-import pokemonStatus.impl.EffortValueI;
-import pokemonStatus.impl.IndividualValueI;
 import pokemonStatus.impl.LevelI;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static pokemonStatus.impl.EffortValueI.initializeEffortValue;
+import static pokemonStatus.impl.IndividualValueI.initializeIndividualValue;
 
 public class BattleLogicTest {
     @Test
@@ -25,8 +25,8 @@ public class BattleLogicTest {
                 BasePrm.CHARIZARD,
                 Gender.MALE,
                 Nature.MODEST,
-                new IndividualValueI(),
-                new EffortValueI(),
+                initializeIndividualValue(),
+                initializeEffortValue(),
                 new LevelI(5),
                 List.of(new MoveI(BaseMvPrm.QUICK_ATTACK))
         );
@@ -34,8 +34,8 @@ public class BattleLogicTest {
                 BasePrm.BLASTOISE,
                 Gender.MALE,
                 Nature.MODEST,
-                new IndividualValueI(),
-                new EffortValueI(),
+                initializeIndividualValue(),
+                initializeEffortValue(),
                 new LevelI(100),
                 List.of(new MoveI(BaseMvPrm.TACKLE))
         );

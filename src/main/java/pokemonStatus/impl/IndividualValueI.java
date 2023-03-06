@@ -6,25 +6,29 @@ import java.util.Random;
 
 // 個体値を表現するクラス
 public class IndividualValueI implements IndividualValue {
-    private final int hitPoint;
+    private final int hp;
     private final int attack;
     private final int block;
     private final int contact;
     private final int defense;
     private final int speed;
 
-    public IndividualValueI() {
-        Random rand = new Random();
-        this.hitPoint = rand.nextInt(32);
-        this.attack = rand.nextInt(32);
-        this.block = rand.nextInt(32);
-        this.contact = rand.nextInt(32);
-        this.defense = rand.nextInt(32);
-        this.speed = rand.nextInt(32);
+    public static IndividualValue initializeIndividualValue() {
+        return new IndividualValueI();
     }
 
-    public IndividualValueI(int hitPoint, int attack, int block, int contact, int defense, int speed) {
-        this.hitPoint = hitPoint;
+    private IndividualValueI() {
+        Random r = new Random();
+        this.hp = r.nextInt(32);
+        this.attack = r.nextInt(32);
+        this.block = r.nextInt(32);
+        this.contact = r.nextInt(32);
+        this.defense = r.nextInt(32);
+        this.speed = r.nextInt(32);
+    }
+
+    public IndividualValueI(int hp, int attack, int block, int contact, int defense, int speed) {
+        this.hp = hp;
         this.attack = attack;
         this.block = block;
         this.contact = contact;
@@ -32,8 +36,8 @@ public class IndividualValueI implements IndividualValue {
         this.speed = speed;
     }
 
-    public int hitPoint() {
-        return this.hitPoint;
+    public int hp() {
+        return this.hp;
     }
 
     public int attack() {
