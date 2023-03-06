@@ -2,272 +2,272 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pokemon.BasePrm;
 import pokemon.PokeInfo;
-import pokemon.PokeInfoImpl;
-import statusAilment.Ailment;
+import pokemon.PokeInfoI;
+import statusAilment.AilmentE;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static statusAilment.StatusAilmentImpl.changeAilment;
+import static statusAilment.AilmentI.changeAilment;
 
 public class StatusAilmentImplTest {
     @Test
     @DisplayName("やけど状態が健康とひんし状態以外に上書きされないこと")
     public void test1() throws InterruptedException {
-        PokeInfo poke1 = new PokeInfoImpl(BasePrm.BULBASAUR);
-        PokeInfo poke2 = new PokeInfoImpl(BasePrm.CHARIZARD);
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.BURN));
-        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.BURN));
+        PokeInfo poke1 = new PokeInfoI(BasePrm.BULBASAUR);
+        PokeInfo poke2 = new PokeInfoI(BasePrm.CHARIZARD);
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BURN));
+        poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.BURN));
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.POISON));
-        assertEquals(Ailment.BURN, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.POISON));
+        assertEquals(AilmentE.BURN, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.BAD_POISON));
-        assertEquals(Ailment.BURN, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BAD_POISON));
+        assertEquals(AilmentE.BURN, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.PARALYSIS));
-        assertEquals(Ailment.BURN, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.PARALYSIS));
+        assertEquals(AilmentE.BURN, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.SLEEP));
-        assertEquals(Ailment.BURN, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.SLEEP));
+        assertEquals(AilmentE.BURN, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FREEZE));
-        assertEquals(Ailment.BURN, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FREEZE));
+        assertEquals(AilmentE.BURN, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FAINTING));
-        assertEquals(Ailment.FAINTING, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FAINTING));
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
 
-        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.FINE));
-        assertEquals(Ailment.FINE, poke2.getStatusAilment().getValue());
+        poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.FINE));
+        assertEquals(AilmentE.FINE, poke2.getStatusAilment().getValue());
     }
 
     @Test
     @DisplayName("こおり状態が健康とひんし状態以外に上書きされないこと")
     public void test2() throws InterruptedException {
-        PokeInfo poke1 = new PokeInfoImpl(BasePrm.BULBASAUR);
-        PokeInfo poke2 = new PokeInfoImpl(BasePrm.CHARIZARD);
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FREEZE));
-        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.FREEZE));
+        PokeInfo poke1 = new PokeInfoI(BasePrm.BULBASAUR);
+        PokeInfo poke2 = new PokeInfoI(BasePrm.CHARIZARD);
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FREEZE));
+        poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.FREEZE));
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.POISON));
-        assertEquals(Ailment.FREEZE, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.POISON));
+        assertEquals(AilmentE.FREEZE, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.BAD_POISON));
-        assertEquals(Ailment.FREEZE, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BAD_POISON));
+        assertEquals(AilmentE.FREEZE, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.PARALYSIS));
-        assertEquals(Ailment.FREEZE, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.PARALYSIS));
+        assertEquals(AilmentE.FREEZE, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.SLEEP));
-        assertEquals(Ailment.FREEZE, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.SLEEP));
+        assertEquals(AilmentE.FREEZE, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.BURN));
-        assertEquals(Ailment.FREEZE, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BURN));
+        assertEquals(AilmentE.FREEZE, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FAINTING));
-        assertEquals(Ailment.FAINTING, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FAINTING));
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
 
-        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.FINE));
-        assertEquals(Ailment.FINE, poke2.getStatusAilment().getValue());
+        poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.FINE));
+        assertEquals(AilmentE.FINE, poke2.getStatusAilment().getValue());
     }
 
     @Test
     @DisplayName("まひ状態が健康とひんし状態以外に上書きされないこと")
     public void test3() throws InterruptedException {
-        PokeInfo poke1 = new PokeInfoImpl(BasePrm.BULBASAUR);
-        PokeInfo poke2 = new PokeInfoImpl(BasePrm.CHARIZARD);
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.PARALYSIS));
-        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.PARALYSIS));
+        PokeInfo poke1 = new PokeInfoI(BasePrm.BULBASAUR);
+        PokeInfo poke2 = new PokeInfoI(BasePrm.CHARIZARD);
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.PARALYSIS));
+        poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.PARALYSIS));
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.POISON));
-        assertEquals(Ailment.PARALYSIS, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.POISON));
+        assertEquals(AilmentE.PARALYSIS, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.BAD_POISON));
-        assertEquals(Ailment.PARALYSIS, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BAD_POISON));
+        assertEquals(AilmentE.PARALYSIS, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FREEZE));
-        assertEquals(Ailment.PARALYSIS, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FREEZE));
+        assertEquals(AilmentE.PARALYSIS, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.SLEEP));
-        assertEquals(Ailment.PARALYSIS, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.SLEEP));
+        assertEquals(AilmentE.PARALYSIS, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.BURN));
-        assertEquals(Ailment.PARALYSIS, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BURN));
+        assertEquals(AilmentE.PARALYSIS, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FAINTING));
-        assertEquals(Ailment.FAINTING, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FAINTING));
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
 
-        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.FINE));
-        assertEquals(Ailment.FINE, poke2.getStatusAilment().getValue());
+        poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.FINE));
+        assertEquals(AilmentE.FINE, poke2.getStatusAilment().getValue());
     }
 
     @Test
     @DisplayName("どく状態が健康とひんし状態以外に上書きされないこと")
     public void test4() throws InterruptedException {
-        PokeInfo poke1 = new PokeInfoImpl(BasePrm.BULBASAUR);
-        PokeInfo poke2 = new PokeInfoImpl(BasePrm.CHARIZARD);
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.POISON));
-        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.POISON));
+        PokeInfo poke1 = new PokeInfoI(BasePrm.BULBASAUR);
+        PokeInfo poke2 = new PokeInfoI(BasePrm.CHARIZARD);
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.POISON));
+        poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.POISON));
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.PARALYSIS));
-        assertEquals(Ailment.POISON, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.PARALYSIS));
+        assertEquals(AilmentE.POISON, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.BAD_POISON));
-        assertEquals(Ailment.POISON, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BAD_POISON));
+        assertEquals(AilmentE.POISON, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FREEZE));
-        assertEquals(Ailment.POISON, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FREEZE));
+        assertEquals(AilmentE.POISON, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.SLEEP));
-        assertEquals(Ailment.POISON, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.SLEEP));
+        assertEquals(AilmentE.POISON, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.BURN));
-        assertEquals(Ailment.POISON, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BURN));
+        assertEquals(AilmentE.POISON, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FAINTING));
-        assertEquals(Ailment.FAINTING, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FAINTING));
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
 
-        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.FINE));
-        assertEquals(Ailment.FINE, poke2.getStatusAilment().getValue());
+        poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.FINE));
+        assertEquals(AilmentE.FINE, poke2.getStatusAilment().getValue());
     }
 
     @Test
     @DisplayName("もうどく状態が健康とひんし状態以外に上書きされないこと")
     public void test5() throws InterruptedException {
-        PokeInfo poke1 = new PokeInfoImpl(BasePrm.BULBASAUR);
-        PokeInfo poke2 = new PokeInfoImpl(BasePrm.CHARIZARD);
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.BAD_POISON));
-        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.BAD_POISON));
+        PokeInfo poke1 = new PokeInfoI(BasePrm.BULBASAUR);
+        PokeInfo poke2 = new PokeInfoI(BasePrm.CHARIZARD);
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BAD_POISON));
+        poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.BAD_POISON));
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.PARALYSIS));
-        assertEquals(Ailment.BAD_POISON, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.PARALYSIS));
+        assertEquals(AilmentE.BAD_POISON, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.POISON));
-        assertEquals(Ailment.BAD_POISON, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.POISON));
+        assertEquals(AilmentE.BAD_POISON, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FREEZE));
-        assertEquals(Ailment.BAD_POISON, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FREEZE));
+        assertEquals(AilmentE.BAD_POISON, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.SLEEP));
-        assertEquals(Ailment.BAD_POISON, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.SLEEP));
+        assertEquals(AilmentE.BAD_POISON, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.BURN));
-        assertEquals(Ailment.BAD_POISON, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BURN));
+        assertEquals(AilmentE.BAD_POISON, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FAINTING));
-        assertEquals(Ailment.FAINTING, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FAINTING));
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
 
-        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.FINE));
-        assertEquals(Ailment.FINE, poke2.getStatusAilment().getValue());
+        poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.FINE));
+        assertEquals(AilmentE.FINE, poke2.getStatusAilment().getValue());
     }
 
     @Test
     @DisplayName("ねむり状態が健康とひんし状態以外に上書きされないこと")
     public void test6() throws InterruptedException {
-        PokeInfo poke1 = new PokeInfoImpl(BasePrm.BULBASAUR);
-        PokeInfo poke2 = new PokeInfoImpl(BasePrm.CHARIZARD);
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.SLEEP));
-        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.SLEEP));
+        PokeInfo poke1 = new PokeInfoI(BasePrm.BULBASAUR);
+        PokeInfo poke2 = new PokeInfoI(BasePrm.CHARIZARD);
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.SLEEP));
+        poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.SLEEP));
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.PARALYSIS));
-        assertEquals(Ailment.SLEEP, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.PARALYSIS));
+        assertEquals(AilmentE.SLEEP, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.POISON));
-        assertEquals(Ailment.SLEEP, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.POISON));
+        assertEquals(AilmentE.SLEEP, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FREEZE));
-        assertEquals(Ailment.SLEEP, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FREEZE));
+        assertEquals(AilmentE.SLEEP, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.BAD_POISON));
-        assertEquals(Ailment.SLEEP, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BAD_POISON));
+        assertEquals(AilmentE.SLEEP, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.BURN));
-        assertEquals(Ailment.SLEEP, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BURN));
+        assertEquals(AilmentE.SLEEP, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FAINTING));
-        assertEquals(Ailment.FAINTING, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FAINTING));
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
 
-        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.FINE));
-        assertEquals(Ailment.FINE, poke2.getStatusAilment().getValue());
+        poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.FINE));
+        assertEquals(AilmentE.FINE, poke2.getStatusAilment().getValue());
     }
 
     @Test
     @DisplayName("ひんし状態が健康と状態以外に上書きされないこと")
     public void test7() throws InterruptedException {
-        PokeInfo poke1 = new PokeInfoImpl(BasePrm.BULBASAUR);
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FAINTING));
+        PokeInfo poke1 = new PokeInfoI(BasePrm.BULBASAUR);
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FAINTING));
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.PARALYSIS));
-        assertEquals(Ailment.FAINTING, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.PARALYSIS));
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.POISON));
-        assertEquals(Ailment.FAINTING, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.POISON));
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FREEZE));
-        assertEquals(Ailment.FAINTING, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FREEZE));
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.BAD_POISON));
-        assertEquals(Ailment.FAINTING, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BAD_POISON));
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.BURN));
-        assertEquals(Ailment.FAINTING, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.BURN));
+        assertEquals(AilmentE.FAINTING, poke1.getStatusAilment().getValue());
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.FINE));
-        assertEquals(Ailment.FINE, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.FINE));
+        assertEquals(AilmentE.FINE, poke1.getStatusAilment().getValue());
     }
 
     @Test
     @DisplayName("健康状態がすべての状態に上書きできること")
     public void test8() throws InterruptedException {
-        PokeInfo poke1 = new PokeInfoImpl(BasePrm.BULBASAUR);
-        PokeInfo poke2 = new PokeInfoImpl(BasePrm.BULBASAUR);
-        PokeInfo poke3 = new PokeInfoImpl(BasePrm.BULBASAUR);
-        PokeInfo poke4 = new PokeInfoImpl(BasePrm.BULBASAUR);
-        PokeInfo poke5 = new PokeInfoImpl(BasePrm.BULBASAUR);
-        PokeInfo poke6 = new PokeInfoImpl(BasePrm.BULBASAUR);
+        PokeInfo poke1 = new PokeInfoI(BasePrm.BULBASAUR);
+        PokeInfo poke2 = new PokeInfoI(BasePrm.BULBASAUR);
+        PokeInfo poke3 = new PokeInfoI(BasePrm.BULBASAUR);
+        PokeInfo poke4 = new PokeInfoI(BasePrm.BULBASAUR);
+        PokeInfo poke5 = new PokeInfoI(BasePrm.BULBASAUR);
+        PokeInfo poke6 = new PokeInfoI(BasePrm.BULBASAUR);
 
-        poke1 = poke1.withStatusAilment(changeAilment(poke1, Ailment.PARALYSIS));
-        assertEquals(Ailment.PARALYSIS, poke1.getStatusAilment().getValue());
+        poke1 = poke1.withStatusAilment(changeAilment(poke1, AilmentE.PARALYSIS));
+        assertEquals(AilmentE.PARALYSIS, poke1.getStatusAilment().getValue());
 
-        poke2 = poke2.withStatusAilment(changeAilment(poke2, Ailment.POISON));
-        assertEquals(Ailment.POISON, poke2.getStatusAilment().getValue());
+        poke2 = poke2.withStatusAilment(changeAilment(poke2, AilmentE.POISON));
+        assertEquals(AilmentE.POISON, poke2.getStatusAilment().getValue());
 
-        poke3 = poke3.withStatusAilment(changeAilment(poke3, Ailment.FREEZE));
-        assertEquals(Ailment.FREEZE, poke3.getStatusAilment().getValue());
+        poke3 = poke3.withStatusAilment(changeAilment(poke3, AilmentE.FREEZE));
+        assertEquals(AilmentE.FREEZE, poke3.getStatusAilment().getValue());
 
-        poke4 = poke4.withStatusAilment(changeAilment(poke4, Ailment.BAD_POISON));
-        assertEquals(Ailment.BAD_POISON, poke4.getStatusAilment().getValue());
+        poke4 = poke4.withStatusAilment(changeAilment(poke4, AilmentE.BAD_POISON));
+        assertEquals(AilmentE.BAD_POISON, poke4.getStatusAilment().getValue());
 
-        poke5 = poke5.withStatusAilment(changeAilment(poke5, Ailment.BURN));
-        assertEquals(Ailment.BURN, poke5.getStatusAilment().getValue());
+        poke5 = poke5.withStatusAilment(changeAilment(poke5, AilmentE.BURN));
+        assertEquals(AilmentE.BURN, poke5.getStatusAilment().getValue());
 
-        poke6 = poke6.withStatusAilment(changeAilment(poke6, Ailment.FAINTING));
-        assertEquals(Ailment.FAINTING, poke6.getStatusAilment().getValue());
+        poke6 = poke6.withStatusAilment(changeAilment(poke6, AilmentE.FAINTING));
+        assertEquals(AilmentE.FAINTING, poke6.getStatusAilment().getValue());
     }
 
     @Test
     @DisplayName("ねむり状態が1ターン経過後は継続され行動できず、5ターン経過後は解除され行動できること")
     public void test9() throws InterruptedException {
-        PokeInfo myPokemon = new PokeInfoImpl(BasePrm.BULBASAUR);
-        myPokemon = myPokemon.withStatusAilment(changeAilment(myPokemon, Ailment.SLEEP));
+        PokeInfo myPokemon = new PokeInfoI(BasePrm.BULBASAUR);
+        myPokemon = myPokemon.withStatusAilment(changeAilment(myPokemon, AilmentE.SLEEP));
         myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
         // 1ターン経過後
-        assertEquals(Ailment.SLEEP, myPokemon.getStatusAilment().getValue());
+        assertEquals(AilmentE.SLEEP, myPokemon.getStatusAilment().getValue());
         assertFalse(myPokemon.getStatusAilment().canMove(myPokemon.getBasePrm().getName()));
         myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
         myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
         myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
         myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
         // 5ターン経過後
-        assertEquals(Ailment.FINE, myPokemon.getStatusAilment().getValue());
+        assertEquals(AilmentE.FINE, myPokemon.getStatusAilment().getValue());
         assertTrue(myPokemon.getStatusAilment().canMove(myPokemon.getBasePrm().getName()));
     }
 
     @Test
     @DisplayName("ねむり状態から0ターン経過後、新たにねむり状態になってもねむり解除ターンがリセットされないこと")
     public void test10() throws InterruptedException {
-        PokeInfo poke = new PokeInfoImpl(BasePrm.BULBASAUR);
-        poke = poke.withStatusAilment(changeAilment(poke, Ailment.SLEEP));
+        PokeInfo poke = new PokeInfoI(BasePrm.BULBASAUR);
+        poke = poke.withStatusAilment(changeAilment(poke, AilmentE.SLEEP));
         int beforeCount = poke.getStatusAilment().getCountRecoverySleep();
-        poke = poke.withStatusAilment(changeAilment(poke, Ailment.SLEEP));
+        poke = poke.withStatusAilment(changeAilment(poke, AilmentE.SLEEP));
         int afterCount = poke.getStatusAilment().getCountRecoverySleep();
 
         assertEquals(beforeCount, afterCount);
@@ -276,10 +276,10 @@ public class StatusAilmentImplTest {
     @Test
     @DisplayName("ねむり状態から1ターン経過後、新たにねむり状態になっても経過ターンがリセットされないこと")
     public void test11() throws InterruptedException {
-        PokeInfo poke = new PokeInfoImpl(BasePrm.BULBASAUR);
-        poke = poke.withStatusAilment(changeAilment(poke, Ailment.SLEEP));
+        PokeInfo poke = new PokeInfoI(BasePrm.BULBASAUR);
+        poke = poke.withStatusAilment(changeAilment(poke, AilmentE.SLEEP));
         poke = poke.withStatusAilment(poke.getStatusAilment().comeTurn(poke.getBasePrm().getName()));
-        poke = poke.withStatusAilment(changeAilment(poke, Ailment.SLEEP));
+        poke = poke.withStatusAilment(changeAilment(poke, AilmentE.SLEEP));
 
         assertEquals(1, poke.getStatusAilment().getElapsedTurn());
     }
@@ -287,9 +287,9 @@ public class StatusAilmentImplTest {
     @Test
     @DisplayName("やけど状態によるダメージ倍率が正しいこと")
     public void test12() throws InterruptedException {
-        PokeInfo myPokemon1 = new PokeInfoImpl(BasePrm.CHARMANDER);
-        PokeInfo myPokemon2 = new PokeInfoImpl(BasePrm.SQUIRTLE);
-        myPokemon1 = myPokemon1.withStatusAilment(changeAilment(myPokemon1, Ailment.BURN));
+        PokeInfo myPokemon1 = new PokeInfoI(BasePrm.CHARMANDER);
+        PokeInfo myPokemon2 = new PokeInfoI(BasePrm.SQUIRTLE);
+        myPokemon1 = myPokemon1.withStatusAilment(changeAilment(myPokemon1, AilmentE.BURN));
 
         assertEquals(0.5, myPokemon1.getStatusAilment().damageRateByBurn());
         assertEquals(1.0, myPokemon2.getStatusAilment().damageRateByBurn());

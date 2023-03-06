@@ -4,7 +4,7 @@ import Enum.Gender;
 import Enum.Nature;
 import move.Move;
 import pokemonStatus.*;
-import statusAilment.StatusAilment;
+import statusAilment.Ailment;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public interface PokeInfo {
     List<Move> getHaveMove();
 
     // 現在の残りHP
-    CurrentHitPoint getCurrentHitPoint();
+    CurrentHP getCurrentHitPoint();
 
     // HP実数値
     int getRealValHitPoint();
@@ -62,7 +62,7 @@ public interface PokeInfo {
     Flinch getFlinch();
 
     // 状態異常1
-    StatusAilment getStatusAilment();
+    Ailment getStatusAilment();
 
     // 与える経験値
     int giveExp();
@@ -85,7 +85,7 @@ public interface PokeInfo {
     // PPを使う
     PokeInfo decrementPowerPoint(Move usedMove);
 
-    PokeInfo withCurrentHitPoint(CurrentHitPoint currentHitPoint);
+    PokeInfo withCurrentHitPoint(CurrentHP currentHitPoint);
 
     PokeInfo withExperience(int addingExperience);
 
@@ -97,7 +97,7 @@ public interface PokeInfo {
 
     PokeInfo withMove(Move move);
 
-    PokeInfo withStatusAilment(StatusAilment statusAilment);
+    PokeInfo withStatusAilment(Ailment statusAilment);
 
     PokeInfo withFlinch(Flinch flinch);
 }

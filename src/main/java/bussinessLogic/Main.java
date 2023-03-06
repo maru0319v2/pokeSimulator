@@ -2,14 +2,14 @@ package bussinessLogic;
 
 import Enum.Gender;
 import Enum.Nature;
-import move.BaseMPrm;
-import move.MoveImpl;
+import move.BaseMvPrm;
+import move.MoveI;
 import pokemon.BasePrm;
 import pokemon.PokeInfo;
-import pokemon.PokeInfoImpl;
-import pokemonStatus.impl.EffortValueImpl;
-import pokemonStatus.impl.IndividualValueImpl;
-import pokemonStatus.impl.LevelImpl;
+import pokemon.PokeInfoI;
+import pokemonStatus.impl.EffortValueI;
+import pokemonStatus.impl.IndividualValueI;
+import pokemonStatus.impl.LevelI;
 
 import java.util.List;
 import java.util.Scanner;
@@ -45,7 +45,7 @@ public class Main {
 //                case "3" -> myPokemon = new PokemonInfoImpl(BasePrm.SQUIRTLE);
 //            }
 //        }
-        myPokemon = new PokeInfoImpl(BasePrm.BULBASAUR);
+        myPokemon = new PokeInfoI(BasePrm.BULBASAUR);
 
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -70,25 +70,25 @@ public class Main {
                 case "e" -> myPokemon = myPokemon.addExp(200);
                 case "r" -> myPokemon = myPokemon.recoveryAll();
                 case "b" ->
-                        myPokemon = new BattleSimulation().battleSimulation(myPokemon, new PokeInfoImpl(BasePrm.CHARMANDER));
+                        myPokemon = new BattleSimulation().battleSimulation(myPokemon, new PokeInfoI(BasePrm.CHARMANDER));
                 case "f" -> myPokemon = new BattleSimulation().battleSimulation(
-                        new PokeInfoImpl(
+                        new PokeInfoI(
                                 BasePrm.CHARIZARD,
                                 Gender.MALE,
                                 Nature.MODEST,
-                                new IndividualValueImpl(10, 10, 10, 10, 10, 10),
-                                new EffortValueImpl(6, 0, 0, 252, 0, 252),
-                                new LevelImpl(50),
-                                List.of(new MoveImpl(BaseMPrm.AIR_SLASH), new MoveImpl(BaseMPrm.FLAMETHROWER), new MoveImpl(BaseMPrm.WILL_O_WISP), new MoveImpl(BaseMPrm.DOUBLE_TEAM))
+                                new IndividualValueI(10, 10, 10, 10, 10, 10),
+                                new EffortValueI(6, 0, 0, 252, 0, 252),
+                                new LevelI(50),
+                                List.of(new MoveI(BaseMvPrm.AIR_SLASH), new MoveI(BaseMvPrm.FLAMETHROWER), new MoveI(BaseMvPrm.WILL_O_WISP), new MoveI(BaseMvPrm.DOUBLE_TEAM))
                         ),
-                        new PokeInfoImpl(
+                        new PokeInfoI(
                                 BasePrm.RHYDON,
                                 Gender.MALE,
                                 Nature.MODEST,
-                                new IndividualValueImpl(10, 10, 10, 10, 10, 10),
-                                new EffortValueImpl(252, 0, 0, 252, 0, 6),
-                                new LevelImpl(50),
-                                List.of(new MoveImpl(BaseMPrm.SLEEP_POWDER), new MoveImpl(BaseMPrm.GIGA_DRAIN), new MoveImpl(BaseMPrm.QUICK_ATTACK), new MoveImpl(BaseMPrm.AERIAL_ACE))
+                                new IndividualValueI(10, 10, 10, 10, 10, 10),
+                                new EffortValueI(252, 0, 0, 252, 0, 6),
+                                new LevelI(50),
+                                List.of(new MoveI(BaseMvPrm.SLEEP_POWDER), new MoveI(BaseMvPrm.GIGA_DRAIN), new MoveI(BaseMvPrm.QUICK_ATTACK), new MoveI(BaseMvPrm.AERIAL_ACE))
                         ));
             }
         }

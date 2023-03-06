@@ -5,7 +5,7 @@ import pokemon.PokeInfo;
 import pokemonStatus.StatusRank;
 
 @Getter
-public class StatusRankImpl implements StatusRank {
+public class StatusRankI implements StatusRank {
     private static final int MIN = -6;
     private static final int MAX = 6;
     private final int attack;
@@ -16,7 +16,7 @@ public class StatusRankImpl implements StatusRank {
     private final int hitRate;
     private final int avoidRate;
 
-    public StatusRankImpl() {
+    public StatusRankI() {
         this.attack = 0;
         this.block = 0;
         this.contact = 0;
@@ -26,7 +26,7 @@ public class StatusRankImpl implements StatusRank {
         this.avoidRate = 0;
     }
 
-    public StatusRankImpl(int attack, int block, int contact, int defense, int speed, int hitRate, int avoidRate) {
+    public StatusRankI(int attack, int block, int contact, int defense, int speed, int hitRate, int avoidRate) {
         int resultAttack;
         if (attack < MIN) {
             resultAttack = MIN;
@@ -71,7 +71,7 @@ public class StatusRankImpl implements StatusRank {
         this.avoidRate = resultAvoidRate;
     }
 
-    public StatusRankImpl add(final int attack, final int block, final int contact, final int defense, final int speed, final int hitRate, final int avoidRate) {
+    public StatusRankI add(final int attack, final int block, final int contact, final int defense, final int speed, final int hitRate, final int avoidRate) {
         int addedAttack = this.attack + attack;
         int addedBlock = this.block + block;
         int addedContact = this.contact + contact;
@@ -80,11 +80,11 @@ public class StatusRankImpl implements StatusRank {
         int addedHitRate = this.hitRate + hitRate;
         int addedAvoidRate = this.avoidRate + avoidRate;
 
-        return new StatusRankImpl(addedAttack, addedBlock, addedContact, addedDefense, addedSpeed, addedHitRate, addedAvoidRate);
+        return new StatusRankI(addedAttack, addedBlock, addedContact, addedDefense, addedSpeed, addedHitRate, addedAvoidRate);
     }
 
-    public StatusRankImpl reset() {
-        return new StatusRankImpl(0, 0, 0, 0, 0, 0, 0);
+    public StatusRankI reset() {
+        return new StatusRankI(0, 0, 0, 0, 0, 0, 0);
     }
 
     public double attackRateByStatusRank() {

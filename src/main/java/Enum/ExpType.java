@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum ExperienceType {
+public enum ExpType {
     TYPE600000("600,000タイプ"),
     TYPE800000("800,000タイプ"),
     TYPE1000000("1,000,000タイプ"),

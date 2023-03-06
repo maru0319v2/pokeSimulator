@@ -5,7 +5,7 @@ import pokemonStatus.IndividualValue;
 import java.util.Random;
 
 // 個体値を表現するクラス
-public class IndividualValueImpl implements IndividualValue {
+public class IndividualValueI implements IndividualValue {
     private final int hitPoint;
     private final int attack;
     private final int block;
@@ -13,7 +13,7 @@ public class IndividualValueImpl implements IndividualValue {
     private final int defense;
     private final int speed;
 
-    public IndividualValueImpl(){
+    public IndividualValueI() {
         Random rand = new Random();
         this.hitPoint = rand.nextInt(32);
         this.attack = rand.nextInt(32);
@@ -23,7 +23,7 @@ public class IndividualValueImpl implements IndividualValue {
         this.speed = rand.nextInt(32);
     }
 
-    public IndividualValueImpl(int hitPoint, int attack, int block, int contact, int defense, int speed){
+    public IndividualValueI(int hitPoint, int attack, int block, int contact, int defense, int speed) {
         this.hitPoint = hitPoint;
         this.attack = attack;
         this.block = block;

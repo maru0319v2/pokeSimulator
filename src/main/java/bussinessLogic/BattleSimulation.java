@@ -3,14 +3,14 @@ package bussinessLogic;
 import field.Field;
 import move.Move;
 import pokemon.PokeInfo;
-import pokemonStatus.impl.FlinchImpl;
+import pokemonStatus.impl.FlinchI;
 
 import static bussinessLogic.BattleLogic.doAction;
 import static bussinessLogic.BattleLogic.isFirstMe;
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 import static bussinessLogic.ConsoleOutManager.showPokemonInfo;
 import static bussinessLogic.EnemySelectMove.enemySelectMove;
-import static field.FieldImpl.initializeField;
+import static field.FieldI.initializeField;
 
 public class BattleSimulation {
     public PokeInfo battleSimulation(PokeInfo myPoke, PokeInfo enemyPoke) throws InterruptedException {
@@ -107,8 +107,8 @@ public class BattleSimulation {
             enemyPoke = onBF.getDefencePoke();
 
             // 怯み状態をリセットする
-            myPoke = myPoke.withFlinch(new FlinchImpl(false));
-            enemyPoke = enemyPoke.withFlinch(new FlinchImpl(false));
+            myPoke = myPoke.withFlinch(new FlinchI(false));
+            enemyPoke = enemyPoke.withFlinch(new FlinchI(false));
         }
 
         showPokemonInfo(myPoke, enemyPoke);

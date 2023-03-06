@@ -4,20 +4,20 @@ import pokemonStatus.Flinch;
 
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 
-public class FlinchImpl implements Flinch {
+public class FlinchI implements Flinch {
     // 怯んでいるならtrue,怯んでいないならfalse
     private boolean value;
 
     // 初期化のときに使う
     public static Flinch initializeFlinch() {
-        return new FlinchImpl();
+        return new FlinchI();
     }
 
-    private FlinchImpl() {
+    private FlinchI() {
         this.value = false;
     }
 
-    public FlinchImpl(boolean value) {
+    public FlinchI(boolean value) {
         this.value = value;
     }
 

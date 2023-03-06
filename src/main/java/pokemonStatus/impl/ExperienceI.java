@@ -1,15 +1,15 @@
 package pokemonStatus.impl;
 
-import Enum.ExperienceType;
+import Enum.ExpType;
 import pokemon.PokeInfo;
 import pokemonStatus.Experience;
 
 import java.util.Objects;
 
-public class ExperienceImpl implements Experience {
+public class ExperienceI implements Experience {
     private final int totalExperience;
 
-    public ExperienceImpl(int totalExperience) {
+    public ExperienceI(int totalExperience) {
         this.totalExperience = totalExperience;
     }
 
@@ -18,15 +18,15 @@ public class ExperienceImpl implements Experience {
     }
 
 
-    public ExperienceImpl add(int addExperience) {
-        return new ExperienceImpl(this.totalExperience + addExperience);
+    public ExperienceI add(int addExperience) {
+        return new ExperienceI(this.totalExperience + addExperience);
     }
 
     // 参考: https://wiki.xn--rckteqa2e.com/wiki/%E7%B5%8C%E9%A8%93%E5%80%A4%E3%82%BF%E3%82%A4%E3%83%97
 
 
     // TODO 初期から持っている経験値
-    public int initialExperience(PokeInfo target, ExperienceType experienceType) {
+    public int initialExperience(PokeInfo target, ExpType experienceType) {
         return requireExperienceAsType(target);
     }
 
@@ -40,11 +40,11 @@ public class ExperienceImpl implements Experience {
     }
 
     private int requireExperienceAsType(PokeInfo target) {
-        ExperienceType experienceType = target.getBasePrm().getExperienceType();
+        ExpType experienceType = target.getBasePrm().getExperienceType();
         int level = target.getLevel().value() + 1;
         int result = 10;
 
-        if (Objects.equals(experienceType, ExperienceType.TYPE600000)) {
+        if (Objects.equals(experienceType, ExpType.TYPE600000)) {
             if (level >= 2 && level <= 50) {
                 result = (int) Math.floor(Math.pow(level, 3) * (100 - level) / 50);
             } else if (level >= 50 && level <= 68) {
@@ -55,19 +55,19 @@ public class ExperienceImpl implements Experience {
                 result = (int) Math.floor(Math.pow(level, 3) * (160 - level) / 100);
             }
         }
-        if (Objects.equals(experienceType, ExperienceType.TYPE800000)) {
+        if (Objects.equals(experienceType, ExpType.TYPE800000)) {
             result = (int) Math.floor(0.8 * Math.pow(level, 3));
         }
-        if (Objects.equals(experienceType, ExperienceType.TYPE1000000)) {
+        if (Objects.equals(experienceType, ExpType.TYPE1000000)) {
             result = (int) Math.pow(level, 3);
         }
-        if (Objects.equals(experienceType, ExperienceType.TYPE1050000)) {
+        if (Objects.equals(experienceType, ExpType.TYPE1050000)) {
             result = (int) Math.floor(1.2 * Math.pow(level, 3) - 15 * Math.pow(level, 2) + 100 * level - 140);
         }
-        if (Objects.equals(experienceType, ExperienceType.TYPE1250000)) {
+        if (Objects.equals(experienceType, ExpType.TYPE1250000)) {
             result = (int) Math.floor(1.25 * Math.pow(level, 3));
         }
-        if (Objects.equals(experienceType, ExperienceType.TYPE1640000)) {
+        if (Objects.equals(experienceType, ExpType.TYPE1640000)) {
             if (level >= 2 && level <= 15) {
                 result = (int) Math.floor(Math.pow(level, 3) * (24 + Math.floor((level + 1) / 3) / 50));
             } else if (level >= 15 && level <= 36) {

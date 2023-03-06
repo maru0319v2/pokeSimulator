@@ -1,13 +1,13 @@
 package pokemonStatus.impl;
 
 import move.Move;
-import pokemonStatus.CurrentPowerPoint;
+import pokemonStatus.CurrentPP;
 
-public class CurrentPowerPointImpl implements CurrentPowerPoint {
+public class CurrentPPI implements CurrentPP {
     private static final int MIN = 0;
     private final int value;
 
-    public CurrentPowerPointImpl(int value) {
+    public CurrentPPI(int value) {
         this.value = value;
     }
 
@@ -17,22 +17,22 @@ public class CurrentPowerPointImpl implements CurrentPowerPoint {
     }
 
     @Override
-    public CurrentPowerPoint recovery(Move target, CurrentPowerPoint currentPowerPoint) {
+    public CurrentPP recovery(Move target, CurrentPP currentPowerPoint) {
         if (currentPowerPoint.value() <= MIN) {
             throw new IllegalArgumentException("PP回復量は1以上を指定してください。");
         }
         final int recovered = this.value + currentPowerPoint.value();
         int result = Math.min(recovered, target.baseMPrm().getPowerPoint());
 
-        return new CurrentPowerPointImpl(result);
+        return new CurrentPPI(result);
     }
 
     @Override
-    public CurrentPowerPoint decrement(CurrentPowerPoint currentPowerPoint) {
+    public CurrentPP decrement(CurrentPP currentPowerPoint) {
         if (currentPowerPoint.value() <= MIN) {
             throw new IllegalArgumentException("PP減少量は1以上を指定してください。");
         }
         final int decremented = this.value - currentPowerPoint.value();
-        return new CurrentPowerPointImpl(decremented);
+        return new CurrentPPI(decremented);
     }
 }

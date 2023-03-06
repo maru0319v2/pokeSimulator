@@ -1,13 +1,16 @@
 package move;
 
-import pokemonStatus.CurrentPowerPoint;
+import pokemonStatus.CurrentPP;
 
 // 技を表現するクラス
 public interface Move {
     // 技固有のパラメータ
-    BaseMPrm baseMPrm();
+    BaseMvPrm baseMPrm();
+
     // 現在のPP
-    CurrentPowerPoint getCurrentPowerPoint();
-    Move withCurrentPowerPoint(Move move, CurrentPowerPoint decrementedPowerPoint);
+    CurrentPP getCurrentPowerPoint();
+
+    Move withCurrentPowerPoint(Move move, CurrentPP decrementedPowerPoint);
+
     boolean canUse();
 }

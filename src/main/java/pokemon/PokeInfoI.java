@@ -7,19 +7,19 @@ import move.Move;
 import pokemonStatus.*;
 import pokemonStatus.impl.*;
 import statusAilment.Ailment;
-import statusAilment.StatusAilment;
+import statusAilment.AilmentE;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
-import static pokemonStatus.impl.FlinchImpl.initializeFlinch;
-import static statusAilment.StatusAilmentImpl.changeAilment;
-import static statusAilment.StatusAilmentImpl.initializeAilment;
+import static pokemonStatus.impl.FlinchI.initializeFlinch;
+import static statusAilment.AilmentI.changeAilment;
+import static statusAilment.AilmentI.initializeAilment;
 
 @Getter
-public class PokeInfoImpl implements PokeInfo {
+public class PokeInfoI implements PokeInfo {
     private final BasePrm basePrm;
     private final IndividualValue individualValue;
     private final EffortValue effortValue;
@@ -28,9 +28,9 @@ public class PokeInfoImpl implements PokeInfo {
     private final Nature nature;
     private final List<Move> haveMove;
     private final Experience experience;
-    private final CurrentHitPoint currentHitPoint;
+    private final CurrentHP currentHitPoint;
     private final StatusRank statusRank;
-    private final StatusAilment statusAilment;
+    private final Ailment statusAilment;
     private final Flinch flinch;
 
     public int getRealValHitPoint() {
@@ -75,18 +75,18 @@ public class PokeInfoImpl implements PokeInfo {
 
     @Override
     public PokeInfo recoveryHitPoint(int value) throws InterruptedException {
-        PokeInfo result = this.withCurrentHitPoint(this.getCurrentHitPoint().recovery(this, new CurrentHitPointImpl(value)));
+        PokeInfo result = this.withCurrentHitPoint(this.getCurrentHitPoint().recovery(this, new CurrentHPI(value)));
         System.out.println(result.getBasePrm().getName() + "は体力を" + value + "回復!  HP" + result.getCurrentHitPoint().value() + "/" + result.getRealValHitPoint());
         System.out.println();
-        return result.withStatusAilment(changeAilment(result, Ailment.FINE));
+        return result.withStatusAilment(changeAilment(result, AilmentE.FINE));
     }
 
     @Override
     public PokeInfo damagePoke(int value) throws InterruptedException {
-        PokeInfo result = this.withCurrentHitPoint(this.getCurrentHitPoint().damage(new CurrentHitPointImpl(value)));
+        PokeInfo result = this.withCurrentHitPoint(this.getCurrentHitPoint().damage(new CurrentHPI(value)));
         showMessageParChar(result.getBasePrm().getName() + "は" + value + "のダメージ!");
         if (result.getCurrentHitPoint().isDead()) {
-            return result.withStatusAilment(changeAilment(result, Ailment.FAINTING));
+            return result.withStatusAilment(changeAilment(result, AilmentE.FAINTING));
         }
         return result;
     }
@@ -100,7 +100,7 @@ public class PokeInfoImpl implements PokeInfo {
                 targetMoves = haveMove;
             }
         }
-        CurrentPowerPoint recoveredPP = targetMoves.getCurrentPowerPoint().recovery(targetMoves, new CurrentPowerPointImpl(value));
+        CurrentPP recoveredPP = targetMoves.getCurrentPowerPoint().recovery(targetMoves, new CurrentPPI(value));
         Move recoveredPPMove = targetMoves.withCurrentPowerPoint(targetMoves, recoveredPP);
         PokeInfo result = this.withMove(recoveredPPMove);
 
@@ -119,29 +119,29 @@ public class PokeInfoImpl implements PokeInfo {
 
     @Override
     public PokeInfo decrementPowerPoint(Move usedMove) {
-        CurrentPowerPoint decrementedPowerPoint = usedMove.getCurrentPowerPoint().decrement(new CurrentPowerPointImpl(1));
+        CurrentPP decrementedPowerPoint = usedMove.getCurrentPowerPoint().decrement(new CurrentPPI(1));
         Move decrementedPPMove = usedMove.withCurrentPowerPoint(usedMove, decrementedPowerPoint);
         PokeInfo pokemonInfo = this.withMove(decrementedPPMove);
         return pokemonInfo;
     }
 
-    public PokeInfoImpl(BasePrm basePokemonInfo) {
+    public PokeInfoI(BasePrm basePokemonInfo) {
         this.basePrm = basePokemonInfo;
         this.gender = Gender.decide();
         this.nature = Nature.decide();
-        this.individualValue = new IndividualValueImpl();
-        this.effortValue = new EffortValueImpl();
-        this.level = new LevelImpl(5);
+        this.individualValue = new IndividualValueI();
+        this.effortValue = new EffortValueI();
+        this.level = new LevelI(5);
         this.haveMove = basePokemonInfo.getInitialMove();
-        this.experience = new ExperienceImpl(135); // TODO 固定化したくない
-        this.currentHitPoint = new CurrentHitPointImpl(getRealValHitPoint());
-        this.statusRank = new StatusRankImpl();
+        this.experience = new ExperienceI(135); // TODO 固定化したくない
+        this.currentHitPoint = new CurrentHPI(getRealValHitPoint());
+        this.statusRank = new StatusRankI();
         this.statusAilment = initializeAilment();
         this.flinch = initializeFlinch();
     }
 
     // 指定パラメータポケモンインスタンスを作成する。
-    public PokeInfoImpl(
+    public PokeInfoI(
             BasePrm basePokemonInfo,
             Gender gender,
             Nature nature,
@@ -153,18 +153,18 @@ public class PokeInfoImpl implements PokeInfo {
         this.basePrm = basePokemonInfo;
         this.gender = gender;
         this.nature = nature;
-        this.individualValue = new IndividualValueImpl(individualValue.hitPoint(), individualValue.attack(), individualValue.block(), individualValue.contact(), individualValue.defense(), individualValue.speed());
-        this.effortValue = new EffortValueImpl(effortValue.hitPoint(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());
-        this.level = new LevelImpl(level.value());
+        this.individualValue = new IndividualValueI(individualValue.hitPoint(), individualValue.attack(), individualValue.block(), individualValue.contact(), individualValue.defense(), individualValue.speed());
+        this.effortValue = new EffortValueI(effortValue.hitPoint(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());
+        this.level = new LevelI(level.value());
         this.haveMove = haveMove;
-        this.experience = new ExperienceImpl(0);
-        this.currentHitPoint = new CurrentHitPointImpl(getRealValHitPoint());
-        this.statusRank = new StatusRankImpl();
+        this.experience = new ExperienceI(0);
+        this.currentHitPoint = new CurrentHPI(getRealValHitPoint());
+        this.statusRank = new StatusRankI();
         this.statusAilment = initializeAilment();
         this.flinch = initializeFlinch();
     }
 
-    private PokeInfoImpl(
+    private PokeInfoI(
             BasePrm basePokemonInfo,
             Gender gender,
             Nature nature,
@@ -173,48 +173,48 @@ public class PokeInfoImpl implements PokeInfo {
             Level level,
             Experience experience,
             List<Move> haveMove,
-            CurrentHitPoint currentHitPoint,
+            CurrentHP currentHitPoint,
             StatusRank statusRankImpl,
-            StatusAilment statusAilment,
+            Ailment statusAilment,
             Flinch flinch
     ) {
         this.basePrm = basePokemonInfo;
         this.gender = gender;
         this.nature = nature;
-        this.individualValue = new IndividualValueImpl(individualValue.hitPoint(), individualValue.attack(), individualValue.block(), individualValue.contact(), individualValue.defense(), individualValue.speed());
-        this.effortValue = new EffortValueImpl(effortValue.hitPoint(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());
-        this.level = new LevelImpl(level.value());
+        this.individualValue = new IndividualValueI(individualValue.hitPoint(), individualValue.attack(), individualValue.block(), individualValue.contact(), individualValue.defense(), individualValue.speed());
+        this.effortValue = new EffortValueI(effortValue.hitPoint(), effortValue.attack(), effortValue.block(), effortValue.contact(), effortValue.defense(), effortValue.speed());
+        this.level = new LevelI(level.value());
         this.haveMove = haveMove;
-        this.experience = new ExperienceImpl(experience.totalExperience());
-        this.currentHitPoint = new CurrentHitPointImpl(currentHitPoint.value());
-        this.statusRank = new StatusRankImpl(statusRankImpl.getAttack(), statusRankImpl.getBlock(), statusRankImpl.getContact(), statusRankImpl.getDefense(), statusRankImpl.getSpeed(), statusRankImpl.getHitRate(), statusRankImpl.getAvoidRate());
+        this.experience = new ExperienceI(experience.totalExperience());
+        this.currentHitPoint = new CurrentHPI(currentHitPoint.value());
+        this.statusRank = new StatusRankI(statusRankImpl.getAttack(), statusRankImpl.getBlock(), statusRankImpl.getContact(), statusRankImpl.getDefense(), statusRankImpl.getSpeed(), statusRankImpl.getHitRate(), statusRankImpl.getAvoidRate());
         this.statusAilment = statusAilment;
         this.flinch = flinch;
     }
 
     @Override
-    public PokeInfo withCurrentHitPoint(CurrentHitPoint currentHitPoint) {
-        return new PokeInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, currentHitPoint, this.statusRank, this.statusAilment, this.flinch);
+    public PokeInfo withCurrentHitPoint(CurrentHP currentHitPoint) {
+        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, currentHitPoint, this.statusRank, this.statusAilment, this.flinch);
     }
 
     @Override
     public PokeInfo withExperience(int addingExperience) {
-        return new PokeInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience.add(addingExperience), this.haveMove, this.currentHitPoint, this.statusRank, this.statusAilment, this.flinch);
+        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience.add(addingExperience), this.haveMove, this.currentHitPoint, this.statusRank, this.statusAilment, this.flinch);
     }
 
     @Override
     public PokeInfo withLevel(int addLevel) {
-        return new PokeInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level.add(addLevel), this.experience, this.haveMove, this.currentHitPoint, this.statusRank, this.statusAilment, this.flinch);
+        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level.add(addLevel), this.experience, this.haveMove, this.currentHitPoint, this.statusRank, this.statusAilment, this.flinch);
     }
 
     @Override
     public PokeInfo withAddedStatusRank(final int attack, final int block, final int contact, final int defense, final int speed, final int hitRate, final int avoidRate) {
-        return new PokeInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank.add(attack, block, contact, defense, speed, hitRate, avoidRate), this.statusAilment, this.flinch);
+        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank.add(attack, block, contact, defense, speed, hitRate, avoidRate), this.statusAilment, this.flinch);
     }
 
     @Override
     public PokeInfo withResetStatusRank() {
-        return new PokeInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank.reset(), this.statusAilment, this.flinch);
+        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank.reset(), this.statusAilment, this.flinch);
     }
 
     @Override
@@ -227,16 +227,16 @@ public class PokeInfoImpl implements PokeInfo {
                 newMoves.add(haveMove);
             }
         }
-        return new PokeInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, newMoves, this.currentHitPoint, this.statusRank, this.statusAilment, this.flinch);
+        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, newMoves, this.currentHitPoint, this.statusRank, this.statusAilment, this.flinch);
     }
 
     @Override
-    public PokeInfo withStatusAilment(StatusAilment statusAilment) {
-        return new PokeInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, statusAilment, this.flinch);
+    public PokeInfo withStatusAilment(Ailment statusAilment) {
+        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, statusAilment, this.flinch);
     }
 
     @Override
     public PokeInfo withFlinch(Flinch flinch) {
-        return new PokeInfoImpl(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, this.statusAilment, flinch);
+        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHitPoint, this.statusRank, this.statusAilment, flinch);
     }
 }

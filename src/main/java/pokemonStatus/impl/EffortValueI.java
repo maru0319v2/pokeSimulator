@@ -3,7 +3,7 @@ package pokemonStatus.impl;
 import pokemonStatus.EffortValue;
 
 // 努力値を表現するクラス
-public class EffortValueImpl implements EffortValue {
+public class EffortValueI implements EffortValue {
     private static final int MIN = 0;
     private static final int MAX_OF_EACH = 255;
     private static final int MAX_OF_TOTAL = 510;
@@ -14,7 +14,7 @@ public class EffortValueImpl implements EffortValue {
     private final int defense;
     private final int speed;
 
-    public EffortValueImpl() {
+    public EffortValueI() {
         this.hitPoint = MIN;
         this.attack = MIN;
         this.block = MIN;
@@ -23,39 +23,39 @@ public class EffortValueImpl implements EffortValue {
         this.speed = MIN;
     }
 
-    public EffortValueImpl(final int hitPoint, final int attack, final int block, final int contact, final int defense, final int speed) {
+    public EffortValueI(final int hitPoint, final int attack, final int block, final int contact, final int defense, final int speed) {
 
         int resultHitPoint;
-        if(hitPoint < MIN) {
+        if (hitPoint < MIN) {
             resultHitPoint = MIN;
         } else resultHitPoint = Math.min(hitPoint, MAX_OF_EACH);
 
         int resultAttack;
-        if(attack < MIN) {
+        if (attack < MIN) {
             resultAttack = MIN;
         } else resultAttack = Math.min(attack, MAX_OF_EACH);
 
         int resultBlock;
-        if(block < MIN) {
+        if (block < MIN) {
             resultBlock = MIN;
         } else resultBlock = Math.min(block, MAX_OF_EACH);
 
         int resultContact;
-        if(contact < MIN) {
+        if (contact < MIN) {
             resultContact = MIN;
         } else resultContact = Math.min(contact, MAX_OF_EACH);
 
         int resultDefense;
-        if(defense < MIN) {
+        if (defense < MIN) {
             resultDefense = MIN;
         } else resultDefense = Math.min(defense, MAX_OF_EACH);
 
         int resultSpeed;
-        if(speed < MIN) {
+        if (speed < MIN) {
             resultSpeed = MIN;
         } else resultSpeed = Math.min(speed, MAX_OF_EACH);
 
-        if(resultHitPoint + resultAttack + resultBlock + resultContact + resultDefense + resultSpeed > MAX_OF_TOTAL) {
+        if (resultHitPoint + resultAttack + resultBlock + resultContact + resultDefense + resultSpeed > MAX_OF_TOTAL) {
             // TODO 合計努力値が510を超えた場合、暫定で努力値加算をしない
             this.hitPoint = hitPoint;
             this.attack = attack;
@@ -73,7 +73,7 @@ public class EffortValueImpl implements EffortValue {
         }
     }
 
-    public EffortValueImpl add(final int hitPoint, final int attack, final int block, final int contact, final int defense, final int speed) {
+    public EffortValueI add(final int hitPoint, final int attack, final int block, final int contact, final int defense, final int speed) {
         int addedHitPoint = this.hitPoint + hitPoint;
         int addedAttack = this.attack + attack;
         int addedBlock = this.block + block;
@@ -81,11 +81,11 @@ public class EffortValueImpl implements EffortValue {
         int addedDefense = this.defense + defense;
         int addedSpeed = this.speed + speed;
 
-        return new EffortValueImpl(addedHitPoint, addedAttack, addedBlock, addedContact, addedDefense, addedSpeed);
+        return new EffortValueI(addedHitPoint, addedAttack, addedBlock, addedContact, addedDefense, addedSpeed);
     }
 
     public EffortValue reset() {
-        return new EffortValueImpl(0, 0, 0, 0, 0, 0);
+        return new EffortValueI(0, 0, 0, 0, 0, 0);
     }
 
     public int hitPoint() {

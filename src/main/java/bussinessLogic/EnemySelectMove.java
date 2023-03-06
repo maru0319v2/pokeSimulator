@@ -4,8 +4,8 @@ import Enum.MoveSpecies;
 import Enum.Type;
 import field.Field;
 import field.Weather;
-import move.BaseMPrm;
-import move.DetailedMoveSpecies;
+import move.BaseMvPrm;
+import move.DetailMvSpecies;
 import move.Move;
 import pokemon.PokeInfo;
 
@@ -37,7 +37,7 @@ public class EnemySelectMove {
         // 回避ランクが2以上の場合、必中技を使用する
         List<Move> filteredMoves = null;
         if (avoidRank >= 2) {
-            filteredMoves = enemyPokemon.getHaveMove().stream().filter(e -> e.baseMPrm().getDetailedSpecies() == DetailedMoveSpecies.HIT).toList();
+            filteredMoves = enemyPokemon.getHaveMove().stream().filter(e -> e.baseMPrm().getDetailedSpecies() == DetailMvSpecies.HIT).toList();
         } else {
             filteredMoves = enemyPokemon.getHaveMove();
         }
@@ -59,7 +59,7 @@ public class EnemySelectMove {
         // 残HPが75%以下なら回復技を候補から外す
         List<Move> filteredMoves;
         if (remainingHPRate <= 75) {
-            filteredMoves = enemyPokemon.getHaveMove().stream().filter(e -> e.baseMPrm().getDetailedSpecies() != DetailedMoveSpecies.RECOVERY).toList();
+            filteredMoves = enemyPokemon.getHaveMove().stream().filter(e -> e.baseMPrm().getDetailedSpecies() != DetailMvSpecies.RECOVERY).toList();
         } else {
             filteredMoves = enemyPokemon.getHaveMove();
         }
@@ -77,7 +77,7 @@ public class EnemySelectMove {
         List<Move> filteredMoves;
         if (isAilment) {
             // すでに状態異常になっている場合、状態異常にする技以外でフィルターする
-            filteredMoves = enemyPokemon.getHaveMove().stream().filter(m -> m.baseMPrm().getDetailedSpecies() != DetailedMoveSpecies.AILMENT).toList();
+            filteredMoves = enemyPokemon.getHaveMove().stream().filter(m -> m.baseMPrm().getDetailedSpecies() != DetailMvSpecies.AILMENT).toList();
         } else {
             // 状態異常になっていない場合、すべての技を候補に入れる
             filteredMoves = enemyPokemon.getHaveMove();
@@ -97,13 +97,13 @@ public class EnemySelectMove {
         // 天候操作技を持っている場合、天候が重複する技を候補からはずす
         switch (weather) {
             case DROUGHT ->
-                    filteredMoves = enemyPokemon.getHaveMove().stream().filter(m -> m.baseMPrm() != BaseMPrm.SUNNY_DAY).toList();
+                    filteredMoves = enemyPokemon.getHaveMove().stream().filter(m -> m.baseMPrm() != BaseMvPrm.SUNNY_DAY).toList();
             case RAIN ->
-                    filteredMoves = enemyPokemon.getHaveMove().stream().filter(m -> m.baseMPrm() != BaseMPrm.RAIN_DANCE).toList();
+                    filteredMoves = enemyPokemon.getHaveMove().stream().filter(m -> m.baseMPrm() != BaseMvPrm.RAIN_DANCE).toList();
             case SANDSTORM ->
-                    filteredMoves = enemyPokemon.getHaveMove().stream().filter(m -> m.baseMPrm() != BaseMPrm.SAND_STORM).toList();
+                    filteredMoves = enemyPokemon.getHaveMove().stream().filter(m -> m.baseMPrm() != BaseMvPrm.SAND_STORM).toList();
             case HAIL ->
-                    filteredMoves = enemyPokemon.getHaveMove().stream().filter(m -> m.baseMPrm() != BaseMPrm.HAIL).toList();
+                    filteredMoves = enemyPokemon.getHaveMove().stream().filter(m -> m.baseMPrm() != BaseMvPrm.HAIL).toList();
             default -> filteredMoves = enemyPokemon.getHaveMove();
         }
         if (filteredMoves.size() == 0) {

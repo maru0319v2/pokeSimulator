@@ -13,17 +13,17 @@ import java.util.Set;
 import static bussinessLogic.ConsoleOutManager.*;
 
 @Getter
-public class FieldImpl implements Field {
+public class FieldI implements Field {
     private final Weather weather;
     private final int elapsedTurn;
     private final int countForRecovery;
 
     // フィールドを継続する場合(経過ターン+1)
     private static Field keepField(Weather weather, int elapsedTurn, int countRecovery) {
-        return new FieldImpl(weather, elapsedTurn, countRecovery);
+        return new FieldI(weather, elapsedTurn, countRecovery);
     }
 
-    private FieldImpl(Weather weather, int elapsedTurn, int countForRecovery) {
+    private FieldI(Weather weather, int elapsedTurn, int countForRecovery) {
         this.weather = weather;
         this.elapsedTurn = elapsedTurn;
         this.countForRecovery = countForRecovery;
@@ -31,10 +31,10 @@ public class FieldImpl implements Field {
 
     // 初期化したい場合
     public static Field initializeField() {
-        return new FieldImpl();
+        return new FieldI();
     }
 
-    private FieldImpl() {
+    private FieldI() {
         this.weather = Weather.NONE;
         this.elapsedTurn = 0;
         this.countForRecovery = 0;
@@ -42,10 +42,10 @@ public class FieldImpl implements Field {
 
     // 天候を変化させる場合
     public static Field changeField(Field field, Weather weather) throws InterruptedException {
-        return new FieldImpl(field, weather);
+        return new FieldI(field, weather);
     }
 
-    private FieldImpl(Field field, Weather weather) throws InterruptedException {
+    private FieldI(Field field, Weather weather) throws InterruptedException {
 
         if (field.getWeather() != weather) {
             // 引数の天候がもとの天候以外なら上書きする

@@ -3,7 +3,7 @@ package bussinessLogic;
 import field.Weather;
 import move.Move;
 import pokemon.PokeInfo;
-import statusAilment.Ailment;
+import statusAilment.AilmentE;
 
 import java.util.List;
 
@@ -97,7 +97,7 @@ public class ConsoleOutManager {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         System.out.print(enemyPokemon.getBasePrm().getName() + " " + enemyPokemon.getGender().getValue() + "    Lv." + enemyPokemon.getLevel().value());
-        if (enemyPokemon.getStatusAilment().getValue() == Ailment.FINE) {
+        if (enemyPokemon.getStatusAilment().getValue() == AilmentE.FINE) {
             System.out.println("");
         } else {
             System.out.println(" " + enemyPokemon.getStatusAilment().getValue().value);
@@ -112,7 +112,7 @@ public class ConsoleOutManager {
         // ↑相手側　↓こっち側
         System.out.print("                        ");
         System.out.print(myPokemon.getBasePrm().getName() + " " + myPokemon.getGender().getValue() + "    Lv." + myPokemon.getLevel().value());
-        if (myPokemon.getStatusAilment().getValue() == Ailment.FINE) {
+        if (myPokemon.getStatusAilment().getValue() == AilmentE.FINE) {
             System.out.println("");
         } else {
             System.out.println(" " + myPokemon.getStatusAilment().getValue().value);
@@ -246,7 +246,7 @@ public class ConsoleOutManager {
         System.out.println("");
     }
 
-    public static void showChangeAilmentMessage(PokeInfo target, Ailment value) throws InterruptedException {
+    public static void showChangeAilmentMessage(PokeInfo target, AilmentE value) throws InterruptedException {
         switch (value) {
             case PARALYSIS -> showMessageParChar(target.getBasePrm().getName() + "はしびれてしまった!");
             case POISON -> showMessageParChar(target.getBasePrm().getName() + "はどくをあびた!");
