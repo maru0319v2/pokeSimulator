@@ -89,17 +89,17 @@ public class BattleLogic {
                 defencePoke = defencePoke.damagePoke(damage);
                 return move.baseMPrm().effect(attackPoke, defencePoke, field, damage);
             } else {
-                showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "!");
-                showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "は外れた");
+                showMessageParChar(attackPoke.getBasePrm().pName() + "の" + move.baseMPrm().getName() + "!");
+                showMessageParChar(attackPoke.getBasePrm().pName() + "の" + move.baseMPrm().getName() + "は外れた");
                 return new OnBattleField(attackPoke, defencePoke, field);
             }
         } else {
             if (isHit(attackPoke, defencePoke, move)) {
-                showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "!");
+                showMessageParChar(attackPoke.getBasePrm().pName() + "の" + move.baseMPrm().getName() + "!");
                 return move.baseMPrm().effect(attackPoke, defencePoke, field, 0);
             } else {
-                showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "!");
-                showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "は外れた");
+                showMessageParChar(attackPoke.getBasePrm().pName() + "の" + move.baseMPrm().getName() + "!");
+                showMessageParChar(attackPoke.getBasePrm().pName() + "の" + move.baseMPrm().getName() + "は外れた");
                 return new OnBattleField(attackPoke, defencePoke, field);
             }
         }
@@ -124,10 +124,10 @@ public class BattleLogic {
         double contactRateByStatusRank = isCritical ? Math.max(attackPoke.getStatusRank().contactRateByStatusRank(), 1.0) : attackPoke.getStatusRank().contactRateByStatusRank();
         double defenseRateByStatusRank = isCritical ? Math.min(defencePoke.getStatusRank().defenseRateByStatusRank(), 1.0) : defencePoke.getStatusRank().defenseRateByStatusRank();
         // タイプ一致判定
-        boolean isTypeMatch = (Objects.equals(move.baseMPrm().getMoveType(), attackPoke.getBasePrm().getType1())) || (Objects.equals(move.baseMPrm().getMoveType(), attackPoke.getBasePrm().getType2()));
+        boolean isTypeMatch = (Objects.equals(move.baseMPrm().getMoveType(), attackPoke.getBasePrm().type1())) || (Objects.equals(move.baseMPrm().getMoveType(), attackPoke.getBasePrm().type2()));
         double typeMatchRate = isTypeMatch ? 1.5 : 1;
         // タイプ相性判定
-        double effectiveRate = Type.damageRateByType(defencePoke.getBasePrm().getType1(), defencePoke.getBasePrm().getType2(), move);
+        double effectiveRate = Type.damageRateByType(defencePoke.getBasePrm().type1(), defencePoke.getBasePrm().type2(), move);
         // やけど判定
         double burnedRate = moveSpecies == MoveSpecies.PHYSICAL ? attackPoke.getStatusAilment().damageRateByBurn() : 1.0;
         // 天候によるダメージ倍率
@@ -149,7 +149,7 @@ public class BattleLogic {
         }
 
         int result = (int) Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * totalDamageRate);
-        showMessageParChar(attackPoke.getBasePrm().getName() + "の" + move.baseMPrm().getName() + "!");
+        showMessageParChar(attackPoke.getBasePrm().pName() + "の" + move.baseMPrm().getName() + "!");
         if (isCritical) {
             showMessageParChar("急所に当った!");
         }

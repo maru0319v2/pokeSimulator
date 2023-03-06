@@ -22,7 +22,7 @@ public class CurrentHPI implements CurrentHP {
         }
         final int added = this.val + currentHP.val();
         int result = Math.min(added, target.getRealValHitPoint());
-        showMessageParChar(target.getBasePrm().getName() + "は体力を" + currentHP.val() + "回復!");
+        showMessageParChar(target.getBasePrm().pName() + "は体力を" + currentHP.val() + "回復!");
         return new CurrentHPI(result);
     }
 

@@ -13,9 +13,9 @@ public class ConsoleOutManager {
     public static void showAllParameters(PokeInfo target) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.print("図鑑No:" + target.getBasePrm().getPokeDexNo() + " ");
-        System.out.println("名前:" + target.getBasePrm().getName() + " ");
-        System.out.println("タイプ1: " + target.getBasePrm().getType1().getValue() + " タイプ2: " + target.getBasePrm().getType2().getValue());
+        System.out.print("図鑑No:" + target.getBasePrm().pokeDexNo() + " ");
+        System.out.println("名前:" + target.getBasePrm().pName() + " ");
+        System.out.println("タイプ1: " + target.getBasePrm().type1().getValue() + " タイプ2: " + target.getBasePrm().type2().getValue());
         System.out.println("状態: " + target.getStatusAilment().val());
         System.out.print("レベル: " + target.getLevel().val());
         System.out.print("  次のレベルまで: " + target.getExperience().nextRequireExp(target) + " exp.");
@@ -96,7 +96,7 @@ public class ConsoleOutManager {
     public static void showPokemonInfo(PokeInfo myPokemon, PokeInfo enemyPokemon) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.print(enemyPokemon.getBasePrm().getName() + " " + enemyPokemon.getGender().getValue() + "    Lv." + enemyPokemon.getLevel().val());
+        System.out.print(enemyPokemon.getBasePrm().pName() + " " + enemyPokemon.getGender().getValue() + "    Lv." + enemyPokemon.getLevel().val());
         if (enemyPokemon.getStatusAilment().val() == AilmentE.FINE) {
             System.out.println("");
         } else {
@@ -111,7 +111,7 @@ public class ConsoleOutManager {
         System.out.println("");
         // ↑相手側　↓こっち側
         System.out.print("                        ");
-        System.out.print(myPokemon.getBasePrm().getName() + " " + myPokemon.getGender().getValue() + "    Lv." + myPokemon.getLevel().val());
+        System.out.print(myPokemon.getBasePrm().pName() + " " + myPokemon.getGender().getValue() + "    Lv." + myPokemon.getLevel().val());
         if (myPokemon.getStatusAilment().val() == AilmentE.FINE) {
             System.out.println("");
         } else {
@@ -126,8 +126,8 @@ public class ConsoleOutManager {
     }
 
     public static void showParametersInBattle(PokeInfo target) {
-        System.out.println("名前:" + target.getBasePrm().getName() + " ");
-        System.out.println("タイプ1: " + target.getBasePrm().getType1().getValue() + " タイプ2: " + target.getBasePrm().getType2().getValue());
+        System.out.println("名前:" + target.getBasePrm().pName() + " ");
+        System.out.println("タイプ1: " + target.getBasePrm().type1().getValue() + " タイプ2: " + target.getBasePrm().type2().getValue());
         System.out.println("レベル: " + target.getLevel().val());
         System.out.print("HP: " + target.getCurrentHitPoint().val() + "/" + target.getRealValHitPoint() + " ");
         showProgressBar(target);
@@ -248,14 +248,14 @@ public class ConsoleOutManager {
 
     public static void showChangeAilmentMessage(PokeInfo target, AilmentE value) throws InterruptedException {
         switch (value) {
-            case PARALYSIS -> showMessageParChar(target.getBasePrm().getName() + "はしびれてしまった!");
-            case POISON -> showMessageParChar(target.getBasePrm().getName() + "はどくをあびた!");
-            case BAD_POISON -> showMessageParChar(target.getBasePrm().getName() + "はもうどくをあびた!");
-            case BURN -> showMessageParChar(target.getBasePrm().getName() + "はやけどをおった!");
-            case FREEZE -> showMessageParChar(target.getBasePrm().getName() + "はこおりついてしまった!");
-            case SLEEP -> showMessageParChar(target.getBasePrm().getName() + "はねむってしまった!");
-            case FINE -> showMessageParChar(target.getBasePrm().getName() + "はけんこうになった!");
-            case FAINTING -> showMessageParChar(target.getBasePrm().getName() + "はたおれてしまった!");
+            case PARALYSIS -> showMessageParChar(target.getBasePrm().pName() + "はしびれてしまった!");
+            case POISON -> showMessageParChar(target.getBasePrm().pName() + "はどくをあびた!");
+            case BAD_POISON -> showMessageParChar(target.getBasePrm().pName() + "はもうどくをあびた!");
+            case BURN -> showMessageParChar(target.getBasePrm().pName() + "はやけどをおった!");
+            case FREEZE -> showMessageParChar(target.getBasePrm().pName() + "はこおりついてしまった!");
+            case SLEEP -> showMessageParChar(target.getBasePrm().pName() + "はねむってしまった!");
+            case FINE -> showMessageParChar(target.getBasePrm().pName() + "はけんこうになった!");
+            case FAINTING -> showMessageParChar(target.getBasePrm().pName() + "はたおれてしまった!");
         }
     }
 

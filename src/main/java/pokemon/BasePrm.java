@@ -3,7 +3,6 @@ package pokemon;
 import Enum.ExpType;
 import Enum.Type;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import move.BaseMvPrm;
 import move.Move;
 import move.MoveI;
@@ -11,7 +10,6 @@ import move.MoveI;
 import java.util.List;
 
 @SuppressWarnings("ALL")
-@Getter
 @AllArgsConstructor
 public enum BasePrm {
     // 各ポケモンの固有の値を表現する
@@ -97,17 +95,17 @@ public enum BasePrm {
     );
 
     private final String pokeDexNo;
-    private final String name;
+    private final String pName;
     private final Type type1;
     private final Type type2;
-    private final int hitPoint;
+    private final int hp;
     private final int attack;
     private final int block;
     private final int contact;
     private final int defense;
     private final int speed;
-    private final ExpType experienceType;
-    private final int basicExperience;
+    private final ExpType expType;
+    private final int basicExp;
     private final int givenEffortH;
     private final int givenEffortA;
     private final int givenEffortB;
@@ -115,4 +113,80 @@ public enum BasePrm {
     private final int givenEffortD;
     private final int givenEffortS;
     private final List<Move> initialMove;
+
+    public String pokeDexNo() {
+        return this.pokeDexNo;
+    }
+
+    public String pName() {
+        return this.pName;
+    }
+
+    public Type type1() {
+        return this.type1;
+    }
+
+    public Type type2() {
+        return this.type2;
+    }
+
+    public int hp() {
+        return this.hp;
+    }
+
+    public int attack() {
+        return this.attack;
+    }
+
+    public int block() {
+        return this.block;
+    }
+
+    public int contact() {
+        return this.contact;
+    }
+
+    public int defense() {
+        return this.defense;
+    }
+
+    public int speed() {
+        return this.speed;
+    }
+
+    public ExpType expType() {
+        return this.expType;
+    }
+
+    public int basicExp() {
+        return this.basicExp;
+    }
+
+    public int givenEffortH() {
+        return this.givenEffortH;
+    }
+
+    public int givenEffortA() {
+        return this.givenEffortA;
+    }
+
+    public int givenEffortB() {
+        return this.givenEffortB;
+    }
+
+    public int givenEffortC() {
+        return this.givenEffortC;
+    }
+
+    public int givenEffortD() {
+        return this.givenEffortD;
+    }
+
+    public int givenEffortS() {
+        return this.givenEffortS;
+    }
+
+    public List<Move> initialMove() {
+        return this.initialMove;
+    }
 }

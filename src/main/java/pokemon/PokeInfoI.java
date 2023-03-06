@@ -37,41 +37,41 @@ public class PokeInfoI implements PokeInfo {
     private final Flinch flinch;
 
     public int getRealValHitPoint() {
-        return ((this.basePrm.getHitPoint() * 2 + this.individualValue.hp() + (this.effortValue.hp() / 4)) * this.level.val() / 100) + 10 + this.level.val();
+        return ((this.basePrm.hp() * 2 + this.individualValue.hp() + (this.effortValue.hp() / 4)) * this.level.val() / 100) + 10 + this.level.val();
     }
 
     public int getRealValAttack() {
-        return (int) ((((this.basePrm.getAttack() * 2 + this.individualValue.attack() + (this.effortValue.attack() / 4)) * this.level.val() / 100) + 5) * this.nature.getAttackRate());
+        return (int) ((((this.basePrm.attack() * 2 + this.individualValue.attack() + (this.effortValue.attack() / 4)) * this.level.val() / 100) + 5) * this.nature.getAttackRate());
     }
 
     public int getRealValBlock() {
-        return (int) ((((this.basePrm.getBlock() * 2 + this.individualValue.block() + (this.effortValue.block() / 4)) * this.level.val() / 100) + 5) * this.nature.getBlockRate());
+        return (int) ((((this.basePrm.block() * 2 + this.individualValue.block() + (this.effortValue.block() / 4)) * this.level.val() / 100) + 5) * this.nature.getBlockRate());
     }
 
     public int getRealValContact() {
-        return (int) ((((this.basePrm.getContact() * 2 + this.individualValue.contact() + (this.effortValue.contact() / 4)) * this.level.val() / 100) + 5) * this.nature.getContactRate());
+        return (int) ((((this.basePrm.contact() * 2 + this.individualValue.contact() + (this.effortValue.contact() / 4)) * this.level.val() / 100) + 5) * this.nature.getContactRate());
     }
 
     public int getRealValDefense() {
-        return (int) ((((this.basePrm.getDefense() * 2 + this.individualValue.defense() + (this.effortValue.defense() / 4)) * this.level.val() / 100) + 5) * this.nature.getDefenceRate());
+        return (int) ((((this.basePrm.defense() * 2 + this.individualValue.defense() + (this.effortValue.defense() / 4)) * this.level.val() / 100) + 5) * this.nature.getDefenceRate());
     }
 
     public int getRealValSpeed() {
-        return (int) ((((this.basePrm.getSpeed() * 2 + this.individualValue.speed() + (this.effortValue.speed() / 4)) * this.level.val() / 100) + 5) * this.nature.getSpeedRate());
+        return (int) ((((this.basePrm.speed() * 2 + this.individualValue.speed() + (this.effortValue.speed() / 4)) * this.level.val() / 100) + 5) * this.nature.getSpeedRate());
     }
 
     @Override
     public int giveExp() {
-        return this.getLevel().val() * this.getBasePrm().getBasicExperience() / 7;
+        return this.getLevel().val() * this.getBasePrm().basicExp() / 7;
     }
 
     @Override
     public PokeInfo addExp(int exp) throws InterruptedException {
         PokeInfo result = this.withExperience(exp);
-        showMessageParChar(result.getBasePrm().getName() + "は" + exp + "の経験値を獲得!");
+        showMessageParChar(result.getBasePrm().pName() + "は" + exp + "の経験値を獲得!");
         while (result.getExperience().isLevelUp(result)) {
             result = result.withLevel(1);
-            showMessageParChar(result.getBasePrm().getName() + "はLv." + result.getLevel().val() + "にレベルアップした!");
+            showMessageParChar(result.getBasePrm().pName() + "はLv." + result.getLevel().val() + "にレベルアップした!");
         }
         return result;
     }
@@ -79,7 +79,7 @@ public class PokeInfoI implements PokeInfo {
     @Override
     public PokeInfo recoveryHitPoint(int value) throws InterruptedException {
         PokeInfo result = this.withCurrentHitPoint(this.getCurrentHitPoint().recovery(this, new CurrentHPI(value)));
-        System.out.println(result.getBasePrm().getName() + "は体力を" + value + "回復!  HP" + result.getCurrentHitPoint().val() + "/" + result.getRealValHitPoint());
+        System.out.println(result.getBasePrm().pName() + "は体力を" + value + "回復!  HP" + result.getCurrentHitPoint().val() + "/" + result.getRealValHitPoint());
         System.out.println();
         return result.withStatusAilment(changeAilment(result, AilmentE.FINE));
     }
@@ -87,7 +87,7 @@ public class PokeInfoI implements PokeInfo {
     @Override
     public PokeInfo damagePoke(int value) throws InterruptedException {
         PokeInfo result = this.withCurrentHitPoint(this.getCurrentHitPoint().damage(new CurrentHPI(value)));
-        showMessageParChar(result.getBasePrm().getName() + "は" + value + "のダメージ!");
+        showMessageParChar(result.getBasePrm().pName() + "は" + value + "のダメージ!");
         if (result.getCurrentHitPoint().isDead()) {
             return result.withStatusAilment(changeAilment(result, AilmentE.FAINTING));
         }
@@ -135,7 +135,7 @@ public class PokeInfoI implements PokeInfo {
         this.individualValue = initializeIndividualValue();
         this.effortValue = initializeEffortValue();
         this.level = new LevelI(5);
-        this.haveMove = basePokemonInfo.getInitialMove();
+        this.haveMove = basePokemonInfo.initialMove();
         this.experience = new ExperienceI(135); // TODO 固定化したくない
         this.currentHitPoint = new CurrentHPI(getRealValHitPoint());
         this.statusRank = initializeStatusRank();

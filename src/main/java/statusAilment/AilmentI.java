@@ -160,16 +160,16 @@ public class AilmentI implements Ailment {
         int damage;
         switch (ailment) {
             case POISON -> {
-                showMessageParChar(target.getBasePrm().getName() + "はどくでダメージをうけた！");
+                showMessageParChar(target.getBasePrm().pName() + "はどくでダメージをうけた！");
                 damage = target.getRealValHitPoint() / 8;
             }
             case BAD_POISON -> {
-                showMessageParChar(target.getBasePrm().getName() + "はどくでダメージをうけた！");
+                showMessageParChar(target.getBasePrm().pName() + "はどくでダメージをうけた！");
                 int rate = elapsedTurn / 16;
                 damage = target.getRealValHitPoint() / rate;
             }
             case BURN -> {
-                showMessageParChar(target.getBasePrm().getName() + "はやけどでダメージをうけた！");
+                showMessageParChar(target.getBasePrm().pName() + "はやけどでダメージをうけた！");
                 damage = target.getRealValHitPoint() / 8;
             }
             default -> {

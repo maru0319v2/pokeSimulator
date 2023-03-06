@@ -162,10 +162,10 @@ public class EnemySelectMove {
         // ダメージの乱数
         double randomNum = 93;
         // タイプ一致判定
-        boolean isTypeMatch = (Objects.equals(move.baseMPrm().getMoveType(), attackPoke.getBasePrm().getType1())) || (Objects.equals(move.baseMPrm().getMoveType(), attackPoke.getBasePrm().getType2()));
+        boolean isTypeMatch = (Objects.equals(move.baseMPrm().getMoveType(), attackPoke.getBasePrm().type1())) || (Objects.equals(move.baseMPrm().getMoveType(), attackPoke.getBasePrm().type2()));
         double typeMatchRate = isTypeMatch ? 1.5 : 1;
         // タイプ相性判定
-        double effectiveRate = Type.damageRateByType(defencePoke.getBasePrm().getType1(), defencePoke.getBasePrm().getType2(), move);
+        double effectiveRate = Type.damageRateByType(defencePoke.getBasePrm().type1(), defencePoke.getBasePrm().type2(), move);
         // やけど判定
         double burnedRate = moveSpecies == MoveSpecies.PHYSICAL ? attackPoke.getStatusAilment().damageRateByBurn() : 1.0;
         // 天候によるダメージ倍率

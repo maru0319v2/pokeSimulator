@@ -248,17 +248,17 @@ public class StatusAilmentImplTest {
     public void test9() throws InterruptedException {
         PokeInfo myPokemon = new PokeInfoI(BasePrm.BULBASAUR);
         myPokemon = myPokemon.withStatusAilment(changeAilment(myPokemon, AilmentE.SLEEP));
-        myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
+        myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().pName()));
         // 1ターン経過後
         assertEquals(AilmentE.SLEEP, myPokemon.getStatusAilment().val());
-        assertFalse(myPokemon.getStatusAilment().canMove(myPokemon.getBasePrm().getName()));
-        myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
-        myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
-        myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
-        myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().getName()));
+        assertFalse(myPokemon.getStatusAilment().canMove(myPokemon.getBasePrm().pName()));
+        myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().pName()));
+        myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().pName()));
+        myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().pName()));
+        myPokemon = myPokemon.withStatusAilment(myPokemon.getStatusAilment().comeTurn(myPokemon.getBasePrm().pName()));
         // 5ターン経過後
         assertEquals(AilmentE.FINE, myPokemon.getStatusAilment().val());
-        assertTrue(myPokemon.getStatusAilment().canMove(myPokemon.getBasePrm().getName()));
+        assertTrue(myPokemon.getStatusAilment().canMove(myPokemon.getBasePrm().pName()));
     }
 
     @Test
@@ -278,7 +278,7 @@ public class StatusAilmentImplTest {
     public void test11() throws InterruptedException {
         PokeInfo poke = new PokeInfoI(BasePrm.BULBASAUR);
         poke = poke.withStatusAilment(changeAilment(poke, AilmentE.SLEEP));
-        poke = poke.withStatusAilment(poke.getStatusAilment().comeTurn(poke.getBasePrm().getName()));
+        poke = poke.withStatusAilment(poke.getStatusAilment().comeTurn(poke.getBasePrm().pName()));
         poke = poke.withStatusAilment(changeAilment(poke, AilmentE.SLEEP));
 
         assertEquals(1, poke.getStatusAilment().elapsedTurn());

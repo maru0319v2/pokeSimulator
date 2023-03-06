@@ -71,15 +71,15 @@ public class FieldI implements Field {
 
     @Override
     public PokeInfo slipDamageByWeather(PokeInfo target) throws InterruptedException {
-        List<Type> types = List.of(target.getBasePrm().getType1(), target.getBasePrm().getType2());
+        List<Type> types = List.of(target.getBasePrm().type1(), target.getBasePrm().type2());
         Set<Type> roGrSt = new HashSet<>(Arrays.asList(Type.ROCK, Type.GROUND, Type.STEEL));
         int damage;
 
         if (this.getWeather() == Weather.SANDSTORM && roGrSt.stream().noneMatch(types::contains)) {
-            showMessageParChar(target.getBasePrm().getName() + "はすなあらしでダメージをうけた！");
+            showMessageParChar(target.getBasePrm().pName() + "はすなあらしでダメージをうけた！");
             damage = target.getRealValHitPoint() / 16;
         } else if (this.getWeather() == Weather.HAIL && !types.contains(Type.ICE)) {
-            showMessageParChar(target.getBasePrm().getName() + "はあられでダメージをうけた！");
+            showMessageParChar(target.getBasePrm().pName() + "はあられでダメージをうけた！");
             damage = target.getRealValHitPoint() / 16;
         } else {
             return target;
@@ -110,8 +110,8 @@ public class FieldI implements Field {
     }
 
     public double defenceRateBySandStorm(PokeInfo defencePoke) {
-        Type type1 = defencePoke.getBasePrm().getType1();
-        Type type2 = defencePoke.getBasePrm().getType2();
+        Type type1 = defencePoke.getBasePrm().type1();
+        Type type2 = defencePoke.getBasePrm().type2();
         if (this.weather == Weather.SANDSTORM) {
             return type1 == Type.ROCK || type2 == Type.ROCK ? 1.5 : 1.0;
         }

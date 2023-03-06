@@ -16,8 +16,8 @@ public class BattleSimulation {
     public PokeInfo battleSimulation(PokeInfo myPoke, PokeInfo enemyPoke) throws InterruptedException {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        showMessageParChar("野生の" + enemyPoke.getBasePrm().getName() + "が飛び出してきた!");
-        showMessageParChar("ゆけっ!" + myPoke.getBasePrm().getName() + "!");
+        showMessageParChar("野生の" + enemyPoke.getBasePrm().pName() + "が飛び出してきた!");
+        showMessageParChar("ゆけっ!" + myPoke.getBasePrm().pName() + "!");
         Thread.sleep(500);
 
         Field field = initializeField();
@@ -29,8 +29,8 @@ public class BattleSimulation {
             Move selectedMove = BattleLogic.selectMove(myPoke.getHaveMove(), myPoke);
             Move enemyMove = enemySelectMove(enemyPoke, myPoke, field);
             showPokemonInfo(myPoke, enemyPoke);
-            String myName = myPoke.getBasePrm().getName();
-            String enemyName = enemyPoke.getBasePrm().getName();
+            String myName = myPoke.getBasePrm().pName();
+            String enemyName = enemyPoke.getBasePrm().pName();
 
             if (isFirstMe(myPoke, enemyPoke, selectedMove, enemyMove)) {
                 // 自分が先行の場合
@@ -113,17 +113,17 @@ public class BattleSimulation {
 
         showPokemonInfo(myPoke, enemyPoke);
         if (myPoke.getCurrentHitPoint().isAlive()) {
-            System.out.println("野生の" + enemyPoke.getBasePrm().getName() + "は倒れた!");
+            System.out.println("野生の" + enemyPoke.getBasePrm().pName() + "は倒れた!");
             int addExp = enemyPoke.giveExp();
             myPoke = myPoke.addExp(addExp);
         } else {
-            System.out.println(myPoke.getBasePrm().getName() + "は倒れた");
+            System.out.println(myPoke.getBasePrm().pName() + "は倒れた");
         }
         return myPoke.withResetStatusRank();
     }
 
     private boolean canMove(PokeInfo target) throws InterruptedException {
-        String name = target.getBasePrm().getName();
+        String name = target.getBasePrm().pName();
         boolean flinchResult = target.getFlinch().canMove(name);
         boolean ailmentResult = target.getStatusAilment().canMove(name);
         if (!flinchResult) {

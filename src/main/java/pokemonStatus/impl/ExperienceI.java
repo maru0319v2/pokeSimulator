@@ -38,7 +38,7 @@ public class ExperienceI implements Experience {
     }
 
     private int requireExpAsType(PokeInfo target) {
-        ExpType expType = target.getBasePrm().getExperienceType();
+        ExpType expType = target.getBasePrm().expType();
         int level = target.getLevel().val() + 1;
         int result = 10;
 
