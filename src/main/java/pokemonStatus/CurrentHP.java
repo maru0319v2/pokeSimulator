@@ -1,18 +1,17 @@
 package pokemonStatus;
 
 import pokemon.PokeInfo;
-import pokemonStatus.impl.CurrentHPI;
 
 public interface CurrentHP {
 
     // 現在HPの値
-    public int value();
+    int val();
 
     // 体力を回復する。
-    public CurrentHP recovery(PokeInfo target, CurrentHPI currentHitPointImpl) throws InterruptedException;
+    CurrentHP recovery(PokeInfo target, CurrentHP currentHP) throws InterruptedException;
 
     // 体力を減らす。
-    public CurrentHP damage(CurrentHPI currentHitPointImpl);
+    CurrentHP damage(CurrentHP currentHP);
 
     boolean isAlive();
 

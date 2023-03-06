@@ -37,6 +37,6 @@ public class MoveI implements Move {
 
     @Override
     public boolean canUse() {
-        return this.getCurrentPowerPoint().value() > 0;
+        return this.getCurrentPowerPoint().val() > 0;
     }
 }

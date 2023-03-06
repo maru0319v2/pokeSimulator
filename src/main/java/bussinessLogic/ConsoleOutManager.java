@@ -56,7 +56,7 @@ public class ConsoleOutManager {
 //        System.out.print(" 特攻 " + target.effortValue().contact());
 //        System.out.print(" 特防 " + target.effortValue().defense());
 //        System.out.println(" 素早 " + target.effortValue().speed());
-        System.out.print("HP: " + target.getCurrentHitPoint().value() + "/" + target.getRealValHitPoint() + " ");
+        System.out.print("HP: " + target.getCurrentHitPoint().val() + "/" + target.getRealValHitPoint() + " ");
         showProgressBar(target);
         System.out.println("");
         System.out.println("攻撃 " + target.getRealValAttack());
@@ -80,7 +80,7 @@ public class ConsoleOutManager {
 
     public static void showProgressBar(PokeInfo target) {
         // 残りHPのパーセントを出す
-        double i = ((double) target.getCurrentHitPoint().value()) / ((double) target.getRealValHitPoint()) * 20;
+        double i = ((double) target.getCurrentHitPoint().val()) / ((double) target.getRealValHitPoint()) * 20;
         System.out.print("[");
         int j;
         for (j = 0; i > j; j++) {
@@ -105,7 +105,7 @@ public class ConsoleOutManager {
         System.out.print("HP");
         showProgressBar(enemyPokemon);
         System.out.println("           ■");
-        System.out.print("   " + enemyPokemon.getCurrentHitPoint().value() + " / " + enemyPokemon.getRealValHitPoint());
+        System.out.print("   " + enemyPokemon.getCurrentHitPoint().val() + " / " + enemyPokemon.getRealValHitPoint());
         System.out.println("");
         System.out.println("");
         System.out.println("");
@@ -120,7 +120,7 @@ public class ConsoleOutManager {
         System.out.print("            ■           HP");
         showProgressBar(myPokemon);
         System.out.println("");
-        System.out.println("                           " + myPokemon.getCurrentHitPoint().value() + " / " + myPokemon.getRealValHitPoint());
+        System.out.println("                           " + myPokemon.getCurrentHitPoint().val() + " / " + myPokemon.getRealValHitPoint());
         System.out.println("");
         System.out.println("-------------------------------------------------");
     }
@@ -129,7 +129,7 @@ public class ConsoleOutManager {
         System.out.println("名前:" + target.getBasePrm().getName() + " ");
         System.out.println("タイプ1: " + target.getBasePrm().getType1().getValue() + " タイプ2: " + target.getBasePrm().getType2().getValue());
         System.out.println("レベル: " + target.getLevel().value());
-        System.out.print("HP: " + target.getCurrentHitPoint().value() + "/" + target.getRealValHitPoint() + " ");
+        System.out.print("HP: " + target.getCurrentHitPoint().val() + "/" + target.getRealValHitPoint() + " ");
         showProgressBar(target);
         System.out.println("");
         System.out.println("攻撃 " + target.getRealValAttack());
@@ -289,9 +289,9 @@ public class ConsoleOutManager {
     public static void showMessageParChar(String message) throws InterruptedException {
         for (int i = 0; i < message.length(); i++) {
             System.out.print(message.charAt(i));
-            Thread.sleep(20);
+            //Thread.sleep(20);
         }
         System.out.println("");
-        Thread.sleep(200);
+        //Thread.sleep(200);
     }
 }

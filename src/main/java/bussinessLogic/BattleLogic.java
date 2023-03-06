@@ -43,7 +43,7 @@ public class BattleLogic {
             for (int j = 0; j < 8 - move.baseMPrm().getName().length(); j++) {
                 System.out.print("　");
             }
-            System.out.println(move.getCurrentPowerPoint().value() + "/" + move.baseMPrm().getPowerPoint() + " " + move.baseMPrm().getMoveType().getValue());
+            System.out.println(move.getCurrentPowerPoint().val() + "/" + move.baseMPrm().getPowerPoint() + " " + move.baseMPrm().getMoveType().getValue());
             i++;
         }
         System.out.println();

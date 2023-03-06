@@ -51,7 +51,7 @@ public class EnemySelectMove {
     // 残HPが75%以上の場合は回復技を候補からはずす
     private static List<Move> filterDisableRecovery(PokeInfo enemyPokemon) {
         // 残HP
-        int remainingHP = enemyPokemon.getCurrentHitPoint().value();
+        int remainingHP = enemyPokemon.getCurrentHitPoint().val();
         // 最大HP
         int maxHP = enemyPokemon.getRealValHitPoint();
         // 残HPの%
@@ -141,7 +141,7 @@ public class EnemySelectMove {
         // 最大ダメージのインデックス
         int maxDamageIndex = damageList.indexOf(maxDamage);
         // 防御側の残りHP
-        int remainingHP = myPokemon.getCurrentHitPoint().value();
+        int remainingHP = myPokemon.getCurrentHitPoint().val();
         // ダメージが防御側の残りHPより大きければ先制技を使う、倒せない場合はすべての技から最大打点を選択
         if (maxDamageIndex >= remainingHP) {
             return maxDamageIndex;

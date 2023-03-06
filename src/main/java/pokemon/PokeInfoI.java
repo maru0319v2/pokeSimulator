@@ -76,7 +76,7 @@ public class PokeInfoI implements PokeInfo {
     @Override
     public PokeInfo recoveryHitPoint(int value) throws InterruptedException {
         PokeInfo result = this.withCurrentHitPoint(this.getCurrentHitPoint().recovery(this, new CurrentHPI(value)));
-        System.out.println(result.getBasePrm().getName() + "は体力を" + value + "回復!  HP" + result.getCurrentHitPoint().value() + "/" + result.getRealValHitPoint());
+        System.out.println(result.getBasePrm().getName() + "は体力を" + value + "回復!  HP" + result.getCurrentHitPoint().val() + "/" + result.getRealValHitPoint());
         System.out.println();
         return result.withStatusAilment(changeAilment(result, AilmentE.FINE));
     }
@@ -186,7 +186,7 @@ public class PokeInfoI implements PokeInfo {
         this.level = new LevelI(level.value());
         this.haveMove = haveMove;
         this.experience = new ExperienceI(experience.totalExperience());
-        this.currentHitPoint = new CurrentHPI(currentHitPoint.value());
+        this.currentHitPoint = new CurrentHPI(currentHitPoint.val());
         this.statusRank = new StatusRankI(statusRankImpl.getAttack(), statusRankImpl.getBlock(), statusRankImpl.getContact(), statusRankImpl.getDefense(), statusRankImpl.getSpeed(), statusRankImpl.getHitRate(), statusRankImpl.getAvoidRate());
         this.statusAilment = statusAilment;
         this.flinch = flinch;
