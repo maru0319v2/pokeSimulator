@@ -289,9 +289,9 @@ public class ConsoleOutManager {
     public static void showMessageParChar(String message) throws InterruptedException {
         for (int i = 0; i < message.length(); i++) {
             System.out.print(message.charAt(i));
-            Thread.sleep(20);
+            //Thread.sleep(20);
         }
         System.out.println("");
-        Thread.sleep(150);
+        //Thread.sleep(150);
     }
 }

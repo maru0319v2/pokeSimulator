@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static pokemon.PokeInfoI.initialize;
 import static statusAilment.AilmentI.changeAilment;
 
-public class StatusAilmentImplTest {
+public class AilmentTest {
     @Test
     @DisplayName("やけど状態が健康とひんし状態以外に上書きされないこと")
     public void test1() throws InterruptedException {

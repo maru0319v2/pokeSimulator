@@ -24,6 +24,7 @@ public enum DetailMvSpecies {
     DOWN_HI("ランク下降命中"),
     DOWN_AV("ランク下降回避"),
     AILMENT("状態異常"),
+    CONFUSE("混乱"),
     WEATHER("天候");
 
     private final String val;

@@ -10,6 +10,7 @@ import static field.FieldI.changeField;
 import static field.FieldI.initField;
 import static move.MoveI.initMv;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static pokemon.PokeInfoI.initialize;
 
 public class FieldTest {
@@ -113,5 +114,53 @@ public class FieldTest {
         double result4 = field.dfcRateBySandStorm(myPoke2);
         assertEquals(1.5, result3);
         assertEquals(1.0, result4);
+    }
+
+    @Test
+    @DisplayName("晴れになったときにcountForRecoveryが5、elapsedTurnが0であること")
+    public void test7() throws InterruptedException {
+        Field field = initField();
+        field = changeField(field, Weather.DROUGHT);
+
+        assertEquals(0, field.elapsedTurn());
+        assertEquals(5, field.countForRecovery());
+    }
+
+    @Test
+    @DisplayName("岩、地面、鋼タイプはすなあらしダメージを受けないこと")
+    public void test8() throws InterruptedException {
+        Field field = initField();
+        field = changeField(field, Weather.SANDSTORM);
+
+        PokeInfo rockPk = initialize(BasePrm.RHYDON);
+        PokeInfo groundPk = initialize(BasePrm.DUGTRIO);
+        PokeInfo steelPk = initialize(BasePrm.SCIZOR);
+        PokeInfo firePk = initialize(BasePrm.CHARIZARD);
+
+        rockPk = field.slipDmgByWeather(rockPk);
+        groundPk = field.slipDmgByWeather(groundPk);
+        steelPk = field.slipDmgByWeather(steelPk);
+        firePk = field.slipDmgByWeather(firePk);
+
+        assertEquals(1, (rockPk.currentHP().val() / rockPk.realHP()));
+        assertEquals(1, (groundPk.currentHP().val() / groundPk.realHP()));
+        assertEquals(1, (steelPk.currentHP().val() / steelPk.realHP()));
+        assertNotEquals(1, (firePk.currentHP().val() / firePk.realHP()));
+    }
+
+    @Test
+    @DisplayName("氷タイプはあられダメージを受けないこと")
+    public void test9() throws InterruptedException {
+        Field field = initField();
+        field = changeField(field, Weather.HAIL);
+
+        PokeInfo icePk = initialize(BasePrm.LAPRAS);
+        PokeInfo firePk = initialize(BasePrm.CHARIZARD);
+
+        icePk = field.slipDmgByWeather(icePk);
+        firePk = field.slipDmgByWeather(firePk);
+
+        assertEquals(1, (icePk.currentHP().val() / icePk.realHP()));
+        assertNotEquals(1, (firePk.currentHP().val() / firePk.realHP()));
     }
 }

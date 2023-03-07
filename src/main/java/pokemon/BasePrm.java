@@ -86,11 +86,115 @@ public enum BasePrm {
             0, 0, 0, 0, 3, 0,
             List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
     ),
+    BUTTERFREE(
+            "012", "バタフリー",
+            Type.BUG, Type.FLYING,
+            60, 45, 50, 80, 80, 70,
+            ExpType.TYPE1000000, 198,
+            0, 0, 0, 2, 1, 0,
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
+    ),
+    BEEDRILL(
+            "015", "スピアー",
+            Type.BUG, Type.POISON,
+            65, 90, 40, 45, 80, 75,
+            ExpType.TYPE1000000, 178,
+            0, 2, 0, 0, 1, 0,
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
+    ),
+    PIDGEOT(
+            "018", "ピジョット",
+            Type.NORMAL, Type.FLYING,
+            83, 80, 75, 70, 70, 101,
+            ExpType.TYPE1050000, 240,
+            0, 0, 0, 0, 0, 3,
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
+    ),
+    RATICATE(
+            "020", "ラッタ",
+            Type.NORMAL, Type.NONE,
+            55, 81, 60, 50, 70, 97,
+            ExpType.TYPE1000000, 145,
+            0, 0, 0, 0, 0, 2,
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
+    ),
+    FEAROW(
+            "022", "オニドリル",
+            Type.NORMAL, Type.FLYING,
+            65, 90, 65, 61, 61, 100,
+            ExpType.TYPE1000000, 155,
+            0, 0, 0, 0, 0, 2,
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
+    ),
+    ARBOK(
+            "024", "アーボック",
+            Type.POISON, Type.NONE,
+            60, 95, 69, 65, 79, 80,
+            ExpType.TYPE1000000, 157,
+            0, 2, 0, 0, 0, 0,
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
+    ),
+    RAICHU(
+            "026", "ライチュウ",
+            Type.ELECTRIC, Type.NONE,
+            60, 90, 55, 90, 80, 110,
+            ExpType.TYPE1000000, 243,
+            0, 0, 0, 0, 0, 3,
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
+    ),
+    SANDSLASH(
+            "028", "サンドパン",
+            Type.GROUND, Type.NONE,
+            75, 100, 110, 45, 55, 65,
+            ExpType.TYPE1000000, 158,
+            0, 0, 2, 0, 0, 0,
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
+    ),
+    NIDOQUEEN(
+            "031", "ニドクイン",
+            Type.POISON, Type.GROUND,
+            90, 92, 87, 75, 85, 76,
+            ExpType.TYPE1050000, 253,
+            3, 0, 0, 0, 0, 0,
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
+    ),
+    NIDOKING(
+            "034", "ニドキング",
+            Type.POISON, Type.GROUND,
+            81, 102, 77, 85, 75, 85,
+            ExpType.TYPE1050000, 253,
+            0, 3, 0, 0, 0, 0,
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
+    ),
+    DUGTRIO(
+            "051", "ダグトリオ",
+            Type.GROUND, Type.NONE,
+            35, 100, 50, 50, 70, 120,
+            ExpType.TYPE1000000, 149,
+            0, 0, 0, 0, 0, 2,
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
+    ),
     RHYDON(
             "112", "サイドン",
             Type.GROUND, Type.ROCK,
             105, 130, 120, 45, 45, 40,
             ExpType.TYPE1250000, 170,
+            0, 2, 0, 0, 0, 0,
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
+    ),
+    LAPRAS(
+            "131", "ラプラス",
+            Type.WATER, Type.ICE,
+            130, 85, 80, 85, 95, 60,
+            ExpType.TYPE1250000, 187,
+            2, 0, 0, 0, 0, 0,
+            List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
+    ),
+    SCIZOR(
+            "212", "ハッサム",
+            Type.BUG, Type.STEEL,
+            70, 130, 100, 55, 80, 65,
+            ExpType.TYPE1000000, 175,
             0, 2, 0, 0, 0, 0,
             List.of(initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.GROWL))
     );

@@ -58,6 +58,15 @@ public enum BaseMvPrm {
             return new OnBattleField(attackPoke, defencePoke, field);
         }
     },
+    CLOSE_COMBAT("インファイト", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 120, 100, 5, 0, 0,
+            true, false, true, false, false, false
+    ) {
+        @Override
+        public OnBattleField effect(PokeInfo attackPoke, PokeInfo defencePoke, Field field, int recoveryHP) throws InterruptedException {
+            showMessageParChar(attackPoke.basePrm().pName() + "のぼうぎょととくぼうがさがった!");
+            return new OnBattleField(attackPoke.withChStatusRank(0, -1, 0, -1, 0, 0, 0), defencePoke, field);
+        }
+    },
     FLAMETHROWER("かえんほうしゃ", Type.FIRE, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 90, 100, 15, 0, 0,
             false, false, true, false, false, false
     ) {
@@ -179,6 +188,13 @@ public enum BaseMvPrm {
         @Override
         public OnBattleField effect(PokeInfo attackPoke, PokeInfo defencePoke, Field field, int recoveryHP) throws InterruptedException {
             return new OnBattleField(attackPoke, defencePoke.withAilment(changeAilment(defencePoke, AilmentE.BURN)), field);
+        }
+    },
+    CONFUSE_RAY("あやしいひかり", Type.GHOST, MoveSpecies.CHANGE, DetailMvSpecies.CONFUSE, 0, 100, 10, 0, 0,
+            false, true, true, false, false, false) {
+        @Override
+        public OnBattleField effect(PokeInfo attackPoke, PokeInfo defencePoke, Field field, int recoveryHP) throws InterruptedException {
+            return new OnBattleField(attackPoke, defencePoke.withConfusion(beConfusion(defencePoke)), field);
         }
     },
     /**
