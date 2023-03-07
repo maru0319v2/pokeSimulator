@@ -86,23 +86,23 @@ public class PokeInfoI implements PokeInfo {
         return ((this.basePrm.hp() * 2 + this.individualValue.hp() + (this.effortValue.hp() / 4)) * this.level.val() / 100) + 10 + this.level.val();
     }
 
-    public int realAttack() {
+    public int realAtk() {
         return (int) ((((this.basePrm.attack() * 2 + this.individualValue.attack() + (this.effortValue.attack() / 4)) * this.level.val() / 100) + 5) * this.nature.attackRate());
     }
 
-    public int realBlock() {
+    public int realBlk() {
         return (int) ((((this.basePrm.block() * 2 + this.individualValue.block() + (this.effortValue.block() / 4)) * this.level.val() / 100) + 5) * this.nature.blockRate());
     }
 
-    public int realContact() {
+    public int realCnt() {
         return (int) ((((this.basePrm.contact() * 2 + this.individualValue.contact() + (this.effortValue.contact() / 4)) * this.level.val() / 100) + 5) * this.nature.contactRate());
     }
 
-    public int realDefence() {
+    public int realDfc() {
         return (int) ((((this.basePrm.defence() * 2 + this.individualValue.defence() + (this.effortValue.defence() / 4)) * this.level.val() / 100) + 5) * this.nature.defenceRate());
     }
 
-    public int realSpeed() {
+    public int realSpd() {
         return (int) ((((this.basePrm.speed() * 2 + this.individualValue.speed() + (this.effortValue.speed() / 4)) * this.level.val() / 100) + 5) * this.nature.speedRate());
     }
 

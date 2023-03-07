@@ -6,21 +6,21 @@ import pokemon.PokeInfo;
 
 @Getter
 public class OnBattleField {
-    private final PokeInfo attackPoke;
-    private final PokeInfo defencePoke;
+    private final PokeInfo atkPk;
+    private final PokeInfo dfcPk;
     private final Field field;
 
-    public OnBattleField(PokeInfo attackPoke, PokeInfo defencePoke, Field field) {
-        this.attackPoke = attackPoke;
-        this.defencePoke = defencePoke;
+    public OnBattleField(PokeInfo atkPk, PokeInfo dfcPk, Field field) {
+        this.atkPk = atkPk;
+        this.dfcPk = dfcPk;
         this.field = field;
     }
 
     public boolean isBothFine() {
-        return attackPoke.currentHP().isAlive() && defencePoke.currentHP().isAlive();
+        return atkPk.currentHP().isAlive() && dfcPk.currentHP().isAlive();
     }
 
     public boolean isDeadEither() {
-        return attackPoke.currentHP().isDead() || defencePoke.currentHP().isDead();
+        return atkPk.currentHP().isDead() || dfcPk.currentHP().isDead();
     }
 }

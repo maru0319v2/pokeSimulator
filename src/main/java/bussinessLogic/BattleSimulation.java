@@ -13,35 +13,35 @@ import static bussinessLogic.EnemySelectMove.enemySelectMove;
 import static field.FieldI.initField;
 
 public class BattleSimulation {
-    public PokeInfo battleSimulation(PokeInfo myPoke, PokeInfo enemyPoke) throws InterruptedException {
+    public PokeInfo battleSimulation(PokeInfo myPk, PokeInfo enemyPk) throws InterruptedException {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        showMessageParChar("野生の" + enemyPoke.basePrm().pName() + "が飛び出してきた!");
-        showMessageParChar("ゆけっ!" + myPoke.basePrm().pName() + "!");
+        showMessageParChar("野生の" + enemyPk.basePrm().pName() + "が飛び出してきた!");
+        showMessageParChar("ゆけっ!" + myPk.basePrm().pName() + "!");
         Thread.sleep(500);
 
         Field field = initField();
-        OnBattleField onBF = new OnBattleField(myPoke, enemyPoke, field);
+        OnBattleField onBF = new OnBattleField(myPk, enemyPk, field);
 
         while (onBF.isBothFine()) {
             // 技選択
-            showPokemonInfo(myPoke, enemyPoke);
-            Move selectedMove = BattleLogic.selectMove(myPoke.haveMove(), myPoke);
-            Move enemyMove = enemySelectMove(enemyPoke, myPoke, field);
-            showPokemonInfo(myPoke, enemyPoke);
-            String myName = myPoke.basePrm().pName();
-            String enemyName = enemyPoke.basePrm().pName();
+            showPokemonInfo(myPk, enemyPk);
+            Move selectedMove = BattleLogic.selectMove(myPk.haveMove(), myPk);
+            Move enemyMove = enemySelectMove(enemyPk, myPk, field);
+            showPokemonInfo(myPk, enemyPk);
+            String myName = myPk.basePrm().pName();
+            String enemyName = enemyPk.basePrm().pName();
 
-            if (isFirstMe(myPoke, enemyPoke, selectedMove, enemyMove)) {
+            if (isFirstMe(myPk, enemyPk, selectedMove, enemyMove)) {
                 // 自分が先行の場合
 
                 // 状態異常の場合、経過ターン+1
-                myPoke = myPoke.withAilment(myPoke.ailment().comeTurn(myName));
+                myPk = myPk.withAilment(myPk.ailment().comeTurn(myName));
                 // 行動可能な場合、技を使う
-                if (canMove(myPoke)) {
-                    onBF = doAction(myPoke, enemyPoke, field, selectedMove);
-                    myPoke = onBF.getAttackPoke();
-                    enemyPoke = onBF.getDefencePoke();
+                if (canMove(myPk)) {
+                    onBF = doAction(myPk, enemyPk, field, selectedMove);
+                    myPk = onBF.getAtkPk();
+                    enemyPk = onBF.getDfcPk();
                     field = onBF.getField();
                 }
 
@@ -49,27 +49,27 @@ public class BattleSimulation {
                     break;
                 }
                 Thread.sleep(500);
-                showPokemonInfo(myPoke, enemyPoke);
+                showPokemonInfo(myPk, enemyPk);
 
                 // 状態異常の場合、経過ターン+1
-                enemyPoke = enemyPoke.withAilment(enemyPoke.ailment().comeTurn(enemyName));
+                enemyPk = enemyPk.withAilment(enemyPk.ailment().comeTurn(enemyName));
                 // 行動可能な場合、技を使う
-                if (canMove(enemyPoke)) {
-                    onBF = doAction(enemyPoke, myPoke, field, enemyMove);
-                    myPoke = onBF.getDefencePoke();
-                    enemyPoke = onBF.getAttackPoke();
+                if (canMove(enemyPk)) {
+                    onBF = doAction(enemyPk, myPk, field, enemyMove);
+                    myPk = onBF.getDfcPk();
+                    enemyPk = onBF.getAtkPk();
                     field = onBF.getField();
                 }
             } else {
                 // 自分が後攻の場合
 
                 // 状態異常の場合、経過ターン+1
-                enemyPoke = enemyPoke.withAilment(enemyPoke.ailment().comeTurn(enemyName));
+                enemyPk = enemyPk.withAilment(enemyPk.ailment().comeTurn(enemyName));
                 // 行動可能な場合、技を使う
-                if (canMove(enemyPoke)) {
-                    onBF = doAction(enemyPoke, myPoke, field, enemyMove);
-                    myPoke = onBF.getDefencePoke();
-                    enemyPoke = onBF.getAttackPoke();
+                if (canMove(enemyPk)) {
+                    onBF = doAction(enemyPk, myPk, field, enemyMove);
+                    myPk = onBF.getDfcPk();
+                    enemyPk = onBF.getAtkPk();
                     field = onBF.getField();
                 }
 
@@ -77,15 +77,15 @@ public class BattleSimulation {
                     break;
                 }
                 Thread.sleep(500);
-                showPokemonInfo(myPoke, enemyPoke);
+                showPokemonInfo(myPk, enemyPk);
 
                 // 状態異常の場合、経過ターン+1
-                myPoke = myPoke.withAilment(myPoke.ailment().comeTurn(myName));
+                myPk = myPk.withAilment(myPk.ailment().comeTurn(myName));
                 // 行動可能な場合、技を使う
-                if (canMove(myPoke)) {
-                    onBF = doAction(myPoke, enemyPoke, field, selectedMove);
-                    myPoke = onBF.getAttackPoke();
-                    enemyPoke = onBF.getDefencePoke();
+                if (canMove(myPk)) {
+                    onBF = doAction(myPk, enemyPk, field, selectedMove);
+                    myPk = onBF.getAtkPk();
+                    enemyPk = onBF.getDfcPk();
                     field = onBF.getField();
                 }
             }
@@ -94,32 +94,32 @@ public class BattleSimulation {
                 break;
             }
             // ターン終了処理
-            onBF = endTurnProcessWeather(myPoke, enemyPoke, field);
-            myPoke = onBF.getAttackPoke();
-            enemyPoke = onBF.getDefencePoke();
+            onBF = endTurnProcessWeather(myPk, enemyPk, field);
+            myPk = onBF.getAtkPk();
+            enemyPk = onBF.getDfcPk();
 
             if (onBF.isDeadEither()) {
                 break;
             }
 
-            onBF = endTurnProcessAilment(myPoke, enemyPoke, field);
-            myPoke = onBF.getAttackPoke();
-            enemyPoke = onBF.getDefencePoke();
+            onBF = endTurnProcessAilment(myPk, enemyPk, field);
+            myPk = onBF.getAtkPk();
+            enemyPk = onBF.getDfcPk();
 
             // 怯み状態をリセットする
-            myPoke = myPoke.withFlinch(new FlinchI(false));
-            enemyPoke = enemyPoke.withFlinch(new FlinchI(false));
+            myPk = myPk.withFlinch(new FlinchI(false));
+            enemyPk = enemyPk.withFlinch(new FlinchI(false));
         }
 
-        showPokemonInfo(myPoke, enemyPoke);
-        if (myPoke.currentHP().isAlive()) {
-            System.out.println("野生の" + enemyPoke.basePrm().pName() + "は倒れた!");
-            int addExp = enemyPoke.giveExp();
-            myPoke = myPoke.addExp(addExp);
+        showPokemonInfo(myPk, enemyPk);
+        if (myPk.currentHP().isAlive()) {
+            System.out.println("野生の" + enemyPk.basePrm().pName() + "は倒れた!");
+            int addExp = enemyPk.giveExp();
+            myPk = myPk.addExp(addExp);
         } else {
-            System.out.println(myPoke.basePrm().pName() + "は倒れた");
+            System.out.println(myPk.basePrm().pName() + "は倒れた");
         }
-        return myPoke.withResetStatusRank();
+        return myPk.withResetStatusRank();
     }
 
     private boolean canMove(PokeInfo target) throws InterruptedException {

@@ -38,19 +38,19 @@ public interface PokeInfo {
     int realHP();
 
     // 攻撃実数値
-    int realAttack();
+    int realAtk();
 
     // 防御実数値
-    int realBlock();
+    int realBlk();
 
     // 特攻実数値
-    int realContact();
+    int realCnt();
 
     // 特防実数値
-    int realDefence();
+    int realDfc();
 
     // 素早実数値
-    int realSpeed();
+    int realSpd();
 
     // 総獲得経験値
     Experience experience();

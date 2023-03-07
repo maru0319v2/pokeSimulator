@@ -59,11 +59,11 @@ public class ConsoleOutManager {
         System.out.print("HP: " + target.currentHP().val() + "/" + target.realHP() + " ");
         showProgressBar(target);
         System.out.println("");
-        System.out.println("攻撃 " + target.realAttack());
-        System.out.println("防御 " + target.realBlock());
-        System.out.println("特攻 " + target.realContact());
-        System.out.println("特防 " + target.realDefence());
-        System.out.println("素早 " + target.realSpeed());
+        System.out.println("攻撃 " + target.realAtk());
+        System.out.println("防御 " + target.realBlk());
+        System.out.println("特攻 " + target.realCnt());
+        System.out.println("特防 " + target.realDfc());
+        System.out.println("素早 " + target.realSpd());
     }
 
     public static void showMoveDetail(List<Move> moves) {
@@ -132,11 +132,11 @@ public class ConsoleOutManager {
         System.out.print("HP: " + target.currentHP().val() + "/" + target.realHP() + " ");
         showProgressBar(target);
         System.out.println("");
-        System.out.println("攻撃 " + target.realAttack());
-        System.out.println("防御 " + target.realBlock());
-        System.out.println("特攻 " + target.realContact());
-        System.out.println("特防 " + target.realDefence());
-        System.out.println("素早 " + target.realSpeed());
+        System.out.println("攻撃 " + target.realAtk());
+        System.out.println("防御 " + target.realBlk());
+        System.out.println("特攻 " + target.realCnt());
+        System.out.println("特防 " + target.realDfc());
+        System.out.println("素早 " + target.realSpd());
         System.out.println("");
 
         System.out.print("攻撃ランク ");

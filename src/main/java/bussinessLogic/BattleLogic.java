@@ -17,8 +17,8 @@ public class BattleLogic {
 
     // 先行後攻を決める
     public static boolean isFirstMe(PokeInfo myPk, PokeInfo enePk, Move selectedMove, Move enemyMove) {
-        int calculatedMySpeed = (int) (myPk.realSpeed() * myPk.statusRank().spdRateByStatusRank() * myPk.ailment().speedRateByParalysis());
-        int calculatedEnemySpeed = (int) (enePk.realSpeed() * enePk.statusRank().spdRateByStatusRank() * enePk.ailment().speedRateByParalysis());
+        int calculatedMySpeed = (int) (myPk.realSpd() * myPk.statusRank().spdRateByStatusRank() * myPk.ailment().speedRateByParalysis());
+        int calculatedEnemySpeed = (int) (enePk.realSpd() * enePk.statusRank().spdRateByStatusRank() * enePk.ailment().speedRateByParalysis());
         int myPriority = selectedMove.baseMPrm().priority();
         int enemyPriority = enemyMove.baseMPrm().priority();
 
@@ -78,29 +78,29 @@ public class BattleLogic {
     }
 
     // ターンごとの行動 命中判定、ダメージ計算、ダメージ付与を一括で行う
-    public static OnBattleField doAction(PokeInfo attackPoke, PokeInfo defencePoke, Field field, Move move) throws InterruptedException {
+    public static OnBattleField doAction(PokeInfo atkPk, PokeInfo dfcPk, Field field, Move move) throws InterruptedException {
         // PPを1減らす
-        attackPoke = attackPoke.decrementPP(move);
+        atkPk = atkPk.decrementPP(move);
 
         // TODO 型で処理を分けてif文なくせそう
         if (move.baseMPrm().moveSpecies() == MoveSpecies.PHYSICAL || move.baseMPrm().moveSpecies() == MoveSpecies.SPECIAL) {
-            if (isHit(attackPoke, defencePoke, move)) {
-                int damage = calcDamage(attackPoke, defencePoke, field, move);
-                defencePoke = defencePoke.damage(damage);
-                return move.baseMPrm().effect(attackPoke, defencePoke, field, damage);
+            if (isHit(atkPk, dfcPk, move)) {
+                int damage = calcDamage(atkPk, dfcPk, field, move);
+                dfcPk = dfcPk.damage(damage);
+                return move.baseMPrm().effect(atkPk, dfcPk, field, damage);
             } else {
-                showMessageParChar(attackPoke.basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
-                showMessageParChar(attackPoke.basePrm().pName() + "の" + move.baseMPrm().mvName() + "は外れた");
-                return new OnBattleField(attackPoke, defencePoke, field);
+                showMessageParChar(atkPk.basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
+                showMessageParChar(atkPk.basePrm().pName() + "の" + move.baseMPrm().mvName() + "は外れた");
+                return new OnBattleField(atkPk, dfcPk, field);
             }
         } else {
-            if (isHit(attackPoke, defencePoke, move)) {
-                showMessageParChar(attackPoke.basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
-                return move.baseMPrm().effect(attackPoke, defencePoke, field, 0);
+            if (isHit(atkPk, dfcPk, move)) {
+                showMessageParChar(atkPk.basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
+                return move.baseMPrm().effect(atkPk, dfcPk, field, 0);
             } else {
-                showMessageParChar(attackPoke.basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
-                showMessageParChar(attackPoke.basePrm().pName() + "の" + move.baseMPrm().mvName() + "は外れた");
-                return new OnBattleField(attackPoke, defencePoke, field);
+                showMessageParChar(atkPk.basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
+                showMessageParChar(atkPk.basePrm().pName() + "の" + move.baseMPrm().mvName() + "は外れた");
+                return new OnBattleField(atkPk, dfcPk, field);
             }
         }
     }
@@ -141,11 +141,11 @@ public class BattleLogic {
         int defenceVal = 0;
         // ステータス実数値にランク補正を乗せる
         if (moveSpecies == MoveSpecies.PHYSICAL) {
-            attackVal = (int) (atkPk.realAttack() * attackRateByStatusRank);
-            defenceVal = (int) (dfcPk.realBlock() * blockRateByStatusRank);
+            attackVal = (int) (atkPk.realAtk() * attackRateByStatusRank);
+            defenceVal = (int) (dfcPk.realBlk() * blockRateByStatusRank);
         } else if (moveSpecies == MoveSpecies.SPECIAL) {
-            attackVal = (int) (atkPk.realContact() * contactRateByStatusRank);
-            defenceVal = (int) (dfcPk.realDefence() * defenceRateByStatusRank * defenceRateRock);
+            attackVal = (int) (atkPk.realCnt() * contactRateByStatusRank);
+            defenceVal = (int) (dfcPk.realDfc() * defenceRateByStatusRank * defenceRateRock);
         }
 
         int result = (int) Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * totalDamageRate);
