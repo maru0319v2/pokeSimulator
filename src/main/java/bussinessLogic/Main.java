@@ -27,7 +27,7 @@ import static pokemon.PokeInfoI.initialize;
 // PPが0のときはわるあがきする
 // 草タイプはねむりごな等無効、炎タイプはやけどにならない、氷タイプは氷状態にならない、鋼タイプはどくにならない、毒タイプはどくにならない
 // とくせい
-// こんらん、バインド、のろい、ちょうはつ、こだわり
+// バインド、のろい、ちょうはつ、こだわり
 // テストを充実させる
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -81,10 +81,10 @@ public class Main {
                                 new IndividualValueI(10, 10, 10, 10, 10, 10),
                                 new EffortValueI(6, 0, 0, 252, 0, 252),
                                 new LevelI(50),
-                                List.of(initMv(BaseMvPrm.AIR_SLASH), initMv(BaseMvPrm.FLAMETHROWER), initMv(BaseMvPrm.WILL_O_WISP), initMv(BaseMvPrm.DOUBLE_TEAM))
+                                List.of(initMv(BaseMvPrm.AIR_SLASH), initMv(BaseMvPrm.WATER_PULSE), initMv(BaseMvPrm.WILL_O_WISP), initMv(BaseMvPrm.DOUBLE_TEAM))
                         ),
                         new PokeInfoI(
-                                BasePrm.RHYDON,
+                                BasePrm.BLASTOISE,
                                 Gender.MALE,
                                 Nature.MODEST,
                                 new IndividualValueI(10, 10, 10, 10, 10, 10),

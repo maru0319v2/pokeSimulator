@@ -15,6 +15,7 @@ import java.util.Random;
 
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 import static field.FieldI.changeField;
+import static pokemonStatus.impl.ConfusionI.beConfusion;
 import static statusAilment.AilmentI.changeAilment;
 
 @AllArgsConstructor
@@ -91,8 +92,10 @@ public enum BaseMvPrm {
             false, false, true, false, false, false
     ) {
         @Override
-        public OnBattleField effect(PokeInfo attackPoke, PokeInfo defencePoke, Field field, int recoveryHP) {
-            // TODO 20%の確率で相手を1~4ターン混乱する
+        public OnBattleField effect(PokeInfo attackPoke, PokeInfo defencePoke, Field field, int recoveryHP) throws InterruptedException {
+            if ((new Random().nextInt(5)) <= 0) {
+                return new OnBattleField(attackPoke, defencePoke.withConfusion(beConfusion(defencePoke)), field);
+            }
             return new OnBattleField(attackPoke, defencePoke, field);
         }
     },

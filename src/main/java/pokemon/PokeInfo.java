@@ -61,6 +61,9 @@ public interface PokeInfo {
     // 怯み判定
     Flinch flinch();
 
+    // 混乱判定
+    Confusion confusion();
+
     // 状態異常1
     Ailment ailment();
 
@@ -100,4 +103,6 @@ public interface PokeInfo {
     PokeInfo withAilment(Ailment statusAilment);
 
     PokeInfo withFlinch(Flinch flinch);
+
+    PokeInfo withConfusion(Confusion confusion);
 }
