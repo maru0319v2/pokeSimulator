@@ -291,7 +291,7 @@ public class StatusAilmentImplTest {
         PokeInfo myPokemon2 = initialize(BasePrm.SQUIRTLE);
         myPokemon1 = myPokemon1.withAilment(changeAilment(myPokemon1, AilmentE.BURN));
 
-        assertEquals(0.5, myPokemon1.ailment().damageRateByBurn());
-        assertEquals(1.0, myPokemon2.ailment().damageRateByBurn());
+        assertEquals(0.5, myPokemon1.ailment().dmgRateByBurn());
+        assertEquals(1.0, myPokemon2.ailment().dmgRateByBurn());
     }
 }

@@ -76,8 +76,8 @@ public class FieldTest {
         Field field = initField();
         field = changeField(field, Weather.DROUGHT);
 
-        double result1 = field.damageRateByWeather(initMv(BaseMvPrm.FLAMETHROWER));
-        double result2 = field.damageRateByWeather(initMv(BaseMvPrm.WATER_PULSE));
+        double result1 = field.dmgRateByWeather(initMv(BaseMvPrm.FLAMETHROWER));
+        double result2 = field.dmgRateByWeather(initMv(BaseMvPrm.WATER_PULSE));
 
         assertEquals(1.5, result1);
         assertEquals(0.5, result2);
@@ -89,8 +89,8 @@ public class FieldTest {
         Field field = initField();
         field = changeField(field, Weather.RAIN);
 
-        double result1 = field.damageRateByWeather(initMv(BaseMvPrm.FLAMETHROWER));
-        double result2 = field.damageRateByWeather(initMv(BaseMvPrm.WATER_PULSE));
+        double result1 = field.dmgRateByWeather(initMv(BaseMvPrm.FLAMETHROWER));
+        double result2 = field.dmgRateByWeather(initMv(BaseMvPrm.WATER_PULSE));
 
         assertEquals(0.5, result1);
         assertEquals(1.5, result2);
@@ -103,14 +103,14 @@ public class FieldTest {
         PokeInfo myPoke2 = initialize(BasePrm.CHARIZARD);
 
         Field field = initField();
-        double result1 = field.defenceRateBySandStorm(myPoke1);
-        double result2 = field.defenceRateBySandStorm(myPoke2);
+        double result1 = field.dfcRateBySandStorm(myPoke1);
+        double result2 = field.dfcRateBySandStorm(myPoke2);
         assertEquals(1.0, result1);
         assertEquals(1.0, result2);
 
         field = changeField(field, Weather.SANDSTORM);
-        double result3 = field.defenceRateBySandStorm(myPoke1);
-        double result4 = field.defenceRateBySandStorm(myPoke2);
+        double result3 = field.dfcRateBySandStorm(myPoke1);
+        double result4 = field.dfcRateBySandStorm(myPoke2);
         assertEquals(1.5, result3);
         assertEquals(1.0, result4);
     }

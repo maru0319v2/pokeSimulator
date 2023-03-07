@@ -12,9 +12,9 @@ public interface Field {
 
     Field elapseTurn() throws InterruptedException;
 
-    PokeInfo slipDamageByWeather(PokeInfo target) throws InterruptedException;
+    PokeInfo slipDmgByWeather(PokeInfo target) throws InterruptedException;
 
-    double damageRateByWeather(Move move);
+    double dmgRateByWeather(Move move);
 
-    double defenceRateBySandStorm(PokeInfo defencePoke);
+    double dfcRateBySandStorm(PokeInfo defencePoke);
 }

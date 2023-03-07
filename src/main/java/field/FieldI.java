@@ -80,7 +80,7 @@ public class FieldI implements Field {
     }
 
     @Override
-    public PokeInfo slipDamageByWeather(PokeInfo target) throws InterruptedException {
+    public PokeInfo slipDmgByWeather(PokeInfo target) throws InterruptedException {
         List<Type> types = List.of(target.basePrm().type1(), target.basePrm().type2());
         Set<Type> roGrSt = new HashSet<>(Arrays.asList(Type.ROCK, Type.GROUND, Type.STEEL));
         int damage;
@@ -98,7 +98,7 @@ public class FieldI implements Field {
         return target.damage(damage);
     }
 
-    public double damageRateByWeather(Move move) {
+    public double dmgRateByWeather(Move move) {
         Type useType = move.baseMPrm().moveType();
         if (useType == Type.FIRE) {
             if (this.weather == Weather.DROUGHT) {
@@ -119,7 +119,7 @@ public class FieldI implements Field {
         return 1.0;
     }
 
-    public double defenceRateBySandStorm(PokeInfo defencePoke) {
+    public double dfcRateBySandStorm(PokeInfo defencePoke) {
         Type type1 = defencePoke.basePrm().type1();
         Type type2 = defencePoke.basePrm().type2();
         if (this.weather == Weather.SANDSTORM) {

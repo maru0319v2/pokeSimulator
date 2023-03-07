@@ -147,15 +147,15 @@ public class AilmentI implements Ailment {
         return this.val != AilmentE.FINE;
     }
 
-    public double damageRateByBurn() {
+    public double dmgRateByBurn() {
         return Objects.equals(this.val, AilmentE.BURN) ? 0.5 : 1.0;
     }
 
-    public double speedRateByParalysis() {
+    public double spdRateByParalysis() {
         return Objects.equals(this.val, AilmentE.PARALYSIS) ? 0.5 : 1.0;
     }
 
-    public PokeInfo slipDamageByAilment(PokeInfo target) throws InterruptedException {
+    public PokeInfo slipDmgByAilment(PokeInfo target) throws InterruptedException {
         AilmentE ailment = target.ailment().val();
         int damage;
         switch (ailment) {

@@ -51,7 +51,7 @@ public enum Type {
         return this.val;
     }
 
-    public static double damageRateByType(Type type1, Type type2, Move affectedMove) {
+    public static double dmgRateByType(Type type1, Type type2, Move affectedMove) {
         double result = 0;
         switch (affectedMove.baseMPrm().moveType()) {
             case NORMAL -> result = type1.dmgRateNormal * type2.dmgRateNormal;

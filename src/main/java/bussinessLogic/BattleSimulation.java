@@ -5,8 +5,7 @@ import move.Move;
 import pokemon.PokeInfo;
 import pokemonStatus.impl.FlinchI;
 
-import static bussinessLogic.BattleLogic.doAction;
-import static bussinessLogic.BattleLogic.isFirstMe;
+import static bussinessLogic.BattleLogic.*;
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 import static bussinessLogic.ConsoleOutManager.showPokemonInfo;
 import static bussinessLogic.EnemySelectMove.enemySelectMove;
@@ -26,7 +25,7 @@ public class BattleSimulation {
         while (onBF.isBothFine()) {
             // 技選択
             showPokemonInfo(myPk, enemyPk);
-            Move selectedMove = BattleLogic.selectMove(myPk.haveMove(), myPk);
+            Move selectedMove = selectMove(myPk.haveMove(), myPk);
             Move enemyMove = enemySelectMove(enemyPk, myPk, field);
             showPokemonInfo(myPk, enemyPk);
             String myName = myPk.basePrm().pName();
@@ -138,8 +137,8 @@ public class BattleSimulation {
     private OnBattleField endTurnProcessAilment(PokeInfo myPoke, PokeInfo enemyPoke, Field field) throws InterruptedException {
         showPokemonInfo(myPoke, enemyPoke);
 
-        myPoke = myPoke.ailment().slipDamageByAilment(myPoke);
-        enemyPoke = enemyPoke.ailment().slipDamageByAilment(enemyPoke);
+        myPoke = myPoke.ailment().slipDmgByAilment(myPoke);
+        enemyPoke = enemyPoke.ailment().slipDmgByAilment(enemyPoke);
         return new OnBattleField(myPoke, enemyPoke, field);
     }
 
@@ -147,8 +146,8 @@ public class BattleSimulation {
         showPokemonInfo(myPoke, enemyPoke);
         field = field.elapseTurn();
 
-        myPoke = field.slipDamageByWeather(myPoke);
-        enemyPoke = field.slipDamageByWeather(enemyPoke);
+        myPoke = field.slipDmgByWeather(myPoke);
+        enemyPoke = field.slipDmgByWeather(enemyPoke);
         return new OnBattleField(myPoke, enemyPoke, field);
     }
 }

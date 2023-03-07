@@ -165,16 +165,16 @@ public class EnemySelectMove {
         boolean isTypeMatch = (Objects.equals(move.baseMPrm().moveType(), atkPk.basePrm().type1())) || (Objects.equals(move.baseMPrm().moveType(), atkPk.basePrm().type2()));
         double typeMatchRate = isTypeMatch ? 1.5 : 1;
         // タイプ相性判定
-        double effectiveRate = Type.damageRateByType(dfcPk.basePrm().type1(), dfcPk.basePrm().type2(), move);
+        double effectiveRate = Type.dmgRateByType(dfcPk.basePrm().type1(), dfcPk.basePrm().type2(), move);
         // やけど判定
-        double burnedRate = moveSpecies == MoveSpecies.PHYSICAL ? atkPk.ailment().damageRateByBurn() : 1.0;
+        double burnedRate = moveSpecies == MoveSpecies.PHYSICAL ? atkPk.ailment().dmgRateByBurn() : 1.0;
         // 天候によるダメージ倍率
-        double weatherRate = field.damageRateByWeather(move);
+        double weatherRate = field.dmgRateByWeather(move);
         // ダメージ倍率合算
-        double totalDamageRate = randomNum * typeMatchRate * effectiveRate * burnedRate * weatherRate;
+        double totalDmgRate = randomNum * typeMatchRate * effectiveRate * burnedRate * weatherRate;
 
         // すなあらしによる岩タイプの特防上昇
-        double defenceRateRock = field.defenceRateBySandStorm(dfcPk);
+        double defenceRateRock = field.dfcRateBySandStorm(dfcPk);
         int attackVal = 0;
         int defenceVal = 0;
         // ステータス実数値にランク補正を乗せる
@@ -185,6 +185,6 @@ public class EnemySelectMove {
             attackVal = atkPk.realCnt();
             defenceVal = (int) (dfcPk.realDfc() * defenceRateRock);
         }
-        return (int) Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * totalDamageRate);
+        return (int) Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * totalDmgRate);
     }
 }

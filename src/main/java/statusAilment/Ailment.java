@@ -18,10 +18,10 @@ public interface Ailment {
 
     boolean isSick();
 
-    double damageRateByBurn();
+    double dmgRateByBurn();
 
-    double speedRateByParalysis();
+    double spdRateByParalysis();
 
-    PokeInfo slipDamageByAilment(PokeInfo target) throws InterruptedException;
+    PokeInfo slipDmgByAilment(PokeInfo target) throws InterruptedException;
 
 }
