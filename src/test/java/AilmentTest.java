@@ -12,7 +12,7 @@ public class AilmentTest {
     @Test
     @DisplayName("やけど状態が健康とひんし状態以外に上書きされないこと")
     public void test1() throws InterruptedException {
-        PokeInfo poke1 = initialize(BasePrm.BULBASAUR);
+        PokeInfo poke1 = initialize(BasePrm.BLASTOISE);
         PokeInfo poke2 = initialize(BasePrm.CHARIZARD);
         poke1 = poke1.withAilment(changeAilment(poke1, AilmentE.BURN));
         poke2 = poke2.withAilment(changeAilment(poke2, AilmentE.BURN));
@@ -42,7 +42,7 @@ public class AilmentTest {
     @Test
     @DisplayName("こおり状態が健康とひんし状態以外に上書きされないこと")
     public void test2() throws InterruptedException {
-        PokeInfo poke1 = initialize(BasePrm.BULBASAUR);
+        PokeInfo poke1 = initialize(BasePrm.BLASTOISE);
         PokeInfo poke2 = initialize(BasePrm.CHARIZARD);
         poke1 = poke1.withAilment(changeAilment(poke1, AilmentE.FREEZE));
         poke2 = poke2.withAilment(changeAilment(poke2, AilmentE.FREEZE));
@@ -72,7 +72,7 @@ public class AilmentTest {
     @Test
     @DisplayName("まひ状態が健康とひんし状態以外に上書きされないこと")
     public void test3() throws InterruptedException {
-        PokeInfo poke1 = initialize(BasePrm.BULBASAUR);
+        PokeInfo poke1 = initialize(BasePrm.BLASTOISE);
         PokeInfo poke2 = initialize(BasePrm.CHARIZARD);
         poke1 = poke1.withAilment(changeAilment(poke1, AilmentE.PARALYSIS));
         poke2 = poke2.withAilment(changeAilment(poke2, AilmentE.PARALYSIS));
@@ -102,7 +102,7 @@ public class AilmentTest {
     @Test
     @DisplayName("どく状態が健康とひんし状態以外に上書きされないこと")
     public void test4() throws InterruptedException {
-        PokeInfo poke1 = initialize(BasePrm.BULBASAUR);
+        PokeInfo poke1 = initialize(BasePrm.BLASTOISE);
         PokeInfo poke2 = initialize(BasePrm.CHARIZARD);
         poke1 = poke1.withAilment(changeAilment(poke1, AilmentE.POISON));
         poke2 = poke2.withAilment(changeAilment(poke2, AilmentE.POISON));
@@ -132,7 +132,7 @@ public class AilmentTest {
     @Test
     @DisplayName("もうどく状態が健康とひんし状態以外に上書きされないこと")
     public void test5() throws InterruptedException {
-        PokeInfo poke1 = initialize(BasePrm.BULBASAUR);
+        PokeInfo poke1 = initialize(BasePrm.BLASTOISE);
         PokeInfo poke2 = initialize(BasePrm.CHARIZARD);
         poke1 = poke1.withAilment(changeAilment(poke1, AilmentE.BAD_POISON));
         poke2 = poke2.withAilment(changeAilment(poke2, AilmentE.BAD_POISON));
@@ -162,7 +162,7 @@ public class AilmentTest {
     @Test
     @DisplayName("ねむり状態が健康とひんし状態以外に上書きされないこと")
     public void test6() throws InterruptedException {
-        PokeInfo poke1 = initialize(BasePrm.BULBASAUR);
+        PokeInfo poke1 = initialize(BasePrm.BLASTOISE);
         PokeInfo poke2 = initialize(BasePrm.CHARIZARD);
         poke1 = poke1.withAilment(changeAilment(poke1, AilmentE.SLEEP));
         poke2 = poke2.withAilment(changeAilment(poke2, AilmentE.SLEEP));
@@ -192,7 +192,7 @@ public class AilmentTest {
     @Test
     @DisplayName("ひんし状態が健康と状態以外に上書きされないこと")
     public void test7() throws InterruptedException {
-        PokeInfo poke1 = initialize(BasePrm.BULBASAUR);
+        PokeInfo poke1 = initialize(BasePrm.BLASTOISE);
         poke1 = poke1.withAilment(changeAilment(poke1, AilmentE.FAINTING));
 
         poke1 = poke1.withAilment(changeAilment(poke1, AilmentE.PARALYSIS));
@@ -217,12 +217,12 @@ public class AilmentTest {
     @Test
     @DisplayName("健康状態がすべての状態に上書きできること")
     public void test8() throws InterruptedException {
-        PokeInfo poke1 = initialize(BasePrm.BULBASAUR);
-        PokeInfo poke2 = initialize(BasePrm.BULBASAUR);
-        PokeInfo poke3 = initialize(BasePrm.BULBASAUR);
-        PokeInfo poke4 = initialize(BasePrm.BULBASAUR);
-        PokeInfo poke5 = initialize(BasePrm.BULBASAUR);
-        PokeInfo poke6 = initialize(BasePrm.BULBASAUR);
+        PokeInfo poke1 = initialize(BasePrm.BLASTOISE);
+        PokeInfo poke2 = initialize(BasePrm.BLASTOISE);
+        PokeInfo poke3 = initialize(BasePrm.BLASTOISE);
+        PokeInfo poke4 = initialize(BasePrm.BLASTOISE);
+        PokeInfo poke5 = initialize(BasePrm.BLASTOISE);
+        PokeInfo poke6 = initialize(BasePrm.BLASTOISE);
 
         poke1 = poke1.withAilment(changeAilment(poke1, AilmentE.PARALYSIS));
         assertEquals(AilmentE.PARALYSIS, poke1.ailment().val());
@@ -246,7 +246,7 @@ public class AilmentTest {
     @Test
     @DisplayName("ねむり状態が1ターン経過後は継続され行動できず、5ターン経過後は解除され行動できること")
     public void test9() throws InterruptedException {
-        PokeInfo myPokemon = initialize(BasePrm.BULBASAUR);
+        PokeInfo myPokemon = initialize(BasePrm.BLASTOISE);
         myPokemon = myPokemon.withAilment(changeAilment(myPokemon, AilmentE.SLEEP));
         myPokemon = myPokemon.withAilment(myPokemon.ailment().comeTurn(myPokemon.basePrm().pName()));
         // 1ターン経過後
@@ -264,7 +264,7 @@ public class AilmentTest {
     @Test
     @DisplayName("ねむり状態から0ターン経過後、新たにねむり状態になってもねむり解除ターンがリセットされないこと")
     public void test10() throws InterruptedException {
-        PokeInfo poke = initialize(BasePrm.BULBASAUR);
+        PokeInfo poke = initialize(BasePrm.BLASTOISE);
         poke = poke.withAilment(changeAilment(poke, AilmentE.SLEEP));
         int beforeCount = poke.ailment().countRecoverySleep();
         poke = poke.withAilment(changeAilment(poke, AilmentE.SLEEP));
@@ -276,7 +276,7 @@ public class AilmentTest {
     @Test
     @DisplayName("ねむり状態から1ターン経過後、新たにねむり状態になっても経過ターンがリセットされないこと")
     public void test11() throws InterruptedException {
-        PokeInfo poke = initialize(BasePrm.BULBASAUR);
+        PokeInfo poke = initialize(BasePrm.BLASTOISE);
         poke = poke.withAilment(changeAilment(poke, AilmentE.SLEEP));
         poke = poke.withAilment(poke.ailment().comeTurn(poke.basePrm().pName()));
         poke = poke.withAilment(changeAilment(poke, AilmentE.SLEEP));
@@ -287,8 +287,8 @@ public class AilmentTest {
     @Test
     @DisplayName("やけど状態によるダメージ倍率が正しいこと")
     public void test12() throws InterruptedException {
-        PokeInfo myPokemon1 = initialize(BasePrm.CHARMANDER);
-        PokeInfo myPokemon2 = initialize(BasePrm.SQUIRTLE);
+        PokeInfo myPokemon1 = initialize(BasePrm.BLASTOISE);
+        PokeInfo myPokemon2 = initialize(BasePrm.CHANSEY);
         myPokemon1 = myPokemon1.withAilment(changeAilment(myPokemon1, AilmentE.BURN));
 
         assertEquals(0.5, myPokemon1.ailment().dmgRateByBurn());

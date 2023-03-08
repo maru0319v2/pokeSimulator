@@ -47,7 +47,7 @@ public class Main {
 //                case "3" -> myPokemon = new PokemonInfoImpl(BasePrm.SQUIRTLE);
 //            }
 //        }
-        myPokemon = initialize(BasePrm.BULBASAUR);
+        myPokemon = initialize(BasePrm.CHARIZARD);
 
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -72,7 +72,7 @@ public class Main {
                 case "e" -> myPokemon = myPokemon.addExp(200);
                 case "r" -> myPokemon = myPokemon.recoveryAll();
                 case "b" ->
-                        myPokemon = new BattleSimulation().battleSimulation(myPokemon, initialize(BasePrm.CHARMANDER));
+                        myPokemon = new BattleSimulation().battleSimulation(myPokemon, initialize(BasePrm.BLASTOISE));
                 case "f" -> myPokemon = new BattleSimulation().battleSimulation(
                         new PokeInfoI(
                                 BasePrm.CHARIZARD,
