@@ -31,30 +31,12 @@ import static pokemon.PokeInfoI.initialize;
 // バインド、のろい、ちょうはつ、こだわり
 // 急所にあたりやすい技のロジックを実装
 // 敵の技選択ロジックで技候補が0になることがある
+// リフレクター、ひかりのかべ
 // テストを充実させる
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
-
-        System.out.println("1:フシギダネ");
-        System.out.println("2:ヒトカゲ");
-        System.out.println("3:ゼニガメ");
-
-        PokeInfo myPokemon = null;
-//        while (myPokemon == null) {
-//            System.out.print("あなたのポケモンを選択してください > ");
-//            String selectPokeCommand = scanner.nextLine();
-//            switch (selectPokeCommand) {
-//                case "1" -> myPokemon = new PokemonInfoImpl(BasePrm.BULBASAUR);
-//                case "2" -> myPokemon = new PokemonInfoImpl(BasePrm.CHARMANDER);
-//                case "3" -> myPokemon = new PokemonInfoImpl(BasePrm.SQUIRTLE);
-//            }
-//        }
-        myPokemon = initialize(BasePrm.CHARIZARD);
-
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-        //showMessageParChar(myPokemon.getBasePrm().getName() + "を仲間にした!");
+        PokeInfo myPokemon = initialize(BasePrm.CHARIZARD);
 
         String inputCommand = "";
         while (!inputCommand.equals("q")) {
@@ -64,7 +46,7 @@ public class Main {
             System.out.println("　　　       e:経験値を与える");
             System.out.print("r:体力回復");
             System.out.print("          b:野生ポケモンと戦闘");
-            System.out.print(" 　f:バトルファクトリーbeta");
+            System.out.print(" 　f:バトルファクトリー");
             System.out.println(" 　q:終了");
             System.out.print("コマンドを入力してください > ");
             inputCommand = scanner.nextLine();

@@ -116,7 +116,7 @@ public class BattleLogic {
         // ダメージの乱数
         double randomNum = (new Random().nextInt((100 - 85) + 1) + 85) / 100.0;
         // 急所の判定
-        boolean isCritical = (new Random().nextInt(24) + 1) == 1;
+        boolean isCritical = isCritical(move);
         double criticalRate = isCritical ? 1.5 : 1;
         // 急所の場合は攻撃側のランク下降、防御側のランク上昇補正を無視する
         double attackRateByStatusRank = isCritical ? Math.max(atkPk.statusRank().atkRateByStatusRank(), 1.0) : atkPk.statusRank().atkRateByStatusRank();
@@ -165,7 +165,7 @@ public class BattleLogic {
         return result;
     }
 
-    public static boolean isHit(PokeInfo atkPk, PokeInfo dfcPk, Move move) {
+    private static boolean isHit(PokeInfo atkPk, PokeInfo dfcPk, Move move) {
         // 技の命中率が-1のときは必中
         if (move.baseMPrm().hitRate() == -1) {
             return true;
@@ -178,5 +178,17 @@ public class BattleLogic {
         int hitRate = move.baseMPrm().hitRate();
 
         return randomNum <= hitRate * statusRank;
+    }
+
+    private static boolean isCritical(Move move) {
+        int criticalRank = move.baseMPrm().criticalRank();
+        boolean result;
+        switch (criticalRank) {
+            case 0 -> result = (new Random().nextInt(24)) == 0;
+            case 1 -> result = (new Random().nextInt(8)) == 0;
+            case 2 -> result = (new Random().nextInt(2)) == 0;
+            default -> result = true;
+        }
+        return result;
     }
 }
