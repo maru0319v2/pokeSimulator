@@ -131,23 +131,25 @@ public class EnemySelectMove {
     private static int highPriorityCanDefeat(PokeInfo enemyPk, PokeInfo myPk, Field field, int moveSize) {
         // 優先度1以上の技でフィルターする
         List<Move> priorityMove = enemyPk.haveMove().stream().filter(m -> m.baseMPrm().priority() >= 1).toList();
-        // 優先度1以上の技で仮ダメージ計算する
-        List<Integer> damageList = new ArrayList<>(priorityMove.size());
-        for (Move move : priorityMove) {
-            damageList.add(calcDamageForCPU(enemyPk, myPk, field, move));
+        if (priorityMove.size() >= 1) {
+            // 優先度1以上の技で仮ダメージ計算する
+            List<Integer> damageList = new ArrayList<>(priorityMove.size());
+            for (Move move : priorityMove) {
+                damageList.add(calcDamageForCPU(enemyPk, myPk, field, move));
+            }
+            // 最大ダメージ
+            int maxDamage = Collections.max(damageList);
+            // 最大ダメージのインデックス
+            int maxDamageIndex = damageList.indexOf(maxDamage);
+            // 防御側の残りHP
+            int remainingHP = myPk.currentHP().val();
+            if (maxDamageIndex >= remainingHP) {
+                // ダメージが防御側の残りHPより大きければ先制技を使う
+                return maxDamageIndex;
+            }
         }
-        // 最大ダメージ
-        int maxDamage = Collections.max(damageList);
-        // 最大ダメージのインデックス
-        int maxDamageIndex = damageList.indexOf(maxDamage);
-        // 防御側の残りHP
-        int remainingHP = myPk.currentHP().val();
-        // ダメージが防御側の残りHPより大きければ先制技を使う、倒せない場合はすべての技から最大打点を選択
-        if (maxDamageIndex >= remainingHP) {
-            return maxDamageIndex;
-        } else {
-            return maxDamage(enemyPk, myPk, field, moveSize);
-        }
+        // 先制技が存在しない、または先制技で倒せない場合はすべての技から最大打点を選択
+        return maxDamage(enemyPk, myPk, field, moveSize);
     }
 
 
