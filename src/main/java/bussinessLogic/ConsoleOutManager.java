@@ -246,6 +246,17 @@ public class ConsoleOutManager {
         System.out.println("");
     }
 
+    public static void showAlreadyAilmentMessage(PokeInfo target) throws InterruptedException {
+        switch (target.ailment().val()) {
+            case PARALYSIS -> showMessageParChar(target.basePrm().pName() + "はすでにしびれている!");
+            case POISON -> showMessageParChar(target.basePrm().pName() + "はすでにどくをあびている!");
+            case BAD_POISON -> showMessageParChar(target.basePrm().pName() + "はすでにもうどくをあびている!");
+            case BURN -> showMessageParChar(target.basePrm().pName() + "はすでにやけどをおっている!");
+            case FREEZE -> showMessageParChar(target.basePrm().pName() + "はすでにこおりついている!");
+            case SLEEP -> showMessageParChar(target.basePrm().pName() + "はすでにねむってしまっている!");
+        }
+    }
+
     public static void showChangeAilmentMessage(PokeInfo target, AilmentE value) throws InterruptedException {
         switch (value) {
             case PARALYSIS -> showMessageParChar(target.basePrm().pName() + "はしびれてしまった!");
@@ -289,9 +300,9 @@ public class ConsoleOutManager {
     public static void showMessageParChar(String message) throws InterruptedException {
         for (int i = 0; i < message.length(); i++) {
             System.out.print(message.charAt(i));
-            Thread.sleep(20);
+            //Thread.sleep(20);
         }
         System.out.println("");
-        Thread.sleep(150);
+        //Thread.sleep(150);
     }
 }

@@ -294,4 +294,58 @@ public class AilmentTest {
         assertEquals(0.5, myPokemon1.ailment().dmgRateByBurn());
         assertEquals(1.0, myPokemon2.ailment().dmgRateByBurn());
     }
+
+    @Test
+    @DisplayName("こおりタイプはこおり状態にならないこと")
+    public void test13() throws InterruptedException {
+        PokeInfo icePk = initialize(BasePrm.ARTICUNO);
+        PokeInfo elePk = initialize(BasePrm.ZAPDOS);
+        icePk = icePk.withAilment(changeAilment(icePk, AilmentE.FREEZE));
+        elePk = elePk.withAilment(changeAilment(elePk, AilmentE.FREEZE));
+
+        assertEquals(AilmentE.FINE, icePk.ailment().val());
+        assertEquals(AilmentE.FREEZE, elePk.ailment().val());
+    }
+
+    @Test
+    @DisplayName("ほのおタイプはやけど状態にならないこと")
+    public void test14() throws InterruptedException {
+        PokeInfo firePk = initialize(BasePrm.CHARIZARD);
+        PokeInfo elePk = initialize(BasePrm.ZAPDOS);
+        firePk = firePk.withAilment(changeAilment(firePk, AilmentE.BURN));
+        elePk = elePk.withAilment(changeAilment(elePk, AilmentE.BURN));
+
+        assertEquals(AilmentE.FINE, firePk.ailment().val());
+        assertEquals(AilmentE.BURN, elePk.ailment().val());
+    }
+
+    @Test
+    @DisplayName("はがね、どくタイプはどく状態にならないこと")
+    public void test15() throws InterruptedException {
+        PokeInfo firePk = initialize(BasePrm.CHARIZARD);
+        PokeInfo posPk = initialize(BasePrm.MUK);
+        PokeInfo stlPk = initialize(BasePrm.MAGNRTON);
+        firePk = firePk.withAilment(changeAilment(firePk, AilmentE.POISON));
+        posPk = posPk.withAilment(changeAilment(posPk, AilmentE.POISON));
+        stlPk = stlPk.withAilment(changeAilment(stlPk, AilmentE.POISON));
+
+        assertEquals(AilmentE.POISON, firePk.ailment().val());
+        assertEquals(AilmentE.FINE, posPk.ailment().val());
+        assertEquals(AilmentE.FINE, stlPk.ailment().val());
+    }
+
+    @Test
+    @DisplayName("はがね、どくタイプはもうどく状態にならないこと")
+    public void test16() throws InterruptedException {
+        PokeInfo firePk = initialize(BasePrm.CHARIZARD);
+        PokeInfo posPk = initialize(BasePrm.MUK);
+        PokeInfo stlPk = initialize(BasePrm.MAGNRTON);
+        firePk = firePk.withAilment(changeAilment(firePk, AilmentE.BAD_POISON));
+        posPk = posPk.withAilment(changeAilment(posPk, AilmentE.BAD_POISON));
+        stlPk = stlPk.withAilment(changeAilment(stlPk, AilmentE.BAD_POISON));
+
+        assertEquals(AilmentE.BAD_POISON, firePk.ailment().val());
+        assertEquals(AilmentE.FINE, posPk.ailment().val());
+        assertEquals(AilmentE.FINE, stlPk.ailment().val());
+    }
 }

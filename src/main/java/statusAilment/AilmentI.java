@@ -1,12 +1,13 @@
 package statusAilment;
 
+import Enum.Type;
 import pokemon.PokeInfo;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-import static bussinessLogic.ConsoleOutManager.showChangeAilmentMessage;
-import static bussinessLogic.ConsoleOutManager.showMessageParChar;
+import static bussinessLogic.ConsoleOutManager.*;
 
 public class AilmentI implements Ailment {
     private final AilmentE val;
@@ -49,6 +50,26 @@ public class AilmentI implements Ailment {
 
     // 状態異常を変化させる場合
     public static Ailment changeAilment(PokeInfo target, AilmentE value) throws InterruptedException {
+        Type type1 = target.basePrm().type1();
+        Type type2 = target.basePrm().type2();
+        List<Type> typeList = List.of(type1, type2);
+        // こおりタイプはこおり状態にならない
+        if (typeList.contains(Type.ICE) && value == AilmentE.FREEZE) {
+            showMessageParChar(target.basePrm().pName() + "にはきかなかった!");
+            return target.ailment();
+        }
+        // ほのおタイプはやけど状態にならない
+        if (typeList.contains(Type.FIRE) && value == AilmentE.BURN) {
+            showMessageParChar(target.basePrm().pName() + "にはきかなかった!");
+            return target.ailment();
+        }
+        // どくタイプ、はがねタイプはどく、もうどく状態にならない
+        if (value == AilmentE.BAD_POISON || value == AilmentE.POISON) {
+            if (typeList.contains(Type.POISON) || typeList.contains(Type.STEEL)) {
+                showMessageParChar(target.basePrm().pName() + "にはきかなかった!");
+                return target.ailment();
+            }
+        }
         return new AilmentI(target, value);
     }
 
@@ -71,7 +92,7 @@ public class AilmentI implements Ailment {
         }
     }
 
-    private boolean isOverwrite(PokeInfo target, AilmentE value) {
+    private boolean isOverwrite(PokeInfo target, AilmentE value) throws InterruptedException {
         // 元の状態異常
         AilmentE beforeAilment = target.ailment().val();
 
@@ -97,6 +118,7 @@ public class AilmentI implements Ailment {
             if (value == AilmentE.FINE || value == AilmentE.FAINTING) {
                 return true;
             }
+            showAlreadyAilmentMessage(target);
         }
         // それ以外の場合は更新しない
         return false;
