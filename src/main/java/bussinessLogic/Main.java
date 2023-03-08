@@ -11,6 +11,7 @@ import pokemonStatus.impl.IndividualValueI;
 import pokemonStatus.impl.LevelI;
 
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import static move.MoveI.initMv;
@@ -28,6 +29,8 @@ import static pokemon.PokeInfoI.initialize;
 // 草タイプはねむりごな等無効、炎タイプはやけどにならない、氷タイプは氷状態にならない、鋼タイプはどくにならない、毒タイプはどくにならない
 // とくせい
 // バインド、のろい、ちょうはつ、こだわり
+// 急所にあたりやすい技のロジックを実装
+// 敵の技選択ロジックで技候補が0になることがある
 // テストを充実させる
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -84,16 +87,28 @@ public class Main {
                                 List.of(initMv(BaseMvPrm.AIR_SLASH), initMv(BaseMvPrm.WATER_PULSE), initMv(BaseMvPrm.WILL_O_WISP), initMv(BaseMvPrm.DOUBLE_TEAM))
                         ),
                         new PokeInfoI(
-                                BasePrm.BLASTOISE,
+                                randomPoke(),
                                 Gender.MALE,
                                 Nature.MODEST,
                                 new IndividualValueI(10, 10, 10, 10, 10, 10),
                                 new EffortValueI(252, 0, 0, 252, 0, 6),
                                 new LevelI(50),
-                                List.of(initMv(BaseMvPrm.SLEEP_POWDER), initMv(BaseMvPrm.GIGA_DRAIN), initMv(BaseMvPrm.QUICK_ATTACK), initMv(BaseMvPrm.AERIAL_ACE))
+                                List.of(initMv(randomMv()), initMv(randomMv()), initMv(randomMv()), initMv(randomMv()))
                         ));
             }
         }
         scanner.close();
+    }
+
+    // ランダムにBasePrmの中から1体選択する
+    private static BasePrm randomPoke() {
+        int pick = new Random().nextInt(BasePrm.values().length);
+        return BasePrm.values()[pick];
+    }
+
+    // ランダムにBaseMvPrmの中から1体選択する
+    private static BaseMvPrm randomMv() {
+        int pick = new Random().nextInt(BaseMvPrm.values().length);
+        return BaseMvPrm.values()[pick];
     }
 }

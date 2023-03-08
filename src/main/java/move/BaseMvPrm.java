@@ -67,6 +67,22 @@ public enum BaseMvPrm {
             return new OnBattleField(attackPoke.withChStatusRank(0, -1, 0, -1, 0, 0, 0), defencePoke, field);
         }
     },
+    POWER_UP_PUNCH("グロウパンチ", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 40, 100, 20, 0, 0,
+            true, false, true, false, false, false
+    ) {
+        @Override
+        public OnBattleField effect(PokeInfo attackPoke, PokeInfo defencePoke, Field field, int recoveryHP) throws InterruptedException {
+            return new OnBattleField(attackPoke.withChStatusRank(1, 0, 0, 0, 0, 0, 0), defencePoke, field);
+        }
+    },
+    CRESS_CHOP("クロスチョップ", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 100, 80, 5, 1, 0,
+            true, false, true, false, false, false
+    ) {
+        @Override
+        public OnBattleField effect(PokeInfo attackPoke, PokeInfo defencePoke, Field field, int recoveryHP) throws InterruptedException {
+            return new OnBattleField(attackPoke, defencePoke, field);
+        }
+    },
     FLAMETHROWER("かえんほうしゃ", Type.FIRE, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 90, 100, 15, 0, 0,
             false, false, true, false, false, false
     ) {
@@ -84,6 +100,17 @@ public enum BaseMvPrm {
         @Override
         public OnBattleField effect(PokeInfo attackPoke, PokeInfo defencePoke, Field field, int recoveryHP) throws InterruptedException {
             if ((new Random().nextInt(10)) == 0) {
+                return new OnBattleField(attackPoke, defencePoke.withAilment(changeAilment(defencePoke, AilmentE.PARALYSIS)), field);
+            }
+            return new OnBattleField(attackPoke, defencePoke, field);
+        }
+    },
+    THUNDER("かみなり", Type.ELECTRIC, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 110, 70, 10, 0, 0,
+            false, false, true, false, false, false
+    ) {
+        @Override
+        public OnBattleField effect(PokeInfo attackPoke, PokeInfo defencePoke, Field field, int recoveryHP) throws InterruptedException {
+            if ((new Random().nextInt(10)) == 2) {
                 return new OnBattleField(attackPoke, defencePoke.withAilment(changeAilment(defencePoke, AilmentE.PARALYSIS)), field);
             }
             return new OnBattleField(attackPoke, defencePoke, field);
@@ -108,6 +135,14 @@ public enum BaseMvPrm {
             return new OnBattleField(attackPoke, defencePoke, field);
         }
     },
+    ICE_SHARD("こおりのつぶて", Type.ICE, MoveSpecies.PHYSICAL, DetailMvSpecies.PRIORITY, 40, 100, 30, 0, 1,
+            false, false, true, false, false, false
+    ) {
+        @Override
+        public OnBattleField effect(PokeInfo attackPoke, PokeInfo defencePoke, Field field, int recoveryHP) throws InterruptedException {
+            return new OnBattleField(attackPoke, defencePoke, field);
+        }
+    },
     VINE_WHIP("つるのムチ", Type.GRASS, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 45, 100, 25, 0, 0,
             true, false, true, false, false, false
     ) {
@@ -116,8 +151,28 @@ public enum BaseMvPrm {
             return new OnBattleField(attackPoke, defencePoke, field);
         }
     },
+    ENERGY_BALL("エナジーボール", Type.GRASS, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 90, 100, 10, 0, 0,
+            false, false, true, false, false, false
+    ) {
+        @Override
+        public OnBattleField effect(PokeInfo attackPoke, PokeInfo defencePoke, Field field, int recoveryHP) throws InterruptedException {
+            if ((new Random().nextInt(10)) == 0) {
+                return new OnBattleField(attackPoke, defencePoke.withChStatusRank(0, 0, 0, -1, 0, 0, 0), field);
+            }
+            return new OnBattleField(attackPoke, defencePoke, field);
+        }
+    },
     GIGA_DRAIN("ギガドレイン", Type.GRASS, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 75, 100, 10, 0, 0,
             false, false, true, false, false, false
+    ) {
+        @Override
+        public OnBattleField effect(PokeInfo attackPoke, PokeInfo defencePoke, Field field, int recoveryHP) throws InterruptedException {
+            int recovery = recoveryHP / 2;
+            return new OnBattleField(attackPoke.withCurrentHP(attackPoke.currentHP().recovery(attackPoke, new CurrentHPI(recovery))), defencePoke, field);
+        }
+    },
+    LEECH_LIFE("きゅうけつ", Type.BUG, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 80, 100, 10, 0, 0,
+            true, false, true, false, false, false
     ) {
         @Override
         public OnBattleField effect(PokeInfo attackPoke, PokeInfo defencePoke, Field field, int recoveryHP) throws InterruptedException {
@@ -132,6 +187,50 @@ public enum BaseMvPrm {
         public OnBattleField effect(PokeInfo attackPoke, PokeInfo defencePoke, Field field, int recoveryHP) throws InterruptedException {
             if ((new Random().nextInt(10)) <= 2) {
                 return new OnBattleField(attackPoke, defencePoke.withChStatusRank(0, -1, 0, 0, 0, 0, 0), field);
+            }
+            return new OnBattleField(attackPoke, defencePoke, field);
+        }
+    },
+    ROCK_SLIDE("いわなだれ", Type.ROCK, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 75, 90, 10, 0, 0,
+            false, false, true, false, false, false
+    ) {
+        @Override
+        public OnBattleField effect(PokeInfo attackPoke, PokeInfo defencePoke, Field field, int recoveryHP) {
+            if ((new Random().nextInt(10)) <= 2) {
+                return new OnBattleField(attackPoke, defencePoke.withFlinch(new FlinchI(true)), field);
+            }
+            return new OnBattleField(attackPoke, defencePoke, field);
+        }
+    },
+    CRUNCH("かみくだく", Type.DARK, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 80, 100, 15, 0, 0,
+            true, false, true, false, false, false
+    ) {
+        @Override
+        public OnBattleField effect(PokeInfo attackPoke, PokeInfo defencePoke, Field field, int recoveryHP) {
+            if ((new Random().nextInt(10)) <= 1) {
+                return new OnBattleField(attackPoke, defencePoke.withChStatusRank(0, -1, 0, 0, 0, 0, 0), field);
+            }
+            return new OnBattleField(attackPoke, defencePoke, field);
+        }
+    },
+    FOCUS_BLAST("きあいだま", Type.FIGHTING, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 120, 70, 5, 0, 0,
+            false, false, true, false, false, false
+    ) {
+        @Override
+        public OnBattleField effect(PokeInfo attackPoke, PokeInfo defencePoke, Field field, int recoveryHP) {
+            if ((new Random().nextInt(10)) <= 1) {
+                return new OnBattleField(attackPoke, defencePoke.withChStatusRank(0, 0, 0, -1, 0, 0, 0), field);
+            }
+            return new OnBattleField(attackPoke, defencePoke, field);
+        }
+    },
+    PSYCHIC("サイコキネシス", Type.PSYCHIC, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 90, 100, 10, 0, 0,
+            false, false, true, false, false, false
+    ) {
+        @Override
+        public OnBattleField effect(PokeInfo attackPoke, PokeInfo defencePoke, Field field, int recoveryHP) {
+            if ((new Random().nextInt(10)) <= 1) {
+                return new OnBattleField(attackPoke, defencePoke.withChStatusRank(0, 0, 0, -1, 0, 0, 0), field);
             }
             return new OnBattleField(attackPoke, defencePoke, field);
         }
@@ -177,6 +276,13 @@ public enum BaseMvPrm {
      * ここから状態異常技
      */
     SLEEP_POWDER("ねむりごな", Type.GRASS, MoveSpecies.CHANGE, DetailMvSpecies.AILMENT, 0, 75, 15, 0, 0,
+            false, true, true, false, false, false) {
+        @Override
+        public OnBattleField effect(PokeInfo attackPoke, PokeInfo defencePoke, Field field, int recoveryHP) throws InterruptedException {
+            return new OnBattleField(attackPoke, defencePoke.withAilment(changeAilment(defencePoke, AilmentE.SLEEP)), field);
+        }
+    },
+    SPORE("キノコのほうし", Type.GRASS, MoveSpecies.CHANGE, DetailMvSpecies.AILMENT, 0, 100, 15, 0, 0,
             false, true, true, false, false, false) {
         @Override
         public OnBattleField effect(PokeInfo attackPoke, PokeInfo defencePoke, Field field, int recoveryHP) throws InterruptedException {
