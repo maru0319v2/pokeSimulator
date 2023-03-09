@@ -24,12 +24,15 @@ import static pokemon.PokeInfoI.initialize;
 // レベルアップ時ステータス上昇幅表示
 // 6匹まで自分のポケモンをもてるようにする
 // 覚えられる技は4つまで
+
+// バトルファクトリーに必要なもの
 // もちもの
 // PPが0のときはわるあがきする
 // 草タイプはねむりごな等無効
 // とくせい
 // バインド、のろい、ちょうはつ、こだわり
 // リフレクター、ひかりのかべ
+// ステータスが上下した際のメッセージをStatusRankで出す
 // テストを充実させる
 public class Main {
     public static void main(String[] args) throws InterruptedException {
