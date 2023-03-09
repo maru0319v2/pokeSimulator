@@ -16,13 +16,18 @@ public class CurrentHPI implements CurrentHP {
     }
 
     @Override
-    public CurrentHPI recovery(PokeInfo target, CurrentHP currentHP) throws InterruptedException {
-        if (currentHP.val() <= MIN) {
+    public CurrentHPI recovery(PokeInfo target, CurrentHP recoveryVal) throws InterruptedException {
+        if (recoveryVal.val() <= MIN) {
             throw new IllegalArgumentException("回復量は1以上を指定してください。");
         }
-        final int added = this.val + currentHP.val();
+        final int added = this.val + recoveryVal.val();
         int result = Math.min(added, target.realHP());
-        showMessageParChar(target.basePrm().pName() + "は体力を" + currentHP.val() + "回復!");
+        int diff = result - this.val;
+        if (this.val == result) {
+            showMessageParChar("しかし" + target.basePrm().pName() + "はたいりょくはまんたんだ！");
+        } else {
+            showMessageParChar(target.basePrm().pName() + "は体力を" + diff + "回復!");
+        }
         return new CurrentHPI(result);
     }
 

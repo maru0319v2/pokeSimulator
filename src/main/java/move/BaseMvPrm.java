@@ -73,6 +73,12 @@ public enum BaseMvPrm {
             return new OnBattleField(atkPk, dfcPk, field);
         }
     },
+    OVERHEAT("オーバーヒート", Type.FIRE, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 130, 90, 5, 0, 0,
+            false, false, true, false, false, false) {
+        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
+            return new OnBattleField(atkPk.withChStatusRank(0, 0, -2, 0, 0, 0, 0), dfcPk, field);
+        }
+    },
     THUNDERBOLT("10まんボルト", Type.ELECTRIC, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 90, 100, 15, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
@@ -176,6 +182,13 @@ public enum BaseMvPrm {
             return new OnBattleField(atkPk, dfcPk, field);
         }
     },
+    RECOVER("じこさいせい", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.RECOVERY, 0, -1, 5, 0, 0,
+            false, false, false, false, false, false) {
+        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
+            int recovery = atkPk.realHP() / 2;
+            return new OnBattleField(atkPk.withCurrentHP(atkPk.currentHP().recovery(atkPk, new CurrentHPI(recovery))), dfcPk, field);
+        }
+    },
     /**
      * ここからランク変化技
      */
@@ -203,6 +216,12 @@ public enum BaseMvPrm {
             return new OnBattleField(atkPk.withChStatusRank(2, 0, 0, 0, 0, 0, 0), dfcPk, field);
         }
     },
+    CHARM("あまえる", Type.PSYCHIC, MoveSpecies.CHANGE, DetailMvSpecies.DOWN_A, 0, 100, 20, 0, 0,
+            false, true, true, false, true, false) {
+        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
+            return new OnBattleField(atkPk, dfcPk.withChStatusRank(-2, 0, 0, 0, 0, 0, 0), field);
+        }
+    },
     /**
      * ここから状態異常技
      */
@@ -228,6 +247,12 @@ public enum BaseMvPrm {
             false, true, true, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
             return new OnBattleField(atkPk, dfcPk.withConfusion(beConfusion(dfcPk)), field);
+        }
+    },
+    HYPNOSIS("さいみんじゅつ", Type.PSYCHIC, MoveSpecies.CHANGE, DetailMvSpecies.AILMENT, 0, 60, 20, 0, 0,
+            false, true, true, false, false, false) {
+        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
+            return new OnBattleField(atkPk, dfcPk.withAilment(changeAilment(dfcPk, AilmentE.SLEEP)), field);
         }
     },
     /**

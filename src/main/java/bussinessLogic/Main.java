@@ -32,6 +32,7 @@ import static pokemon.PokeInfoI.initialize;
 // とくせい
 // バインド、のろい、ちょうはつ、こだわり
 // リフレクター、ひかりのかべ
+// あめのときかみなり必中、あられのときふぶき必中
 // テストを充実させる
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -66,7 +67,7 @@ public class Main {
                                 new IndividualValueI(10, 10, 10, 10, 10, 10),
                                 new EffortValueI(6, 0, 0, 252, 0, 252),
                                 new LevelI(50),
-                                List.of(initMv(BaseMvPrm.AIR_SLASH), initMv(BaseMvPrm.WATER_PULSE), initMv(BaseMvPrm.WILL_O_WISP), initMv(BaseMvPrm.DOUBLE_TEAM))
+                                List.of(initMv(BaseMvPrm.AIR_SLASH), initMv(BaseMvPrm.CHARM), initMv(BaseMvPrm.WILL_O_WISP), initMv(BaseMvPrm.RECOVER))
                         ),
                         new PokeInfoI(
                                 randomPoke(),
