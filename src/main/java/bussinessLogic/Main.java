@@ -33,6 +33,7 @@ import static pokemon.PokeInfoI.initialize;
 // バインド、のろい、ちょうはつ、こだわり
 // リフレクター、ひかりのかべ
 // あめのときかみなり必中、あられのときふぶき必中
+// すでにやけどになっているのメッセージ表示
 // テストを充実させる
 public class Main {
     public static void main(String[] args) throws InterruptedException {
