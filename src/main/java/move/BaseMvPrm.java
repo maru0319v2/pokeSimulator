@@ -13,7 +13,6 @@ import statusAilment.AilmentE;
 
 import java.util.Random;
 
-import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 import static field.FieldI.changeField;
 import static pokemonStatus.impl.ConfusionI.beConfusion;
 import static statusAilment.AilmentI.changeAilment;
@@ -51,7 +50,6 @@ public enum BaseMvPrm {
     CLOSE_COMBAT("インファイト", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 120, 100, 5, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            showMessageParChar(atkPk.basePrm().pName() + "のぼうぎょととくぼうがさがった!");
             return new OnBattleField(atkPk.withChStatusRank(0, -1, 0, -1, 0, 0, 0), dfcPk, field);
         }
     },
@@ -156,7 +154,7 @@ public enum BaseMvPrm {
     },
     CRUNCH("かみくだく", Type.DARK, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 80, 100, 15, 0, 0,
             true, false, true, false, false, false) {
-        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) {
+        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
             if (random20Per())
                 return new OnBattleField(atkPk, dfcPk.withChStatusRank(0, -1, 0, 0, 0, 0, 0), field);
             return new OnBattleField(atkPk, dfcPk, field);
@@ -164,7 +162,7 @@ public enum BaseMvPrm {
     },
     FOCUS_BLAST("きあいだま", Type.FIGHTING, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 120, 70, 5, 0, 0,
             false, false, true, false, false, false) {
-        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) {
+        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
             if (random10Per())
                 return new OnBattleField(atkPk, dfcPk.withChStatusRank(0, 0, 0, -1, 0, 0, 0), field);
             return new OnBattleField(atkPk, dfcPk, field);
@@ -172,7 +170,7 @@ public enum BaseMvPrm {
     },
     PSYCHIC("サイコキネシス", Type.PSYCHIC, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 90, 100, 10, 0, 0,
             false, false, true, false, false, false) {
-        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) {
+        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
             if (random10Per())
                 return new OnBattleField(atkPk, dfcPk.withChStatusRank(0, 0, 0, -1, 0, 0, 0), field);
             return new OnBattleField(atkPk, dfcPk, field);
@@ -184,28 +182,24 @@ public enum BaseMvPrm {
     GROWL("なきごえ", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.DOWN_A, 0, 100, 20, 0, 0,
             false, true, true, false, true, true) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            showMessageParChar(dfcPk.basePrm().pName() + "の攻撃が下がった!");
             return new OnBattleField(atkPk, dfcPk.withChStatusRank(-1, 0, 0, 0, 0, 0, 0), field);
         }
     },
     DOUBLE_TEAM("かげぶんしん", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.UP_AV, 0, -1, 15, 0, 0,
             false, false, false, false, true, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            showMessageParChar(atkPk.basePrm().pName() + "の回避率が上がった!");
             return new OnBattleField(atkPk.withChStatusRank(0, 0, 0, 0, 0, 0, 1), dfcPk, field);
         }
     },
     GROWTH("せいちょう", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.UP_C, 0, -1, 20, 0, 0,
             false, false, true, false, true, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            showMessageParChar(atkPk.basePrm().pName() + "の特攻が上がった!");
             return new OnBattleField(atkPk.withChStatusRank(0, 0, 1, 0, 0, 0, 0), dfcPk, field);
         }
     },
     SWORDS_DANCE("つるぎのまい", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.UP_A, 0, -1, 20, 0, 0,
             false, false, true, false, true, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            showMessageParChar(atkPk.basePrm().pName() + "の攻撃がぐーんと上がった!");
             return new OnBattleField(atkPk.withChStatusRank(2, 0, 0, 0, 0, 0, 0), dfcPk, field);
         }
     },

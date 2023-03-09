@@ -94,7 +94,7 @@ public interface PokeInfo {
 
     PokeInfo withLevel(int addLevel);
 
-    PokeInfo withChStatusRank(int attack, int block, int contact, int defence, int speed, int hitRate, int avoidRate);
+    PokeInfo withChStatusRank(int attack, int block, int contact, int defence, int speed, int hitRate, int avoidRate) throws InterruptedException;
 
     PokeInfo withResetStatusRank();
 

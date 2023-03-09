@@ -297,12 +297,39 @@ public class ConsoleOutManager {
         }
     }
 
+    public static void showChangeStatusRank(String name, List<Integer> beforeSRList, List<Integer> afterSRList, List<Integer> changeSRList) throws InterruptedException {
+        List<String> statusMsg = List.of("こうげき", "ぼうぎょ", "とくこう", "とくぼう", "すばやさ", "めいちゅうりつ", "かいひりつ");
+
+        for (int i = 0; i < 7; i++) {
+            if (changeSRList.get(i) >= 1) {
+                if (afterSRList.get(i) - beforeSRList.get(i) == 0) {
+                    showMessageParChar(name + "の" + statusMsg.get(i) + "はもうあがらない!");
+                }
+            }
+            if (changeSRList.get(i) <= -1) {
+                if (afterSRList.get(i) - beforeSRList.get(i) == 0) {
+                    showMessageParChar(name + "の" + statusMsg.get(i) + "はもうさがらない!");
+                }
+            }
+            switch (afterSRList.get(i) - beforeSRList.get(i)) {
+                case 1 -> showMessageParChar(name + "の" + statusMsg.get(i) + "があがった!");
+                case 2 -> showMessageParChar(name + "の" + statusMsg.get(i) + "がぐーんとあがった!");
+                case 3 -> showMessageParChar(name + "の" + statusMsg.get(i) + "がぐぐーんとあがった!");
+                case 4, 5, 6, 7, 8, 9, 10, 11, 12 -> showMessageParChar(name + "の" + statusMsg.get(i) + "がさいだいまであがった!");
+                case -1 -> showMessageParChar(name + "の" + statusMsg.get(i) + "がさがった!");
+                case -2, -3 -> showMessageParChar(name + "の" + statusMsg.get(i) + "ががくっとさがった!");
+                default -> {
+                }
+            }
+        }
+    }
+
     public static void showMessageParChar(String message) throws InterruptedException {
         for (int i = 0; i < message.length(); i++) {
             System.out.print(message.charAt(i));
-            //Thread.sleep(20);
+            Thread.sleep(20);
         }
         System.out.println("");
-        //Thread.sleep(150);
+        Thread.sleep(150);
     }
 }

@@ -3,6 +3,10 @@ package pokemonStatus.impl;
 import pokemon.PokeInfo;
 import pokemonStatus.StatusRank;
 
+import java.util.List;
+
+import static bussinessLogic.ConsoleOutManager.showChangeStatusRank;
+
 public class StatusRankI implements StatusRank {
     private static final int MIN = -6;
     private static final int MAX = 6;
@@ -73,14 +77,20 @@ public class StatusRankI implements StatusRank {
         this.avoidRate = resultAvoidRate;
     }
 
-    public StatusRankI add(final int attack, final int block, final int contact, final int defence, final int speed, final int hitRate, final int avoidRate) {
-        int addedAttack = this.attack + attack;
-        int addedBlock = this.block + block;
-        int addedContact = this.contact + contact;
-        int addedDefence = this.defence + defence;
-        int addedSpeed = this.speed + speed;
-        int addedHitRate = this.hitRate + hitRate;
-        int addedAvoidRate = this.avoidRate + avoidRate;
+    public StatusRankI change(String name, int attack, int block, int contact, int defence, int speed, int hitRate, int avoidRate) throws InterruptedException {
+        int addedAttack = this.attack + attack < MIN ? MIN : Math.min(this.attack + attack, MAX);
+        int addedBlock = this.block + block < MIN ? MIN : Math.min(this.block + block, MAX);
+        int addedContact = this.contact + contact < MIN ? MIN : Math.min(this.contact + contact, MAX);
+        int addedDefence = this.defence + defence < MIN ? MIN : Math.min(this.defence + defence, MAX);
+        int addedSpeed = this.speed + speed < MIN ? MIN : Math.min(this.speed + speed, MAX);
+        int addedHitRate = this.hitRate + hitRate < MIN ? MIN : Math.min(this.hitRate + hitRate, MAX);
+        int addedAvoidRate = this.avoidRate + avoidRate < MIN ? MIN : Math.min(this.avoidRate + avoidRate, MAX);
+
+        // ステータス上昇、下降のメッセージ表示
+        List<Integer> beforeSRList = List.of(this.attack, this.block, this.contact, this.defence, this.speed, this.hitRate, this.avoidRate);
+        List<Integer> changeSRList = List.of(attack, block, contact, defence, speed, hitRate, avoidRate);
+        List<Integer> afterSRList = List.of(addedAttack, addedBlock, addedContact, addedDefence, addedSpeed, addedHitRate, addedAvoidRate);
+        showChangeStatusRank(name, beforeSRList, afterSRList, changeSRList);
 
         return new StatusRankI(addedAttack, addedBlock, addedContact, addedDefence, addedSpeed, addedHitRate, addedAvoidRate);
     }

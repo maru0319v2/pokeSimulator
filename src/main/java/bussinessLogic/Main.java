@@ -32,7 +32,6 @@ import static pokemon.PokeInfoI.initialize;
 // とくせい
 // バインド、のろい、ちょうはつ、こだわり
 // リフレクター、ひかりのかべ
-// ステータスが上下した際のメッセージをStatusRankで出す
 // テストを充実させる
 public class Main {
     public static void main(String[] args) throws InterruptedException {

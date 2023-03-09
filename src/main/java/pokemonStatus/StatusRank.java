@@ -29,7 +29,7 @@ public interface StatusRank {
 
     double hitRateByStatusRank(PokeInfo defencePoke);
 
-    StatusRank add(int attack, int block, int contact, int defence, int speed, int hitRate, int avoidRate);
+    StatusRank change(String name, int attack, int block, int contact, int defence, int speed, int hitRate, int avoidRate) throws InterruptedException;
 
     StatusRank reset();
 }

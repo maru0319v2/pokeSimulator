@@ -52,9 +52,9 @@ public class StatusRankTest {
 
     @Test
     @DisplayName("ステータスランクが正しく変化していること")
-    public void testStatusRank3() {
+    public void testStatusRank3() throws InterruptedException {
         StatusRank sr = initStatusRank();
-        sr = sr.add(0, -2, -9, 2, 9, -3, 3);
+        sr = sr.change("ポケモン", 0, -2, -9, 2, 9, -3, 3);
         int a = sr.attack();
         int b = sr.block();
         int c = sr.contact();
@@ -122,7 +122,7 @@ public class StatusRankTest {
     @Test
     @DisplayName("適切な命中率補正が返ること")
     // https://wiki.xn--rckteqa2e.com/wiki/%E5%91%BD%E4%B8%AD
-    public void testStatusRank6() {
+    public void testStatusRank6() throws InterruptedException {
         StatusRank mySr1 = new StatusRankI(0, 0, 0, 0, 0, 0, 0);
         StatusRank mySr2 = new StatusRankI(0, 0, 0, 0, 0, 3, 0);
         PokeInfo enemyPoke1 = initialize(BasePrm.CHARIZARD);
