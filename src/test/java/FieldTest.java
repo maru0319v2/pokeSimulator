@@ -42,11 +42,11 @@ public class FieldTest {
         assertEquals(Weather.DROUGHT, field.weather());
 
         // 1ターン経過される
-        field = field.elapseTurn();
+        field = field.elapsingTurnWeather();
 
         // ひでり -> ひでり
         field = changeField(field, Weather.DROUGHT);
-        assertEquals(1, field.elapsedTurn());
+        assertEquals(1, field.elapsedTurnWeather());
     }
 
     @Test
@@ -61,11 +61,11 @@ public class FieldTest {
         assertEquals(Weather.DROUGHT, field.weather());
 
         // 1ターン経過される
-        field = field.elapseTurn();
-        field = field.elapseTurn();
-        field = field.elapseTurn();
-        field = field.elapseTurn();
-        field = field.elapseTurn();
+        field = field.elapsingTurnWeather();
+        field = field.elapsingTurnWeather();
+        field = field.elapsingTurnWeather();
+        field = field.elapsingTurnWeather();
+        field = field.elapsingTurnWeather();
 
         // ひでり -> 天候なし
         assertEquals(Weather.NONE, field.weather());
@@ -122,8 +122,8 @@ public class FieldTest {
         Field field = initField();
         field = changeField(field, Weather.DROUGHT);
 
-        assertEquals(0, field.elapsedTurn());
-        assertEquals(5, field.countForRecovery());
+        assertEquals(0, field.elapsedTurnWeather());
+        assertEquals(5, field.countRecoveryWeather());
     }
 
     @Test

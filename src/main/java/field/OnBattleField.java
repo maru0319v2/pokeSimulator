@@ -1,6 +1,5 @@
-package bussinessLogic;
+package field;
 
-import field.Field;
 import lombok.Getter;
 import pokemon.PokeInfo;
 

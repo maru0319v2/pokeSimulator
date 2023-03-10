@@ -1,6 +1,7 @@
 package bussinessLogic;
 
 import field.Field;
+import field.OnBattleField;
 import move.Move;
 import pokemon.PokeInfo;
 import pokemonStatus.impl.FlinchI;
@@ -132,7 +133,7 @@ public class BattleSimulation {
 
     private OnBattleField endTurnProcessWeather(PokeInfo myPoke, PokeInfo enemyPoke, Field field) throws InterruptedException {
         showPokemonInfo(myPoke, enemyPoke);
-        field = field.elapseTurn();
+        field = field.elapsingTurnWeather();
 
         myPoke = field.slipDmgByWeather(myPoke);
         enemyPoke = field.slipDmgByWeather(enemyPoke);

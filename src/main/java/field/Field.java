@@ -6,11 +6,11 @@ import pokemon.PokeInfo;
 public interface Field {
     Weather weather();
 
-    int elapsedTurn();
+    int elapsedTurnWeather();
 
-    int countForRecovery();
+    int countRecoveryWeather();
 
-    Field elapseTurn() throws InterruptedException;
+    Field elapsingTurnWeather() throws InterruptedException;
 
     PokeInfo slipDmgByWeather(PokeInfo target) throws InterruptedException;
 

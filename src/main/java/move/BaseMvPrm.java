@@ -2,8 +2,8 @@ package move;
 
 import Enum.MoveSpecies;
 import Enum.Type;
-import bussinessLogic.OnBattleField;
 import field.Field;
+import field.OnBattleField;
 import field.Weather;
 import lombok.AllArgsConstructor;
 import pokemon.PokeInfo;

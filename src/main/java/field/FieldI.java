@@ -13,30 +13,30 @@ import static bussinessLogic.ConsoleOutManager.*;
 
 public class FieldI implements Field {
     private final Weather weather;
-    private final int elapsedTurn;
-    private final int countForRecovery;
+    private final int elapsedTurnWeather;
+    private final int countRecoveryWeather;
 
     public Weather weather() {
         return this.weather;
     }
 
-    public int elapsedTurn() {
-        return this.elapsedTurn;
+    public int elapsedTurnWeather() {
+        return this.elapsedTurnWeather;
     }
 
-    public int countForRecovery() {
-        return this.countForRecovery;
+    public int countRecoveryWeather() {
+        return this.countRecoveryWeather;
     }
 
     // フィールドを継続する場合(経過ターン+1)
-    private static Field keepField(Weather weather, int elapsedTurn, int countRecovery) {
-        return new FieldI(weather, elapsedTurn, countRecovery);
+    private static Field keepField(Weather weather, int elapsedTurnWeather, int countRecoveryWeather) {
+        return new FieldI(weather, elapsedTurnWeather, countRecoveryWeather);
     }
 
-    private FieldI(Weather weather, int elapsedTurn, int countForRecovery) {
+    private FieldI(Weather weather, int elapsedTurnWeather, int countRecoveryWeather) {
         this.weather = weather;
-        this.elapsedTurn = elapsedTurn;
-        this.countForRecovery = countForRecovery;
+        this.elapsedTurnWeather = elapsedTurnWeather;
+        this.countRecoveryWeather = countRecoveryWeather;
     }
 
     // 初期化したい場合
@@ -46,8 +46,8 @@ public class FieldI implements Field {
 
     private FieldI() {
         this.weather = Weather.NONE;
-        this.elapsedTurn = 0;
-        this.countForRecovery = 0;
+        this.elapsedTurnWeather = 0;
+        this.countRecoveryWeather = 0;
     }
 
     // 天候を変化させる場合
@@ -60,23 +60,23 @@ public class FieldI implements Field {
         if (field.weather() != weather) {
             // 引数の天候がもとの天候以外なら上書きする
             this.weather = weather;
-            this.elapsedTurn = 0;
-            this.countForRecovery = 5;
+            this.elapsedTurnWeather = 0;
+            this.countRecoveryWeather = 5;
             showChangeWeather(weather);
         } else {
             this.weather = field.weather();
-            this.elapsedTurn = field.elapsedTurn();
-            this.countForRecovery = field.countForRecovery();
+            this.elapsedTurnWeather = field.elapsedTurnWeather();
+            this.countRecoveryWeather = field.countRecoveryWeather();
         }
     }
 
-    public Field elapseTurn() throws InterruptedException {
-        if (this.countForRecovery <= this.elapsedTurn + 1) {
+    public Field elapsingTurnWeather() throws InterruptedException {
+        if (this.countRecoveryWeather <= this.elapsedTurnWeather + 1) {
             showUndoWeather(this.weather);
             return initField();
         }
         showKeepWeather(this.weather);
-        return keepField(this.weather, this.elapsedTurn + 1, this.countForRecovery);
+        return keepField(this.weather, this.elapsedTurnWeather + 1, this.countRecoveryWeather);
     }
 
     @Override

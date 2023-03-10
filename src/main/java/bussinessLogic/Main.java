@@ -32,7 +32,6 @@ import static pokemon.PokeInfoI.initialize;
 // とくせい
 // バインド、のろい、ちょうはつ、こだわり
 // リフレクター、ひかりのかべ
-// あめのときかみなり必中、あられのときふぶき必中
 // すでにやけどになっているのメッセージ表示
 // テストを充実させる
 public class Main {

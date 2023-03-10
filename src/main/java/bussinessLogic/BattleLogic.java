@@ -3,6 +3,7 @@ package bussinessLogic;
 import Enum.MoveSpecies;
 import Enum.Type;
 import field.Field;
+import field.OnBattleField;
 import move.Move;
 import pokemon.PokeInfo;
 
