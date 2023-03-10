@@ -84,7 +84,7 @@ public class BattleLogic {
 
         // TODO 型で処理を分けてif文なくせそう
         if (move.baseMPrm().moveSpecies() == MoveSpecies.PHYSICAL || move.baseMPrm().moveSpecies() == MoveSpecies.SPECIAL) {
-            if (isHit(atkPk, dfcPk, move)) {
+            if (isHit(atkPk, dfcPk, field, move)) {
                 int damage = calcDamage(atkPk, dfcPk, field, move);
                 dfcPk = dfcPk.damage(damage);
                 return move.baseMPrm().effect(atkPk, dfcPk, field, damage);
@@ -94,7 +94,7 @@ public class BattleLogic {
                 return new OnBattleField(atkPk, dfcPk, field);
             }
         } else {
-            if (isHit(atkPk, dfcPk, move)) {
+            if (isHit(atkPk, dfcPk, field, move)) {
                 showMessageParChar(atkPk.basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
                 return move.baseMPrm().effect(atkPk, dfcPk, field, 0);
             } else {
@@ -110,7 +110,7 @@ public class BattleLogic {
         // 攻撃側のレベル
         int attackPokeLv = atkPk.level().val();
         // 技の威力
-        int moveDamage = move.baseMPrm().damage();
+        int moveDamage = move.baseMPrm().damage(atkPk, dfcPk, field);
         // 技の分類
         MoveSpecies moveSpecies = move.baseMPrm().moveSpecies();
         // ダメージの乱数
@@ -165,9 +165,9 @@ public class BattleLogic {
         return result;
     }
 
-    private static boolean isHit(PokeInfo atkPk, PokeInfo dfcPk, Move move) {
+    private static boolean isHit(PokeInfo atkPk, PokeInfo dfcPk, Field field, Move move) {
         // 技の命中率が-1のときは必中
-        if (move.baseMPrm().hitRate() == -1) {
+        if (move.baseMPrm().hitRate(field) == -1) {
             return true;
         }
         // 攻撃側の命中ランクと防御側の回避ランクから算出した命中補正
@@ -175,7 +175,7 @@ public class BattleLogic {
         // ランダムな数値(1~100)
         int randomNum = (new Random().nextInt(100) + 1);
         // 技の命中率
-        int hitRate = move.baseMPrm().hitRate();
+        int hitRate = move.baseMPrm().hitRate(field);
 
         return randomNum <= hitRate * statusRank;
     }

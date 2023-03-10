@@ -58,8 +58,7 @@ public class Main {
                 case "m" -> ConsoleOutManager.showMoveDetail(myPokemon.haveMove());
                 case "e" -> myPokemon = myPokemon.addExp(200);
                 case "r" -> myPokemon = myPokemon.recoveryAll();
-                case "b" ->
-                        myPokemon = new BattleSimulation().battleSimulation(myPokemon, initialize(BasePrm.BLASTOISE));
+                case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, initialize(BasePrm.BLASTOISE));
                 case "f" -> myPokemon = new BattleSimulation().battleSimulation(
                         new PokeInfoI(
                                 BasePrm.CHARIZARD,
@@ -68,7 +67,7 @@ public class Main {
                                 new IndividualValueI(10, 10, 10, 10, 10, 10),
                                 new EffortValueI(6, 0, 0, 252, 0, 252),
                                 new LevelI(50),
-                                List.of(initMv(BaseMvPrm.AIR_SLASH), initMv(BaseMvPrm.CHARM), initMv(BaseMvPrm.WILL_O_WISP), initMv(BaseMvPrm.RECOVER))
+                                List.of(initMv(BaseMvPrm.AIR_SLASH), initMv(BaseMvPrm.CHARM), initMv(BaseMvPrm.RAIN_DANCE), initMv(BaseMvPrm.THUNDER))
                         ),
                         new PokeInfoI(
                                 randomPoke(),

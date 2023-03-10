@@ -34,10 +34,28 @@ public enum BaseMvPrm {
             return new OnBattleField(atkPk, dfcPk, field);
         }
     },
+    FLAIL("じたばた", Type.NORMAL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 20, 100, 15, 0, 0,
+            true, false, true, false, false, false) {
+        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) {
+            return new OnBattleField(atkPk, dfcPk, field);
+        }
+    },
+    DOUBLE_EDGE("すてみタックル", Type.NORMAL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 120, 100, 15, 0, 0,
+            true, false, true, false, false, false) {
+        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int damaged) throws InterruptedException {
+            return new OnBattleField(atkPk.damage(damaged / 3), dfcPk, field);
+        }
+    },
     AERIAL_ACE("つばめがえし", Type.FLYING, MoveSpecies.PHYSICAL, DetailMvSpecies.HIT, 60, -1, 20, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) {
             return new OnBattleField(atkPk, dfcPk, field);
+        }
+    },
+    BRAVE_BIRD("ブレイブバード", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 120, 100, 15, 0, 0,
+            true, false, true, false, false, false) {
+        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int damaged) throws InterruptedException {
+            return new OnBattleField(atkPk.damage(damaged / 3), dfcPk, field);
         }
     },
     AIR_SLASH("エアスラッシュ", Type.FLYING, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 75, 95, 15, 0, 0,
@@ -51,6 +69,12 @@ public enum BaseMvPrm {
             true, false, true, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
             return new OnBattleField(atkPk.withChStatusRank(0, -1, 0, -1, 0, 0, 0), dfcPk, field);
+        }
+    },
+    SUPERPOWER("ばかぢから", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 120, 100, 5, 0, 0,
+            true, false, true, false, false, false) {
+        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
+            return new OnBattleField(atkPk.withChStatusRank(-1, -1, 0, 0, 0, 0, 0), dfcPk, field);
         }
     },
     POWER_UP_PUNCH("グロウパンチ", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 40, 100, 20, 0, 0,
@@ -84,6 +108,12 @@ public enum BaseMvPrm {
             return new OnBattleField(atkPk.withChStatusRank(0, 0, -2, 0, 0, 0, 0), dfcPk, field);
         }
     },
+    ERUPTION("ふんか", Type.FIRE, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 150, 100, 5, 0, 0,
+            false, false, true, false, false, false) {
+        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
+            return new OnBattleField(atkPk, dfcPk, field);
+        }
+    },
     THUNDERBOLT("10まんボルト", Type.ELECTRIC, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 90, 100, 15, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
@@ -111,9 +141,28 @@ public enum BaseMvPrm {
             return new OnBattleField(atkPk, dfcPk, field);
         }
     },
+    BRINE("しおみず", Type.WATER, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 65, 100, 10, 0, 0,
+            false, false, true, false, false, false) {
+        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) {
+            return new OnBattleField(atkPk, dfcPk, field);
+        }
+    },
+    WATER_SPOUT("しおふき", Type.WATER, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 150, 100, 5, 0, 0,
+            false, false, true, false, false, false) {
+        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) {
+            return new OnBattleField(atkPk, dfcPk, field);
+        }
+    },
     ICE_SHARD("こおりのつぶて", Type.ICE, MoveSpecies.PHYSICAL, DetailMvSpecies.PRIORITY, 40, 100, 30, 0, 1,
             false, false, true, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) {
+            return new OnBattleField(atkPk, dfcPk, field);
+        }
+    },
+    Blizzard("ふぶき", Type.ICE, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 110, 70, 5, 0, 0,
+            false, false, true, false, false, false) {
+        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
+            if (random10Per()) return new OnBattleField(atkPk, dfcPk.withAilment(changeAilment(dfcPk, AilmentE.FREEZE)), field);
             return new OnBattleField(atkPk, dfcPk, field);
         }
     },
@@ -175,6 +224,12 @@ public enum BaseMvPrm {
             false, false, true, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
             if (random10Per()) return new OnBattleField(atkPk, dfcPk.withChStatusRank(0, 0, 0, -1, 0, 0, 0), field);
+            return new OnBattleField(atkPk, dfcPk, field);
+        }
+    },
+    REVERSAL("きしかいせい", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 20, 100, 15, 0, 0,
+            true, false, true, false, false, false) {
+        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) {
             return new OnBattleField(atkPk, dfcPk, field);
         }
     },
@@ -347,7 +402,39 @@ public enum BaseMvPrm {
         return this.damage;
     }
 
+    public int damage(PokeInfo atkPk, PokeInfo dfcPk, Field field) {
+        int result;
+        switch (this) {
+            case ERUPTION, WATER_SPOUT -> result = 150 * atkPk.currentHP().val() / atkPk.realHP();
+            case REVERSAL, FLAIL -> result = calcReversalDmg(atkPk);
+            case BRINE -> result = (double) (dfcPk.currentHP().val()) / (double) (dfcPk.realHP()) <= 0.5 ? this.damage * 2 : this.damage;
+            default -> result = this.damage;
+        }
+        return result;
+    }
+
     public int hitRate() {
+        return this.hitRate;
+    }
+
+    public int hitRate(Field field) {
+        switch (this) {
+            case THUNDER -> {
+                if (field.weather() == Weather.RAIN) {
+                    return -1;
+                } else if (field.weather() == Weather.DROUGHT) {
+                    return this.hitRate / 2;
+                } else {
+                    return this.hitRate;
+                }
+            }
+            case Blizzard -> {
+                if (field.weather() == Weather.HAIL) {
+                    return -1;
+                }
+            }
+            default -> this.hitRate();
+        }
         return this.hitRate;
     }
 
@@ -400,5 +487,26 @@ public enum BaseMvPrm {
 
     private static boolean random30Per() {
         return (new Random().nextInt(10)) <= 2;
+    }
+
+    // きしかいせい、じたばたのダメージを計算する
+    private static int calcReversalDmg(PokeInfo atkPk) {
+        double RemainingHP = (double) (atkPk.currentHP().val()) / (double) (atkPk.realHP());
+        if (RemainingHP < 2d / 48d) {
+            return 200;
+        }
+        if (RemainingHP < 5d / 48d) {
+            return 150;
+        }
+        if (RemainingHP < 10d / 48d) {
+            return 100;
+        }
+        if (RemainingHP < 17d / 48d) {
+            return 80;
+        }
+        if (RemainingHP < 33d / 48d) {
+            return 40;
+        }
+        return 20;
     }
 }
