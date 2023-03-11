@@ -3,7 +3,7 @@ package bussinessLogic;
 import Enum.MoveSpecies;
 import Enum.Type;
 import field.Field;
-import field.WeatherEnum;
+import field.Weather;
 import move.BaseMvPrm;
 import move.DetailMvSpecies;
 import move.Move;
@@ -13,7 +13,7 @@ import java.util.*;
 
 public class EnemySelectMove {
     // 相手が技を選択する際のアルゴリズムを実装するクラス
-    public static Move enemySelectMove(PokeInfo enemyPk, PokeInfo myPk, Field field) {
+    public static Move enemySelectMove(PokeInfo enemyPk, PokeInfo myPk, Field field, Weather weather) {
         // 持つ技の個数
         int moveSize = enemyPk.haveMove().size();
         // ランダムな数値1~20
@@ -22,7 +22,7 @@ public class EnemySelectMove {
         int selectedIndex = 0;
 
         if (r < 13) {
-            selectedIndex = highPriorityCanDefeat(enemyPk, myPk, field, moveSize);
+            selectedIndex = highPriorityCanDefeat(enemyPk, myPk, field, moveSize, weather);
         } else {
             selectedIndex = completelyRandom(moveSize);
         }
@@ -90,12 +90,10 @@ public class EnemySelectMove {
     }
 
     // すでに変更される天候と同じ天候にする技を候補から外す
-    private static List<Move> filterDisableWeather(PokeInfo enemyPk, Field field) {
-        // 現在の天候
-        WeatherEnum weather = field.weather().val();
+    private static List<Move> filterDisableWeather(PokeInfo enemyPk, Field field, Weather weather) {
         List<Move> filteredMoves;
         // 天候操作技を持っている場合、天候が重複する技を候補からはずす
-        switch (weather) {
+        switch (weather.val()) {
             case DROUGHT -> filteredMoves = enemyPk.haveMove().stream().filter(m -> m.baseMPrm() != BaseMvPrm.SUNNY_DAY).toList();
             case RAIN -> filteredMoves = enemyPk.haveMove().stream().filter(m -> m.baseMPrm() != BaseMvPrm.RAIN_DANCE).toList();
             case SANDSTORM -> filteredMoves = enemyPk.haveMove().stream().filter(m -> m.baseMPrm() != BaseMvPrm.SAND_STORM).toList();
@@ -115,23 +113,23 @@ public class EnemySelectMove {
     }
 
     // 持つ技の中から最もダメージを与えられる技を選択する。
-    private static int maxDamage(PokeInfo enemyPk, PokeInfo myPk, Field field, int moveSize) {
+    private static int maxDamage(PokeInfo enemyPk, PokeInfo myPk, Field field, int moveSize, Weather weather) {
         List<Integer> damageList = new ArrayList<>(moveSize);
         for (Move move : enemyPk.haveMove()) {
-            damageList.add(calcDamageForCPU(enemyPk, myPk, field, move));
+            damageList.add(calcDamageForCPU(enemyPk, myPk, field, move, weather));
         }
         return damageList.indexOf(Collections.max(damageList));
     }
 
     // 先制技を持っていてかつ、その技で相手を倒せる可能性がある場合は先制技を選択する。先制技で倒せない場合はすべての技から最大打点を選択。
-    private static int highPriorityCanDefeat(PokeInfo enemyPk, PokeInfo myPk, Field field, int moveSize) {
+    private static int highPriorityCanDefeat(PokeInfo enemyPk, PokeInfo myPk, Field field, int moveSize, Weather weather) {
         // 優先度1以上の技でフィルターする
         List<Move> priorityMove = enemyPk.haveMove().stream().filter(m -> m.baseMPrm().priority() >= 1).toList();
         if (priorityMove.size() >= 1) {
             // 優先度1以上の技で仮ダメージ計算する
             List<Integer> damageList = new ArrayList<>(priorityMove.size());
             for (Move move : priorityMove) {
-                damageList.add(calcDamageForCPU(enemyPk, myPk, field, move));
+                damageList.add(calcDamageForCPU(enemyPk, myPk, field, move, weather));
             }
             // 最大ダメージ
             int maxDamage = Collections.max(damageList);
@@ -145,12 +143,12 @@ public class EnemySelectMove {
             }
         }
         // 先制技が存在しない、または先制技で倒せない場合はすべての技から最大打点を選択
-        return maxDamage(enemyPk, myPk, field, moveSize);
+        return maxDamage(enemyPk, myPk, field, moveSize, weather);
     }
 
 
     // CPUが技を選択するときに事前にダメージ計算を行う為の処理、乱数固定、急所は当たらない
-    private static int calcDamageForCPU(PokeInfo atkPk, PokeInfo dfcPk, Field field, Move move) {
+    private static int calcDamageForCPU(PokeInfo atkPk, PokeInfo dfcPk, Field field, Move move, Weather weather) {
         // 攻撃側のレベル
         int attackPokeLv = atkPk.level().val();
         // 技の威力
@@ -167,12 +165,12 @@ public class EnemySelectMove {
         // やけど判定
         double burnedRate = moveSpecies == MoveSpecies.PHYSICAL ? atkPk.ailment().dmgRateByBurn() : 1.0;
         // 天候によるダメージ倍率
-        double weatherRate = field.weather().dmgRateByWeather(move);
+        double weatherRate = weather.dmgRateByWeather(move);
         // ダメージ倍率合算
         double totalDmgRate = randomNum * typeMatchRate * effectiveRate * burnedRate * weatherRate;
 
         // すなあらしによる岩タイプの特防上昇
-        double defenceRateRock = field.weather().dfcRateBySandStorm(dfcPk);
+        double defenceRateRock = weather.dfcRateBySandStorm(dfcPk);
         int attackVal = 0;
         int defenceVal = 0;
         // ステータス実数値にランク補正を乗せる

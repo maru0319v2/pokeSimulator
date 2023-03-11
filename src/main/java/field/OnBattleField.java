@@ -8,11 +8,19 @@ public class OnBattleField {
     private final PokeInfo atkPk;
     private final PokeInfo dfcPk;
     private final Field field;
+    private final Weather weather;
 
-    public OnBattleField(PokeInfo atkPk, PokeInfo dfcPk, Field field) {
+    /**
+     * atkField(atkPk)
+     * dfcField(dfcPk)
+     * weather
+     */
+
+    public OnBattleField(PokeInfo atkPk, PokeInfo dfcPk, Field field, Weather weather) {
         this.atkPk = atkPk;
         this.dfcPk = dfcPk;
         this.field = field;
+        this.weather = weather;
     }
 
     public boolean isBothFine() {
@@ -21,5 +29,9 @@ public class OnBattleField {
 
     public boolean isDeadEither() {
         return atkPk.currentHP().isDead() || dfcPk.currentHP().isDead();
+    }
+
+    public Weather weather() {
+        return this.weather;
     }
 }

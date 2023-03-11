@@ -46,21 +46,21 @@ public class Weather {
     }
 
     // 天候を変化させる場合
-    public static Weather changeWeather(Field field, WeatherEnum weather) throws InterruptedException {
-        return new Weather(field, weather);
+    public static Weather changeWeather(Weather currentWeather, WeatherEnum weather) throws InterruptedException {
+        return new Weather(currentWeather, weather);
     }
 
-    private Weather(Field field, WeatherEnum weather) throws InterruptedException {
-        if (field.weather().val() != weather) {
+    private Weather(Weather currentWeather, WeatherEnum weather) throws InterruptedException {
+        if (currentWeather.val() != weather) {
             // 引数の天候がもとの天候以外なら上書きする
             this.val = weather;
             this.elapsedTurnWeather = 0;
             this.countRecoveryWeather = 5;
             showChangeWeather(weather);
         } else {
-            this.val = field.weather().val();
-            this.elapsedTurnWeather = field.weather().elapsedTurnWeather();
-            this.countRecoveryWeather = field.weather().countRecoveryWeather();
+            this.val = currentWeather.val();
+            this.elapsedTurnWeather = currentWeather.elapsedTurnWeather();
+            this.countRecoveryWeather = currentWeather.countRecoveryWeather();
         }
     }
 

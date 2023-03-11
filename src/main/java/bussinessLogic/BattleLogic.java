@@ -4,6 +4,7 @@ import Enum.MoveSpecies;
 import Enum.Type;
 import field.Field;
 import field.OnBattleField;
+import field.Weather;
 import move.Move;
 import pokemon.PokeInfo;
 
@@ -79,34 +80,34 @@ public class BattleLogic {
     }
 
     // ターンごとの行動 命中判定、ダメージ計算、ダメージ付与を一括で行う
-    public static OnBattleField doAction(PokeInfo atkPk, PokeInfo dfcPk, Field field, Move move) throws InterruptedException {
+    public static OnBattleField doAction(PokeInfo atkPk, PokeInfo dfcPk, Field field, Move move, Weather weather) throws InterruptedException {
         // PPを1減らす
         atkPk = atkPk.decrementPP(move);
 
         // TODO 型で処理を分けてif文なくせそう
         if (move.baseMPrm().moveSpecies() == MoveSpecies.PHYSICAL || move.baseMPrm().moveSpecies() == MoveSpecies.SPECIAL) {
-            if (isHit(atkPk, dfcPk, field, move)) {
-                int damage = calcDamage(atkPk, dfcPk, field, move);
+            if (isHit(atkPk, dfcPk, field, move, weather)) {
+                int damage = calcDamage(atkPk, dfcPk, field, move, weather);
                 dfcPk = dfcPk.damage(damage);
-                return move.baseMPrm().effect(atkPk, dfcPk, field, damage);
+                return move.baseMPrm().effect(atkPk, dfcPk, field, damage, weather);
             } else {
                 showMessageParChar(atkPk.basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
                 showMessageParChar(atkPk.basePrm().pName() + "の" + move.baseMPrm().mvName() + "は外れた");
-                return new OnBattleField(atkPk, dfcPk, field);
+                return new OnBattleField(atkPk, dfcPk, field, weather);
             }
         } else {
-            if (isHit(atkPk, dfcPk, field, move)) {
+            if (isHit(atkPk, dfcPk, field, move, weather)) {
                 showMessageParChar(atkPk.basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
-                return move.baseMPrm().effect(atkPk, dfcPk, field, 0);
+                return move.baseMPrm().effect(atkPk, dfcPk, field, 0, weather);
             } else {
                 showMessageParChar(atkPk.basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
                 showMessageParChar(atkPk.basePrm().pName() + "の" + move.baseMPrm().mvName() + "は外れた");
-                return new OnBattleField(atkPk, dfcPk, field);
+                return new OnBattleField(atkPk, dfcPk, field, weather);
             }
         }
     }
 
-    private static int calcDamage(PokeInfo atkPk, PokeInfo dfcPk, Field field, Move move) throws InterruptedException {
+    private static int calcDamage(PokeInfo atkPk, PokeInfo dfcPk, Field field, Move move, Weather weather) throws InterruptedException {
         // ダメージ計算参考　https://latest.pokewiki.net/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F
         // 攻撃側のレベル
         int attackPokeLv = atkPk.level().val();
@@ -132,12 +133,12 @@ public class BattleLogic {
         // やけど判定
         double burnedRate = moveSpecies == MoveSpecies.PHYSICAL ? atkPk.ailment().dmgRateByBurn() : 1.0;
         // 天候によるダメージ倍率
-        double weatherRate = field.weather().dmgRateByWeather(move);
+        double weatherRate = weather.dmgRateByWeather(move);
         // ダメージ倍率合算
         double totalDmgRate = randomNum * criticalRate * typeMatchRate * effectiveRate * burnedRate * weatherRate;
 
         // すなあらしによる岩タイプの特防上昇
-        double defenceRateRock = field.weather().dfcRateBySandStorm(dfcPk);
+        double defenceRateRock = weather.dfcRateBySandStorm(dfcPk);
         int attackVal = 0;
         int defenceVal = 0;
         // ステータス実数値にランク補正を乗せる
@@ -166,9 +167,9 @@ public class BattleLogic {
         return result;
     }
 
-    private static boolean isHit(PokeInfo atkPk, PokeInfo dfcPk, Field field, Move move) {
+    private static boolean isHit(PokeInfo atkPk, PokeInfo dfcPk, Field field, Move move, Weather weather) {
         // 技の命中率が-1のときは必中
-        if (move.baseMPrm().hitRate(field) == -1) {
+        if (move.baseMPrm().hitRate(weather) == -1) {
             return true;
         }
         // 攻撃側の命中ランクと防御側の回避ランクから算出した命中補正
@@ -176,7 +177,7 @@ public class BattleLogic {
         // ランダムな数値(1~100)
         int randomNum = (new Random().nextInt(100) + 1);
         // 技の命中率
-        int hitRate = move.baseMPrm().hitRate(field);
+        int hitRate = move.baseMPrm().hitRate(weather);
 
         return randomNum <= hitRate * statusRank;
     }

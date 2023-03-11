@@ -1,6 +1,7 @@
 import Enum.Gender;
 import Enum.Nature;
 import field.Field;
+import field.Weather;
 import move.BaseMvPrm;
 import move.Move;
 import org.junit.jupiter.api.DisplayName;
@@ -35,8 +36,9 @@ public class EnemySelectMoveTest {
         );
         PokeInfo myPk = initialize(BasePrm.BLASTOISE);
         Field field = initField();
+        Weather weather = Weather.initWeather();
 
-        Move result = enemySelectMove(enemyPk, myPk, field);
+        Move result = enemySelectMove(enemyPk, myPk, field, weather);
 
         assertTrue(result.baseMPrm().priority() >= 0);
 
