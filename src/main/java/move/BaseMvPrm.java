@@ -323,6 +323,20 @@ public enum BaseMvPrm {
             return new OnBattleField(atkPk.withCurrentHP(atkPk.currentHP().recovery(atkPk, new CurrentHPI(recovery))), dfcPk, field);
         }
     },
+//    LIGHT_SCREEN("ひかりのかべ", Type.PSYCHIC, MoveSpecies.CHANGE, DetailMvSpecies.WALL, 0, -1, 30, 0, 0,
+//            false, false, false, false, true, false) {
+//        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
+//            // TODO てきがつかっても自分のひかりのかべができてしまう
+//            return new OnBattleField(atkPk, dfcPk, field.withLightScreen(LightScreen.enableLightScreen(field)));
+//        }
+//    },
+//    REFLECT("リフレクター", Type.PSYCHIC, MoveSpecies.CHANGE, DetailMvSpecies.WALL, 0, -1, 20, 0, 0,
+//            false, false, false, false, true, false) {
+//        public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
+//            // TODO てきがつかっても自分のリフレクターができてしまう
+//            return new OnBattleField(atkPk, dfcPk, field.withReflect(Reflect.enableReflect(field)));
+//        }
+//    },
     /**
      * ここから天候技
      */
