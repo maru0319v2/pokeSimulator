@@ -28,11 +28,6 @@ public class FieldI implements Field {
         return this.countRecoveryWeather;
     }
 
-    // フィールドを継続する場合(経過ターン+1)
-    private static Field keepField(Weather weather, int elapsedTurnWeather, int countRecoveryWeather) {
-        return new FieldI(weather, elapsedTurnWeather, countRecoveryWeather);
-    }
-
     private FieldI(Weather weather, int elapsedTurnWeather, int countRecoveryWeather) {
         this.weather = weather;
         this.elapsedTurnWeather = elapsedTurnWeather;
@@ -51,12 +46,11 @@ public class FieldI implements Field {
     }
 
     // 天候を変化させる場合
-    public static Field changeField(Field field, Weather weather) throws InterruptedException {
+    public static Field changeWeather(Field field, Weather weather) throws InterruptedException {
         return new FieldI(field, weather);
     }
 
     private FieldI(Field field, Weather weather) throws InterruptedException {
-
         if (field.weather() != weather) {
             // 引数の天候がもとの天候以外なら上書きする
             this.weather = weather;
@@ -76,7 +70,7 @@ public class FieldI implements Field {
             return initField();
         }
         showKeepWeather(this.weather);
-        return keepField(this.weather, this.elapsedTurnWeather + 1, this.countRecoveryWeather);
+        return new FieldI(this.weather, this.elapsedTurnWeather + 1, this.countRecoveryWeather);
     }
 
     @Override

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import pokemon.BasePrm;
 import pokemon.PokeInfo;
 
-import static field.FieldI.changeField;
+import static field.FieldI.changeWeather;
 import static field.FieldI.initField;
 import static move.MoveI.initMv;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,11 +22,11 @@ public class FieldTest {
         assertEquals(Weather.NONE, field.weather());
 
         // 天候なし -> ひでり
-        field = changeField(field, Weather.DROUGHT);
+        field = changeWeather(field, Weather.DROUGHT);
         assertEquals(Weather.DROUGHT, field.weather());
 
         // ひでり -> あめ
-        field = changeField(field, Weather.RAIN);
+        field = changeWeather(field, Weather.RAIN);
         assertEquals(Weather.RAIN, field.weather());
     }
 
@@ -38,14 +38,14 @@ public class FieldTest {
         assertEquals(Weather.NONE, field.weather());
 
         // 天候なし -> ひでり
-        field = changeField(field, Weather.DROUGHT);
+        field = changeWeather(field, Weather.DROUGHT);
         assertEquals(Weather.DROUGHT, field.weather());
 
         // 1ターン経過される
         field = field.elapsingTurnWeather();
 
         // ひでり -> ひでり
-        field = changeField(field, Weather.DROUGHT);
+        field = changeWeather(field, Weather.DROUGHT);
         assertEquals(1, field.elapsedTurnWeather());
     }
 
@@ -57,7 +57,7 @@ public class FieldTest {
         assertEquals(Weather.NONE, field.weather());
 
         // 天候なし -> ひでり
-        field = changeField(field, Weather.DROUGHT);
+        field = changeWeather(field, Weather.DROUGHT);
         assertEquals(Weather.DROUGHT, field.weather());
 
         // 1ターン経過される
@@ -75,7 +75,7 @@ public class FieldTest {
     @DisplayName("晴れのとき炎技が1.5倍、水技が0.5倍になること")
     public void test4() throws InterruptedException {
         Field field = initField();
-        field = changeField(field, Weather.DROUGHT);
+        field = changeWeather(field, Weather.DROUGHT);
 
         double result1 = field.dmgRateByWeather(initMv(BaseMvPrm.FLAMETHROWER));
         double result2 = field.dmgRateByWeather(initMv(BaseMvPrm.WATER_PULSE));
@@ -88,7 +88,7 @@ public class FieldTest {
     @DisplayName("雨のとき炎技が0.5倍、水技が1.5倍になること")
     public void test5() throws InterruptedException {
         Field field = initField();
-        field = changeField(field, Weather.RAIN);
+        field = changeWeather(field, Weather.RAIN);
 
         double result1 = field.dmgRateByWeather(initMv(BaseMvPrm.FLAMETHROWER));
         double result2 = field.dmgRateByWeather(initMv(BaseMvPrm.WATER_PULSE));
@@ -109,7 +109,7 @@ public class FieldTest {
         assertEquals(1.0, result1);
         assertEquals(1.0, result2);
 
-        field = changeField(field, Weather.SANDSTORM);
+        field = changeWeather(field, Weather.SANDSTORM);
         double result3 = field.dfcRateBySandStorm(myPoke1);
         double result4 = field.dfcRateBySandStorm(myPoke2);
         assertEquals(1.5, result3);
@@ -120,7 +120,7 @@ public class FieldTest {
     @DisplayName("晴れになったときにcountForRecoveryが5、elapsedTurnが0であること")
     public void test7() throws InterruptedException {
         Field field = initField();
-        field = changeField(field, Weather.DROUGHT);
+        field = changeWeather(field, Weather.DROUGHT);
 
         assertEquals(0, field.elapsedTurnWeather());
         assertEquals(5, field.countRecoveryWeather());
@@ -130,7 +130,7 @@ public class FieldTest {
     @DisplayName("岩、地面、鋼タイプはすなあらしダメージを受けないこと")
     public void test8() throws InterruptedException {
         Field field = initField();
-        field = changeField(field, Weather.SANDSTORM);
+        field = changeWeather(field, Weather.SANDSTORM);
 
         PokeInfo rockPk = initialize(BasePrm.RHYDON);
         PokeInfo groundPk = initialize(BasePrm.DUGTRIO);
@@ -152,7 +152,7 @@ public class FieldTest {
     @DisplayName("氷タイプはあられダメージを受けないこと")
     public void test9() throws InterruptedException {
         Field field = initField();
-        field = changeField(field, Weather.HAIL);
+        field = changeWeather(field, Weather.HAIL);
 
         PokeInfo icePk = initialize(BasePrm.LAPRAS);
         PokeInfo firePk = initialize(BasePrm.CHARIZARD);

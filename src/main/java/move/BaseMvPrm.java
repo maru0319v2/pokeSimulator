@@ -13,7 +13,7 @@ import statusAilment.AilmentE;
 
 import java.util.Random;
 
-import static field.FieldI.changeField;
+import static field.FieldI.changeWeather;
 import static pokemonStatus.impl.ConfusionI.beConfusion;
 import static statusAilment.AilmentI.changeAilment;
 
@@ -329,25 +329,25 @@ public enum BaseMvPrm {
     SUNNY_DAY("にほんばれ", Type.FIRE, MoveSpecies.CHANGE, DetailMvSpecies.WEATHER, 0, -1, 5, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            return new OnBattleField(atkPk, dfcPk, changeField(field, Weather.DROUGHT));
+            return new OnBattleField(atkPk, dfcPk, changeWeather(field, Weather.DROUGHT));
         }
     },
     RAIN_DANCE("あまごい", Type.WATER, MoveSpecies.CHANGE, DetailMvSpecies.WEATHER, 0, -1, 5, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            return new OnBattleField(atkPk, dfcPk, changeField(field, Weather.RAIN));
+            return new OnBattleField(atkPk, dfcPk, changeWeather(field, Weather.RAIN));
         }
     },
     SAND_STORM("すなあらし", Type.ROCK, MoveSpecies.CHANGE, DetailMvSpecies.WEATHER, 0, -1, 10, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            return new OnBattleField(atkPk, dfcPk, changeField(field, Weather.SANDSTORM));
+            return new OnBattleField(atkPk, dfcPk, changeWeather(field, Weather.SANDSTORM));
         }
     },
     HAIL("あられ", Type.ICE, MoveSpecies.CHANGE, DetailMvSpecies.WEATHER, 0, -1, 10, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            return new OnBattleField(atkPk, dfcPk, changeField(field, Weather.HAIL));
+            return new OnBattleField(atkPk, dfcPk, changeWeather(field, Weather.HAIL));
         }
     };
 
