@@ -13,7 +13,7 @@ import statusAilment.AilmentEnum;
 
 import java.util.Random;
 
-import static field.FieldI.changeWeather;
+import static field.Weather.changeWeather;
 import static pokemonStatus.impl.ConfusionI.beConfusion;
 import static statusAilment.AilmentI.changeAilment;
 
@@ -329,25 +329,25 @@ public enum BaseMvPrm {
     SUNNY_DAY("にほんばれ", Type.FIRE, MoveSpecies.CHANGE, DetailMvSpecies.WEATHER, 0, -1, 5, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            return new OnBattleField(atkPk, dfcPk, changeWeather(field, WeatherEnum.DROUGHT));
+            return new OnBattleField(atkPk, dfcPk, field.withWeather(changeWeather(field, WeatherEnum.DROUGHT)));
         }
     },
     RAIN_DANCE("あまごい", Type.WATER, MoveSpecies.CHANGE, DetailMvSpecies.WEATHER, 0, -1, 5, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            return new OnBattleField(atkPk, dfcPk, changeWeather(field, WeatherEnum.RAIN));
+            return new OnBattleField(atkPk, dfcPk, field.withWeather(changeWeather(field, WeatherEnum.RAIN)));
         }
     },
     SAND_STORM("すなあらし", Type.ROCK, MoveSpecies.CHANGE, DetailMvSpecies.WEATHER, 0, -1, 10, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            return new OnBattleField(atkPk, dfcPk, changeWeather(field, WeatherEnum.SANDSTORM));
+            return new OnBattleField(atkPk, dfcPk, field.withWeather(changeWeather(field, WeatherEnum.SANDSTORM)));
         }
     },
     HAIL("あられ", Type.ICE, MoveSpecies.CHANGE, DetailMvSpecies.WEATHER, 0, -1, 10, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            return new OnBattleField(atkPk, dfcPk, changeWeather(field, WeatherEnum.HAIL));
+            return new OnBattleField(atkPk, dfcPk, field.withWeather(changeWeather(field, WeatherEnum.HAIL)));
         }
     };
 
@@ -420,16 +420,16 @@ public enum BaseMvPrm {
     public int hitRate(Field field) {
         switch (this) {
             case THUNDER -> {
-                if (field.weather() == WeatherEnum.RAIN) {
+                if (field.weather().val() == WeatherEnum.RAIN) {
                     return -1;
-                } else if (field.weather() == WeatherEnum.DROUGHT) {
+                } else if (field.weather().val() == WeatherEnum.DROUGHT) {
                     return this.hitRate / 2;
                 } else {
                     return this.hitRate;
                 }
             }
             case Blizzard -> {
-                if (field.weather() == WeatherEnum.HAIL) {
+                if (field.weather().val() == WeatherEnum.HAIL) {
                     return -1;
                 }
             }

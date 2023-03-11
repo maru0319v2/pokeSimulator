@@ -132,12 +132,12 @@ public class BattleLogic {
         // やけど判定
         double burnedRate = moveSpecies == MoveSpecies.PHYSICAL ? atkPk.ailment().dmgRateByBurn() : 1.0;
         // 天候によるダメージ倍率
-        double weatherRate = field.dmgRateByWeather(move);
+        double weatherRate = field.weather().dmgRateByWeather(move);
         // ダメージ倍率合算
         double totalDmgRate = randomNum * criticalRate * typeMatchRate * effectiveRate * burnedRate * weatherRate;
 
         // すなあらしによる岩タイプの特防上昇
-        double defenceRateRock = field.dfcRateBySandStorm(dfcPk);
+        double defenceRateRock = field.weather().dfcRateBySandStorm(dfcPk);
         int attackVal = 0;
         int defenceVal = 0;
         // ステータス実数値にランク補正を乗せる

@@ -75,6 +75,7 @@ public class BattleSimulation {
             onBF = endTurnProcessWeather(myPk, enemyPk, field);
             myPk = onBF.getAtkPk();
             enemyPk = onBF.getDfcPk();
+            field = onBF.getField();
 
             if (onBF.isDeadEither()) {
                 break;
@@ -83,6 +84,7 @@ public class BattleSimulation {
             onBF = endTurnProcessAilment(myPk, enemyPk, field);
             myPk = onBF.getAtkPk();
             enemyPk = onBF.getDfcPk();
+            field = onBF.getField();
 
             // 怯み状態をリセットする
             myPk = myPk.withFlinch(new FlinchI(false));
@@ -133,10 +135,10 @@ public class BattleSimulation {
 
     private OnBattleField endTurnProcessWeather(PokeInfo myPoke, PokeInfo enemyPoke, Field field) throws InterruptedException {
         showPokemonInfo(myPoke, enemyPoke);
-        field = field.elapsingTurnWeather();
+        field = field.withWeather(field.weather().elapsingTurnWeather());
 
-        myPoke = field.slipDmgByWeather(myPoke);
-        enemyPoke = field.slipDmgByWeather(enemyPoke);
+        myPoke = field.weather().slipDmgByWeather(myPoke);
+        enemyPoke = field.weather().slipDmgByWeather(enemyPoke);
         return new OnBattleField(myPoke, enemyPoke, field);
     }
 }

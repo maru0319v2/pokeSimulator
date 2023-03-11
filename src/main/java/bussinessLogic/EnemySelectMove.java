@@ -92,7 +92,7 @@ public class EnemySelectMove {
     // すでに変更される天候と同じ天候にする技を候補から外す
     private static List<Move> filterDisableWeather(PokeInfo enemyPk, Field field) {
         // 現在の天候
-        WeatherEnum weather = field.weather();
+        WeatherEnum weather = field.weather().val();
         List<Move> filteredMoves;
         // 天候操作技を持っている場合、天候が重複する技を候補からはずす
         switch (weather) {
@@ -167,12 +167,12 @@ public class EnemySelectMove {
         // やけど判定
         double burnedRate = moveSpecies == MoveSpecies.PHYSICAL ? atkPk.ailment().dmgRateByBurn() : 1.0;
         // 天候によるダメージ倍率
-        double weatherRate = field.dmgRateByWeather(move);
+        double weatherRate = field.weather().dmgRateByWeather(move);
         // ダメージ倍率合算
         double totalDmgRate = randomNum * typeMatchRate * effectiveRate * burnedRate * weatherRate;
 
         // すなあらしによる岩タイプの特防上昇
-        double defenceRateRock = field.dfcRateBySandStorm(dfcPk);
+        double defenceRateRock = field.weather().dfcRateBySandStorm(dfcPk);
         int attackVal = 0;
         int defenceVal = 0;
         // ステータス実数値にランク補正を乗せる

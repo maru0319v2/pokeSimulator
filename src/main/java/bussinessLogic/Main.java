@@ -33,6 +33,7 @@ import static pokemon.PokeInfoI.initialize;
 // バインド、のろい、ちょうはつ、こだわり
 // リフレクター、ひかりのかべ
 // すでにやけどになっているのメッセージ表示
+// BattleSimulationのロジック最適化
 // テストを充実させる
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -64,9 +65,9 @@ public class Main {
                                 Gender.MALE,
                                 Nature.MODEST,
                                 new IndividualValueI(10, 10, 10, 10, 10, 10),
-                                new EffortValueI(6, 0, 0, 252, 0, 252),
+                                new EffortValueI(252, 0, 0, 0, 0, 252),
                                 new LevelI(50),
-                                List.of(initMv(BaseMvPrm.AIR_SLASH), initMv(BaseMvPrm.CHARM), initMv(BaseMvPrm.RAIN_DANCE), initMv(BaseMvPrm.THUNDER))
+                                List.of(initMv(BaseMvPrm.AIR_SLASH), initMv(BaseMvPrm.SUNNY_DAY), initMv(BaseMvPrm.RAIN_DANCE), initMv(BaseMvPrm.THUNDER))
                         ),
                         new PokeInfoI(
                                 randomPoke(),
