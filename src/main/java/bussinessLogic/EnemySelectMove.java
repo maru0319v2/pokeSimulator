@@ -13,21 +13,21 @@ import java.util.*;
 
 public class EnemySelectMove {
     // 相手が技を選択する際のアルゴリズムを実装するクラス
-    public static Move enemySelectMove(PokeInfo enemyPk, PokeInfo myPk, Field field, Weather weather) {
+    public static Move enemySelectMove(Field enemyField, Field myField, Weather weather) {
         // 持つ技の個数
-        int moveSize = enemyPk.haveMove().size();
+        int moveSize = enemyField.poke().haveMove().size();
         // ランダムな数値1~20
         int r = new Random().nextInt(20) + 1;
         // 選んだ技のindex
         int selectedIndex = 0;
 
         if (r < 13) {
-            selectedIndex = highPriorityCanDefeat(enemyPk, myPk, field, moveSize, weather);
+            selectedIndex = highPriorityCanDefeat(enemyField, myField, moveSize, weather);
         } else {
             selectedIndex = completelyRandom(moveSize);
         }
 
-        return enemyPk.haveMove().get(selectedIndex);
+        return enemyField.poke().haveMove().get(selectedIndex);
     }
 
     // 敵の回避ランクが2以上の場合は、必中技だけ候補にする
@@ -113,44 +113,44 @@ public class EnemySelectMove {
     }
 
     // 持つ技の中から最もダメージを与えられる技を選択する。
-    private static int maxDamage(PokeInfo enemyPk, PokeInfo myPk, Field field, int moveSize, Weather weather) {
+    private static int maxDamage(Field enemyField, Field myField, int moveSize, Weather weather) {
         List<Integer> damageList = new ArrayList<>(moveSize);
-        for (Move move : enemyPk.haveMove()) {
-            damageList.add(calcDamageForCPU(enemyPk, myPk, field, move, weather));
+        for (Move move : enemyField.poke().haveMove()) {
+            damageList.add(calcDamageForCPU(enemyField, myField, move, weather));
         }
         return damageList.indexOf(Collections.max(damageList));
     }
 
     // 先制技を持っていてかつ、その技で相手を倒せる可能性がある場合は先制技を選択する。先制技で倒せない場合はすべての技から最大打点を選択。
-    private static int highPriorityCanDefeat(PokeInfo enemyPk, PokeInfo myPk, Field field, int moveSize, Weather weather) {
+    private static int highPriorityCanDefeat(Field enemyField, Field myField, int moveSize, Weather weather) {
         // 優先度1以上の技でフィルターする
-        List<Move> priorityMove = enemyPk.haveMove().stream().filter(m -> m.baseMPrm().priority() >= 1).toList();
+        List<Move> priorityMove = enemyField.poke().haveMove().stream().filter(m -> m.baseMPrm().priority() >= 1).toList();
         if (priorityMove.size() >= 1) {
             // 優先度1以上の技で仮ダメージ計算する
             List<Integer> damageList = new ArrayList<>(priorityMove.size());
             for (Move move : priorityMove) {
-                damageList.add(calcDamageForCPU(enemyPk, myPk, field, move, weather));
+                damageList.add(calcDamageForCPU(enemyField, myField, move, weather));
             }
             // 最大ダメージ
             int maxDamage = Collections.max(damageList);
             // 最大ダメージのインデックス
             int maxDamageIndex = damageList.indexOf(maxDamage);
             // 防御側の残りHP
-            int remainingHP = myPk.currentHP().val();
+            int remainingHP = myField.poke().currentHP().val();
             if (maxDamageIndex >= remainingHP) {
                 // ダメージが防御側の残りHPより大きければ先制技を使う
                 return maxDamageIndex;
             }
         }
         // 先制技が存在しない、または先制技で倒せない場合はすべての技から最大打点を選択
-        return maxDamage(enemyPk, myPk, field, moveSize, weather);
+        return maxDamage(enemyField, myField, moveSize, weather);
     }
 
 
     // CPUが技を選択するときに事前にダメージ計算を行う為の処理、乱数固定、急所は当たらない
-    private static int calcDamageForCPU(PokeInfo atkPk, PokeInfo dfcPk, Field field, Move move, Weather weather) {
+    private static int calcDamageForCPU(Field atkField, Field dfcField, Move move, Weather weather) {
         // 攻撃側のレベル
-        int attackPokeLv = atkPk.level().val();
+        int attackPokeLv = atkField.poke().level().val();
         // 技の威力
         int moveDamage = move.baseMPrm().damage();
         // 技の分類
@@ -158,28 +158,28 @@ public class EnemySelectMove {
         // ダメージの乱数
         double randomNum = 93;
         // タイプ一致判定
-        boolean isTypeMatch = (Objects.equals(move.baseMPrm().moveType(), atkPk.basePrm().type1())) || (Objects.equals(move.baseMPrm().moveType(), atkPk.basePrm().type2()));
+        boolean isTypeMatch = (Objects.equals(move.baseMPrm().moveType(), atkField.poke().basePrm().type1())) || (Objects.equals(move.baseMPrm().moveType(), atkField.poke().basePrm().type2()));
         double typeMatchRate = isTypeMatch ? 1.5 : 1;
         // タイプ相性判定
-        double effectiveRate = Type.dmgRateByType(dfcPk.basePrm().type1(), dfcPk.basePrm().type2(), move);
+        double effectiveRate = Type.dmgRateByType(dfcField.poke().basePrm().type1(), dfcField.poke().basePrm().type2(), move);
         // やけど判定
-        double burnedRate = moveSpecies == MoveSpecies.PHYSICAL ? atkPk.ailment().dmgRateByBurn() : 1.0;
+        double burnedRate = moveSpecies == MoveSpecies.PHYSICAL ? atkField.poke().ailment().dmgRateByBurn() : 1.0;
         // 天候によるダメージ倍率
         double weatherRate = weather.dmgRateByWeather(move);
         // ダメージ倍率合算
         double totalDmgRate = randomNum * typeMatchRate * effectiveRate * burnedRate * weatherRate;
 
         // すなあらしによる岩タイプの特防上昇
-        double defenceRateRock = weather.dfcRateBySandStorm(dfcPk);
+        double defenceRateRock = weather.dfcRateBySandStorm(dfcField.poke());
         int attackVal = 0;
         int defenceVal = 0;
         // ステータス実数値にランク補正を乗せる
         if (moveSpecies == MoveSpecies.PHYSICAL) {
-            attackVal = atkPk.realAtk();
-            defenceVal = dfcPk.realBlk();
+            attackVal = atkField.poke().realAtk();
+            defenceVal = dfcField.poke().realBlk();
         } else if (moveSpecies == MoveSpecies.SPECIAL) {
-            attackVal = atkPk.realCnt();
-            defenceVal = (int) (dfcPk.realDfc() * defenceRateRock);
+            attackVal = atkField.poke().realCnt();
+            defenceVal = (int) (dfcField.poke().realDfc() * defenceRateRock);
         }
         return (int) Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * totalDmgRate);
     }

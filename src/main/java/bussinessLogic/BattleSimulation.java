@@ -22,54 +22,52 @@ public class BattleSimulation {
         Thread.sleep(500);
 
         Weather weather = Weather.initWeather();
-        Field field = initField();
-        OnBattleField onBF = new OnBattleField(myPk, enemyPk, field, weather);
+        Field myField = initField(myPk);
+        Field enemyField = initField(enemyPk);
+
+        OnBattleField onBF = new OnBattleField(myField, enemyField, weather);
 
         while (onBF.isBothFine()) {
             // 技選択
-            showPokemonInfo(myPk, enemyPk);
-            Move selectedMove = selectMove(myPk.haveMove(), myPk);
-            Move enemyMove = enemySelectMove(enemyPk, myPk, field, weather);
-            showPokemonInfo(myPk, enemyPk);
+            showPokemonInfo(myField.poke(), enemyField.poke());
+            Move selectedMove = selectMove(myField.poke());
+            Move enemyMove = enemySelectMove(enemyField, myField, weather);
+            showPokemonInfo(myField.poke(), enemyField.poke());
 
-            if (isFirstMe(myPk, enemyPk, selectedMove, enemyMove)) {
+            if (isFirstMe(myField, enemyField, selectedMove, enemyMove)) {
                 // 自分が先行の場合
-                onBF = doTurn(myPk, enemyPk, selectedMove, field, weather);
-                myPk = onBF.getAtkPk();
-                enemyPk = onBF.getDfcPk();
-                field = onBF.getField();
+                onBF = doTurn(myField, enemyField, selectedMove, weather);
+                myField = onBF.atkField();
+                enemyField = onBF.dfcField();
                 weather = onBF.weather();
 
                 if (onBF.isDeadEither()) {
                     break;
                 }
                 Thread.sleep(500);
-                showPokemonInfo(myPk, enemyPk);
+                showPokemonInfo(myField.poke(), enemyField.poke());
 
-                onBF = doTurn(enemyPk, myPk, enemyMove, field, weather);
-                myPk = onBF.getDfcPk();
-                enemyPk = onBF.getAtkPk();
-                field = onBF.getField();
+                onBF = doTurn(enemyField, myField, enemyMove, weather);
+                myField = onBF.dfcField();
+                enemyField = onBF.atkField();
                 weather = onBF.weather();
 
             } else {
                 // 自分が後攻の場合
-                onBF = doTurn(enemyPk, myPk, enemyMove, field, weather);
-                myPk = onBF.getDfcPk();
-                enemyPk = onBF.getAtkPk();
-                field = onBF.getField();
+                onBF = doTurn(enemyField, myField, enemyMove, weather);
+                myField = onBF.dfcField();
+                enemyField = onBF.atkField();
                 weather = onBF.weather();
 
                 if (onBF.isDeadEither()) {
                     break;
                 }
                 Thread.sleep(500);
-                showPokemonInfo(myPk, enemyPk);
+                showPokemonInfo(myField.poke(), enemyField.poke());
 
-                onBF = doTurn(myPk, enemyPk, selectedMove, field, weather);
-                myPk = onBF.getAtkPk();
-                enemyPk = onBF.getDfcPk();
-                field = onBF.getField();
+                onBF = doTurn(myField, enemyField, selectedMove, weather);
+                myField = onBF.atkField();
+                enemyField = onBF.dfcField();
                 weather = onBF.weather();
             }
 
@@ -78,75 +76,73 @@ public class BattleSimulation {
                 break;
             }
             // ターン終了処理
-            onBF = endTurnProcessWeather(myPk, enemyPk, field, weather);
-            myPk = onBF.getAtkPk();
-            enemyPk = onBF.getDfcPk();
-            field = onBF.getField();
+            onBF = endTurnProcessWeather(myField, enemyField, weather);
+            myField = onBF.atkField();
+            enemyField = onBF.dfcField();
             weather = onBF.weather();
 
             if (onBF.isDeadEither()) {
                 break;
             }
 
-            onBF = endTurnProcessAilment(myPk, enemyPk, field, weather);
-            myPk = onBF.getAtkPk();
-            enemyPk = onBF.getDfcPk();
-            field = onBF.getField();
+            onBF = endTurnProcessAilment(myField, enemyField, weather);
+            myField = onBF.atkField();
+            enemyField = onBF.dfcField();
             weather = onBF.weather();
 
             // 怯み状態をリセットする
-            myPk = myPk.withFlinch(new FlinchI(false));
-            enemyPk = enemyPk.withFlinch(new FlinchI(false));
+            myField = myField.withPokeInfo(myField.poke().withFlinch(new FlinchI(false)));
+            enemyField = enemyField.withPokeInfo(enemyField.poke().withFlinch(new FlinchI(false)));
         }
 
-        showPokemonInfo(myPk, enemyPk);
-        if (myPk.currentHP().isAlive()) {
-            System.out.println("野生の" + enemyPk.basePrm().pName() + "は倒れた!");
+        showPokemonInfo(myField.poke(), enemyField.poke());
+        if (myField.poke().currentHP().isAlive()) {
+            System.out.println(enemyPk.basePrm().pName() + "は倒れた!");
             int addExp = enemyPk.giveExp();
-            myPk = myPk.addExp(addExp);
+            myField = myField.withPokeInfo(myField.poke().addExp(addExp));
         } else {
-            System.out.println(myPk.basePrm().pName() + "は倒れた");
+            System.out.println(myField.poke().basePrm().pName() + "は倒れた");
         }
-        return myPk.withResetStatusRank();
+        return myField.poke().withResetStatusRank();
     }
 
 
-    private OnBattleField doTurn(PokeInfo atkPk, PokeInfo dfcPk, Move selectedMove, Field field, Weather weather) throws InterruptedException {
-        String name = atkPk.basePrm().pName();
+    private OnBattleField doTurn(Field atkField, Field dfcField, Move selectedMove, Weather weather) throws InterruptedException {
+        String name = atkField.poke().basePrm().pName();
         // 状態異常の場合、経過ターン+1
-        atkPk = atkPk.withAilment(atkPk.ailment().comeTurn(name));
+        atkField = atkField.withPokeInfo(atkField.poke().withAilment(atkField.poke().ailment().comeTurn(name)));
         // 混乱状態の場合、混乱ターン+1
-        atkPk = atkPk.withConfusion(atkPk.confusion().elapseTurn(name));
+        atkField = atkField.withPokeInfo(atkField.poke().withConfusion(atkField.poke().confusion().elapseTurn(name)));
         // 行動可能な場合、技を使う
-        boolean canMoveByConfusion = atkPk.confusion().canMove(name);
-        boolean canMoveByFlinch = atkPk.flinch().canMove(name);
-        boolean canMoveByAilment = atkPk.ailment().canMove(name);
+        boolean canMoveByConfusion = atkField.poke().confusion().canMove(name);
+        boolean canMoveByFlinch = atkField.poke().flinch().canMove(name);
+        boolean canMoveByAilment = atkField.poke().ailment().canMove(name);
 
         if (!canMoveByConfusion) {
             // 自傷ダメージ
-            atkPk = atkPk.confusion().damageMe(atkPk);
-            return new OnBattleField(atkPk, dfcPk, field, weather);
+            atkField = atkField.withPokeInfo(atkField.poke().confusion().damageMe(atkField.poke()));
+            return new OnBattleField(atkField, dfcField, weather);
         }
         if (canMoveByFlinch && canMoveByAilment) {
-            return doAction(atkPk, dfcPk, field, selectedMove, weather);
+            return doAction(atkField, dfcField, selectedMove, weather);
         }
-        return new OnBattleField(atkPk, dfcPk, field, weather);
+        return new OnBattleField(atkField, dfcField, weather);
     }
 
-    private OnBattleField endTurnProcessAilment(PokeInfo myPoke, PokeInfo enemyPoke, Field field, Weather weather) throws InterruptedException {
-        showPokemonInfo(myPoke, enemyPoke);
+    private OnBattleField endTurnProcessAilment(Field myField, Field enemyField, Weather weather) throws InterruptedException {
+        showPokemonInfo(myField.poke(), enemyField.poke());
 
-        myPoke = myPoke.ailment().slipDmgByAilment(myPoke);
-        enemyPoke = enemyPoke.ailment().slipDmgByAilment(enemyPoke);
-        return new OnBattleField(myPoke, enemyPoke, field, weather);
+        myField = myField.withPokeInfo(myField.poke().ailment().slipDmgByAilment(myField.poke()));
+        enemyField = enemyField.withPokeInfo(enemyField.poke().ailment().slipDmgByAilment(enemyField.poke()));
+        return new OnBattleField(myField, enemyField, weather);
     }
 
-    private OnBattleField endTurnProcessWeather(PokeInfo myPoke, PokeInfo enemyPoke, Field field, Weather weather) throws InterruptedException {
-        showPokemonInfo(myPoke, enemyPoke);
+    private OnBattleField endTurnProcessWeather(Field myField, Field enemyField, Weather weather) throws InterruptedException {
+        showPokemonInfo(myField.poke(), enemyField.poke());
         weather = weather.elapsingTurnWeather();
 
-        myPoke = weather.slipDmgByWeather(myPoke);
-        enemyPoke = weather.slipDmgByWeather(enemyPoke);
-        return new OnBattleField(myPoke, enemyPoke, field, weather);
+        myField = myField.withPokeInfo(weather.slipDmgByWeather(myField.poke()));
+        enemyField = enemyField.withPokeInfo(weather.slipDmgByWeather(enemyField.poke()));
+        return new OnBattleField(myField, enemyField, weather);
     }
 }

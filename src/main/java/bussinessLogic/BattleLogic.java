@@ -18,7 +18,9 @@ import static bussinessLogic.ConsoleOutManager.*;
 public class BattleLogic {
 
     // 先行後攻を決める
-    public static boolean isFirstMe(PokeInfo myPk, PokeInfo enePk, Move selectedMove, Move enemyMove) {
+    public static boolean isFirstMe(Field myField, Field eneField, Move selectedMove, Move enemyMove) {
+        PokeInfo myPk = myField.poke();
+        PokeInfo enePk = eneField.poke();
         int calculatedMySpeed = (int) (myPk.realSpd() * myPk.statusRank().spdRateByStatusRank() * myPk.ailment().spdRateByParalysis());
         int calculatedEnemySpeed = (int) (enePk.realSpd() * enePk.statusRank().spdRateByStatusRank() * enePk.ailment().spdRateByParalysis());
         int myPriority = selectedMove.baseMPrm().priority();
@@ -36,9 +38,10 @@ public class BattleLogic {
     }
 
     // 技を選択する
-    public static Move selectMove(List<Move> moves, PokeInfo target) {
+    public static Move selectMove(PokeInfo target) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("　 　　　　　　     PP    タイプ");
+        List<Move> moves = target.haveMove();
         int i = 1;
         for (Move move : moves) {
             System.out.print(i + ": " + move.baseMPrm().mvName());
@@ -80,39 +83,43 @@ public class BattleLogic {
     }
 
     // ターンごとの行動 命中判定、ダメージ計算、ダメージ付与を一括で行う
-    public static OnBattleField doAction(PokeInfo atkPk, PokeInfo dfcPk, Field field, Move move, Weather weather) throws InterruptedException {
+    public static OnBattleField doAction(Field atkField, Field dfcField, Move move, Weather weather) throws InterruptedException {
         // PPを1減らす
-        atkPk = atkPk.decrementPP(move);
+        atkField = atkField.withPokeInfo(atkField.poke().decrementPP(move));
 
         // TODO 型で処理を分けてif文なくせそう
         if (move.baseMPrm().moveSpecies() == MoveSpecies.PHYSICAL || move.baseMPrm().moveSpecies() == MoveSpecies.SPECIAL) {
-            if (isHit(atkPk, dfcPk, field, move, weather)) {
-                int damage = calcDamage(atkPk, dfcPk, field, move, weather);
-                dfcPk = dfcPk.damage(damage);
-                return move.baseMPrm().effect(atkPk, dfcPk, field, damage, weather);
+            if (isHit(atkField.poke(), dfcField.poke(), move, weather)) {
+                int damage = calcDamage(atkField, dfcField, move, weather);
+                dfcField = dfcField.withPokeInfo(dfcField.poke().damage(damage));
+                return move.baseMPrm().effect(atkField, dfcField, damage, weather);
             } else {
-                showMessageParChar(atkPk.basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
-                showMessageParChar(atkPk.basePrm().pName() + "の" + move.baseMPrm().mvName() + "は外れた");
-                return new OnBattleField(atkPk, dfcPk, field, weather);
+                showMessageParChar(atkField.poke().basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
+                showMessageParChar(atkField.poke().basePrm().pName() + "の" + move.baseMPrm().mvName() + "は外れた");
+                return new OnBattleField(atkField, dfcField, weather);
             }
         } else {
-            if (isHit(atkPk, dfcPk, field, move, weather)) {
-                showMessageParChar(atkPk.basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
-                return move.baseMPrm().effect(atkPk, dfcPk, field, 0, weather);
+            if (isHit(atkField.poke(), dfcField.poke(), move, weather)) {
+                showMessageParChar(atkField.poke().basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
+                return move.baseMPrm().effect(atkField, dfcField, 0, weather);
             } else {
-                showMessageParChar(atkPk.basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
-                showMessageParChar(atkPk.basePrm().pName() + "の" + move.baseMPrm().mvName() + "は外れた");
-                return new OnBattleField(atkPk, dfcPk, field, weather);
+                showMessageParChar(atkField.poke().basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
+                showMessageParChar(atkField.poke().basePrm().pName() + "の" + move.baseMPrm().mvName() + "は外れた");
+                return new OnBattleField(atkField, dfcField, weather);
             }
         }
     }
 
-    private static int calcDamage(PokeInfo atkPk, PokeInfo dfcPk, Field field, Move move, Weather weather) throws InterruptedException {
+    private static int calcDamage(Field atkField, Field dfcField, Move move, Weather weather) throws InterruptedException {
         // ダメージ計算参考　https://latest.pokewiki.net/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F
+        // 攻撃側ポケモン
+        PokeInfo atkPk = atkField.poke();
+        // 防御側ポケモン
+        PokeInfo dfcPk = dfcField.poke();
         // 攻撃側のレベル
         int attackPokeLv = atkPk.level().val();
         // 技の威力
-        int moveDamage = move.baseMPrm().damage(atkPk, dfcPk, field);
+        int moveDamage = move.baseMPrm().damage(atkField, dfcField);
         // 技の分類
         MoveSpecies moveSpecies = move.baseMPrm().moveSpecies();
         // ダメージの乱数
@@ -167,7 +174,7 @@ public class BattleLogic {
         return result;
     }
 
-    private static boolean isHit(PokeInfo atkPk, PokeInfo dfcPk, Field field, Move move, Weather weather) {
+    private static boolean isHit(PokeInfo atkPk, PokeInfo dfcPk, Move move, Weather weather) {
         // 技の命中率が-1のときは必中
         if (move.baseMPrm().hitRate(weather) == -1) {
             return true;

@@ -35,10 +35,11 @@ public class EnemySelectMoveTest {
                 List.of(initMv(BaseMvPrm.WILL_O_WISP), initMv(BaseMvPrm.DOUBLE_TEAM))
         );
         PokeInfo myPk = initialize(BasePrm.BLASTOISE);
-        Field field = initField();
         Weather weather = Weather.initWeather();
+        Field myField = initField(myPk);
+        Field enemyField = initField(enemyPk);
 
-        Move result = enemySelectMove(enemyPk, myPk, field, weather);
+        Move result = enemySelectMove(enemyField, myField, weather);
 
         assertTrue(result.baseMPrm().priority() >= 0);
 
