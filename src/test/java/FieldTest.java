@@ -1,5 +1,5 @@
 import field.Field;
-import field.Weather;
+import field.WeatherEnum;
 import move.BaseMvPrm;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,15 +19,15 @@ public class FieldTest {
     public void test1() throws InterruptedException {
         // 初期化 天候なし
         Field field = initField();
-        assertEquals(Weather.NONE, field.weather());
+        assertEquals(WeatherEnum.NONE, field.weather());
 
         // 天候なし -> ひでり
-        field = changeWeather(field, Weather.DROUGHT);
-        assertEquals(Weather.DROUGHT, field.weather());
+        field = changeWeather(field, WeatherEnum.DROUGHT);
+        assertEquals(WeatherEnum.DROUGHT, field.weather());
 
         // ひでり -> あめ
-        field = changeWeather(field, Weather.RAIN);
-        assertEquals(Weather.RAIN, field.weather());
+        field = changeWeather(field, WeatherEnum.RAIN);
+        assertEquals(WeatherEnum.RAIN, field.weather());
     }
 
     @Test
@@ -35,17 +35,17 @@ public class FieldTest {
     public void test2() throws InterruptedException {
         // 初期化 天候なし
         Field field = initField();
-        assertEquals(Weather.NONE, field.weather());
+        assertEquals(WeatherEnum.NONE, field.weather());
 
         // 天候なし -> ひでり
-        field = changeWeather(field, Weather.DROUGHT);
-        assertEquals(Weather.DROUGHT, field.weather());
+        field = changeWeather(field, WeatherEnum.DROUGHT);
+        assertEquals(WeatherEnum.DROUGHT, field.weather());
 
         // 1ターン経過される
         field = field.elapsingTurnWeather();
 
         // ひでり -> ひでり
-        field = changeWeather(field, Weather.DROUGHT);
+        field = changeWeather(field, WeatherEnum.DROUGHT);
         assertEquals(1, field.elapsedTurnWeather());
     }
 
@@ -54,11 +54,11 @@ public class FieldTest {
     public void test3() throws InterruptedException {
         // 初期化 天候なし
         Field field = initField();
-        assertEquals(Weather.NONE, field.weather());
+        assertEquals(WeatherEnum.NONE, field.weather());
 
         // 天候なし -> ひでり
-        field = changeWeather(field, Weather.DROUGHT);
-        assertEquals(Weather.DROUGHT, field.weather());
+        field = changeWeather(field, WeatherEnum.DROUGHT);
+        assertEquals(WeatherEnum.DROUGHT, field.weather());
 
         // 1ターン経過される
         field = field.elapsingTurnWeather();
@@ -68,14 +68,14 @@ public class FieldTest {
         field = field.elapsingTurnWeather();
 
         // ひでり -> 天候なし
-        assertEquals(Weather.NONE, field.weather());
+        assertEquals(WeatherEnum.NONE, field.weather());
     }
 
     @Test
     @DisplayName("晴れのとき炎技が1.5倍、水技が0.5倍になること")
     public void test4() throws InterruptedException {
         Field field = initField();
-        field = changeWeather(field, Weather.DROUGHT);
+        field = changeWeather(field, WeatherEnum.DROUGHT);
 
         double result1 = field.dmgRateByWeather(initMv(BaseMvPrm.FLAMETHROWER));
         double result2 = field.dmgRateByWeather(initMv(BaseMvPrm.WATER_PULSE));
@@ -88,7 +88,7 @@ public class FieldTest {
     @DisplayName("雨のとき炎技が0.5倍、水技が1.5倍になること")
     public void test5() throws InterruptedException {
         Field field = initField();
-        field = changeWeather(field, Weather.RAIN);
+        field = changeWeather(field, WeatherEnum.RAIN);
 
         double result1 = field.dmgRateByWeather(initMv(BaseMvPrm.FLAMETHROWER));
         double result2 = field.dmgRateByWeather(initMv(BaseMvPrm.WATER_PULSE));
@@ -109,7 +109,7 @@ public class FieldTest {
         assertEquals(1.0, result1);
         assertEquals(1.0, result2);
 
-        field = changeWeather(field, Weather.SANDSTORM);
+        field = changeWeather(field, WeatherEnum.SANDSTORM);
         double result3 = field.dfcRateBySandStorm(myPoke1);
         double result4 = field.dfcRateBySandStorm(myPoke2);
         assertEquals(1.5, result3);
@@ -120,7 +120,7 @@ public class FieldTest {
     @DisplayName("晴れになったときにcountForRecoveryが5、elapsedTurnが0であること")
     public void test7() throws InterruptedException {
         Field field = initField();
-        field = changeWeather(field, Weather.DROUGHT);
+        field = changeWeather(field, WeatherEnum.DROUGHT);
 
         assertEquals(0, field.elapsedTurnWeather());
         assertEquals(5, field.countRecoveryWeather());
@@ -130,7 +130,7 @@ public class FieldTest {
     @DisplayName("岩、地面、鋼タイプはすなあらしダメージを受けないこと")
     public void test8() throws InterruptedException {
         Field field = initField();
-        field = changeWeather(field, Weather.SANDSTORM);
+        field = changeWeather(field, WeatherEnum.SANDSTORM);
 
         PokeInfo rockPk = initialize(BasePrm.RHYDON);
         PokeInfo groundPk = initialize(BasePrm.DUGTRIO);
@@ -152,7 +152,7 @@ public class FieldTest {
     @DisplayName("氷タイプはあられダメージを受けないこと")
     public void test9() throws InterruptedException {
         Field field = initField();
-        field = changeWeather(field, Weather.HAIL);
+        field = changeWeather(field, WeatherEnum.HAIL);
 
         PokeInfo icePk = initialize(BasePrm.LAPRAS);
         PokeInfo firePk = initialize(BasePrm.CHARIZARD);

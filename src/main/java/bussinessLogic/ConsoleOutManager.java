@@ -1,9 +1,9 @@
 package bussinessLogic;
 
-import field.Weather;
+import field.WeatherEnum;
 import move.Move;
 import pokemon.PokeInfo;
-import statusAilment.AilmentE;
+import statusAilment.AilmentEnum;
 
 import java.util.List;
 
@@ -97,7 +97,7 @@ public class ConsoleOutManager {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         System.out.print(enemyPokemon.basePrm().pName() + " " + enemyPokemon.gender().val() + "    Lv." + enemyPokemon.level().val());
-        if (enemyPokemon.ailment().val() == AilmentE.FINE) {
+        if (enemyPokemon.ailment().val() == AilmentEnum.FINE) {
             System.out.println("");
         } else {
             System.out.println(" " + enemyPokemon.ailment().val().val());
@@ -112,7 +112,7 @@ public class ConsoleOutManager {
         // ↑相手側　↓こっち側
         System.out.print("                        ");
         System.out.print(myPokemon.basePrm().pName() + " " + myPokemon.gender().val() + "    Lv." + myPokemon.level().val());
-        if (myPokemon.ailment().val() == AilmentE.FINE) {
+        if (myPokemon.ailment().val() == AilmentEnum.FINE) {
             System.out.println("");
         } else {
             System.out.println(" " + myPokemon.ailment().val().val());
@@ -257,7 +257,7 @@ public class ConsoleOutManager {
         }
     }
 
-    public static void showChangeAilmentMessage(PokeInfo target, AilmentE value) throws InterruptedException {
+    public static void showChangeAilmentMessage(PokeInfo target, AilmentEnum value) throws InterruptedException {
         switch (value) {
             case PARALYSIS -> showMessageParChar(target.basePrm().pName() + "はしびれてしまった!");
             case POISON -> showMessageParChar(target.basePrm().pName() + "はどくをあびた!");
@@ -270,7 +270,7 @@ public class ConsoleOutManager {
         }
     }
 
-    public static void showChangeWeather(Weather value) throws InterruptedException {
+    public static void showChangeWeather(WeatherEnum value) throws InterruptedException {
         switch (value) {
             case DROUGHT -> showMessageParChar("ひざしがつよくなった!");
             case RAIN -> showMessageParChar("あめがふりはじめた!");
@@ -279,7 +279,7 @@ public class ConsoleOutManager {
         }
     }
 
-    public static void showUndoWeather(Weather value) throws InterruptedException {
+    public static void showUndoWeather(WeatherEnum value) throws InterruptedException {
         switch (value) {
             case DROUGHT -> showMessageParChar("ひざしがよわまった!");
             case RAIN -> showMessageParChar("あめがやんだ!");
@@ -288,7 +288,7 @@ public class ConsoleOutManager {
         }
     }
 
-    public static void showKeepWeather(Weather value) throws InterruptedException {
+    public static void showKeepWeather(WeatherEnum value) throws InterruptedException {
         switch (value) {
             case DROUGHT -> showMessageParChar("ひざしがつよい");
             case RAIN -> showMessageParChar("あめがふりつづいている");

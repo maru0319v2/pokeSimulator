@@ -3,7 +3,7 @@ package bussinessLogic;
 import Enum.MoveSpecies;
 import Enum.Type;
 import field.Field;
-import field.Weather;
+import field.WeatherEnum;
 import move.BaseMvPrm;
 import move.DetailMvSpecies;
 import move.Move;
@@ -92,18 +92,14 @@ public class EnemySelectMove {
     // すでに変更される天候と同じ天候にする技を候補から外す
     private static List<Move> filterDisableWeather(PokeInfo enemyPk, Field field) {
         // 現在の天候
-        Weather weather = field.weather();
+        WeatherEnum weather = field.weather();
         List<Move> filteredMoves;
         // 天候操作技を持っている場合、天候が重複する技を候補からはずす
         switch (weather) {
-            case DROUGHT ->
-                    filteredMoves = enemyPk.haveMove().stream().filter(m -> m.baseMPrm() != BaseMvPrm.SUNNY_DAY).toList();
-            case RAIN ->
-                    filteredMoves = enemyPk.haveMove().stream().filter(m -> m.baseMPrm() != BaseMvPrm.RAIN_DANCE).toList();
-            case SANDSTORM ->
-                    filteredMoves = enemyPk.haveMove().stream().filter(m -> m.baseMPrm() != BaseMvPrm.SAND_STORM).toList();
-            case HAIL ->
-                    filteredMoves = enemyPk.haveMove().stream().filter(m -> m.baseMPrm() != BaseMvPrm.HAIL).toList();
+            case DROUGHT -> filteredMoves = enemyPk.haveMove().stream().filter(m -> m.baseMPrm() != BaseMvPrm.SUNNY_DAY).toList();
+            case RAIN -> filteredMoves = enemyPk.haveMove().stream().filter(m -> m.baseMPrm() != BaseMvPrm.RAIN_DANCE).toList();
+            case SANDSTORM -> filteredMoves = enemyPk.haveMove().stream().filter(m -> m.baseMPrm() != BaseMvPrm.SAND_STORM).toList();
+            case HAIL -> filteredMoves = enemyPk.haveMove().stream().filter(m -> m.baseMPrm() != BaseMvPrm.HAIL).toList();
             default -> filteredMoves = enemyPk.haveMove();
         }
         if (filteredMoves.size() == 0) {

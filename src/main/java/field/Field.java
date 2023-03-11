@@ -4,7 +4,7 @@ import move.Move;
 import pokemon.PokeInfo;
 
 public interface Field {
-    Weather weather();
+    WeatherEnum weather();
 
     int elapsedTurnWeather();
 

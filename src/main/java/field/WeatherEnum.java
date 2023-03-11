@@ -3,7 +3,7 @@ package field;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public enum Weather {
+public enum WeatherEnum {
     DROUGHT("ひでり"),
     RAIN("あめ"),
     SANDSTORM("すなあらし"),

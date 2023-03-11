@@ -12,11 +12,11 @@ import java.util.Set;
 import static bussinessLogic.ConsoleOutManager.*;
 
 public class FieldI implements Field {
-    private final Weather weather;
+    private final WeatherEnum weather;
     private final int elapsedTurnWeather;
     private final int countRecoveryWeather;
 
-    public Weather weather() {
+    public WeatherEnum weather() {
         return this.weather;
     }
 
@@ -28,7 +28,7 @@ public class FieldI implements Field {
         return this.countRecoveryWeather;
     }
 
-    private FieldI(Weather weather, int elapsedTurnWeather, int countRecoveryWeather) {
+    private FieldI(WeatherEnum weather, int elapsedTurnWeather, int countRecoveryWeather) {
         this.weather = weather;
         this.elapsedTurnWeather = elapsedTurnWeather;
         this.countRecoveryWeather = countRecoveryWeather;
@@ -40,17 +40,17 @@ public class FieldI implements Field {
     }
 
     private FieldI() {
-        this.weather = Weather.NONE;
+        this.weather = WeatherEnum.NONE;
         this.elapsedTurnWeather = 0;
         this.countRecoveryWeather = 0;
     }
 
     // 天候を変化させる場合
-    public static Field changeWeather(Field field, Weather weather) throws InterruptedException {
+    public static Field changeWeather(Field field, WeatherEnum weather) throws InterruptedException {
         return new FieldI(field, weather);
     }
 
-    private FieldI(Field field, Weather weather) throws InterruptedException {
+    private FieldI(Field field, WeatherEnum weather) throws InterruptedException {
         if (field.weather() != weather) {
             // 引数の天候がもとの天候以外なら上書きする
             this.weather = weather;
@@ -79,10 +79,10 @@ public class FieldI implements Field {
         Set<Type> roGrSt = new HashSet<>(Arrays.asList(Type.ROCK, Type.GROUND, Type.STEEL));
         int damage;
 
-        if (this.weather() == Weather.SANDSTORM && roGrSt.stream().noneMatch(types::contains)) {
+        if (this.weather() == WeatherEnum.SANDSTORM && roGrSt.stream().noneMatch(types::contains)) {
             showMessageParChar(target.basePrm().pName() + "はすなあらしでダメージをうけた！");
             damage = target.realHP() / 16;
-        } else if (this.weather() == Weather.HAIL && !types.contains(Type.ICE)) {
+        } else if (this.weather() == WeatherEnum.HAIL && !types.contains(Type.ICE)) {
             showMessageParChar(target.basePrm().pName() + "はあられでダメージをうけた！");
             damage = target.realHP() / 16;
         } else {
@@ -95,18 +95,18 @@ public class FieldI implements Field {
     public double dmgRateByWeather(Move move) {
         Type useType = move.baseMPrm().moveType();
         if (useType == Type.FIRE) {
-            if (this.weather == Weather.DROUGHT) {
+            if (this.weather == WeatherEnum.DROUGHT) {
                 return 1.5;
             }
-            if (this.weather == Weather.RAIN) {
+            if (this.weather == WeatherEnum.RAIN) {
                 return 0.5;
             }
         }
         if (useType == Type.WATER) {
-            if (this.weather == Weather.DROUGHT) {
+            if (this.weather == WeatherEnum.DROUGHT) {
                 return 0.5;
             }
-            if (this.weather == Weather.RAIN) {
+            if (this.weather == WeatherEnum.RAIN) {
                 return 1.5;
             }
         }
@@ -116,7 +116,7 @@ public class FieldI implements Field {
     public double dfcRateBySandStorm(PokeInfo defencePoke) {
         Type type1 = defencePoke.basePrm().type1();
         Type type2 = defencePoke.basePrm().type2();
-        if (this.weather == Weather.SANDSTORM) {
+        if (this.weather == WeatherEnum.SANDSTORM) {
             return type1 == Type.ROCK || type2 == Type.ROCK ? 1.5 : 1.0;
         }
         return 1.0;

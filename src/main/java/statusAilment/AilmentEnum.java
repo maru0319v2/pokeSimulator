@@ -3,7 +3,7 @@ package statusAilment;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public enum AilmentE {
+public enum AilmentEnum {
     BURN("やけど"),
     FREEZE("こおり"),
     PARALYSIS("まひ"),

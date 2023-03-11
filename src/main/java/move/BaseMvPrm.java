@@ -4,12 +4,12 @@ import Enum.MoveSpecies;
 import Enum.Type;
 import field.Field;
 import field.OnBattleField;
-import field.Weather;
+import field.WeatherEnum;
 import lombok.AllArgsConstructor;
 import pokemon.PokeInfo;
 import pokemonStatus.impl.CurrentHPI;
 import pokemonStatus.impl.FlinchI;
-import statusAilment.AilmentE;
+import statusAilment.AilmentEnum;
 
 import java.util.Random;
 
@@ -98,7 +98,7 @@ public enum BaseMvPrm {
     FLAMETHROWER("かえんほうしゃ", Type.FIRE, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 90, 100, 15, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            if (random10Per()) return new OnBattleField(atkPk, dfcPk.withAilment(changeAilment(dfcPk, AilmentE.BURN)), field);
+            if (random10Per()) return new OnBattleField(atkPk, dfcPk.withAilment(changeAilment(dfcPk, AilmentEnum.BURN)), field);
             return new OnBattleField(atkPk, dfcPk, field);
         }
     },
@@ -117,14 +117,14 @@ public enum BaseMvPrm {
     THUNDERBOLT("10まんボルト", Type.ELECTRIC, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 90, 100, 15, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            if (random10Per()) return new OnBattleField(atkPk, dfcPk.withAilment(changeAilment(dfcPk, AilmentE.PARALYSIS)), field);
+            if (random10Per()) return new OnBattleField(atkPk, dfcPk.withAilment(changeAilment(dfcPk, AilmentEnum.PARALYSIS)), field);
             return new OnBattleField(atkPk, dfcPk, field);
         }
     },
     THUNDER("かみなり", Type.ELECTRIC, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 110, 70, 10, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            if (random30Per()) return new OnBattleField(atkPk, dfcPk.withAilment(changeAilment(dfcPk, AilmentE.PARALYSIS)), field);
+            if (random30Per()) return new OnBattleField(atkPk, dfcPk.withAilment(changeAilment(dfcPk, AilmentEnum.PARALYSIS)), field);
             return new OnBattleField(atkPk, dfcPk, field);
         }
     },
@@ -162,7 +162,7 @@ public enum BaseMvPrm {
     Blizzard("ふぶき", Type.ICE, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 110, 70, 5, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            if (random10Per()) return new OnBattleField(atkPk, dfcPk.withAilment(changeAilment(dfcPk, AilmentE.FREEZE)), field);
+            if (random10Per()) return new OnBattleField(atkPk, dfcPk.withAilment(changeAilment(dfcPk, AilmentEnum.FREEZE)), field);
             return new OnBattleField(atkPk, dfcPk, field);
         }
     },
@@ -286,19 +286,19 @@ public enum BaseMvPrm {
     SLEEP_POWDER("ねむりごな", Type.GRASS, MoveSpecies.CHANGE, DetailMvSpecies.AILMENT, 0, 75, 15, 0, 0,
             false, true, true, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            return new OnBattleField(atkPk, dfcPk.withAilment(changeAilment(dfcPk, AilmentE.SLEEP)), field);
+            return new OnBattleField(atkPk, dfcPk.withAilment(changeAilment(dfcPk, AilmentEnum.SLEEP)), field);
         }
     },
     SPORE("キノコのほうし", Type.GRASS, MoveSpecies.CHANGE, DetailMvSpecies.AILMENT, 0, 100, 15, 0, 0,
             false, true, true, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            return new OnBattleField(atkPk, dfcPk.withAilment(changeAilment(dfcPk, AilmentE.SLEEP)), field);
+            return new OnBattleField(atkPk, dfcPk.withAilment(changeAilment(dfcPk, AilmentEnum.SLEEP)), field);
         }
     },
     WILL_O_WISP("おにび", Type.FIRE, MoveSpecies.CHANGE, DetailMvSpecies.AILMENT, 0, 85, 15, 0, 0,
             false, true, true, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            return new OnBattleField(atkPk, dfcPk.withAilment(changeAilment(dfcPk, AilmentE.BURN)), field);
+            return new OnBattleField(atkPk, dfcPk.withAilment(changeAilment(dfcPk, AilmentEnum.BURN)), field);
         }
     },
     CONFUSE_RAY("あやしいひかり", Type.GHOST, MoveSpecies.CHANGE, DetailMvSpecies.CONFUSE, 0, 100, 10, 0, 0,
@@ -310,7 +310,7 @@ public enum BaseMvPrm {
     HYPNOSIS("さいみんじゅつ", Type.PSYCHIC, MoveSpecies.CHANGE, DetailMvSpecies.AILMENT, 0, 60, 20, 0, 0,
             false, true, true, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            return new OnBattleField(atkPk, dfcPk.withAilment(changeAilment(dfcPk, AilmentE.SLEEP)), field);
+            return new OnBattleField(atkPk, dfcPk.withAilment(changeAilment(dfcPk, AilmentEnum.SLEEP)), field);
         }
     },
     /**
@@ -329,25 +329,25 @@ public enum BaseMvPrm {
     SUNNY_DAY("にほんばれ", Type.FIRE, MoveSpecies.CHANGE, DetailMvSpecies.WEATHER, 0, -1, 5, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            return new OnBattleField(atkPk, dfcPk, changeWeather(field, Weather.DROUGHT));
+            return new OnBattleField(atkPk, dfcPk, changeWeather(field, WeatherEnum.DROUGHT));
         }
     },
     RAIN_DANCE("あまごい", Type.WATER, MoveSpecies.CHANGE, DetailMvSpecies.WEATHER, 0, -1, 5, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            return new OnBattleField(atkPk, dfcPk, changeWeather(field, Weather.RAIN));
+            return new OnBattleField(atkPk, dfcPk, changeWeather(field, WeatherEnum.RAIN));
         }
     },
     SAND_STORM("すなあらし", Type.ROCK, MoveSpecies.CHANGE, DetailMvSpecies.WEATHER, 0, -1, 10, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            return new OnBattleField(atkPk, dfcPk, changeWeather(field, Weather.SANDSTORM));
+            return new OnBattleField(atkPk, dfcPk, changeWeather(field, WeatherEnum.SANDSTORM));
         }
     },
     HAIL("あられ", Type.ICE, MoveSpecies.CHANGE, DetailMvSpecies.WEATHER, 0, -1, 10, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(PokeInfo atkPk, PokeInfo dfcPk, Field field, int recoveryHP) throws InterruptedException {
-            return new OnBattleField(atkPk, dfcPk, changeWeather(field, Weather.HAIL));
+            return new OnBattleField(atkPk, dfcPk, changeWeather(field, WeatherEnum.HAIL));
         }
     };
 
@@ -420,16 +420,16 @@ public enum BaseMvPrm {
     public int hitRate(Field field) {
         switch (this) {
             case THUNDER -> {
-                if (field.weather() == Weather.RAIN) {
+                if (field.weather() == WeatherEnum.RAIN) {
                     return -1;
-                } else if (field.weather() == Weather.DROUGHT) {
+                } else if (field.weather() == WeatherEnum.DROUGHT) {
                     return this.hitRate / 2;
                 } else {
                     return this.hitRate;
                 }
             }
             case Blizzard -> {
-                if (field.weather() == Weather.HAIL) {
+                if (field.weather() == WeatherEnum.HAIL) {
                     return -1;
                 }
             }

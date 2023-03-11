@@ -6,7 +6,7 @@ import move.Move;
 import pokemonStatus.*;
 import pokemonStatus.impl.*;
 import statusAilment.Ailment;
-import statusAilment.AilmentE;
+import statusAilment.AilmentEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,7 +133,7 @@ public class PokeInfoI implements PokeInfo {
         PokeInfo result = this.withCurrentHP(this.currentHP().recovery(this, new CurrentHPI(value)));
         System.out.println(result.basePrm().pName() + "は体力を" + value + "回復!  HP" + result.currentHP().val() + "/" + result.realHP());
         System.out.println();
-        return result.withAilment(changeAilment(result, AilmentE.FINE));
+        return result.withAilment(changeAilment(result, AilmentEnum.FINE));
     }
 
     @Override
@@ -141,7 +141,7 @@ public class PokeInfoI implements PokeInfo {
         PokeInfo result = this.withCurrentHP(this.currentHP().damage(new CurrentHPI(value)));
         showMessageParChar(result.basePrm().pName() + "は" + value + "のダメージ!");
         if (result.currentHP().isDead()) {
-            return result.withAilment(changeAilment(result, AilmentE.FAINTING));
+            return result.withAilment(changeAilment(result, AilmentEnum.FAINTING));
         }
         return result;
     }

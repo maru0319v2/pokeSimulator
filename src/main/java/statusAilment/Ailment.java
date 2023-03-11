@@ -4,7 +4,7 @@ import pokemon.PokeInfo;
 
 public interface Ailment {
 
-    AilmentE val();
+    AilmentEnum val();
 
     int elapsedTurn();
 
