@@ -14,12 +14,6 @@ public interface PokeInfo {
     // ポケモン固有の値
     BasePrm basePrm();
 
-    // 個体値
-    IndividualValue individualValue();
-
-    // 努力値
-    EffortValue effortValue();
-
     // レベル
     Level level();
 
@@ -53,9 +47,6 @@ public interface PokeInfo {
     // 素早実数値
     int realSpd();
 
-    // 総獲得経験値
-    Experience experience();
-
     // ステータスランク
     StatusRank statusRank();
 
@@ -70,12 +61,6 @@ public interface PokeInfo {
 
     // 状態異常1
     Ailment ailment();
-
-    // 与える経験値
-    int giveExp();
-
-    // 経験値を得る
-    PokeInfo addExp(int exp) throws InterruptedException;
 
     // 体力を回復
     PokeInfo recoveryHP(int value) throws InterruptedException;
@@ -93,10 +78,6 @@ public interface PokeInfo {
     PokeInfo decrementPP(Move usedMove);
 
     PokeInfo withCurrentHP(CurrentHP currentHitPoint);
-
-    PokeInfo withExp(int addingExperience);
-
-    PokeInfo withLevel(int addLevel);
 
     PokeInfo withChStatusRank(int attack, int block, int contact, int defence, int speed, int hitRate, int avoidRate) throws InterruptedException;
 

@@ -3,6 +3,7 @@ package pokemon;
 import Enum.Gender;
 import Enum.Item;
 import Enum.Nature;
+import move.BaseMvPrm;
 import move.Move;
 import pokemonStatus.*;
 import pokemonStatus.impl.*;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
+import static move.MoveI.initMv;
 import static pokemonStatus.impl.ConfusionI.initConfusion;
 import static pokemonStatus.impl.EffortValueI.initEffortValue;
 import static pokemonStatus.impl.FlinchI.initFlinch;
@@ -30,7 +32,6 @@ public class PokeInfoI implements PokeInfo {
     private final Gender gender;
     private final Nature nature;
     private final List<Move> haveMove;
-    private final Experience experience;
     private final CurrentHP currentHP;
     private final StatusRank statusRank;
     private final Ailment ailment;
@@ -40,14 +41,6 @@ public class PokeInfoI implements PokeInfo {
 
     public BasePrm basePrm() {
         return this.basePrm;
-    }
-
-    public IndividualValue individualValue() {
-        return this.individualValue;
-    }
-
-    public EffortValue effortValue() {
-        return this.effortValue;
     }
 
     public Level level() {
@@ -64,10 +57,6 @@ public class PokeInfoI implements PokeInfo {
 
     public List<Move> haveMove() {
         return this.haveMove;
-    }
-
-    public Experience experience() {
-        return this.experience;
     }
 
     public CurrentHP currentHP() {
@@ -119,24 +108,12 @@ public class PokeInfoI implements PokeInfo {
     }
 
     @Override
-    public int giveExp() {
-        return this.level().val() * this.basePrm().basicExp() / 7;
-    }
-
-    @Override
-    public PokeInfo addExp(int exp) throws InterruptedException {
-        PokeInfo result = this.withExp(exp);
-        showMessageParChar(result.basePrm().pName() + "は" + exp + "の経験値を獲得!");
-        while (result.experience().isLevelUp(result)) {
-            result = result.withLevel(1);
-            showMessageParChar(result.basePrm().pName() + "はLv." + result.level().val() + "にレベルアップした!");
+    public PokeInfo recoveryHP(int value) throws InterruptedException {
+        PokeInfo result = this.withCurrentHP(this.currentHP().recovery(this, new CurrentHPI(value)));
+        if (result.ailment().val() == AilmentEnum.FAINTING) {
+            return result.withAilment(changeAilment(result, AilmentEnum.FINE));
         }
         return result;
-    }
-
-    @Override
-    public PokeInfo recoveryHP(int value) throws InterruptedException {
-        return this.withCurrentHP(this.currentHP().recovery(this, new CurrentHPI(value)));
     }
 
     @Override
@@ -160,9 +137,7 @@ public class PokeInfoI implements PokeInfo {
         }
         CurrentPP recoveredPP = targetMoves.currentPP().recovery(targetMoves, new CurrentPPI(value));
         Move recoveredPPMove = targetMoves.withCurrentPP(targetMoves, recoveredPP);
-        PokeInfo result = this.withMove(recoveredPPMove);
-
-        return result;
+        return this.withMove(recoveredPPMove);
     }
 
     @Override
@@ -193,8 +168,7 @@ public class PokeInfoI implements PokeInfo {
         this.individualValue = initIndividualValue();
         this.effortValue = initEffortValue();
         this.level = new LevelI(5);
-        this.haveMove = basePrm.initialMove();
-        this.experience = new ExperienceI(135); // TODO 固定化したくない
+        this.haveMove = List.of(initMv(BaseMvPrm.TACKLE));
         this.currentHP = new CurrentHPI(realHP());
         this.statusRank = initStatusRank();
         this.ailment = initAilment();
@@ -221,7 +195,6 @@ public class PokeInfoI implements PokeInfo {
         this.effortValue = new EffortValueI(ev.hp(), ev.attack(), ev.block(), ev.contact(), ev.defence(), ev.speed());
         this.level = new LevelI(level.val());
         this.haveMove = haveMove;
-        this.experience = new ExperienceI(0);
         this.currentHP = new CurrentHPI(realHP());
         this.statusRank = initStatusRank();
         this.ailment = initAilment();
@@ -238,7 +211,6 @@ public class PokeInfoI implements PokeInfo {
             IndividualValue iv,
             EffortValue ev,
             Level level,
-            Experience exp,
             List<Move> haveMove,
             CurrentHP currentHP,
             StatusRank sr,
@@ -254,7 +226,6 @@ public class PokeInfoI implements PokeInfo {
         this.effortValue = new EffortValueI(ev.hp(), ev.attack(), ev.block(), ev.contact(), ev.defence(), ev.speed());
         this.level = new LevelI(level.val());
         this.haveMove = haveMove;
-        this.experience = new ExperienceI(exp.totalExp());
         this.currentHP = new CurrentHPI(currentHP.val());
         this.statusRank = new StatusRankI(sr.attack(), sr.block(), sr.contact(), sr.defence(), sr.speed(), sr.hitRate(), sr.avoidRate());
         this.ailment = ailment;
@@ -265,27 +236,17 @@ public class PokeInfoI implements PokeInfo {
 
     @Override
     public PokeInfo withCurrentHP(CurrentHP currentHP) {
-        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, currentHP, this.statusRank, this.ailment, this.flinch, this.confusion, this.item);
-    }
-
-    @Override
-    public PokeInfo withExp(int addingExp) {
-        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience.add(addingExp), this.haveMove, this.currentHP, this.statusRank, this.ailment, this.flinch, this.confusion, this.item);
-    }
-
-    @Override
-    public PokeInfo withLevel(int addLevel) {
-        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level.add(addLevel), this.experience, this.haveMove, this.currentHP, this.statusRank, this.ailment, this.flinch, this.confusion, this.item);
+        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.haveMove, currentHP, this.statusRank, this.ailment, this.flinch, this.confusion, this.item);
     }
 
     @Override
     public PokeInfo withChStatusRank(int attack, int block, int contact, int defence, int speed, int hitRate, int avoidRate) throws InterruptedException {
-        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHP, this.statusRank.change(this.basePrm.pName(), attack, block, contact, defence, speed, hitRate, avoidRate), this.ailment, this.flinch, this.confusion, this.item);
+        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.haveMove, this.currentHP, this.statusRank.change(this.basePrm.pName(), attack, block, contact, defence, speed, hitRate, avoidRate), this.ailment, this.flinch, this.confusion, this.item);
     }
 
     @Override
     public PokeInfo withResetStatusRank() {
-        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHP, this.statusRank.reset(), this.ailment, this.flinch, this.confusion, this.item);
+        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.haveMove, this.currentHP, this.statusRank.reset(), this.ailment, this.flinch, this.confusion, this.item);
     }
 
     @Override
@@ -298,26 +259,26 @@ public class PokeInfoI implements PokeInfo {
                 newMoves.add(haveMove);
             }
         }
-        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, newMoves, this.currentHP, this.statusRank, this.ailment, this.flinch, this.confusion, this.item);
+        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, newMoves, this.currentHP, this.statusRank, this.ailment, this.flinch, this.confusion, this.item);
     }
 
     @Override
     public PokeInfo withAilment(Ailment statusAilment) {
-        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHP, this.statusRank, statusAilment, this.flinch, this.confusion, this.item);
+        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.haveMove, this.currentHP, this.statusRank, statusAilment, this.flinch, this.confusion, this.item);
     }
 
     @Override
     public PokeInfo withFlinch(Flinch flinch) {
-        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHP, this.statusRank, this.ailment, flinch, this.confusion, this.item);
+        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.haveMove, this.currentHP, this.statusRank, this.ailment, flinch, this.confusion, this.item);
     }
 
     @Override
     public PokeInfo withConfusion(Confusion confusion) {
-        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHP, this.statusRank, this.ailment, this.flinch, confusion, this.item);
+        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.haveMove, this.currentHP, this.statusRank, this.ailment, this.flinch, confusion, this.item);
     }
 
     @Override
     public PokeInfo withItem(Item item) {
-        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.experience, this.haveMove, this.currentHP, this.statusRank, this.ailment, this.flinch, confusion, item);
+        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.haveMove, this.currentHP, this.statusRank, this.ailment, this.flinch, confusion, item);
     }
 }

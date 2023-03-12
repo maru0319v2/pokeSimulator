@@ -44,7 +44,6 @@ public class Main {
             System.out.println("-------------------------------------------------");
             System.out.print("i:ステータス表示");
             System.out.print("　　m:技表示  ");
-            System.out.println("　　　       e:経験値を与える");
             System.out.print("r:体力回復");
             System.out.print("          b:野生ポケモンと戦闘");
             System.out.print(" 　f:バトルファクトリー");
@@ -55,7 +54,6 @@ public class Main {
             switch (inputCommand) {
                 case "i" -> ConsoleOutManager.showAllParameters(myPokemon);
                 case "m" -> ConsoleOutManager.showMoveDetail(myPokemon.haveMove());
-                case "e" -> myPokemon = myPokemon.addExp(200);
                 case "r" -> myPokemon = myPokemon.recoveryAll();
                 case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, initialize(BasePrm.BLASTOISE));
                 case "f" -> myPokemon = new BattleSimulation().battleSimulation(

@@ -66,8 +66,6 @@ public class BattleSimulation {
         showPokemonInfo(myField.poke(), enemyField.poke());
         if (myField.poke().currentHP().isAlive()) {
             System.out.println(enemyPk.basePrm().pName() + "は倒れた!");
-            int addExp = enemyPk.giveExp();
-            myField = myField.withPokeInfo(myField.poke().addExp(addExp));
         } else {
             System.out.println(myField.poke().basePrm().pName() + "は倒れた");
         }

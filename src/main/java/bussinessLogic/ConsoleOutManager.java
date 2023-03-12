@@ -13,15 +13,11 @@ public class ConsoleOutManager {
     public static void showAllParameters(PokeInfo target) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.print("図鑑No:" + target.basePrm().pokeDexNo() + " ");
         System.out.println("名前:" + target.basePrm().pName() + " ");
         System.out.println("タイプ1: " + target.basePrm().type1().val() + " タイプ2: " + target.basePrm().type2().val());
         System.out.println("状態: " + target.ailment().val());
         System.out.print("レベル: " + target.level().val());
-        System.out.print("  次のレベルまで: " + target.experience().nextRequireExp(target) + " exp.");
-        System.out.println("  総経験値: " + target.experience().totalExp() + " exp.");
 
-        //  System.out.println("  経験値タイプ: " + target.experienceType());
         System.out.println("性別: " + target.gender().val());
         System.out.println("性格: " + target.nature().val());
         System.out.print("覚えている技: ");
@@ -29,33 +25,6 @@ public class ConsoleOutManager {
             System.out.print(move.baseMPrm().mvName() + "  ");
         }
         System.out.println("");
-//        System.out.print("種族値:");
-//        System.out.print(" 体力 " + target.baseStats().hitPoint());
-//        System.out.print(" 攻撃 " + target.baseStats().attack());
-//        System.out.print(" 防御 " + target.baseStats().block());
-//        System.out.print(" 特攻 " + target.baseStats().contact());
-//        System.out.print(" 特防 " + target.baseStats().defense());
-//        System.out.print(" 素早 " + target.baseStats().speed());
-//        System.out.println(" 合計 " + (target.baseStats().hitPoint() +
-//                                    target.baseStats().attack() +
-//                                    target.baseStats().block() +
-//                                    target.baseStats().contact() +
-//                                    target.baseStats().defense() +
-//                                    target.baseStats().speed()));
-//        System.out.print("個体値:");
-//        System.out.print(" 体力 " + target.individualValue().hitPoint());
-//        System.out.print(" 攻撃 " + target.individualValue().attack());
-//        System.out.print(" 防御 " + target.individualValue().block());
-//        System.out.print(" 特攻 " + target.individualValue().contact());
-//        System.out.print(" 特防 " + target.individualValue().defense());
-//        System.out.println(" 素早 " + target.individualValue().speed());
-//        System.out.print("努力値:");
-//        System.out.print(" 体力 " + target.effortValue().hitPoint());
-//        System.out.print(" 攻撃 " + target.effortValue().attack());
-//        System.out.print(" 防御 " + target.effortValue().block());
-//        System.out.print(" 特攻 " + target.effortValue().contact());
-//        System.out.print(" 特防 " + target.effortValue().defense());
-//        System.out.println(" 素早 " + target.effortValue().speed());
         System.out.print("HP: " + target.currentHP().val() + "/" + target.realHP() + " ");
         showProgressBar(target);
         System.out.println("");
