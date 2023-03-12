@@ -141,8 +141,11 @@ public class BattleLogic {
         double burnedRate = moveSpecies == MoveSpecies.PHYSICAL ? atkPk.ailment().dmgRateByBurn() : 1.0;
         // 天候によるダメージ倍率
         double weatherRate = weather.dmgRateByWeather(move);
+        // リフレクター、ひかりのかべによるダメージ倍率
+        double reflectRate = dfcField.reflect().dmgRateByReflect(move.baseMPrm().moveSpecies());
+        double lightScreenRate = dfcField.lightScreen().dmgRateByLightScreen(move.baseMPrm().moveSpecies());
         // ダメージ倍率合算
-        double totalDmgRate = randomNum * criticalRate * typeMatchRate * effectiveRate * burnedRate * weatherRate;
+        double totalDmgRate = randomNum * criticalRate * typeMatchRate * effectiveRate * burnedRate * weatherRate * reflectRate * lightScreenRate;
 
         // すなあらしによる岩タイプの特防上昇
         double defenceRateRock = weather.dfcRateBySandStorm(dfcPk);

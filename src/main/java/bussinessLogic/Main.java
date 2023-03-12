@@ -67,7 +67,7 @@ public class Main {
                                 new IndividualValueI(10, 10, 10, 10, 10, 10),
                                 new EffortValueI(252, 0, 0, 0, 0, 252),
                                 new LevelI(50),
-                                List.of(initMv(BaseMvPrm.AIR_SLASH), initMv(BaseMvPrm.SUNNY_DAY), initMv(BaseMvPrm.RAIN_DANCE), initMv(BaseMvPrm.THUNDER))
+                                List.of(initMv(BaseMvPrm.FLAMETHROWER), initMv(BaseMvPrm.SUNNY_DAY), initMv(BaseMvPrm.REFLECT), initMv(BaseMvPrm.LIGHT_SCREEN))
                         ),
                         new PokeInfoI(
                                 randomPoke(),

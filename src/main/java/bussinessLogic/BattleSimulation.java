@@ -93,6 +93,11 @@ public class BattleSimulation {
             // 怯み状態をリセットする
             myField = myField.withPokeInfo(myField.poke().withFlinch(new FlinchI(false)));
             enemyField = enemyField.withPokeInfo(enemyField.poke().withFlinch(new FlinchI(false)));
+            // リフレクター、ひかりのかべの経過ターンを+1
+            myField = myField.withReflect(myField.reflect().elapsingTurn());
+            myField = myField.withLightScreen(myField.lightScreen().elapsingTurn());
+            enemyField = enemyField.withReflect(enemyField.reflect().elapsingTurn());
+            enemyField = enemyField.withLightScreen(enemyField.lightScreen().elapsingTurn());
         }
 
         showPokemonInfo(myField.poke(), enemyField.poke());

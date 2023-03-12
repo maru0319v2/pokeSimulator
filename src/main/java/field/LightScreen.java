@@ -1,5 +1,6 @@
 package field;
 
+import Enum.MoveSpecies;
 import lombok.AllArgsConstructor;
 
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
@@ -34,23 +35,44 @@ public class LightScreen {
     }
 
     //ひかりのかべ状態にする場合
-    public static LightScreen enableLightScreen(Field field) throws InterruptedException {
-        return new LightScreen(field);
+    public static LightScreen enableLightScreen(LightScreen currentLightScreen) throws InterruptedException {
+        return new LightScreen(currentLightScreen);
     }
 
-    private LightScreen(Field field) throws InterruptedException {
-        if (field.lightScreen().val()) {
+    private LightScreen(LightScreen currentLightScreen) throws InterruptedException {
+        if (currentLightScreen.val()) {
             //すでに壁が張られている
             showMessageParChar("ひかりのかべはすではられている!");
-            this.val = field.lightScreen().val;
-            this.elapsedTurn = field.lightScreen().elapsedTurn;
-            this.countRecovery = field.lightScreen().countRecovery;
+            this.val = currentLightScreen.val;
+            this.elapsedTurn = currentLightScreen.elapsedTurn;
+            this.countRecovery = currentLightScreen.countRecovery;
         } else {
             //あらたに壁を張る
             showMessageParChar("ひかりのかべがはられた!");
             this.val = true;
             this.elapsedTurn = 0;
             this.countRecovery = 5;
+        }
+    }
+
+    public double dmgRateByLightScreen(MoveSpecies species) {
+        if (species == MoveSpecies.SPECIAL) {
+            if (this.val) {
+                return 0.5;
+            }
+        }
+        return 1.0;
+    }
+
+    public LightScreen elapsingTurn() throws InterruptedException {
+        if (val) {
+            if (this.countRecovery <= this.elapsedTurn + 1) {
+                showMessageParChar("ひかりのかべの効果がきれた!");
+                return initLightScreen();
+            }
+            return new LightScreen(this.val, this.elapsedTurn + 1, this.countRecovery);
+        } else {
+            return new LightScreen(this.val, this.elapsedTurn, this.countRecovery);
         }
     }
 }

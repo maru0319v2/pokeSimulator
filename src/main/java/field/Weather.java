@@ -13,25 +13,25 @@ import static bussinessLogic.ConsoleOutManager.*;
 
 public class Weather {
     private final WeatherEnum val;
-    private final int elapsedTurnWeather;
-    private final int countRecoveryWeather;
+    private final int elapsedTurn;
+    private final int countRecovery;
 
     public WeatherEnum val() {
         return this.val;
     }
 
-    public int elapsedTurnWeather() {
-        return this.elapsedTurnWeather;
+    public int elapsedTurn() {
+        return this.elapsedTurn;
     }
 
-    public int countRecoveryWeather() {
-        return this.countRecoveryWeather;
+    public int countRecovery() {
+        return this.countRecovery;
     }
 
-    private Weather(WeatherEnum weather, int elapsedTurnWeather, int countRecoveryWeather) {
+    private Weather(WeatherEnum weather, int elapsedTurn, int countRecovery) {
         this.val = weather;
-        this.elapsedTurnWeather = elapsedTurnWeather;
-        this.countRecoveryWeather = countRecoveryWeather;
+        this.elapsedTurn = elapsedTurn;
+        this.countRecovery = countRecovery;
     }
 
     // 初期化したい場合
@@ -41,8 +41,8 @@ public class Weather {
 
     private Weather() {
         this.val = WeatherEnum.NONE;
-        this.elapsedTurnWeather = 0;
-        this.countRecoveryWeather = 0;
+        this.elapsedTurn = 0;
+        this.countRecovery = 0;
     }
 
     // 天候を変化させる場合
@@ -54,23 +54,23 @@ public class Weather {
         if (currentWeather.val() != weather) {
             // 引数の天候がもとの天候以外なら上書きする
             this.val = weather;
-            this.elapsedTurnWeather = 0;
-            this.countRecoveryWeather = 5;
+            this.elapsedTurn = 0;
+            this.countRecovery = 5;
             showChangeWeather(weather);
         } else {
             this.val = currentWeather.val();
-            this.elapsedTurnWeather = currentWeather.elapsedTurnWeather();
-            this.countRecoveryWeather = currentWeather.countRecoveryWeather();
+            this.elapsedTurn = currentWeather.elapsedTurn();
+            this.countRecovery = currentWeather.countRecovery();
         }
     }
 
     public Weather elapsingTurnWeather() throws InterruptedException {
-        if (this.countRecoveryWeather <= this.elapsedTurnWeather + 1) {
+        if (this.countRecovery <= this.elapsedTurn + 1) {
             showUndoWeather(this.val);
             return initWeather();
         }
         showKeepWeather(this.val);
-        return new Weather(this.val, this.elapsedTurnWeather + 1, this.countRecoveryWeather);
+        return new Weather(this.val, this.elapsedTurn + 1, this.countRecovery);
     }
 
     public PokeInfo slipDmgByWeather(PokeInfo target) throws InterruptedException {

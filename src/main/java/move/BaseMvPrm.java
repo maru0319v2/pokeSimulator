@@ -2,10 +2,7 @@ package move;
 
 import Enum.MoveSpecies;
 import Enum.Type;
-import field.Field;
-import field.OnBattleField;
-import field.Weather;
-import field.WeatherEnum;
+import field.*;
 import lombok.AllArgsConstructor;
 import pokemonStatus.impl.ConfusionI;
 import pokemonStatus.impl.CurrentHPI;
@@ -307,20 +304,18 @@ public enum BaseMvPrm {
             return recoveryHP50Per(atkField, dfcField, weather);
         }
     },
-//    LIGHT_SCREEN("ひかりのかべ", Type.PSYCHIC, MoveSpecies.CHANGE, DetailMvSpecies.WALL, 0, -1, 30, 0, 0,
-//            false, false, false, false, true, false) {
-//        public OnBattleField effect(Field atkField, Field dfcField,  int recoveryHP, Weather weather) throws InterruptedException {
-//            // TODO てきがつかっても自分のひかりのかべができてしまう
-//            return new OnBattleField(atkField,dfcField field.withLightScreen(LightScreen.enableLightScreen(field)));
-//        }
-//    },
-//    REFLECT("リフレクター", Type.PSYCHIC, MoveSpecies.CHANGE, DetailMvSpecies.WALL, 0, -1, 20, 0, 0,
-//            false, false, false, false, true, false) {
-//        public OnBattleField effect(Field atkField, Field dfcField,  int recoveryHP, Weather weather) throws InterruptedException {
-//            // TODO てきがつかっても自分のリフレクターができてしまう
-//            return new OnBattleField(atkField,dfcField field.withReflect(Reflect.enableReflect(field)));
-//        }
-//    },
+    LIGHT_SCREEN("ひかりのかべ", Type.PSYCHIC, MoveSpecies.CHANGE, DetailMvSpecies.WALL, 0, -1, 30, 0, 0,
+            false, false, false, false, true, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return new OnBattleField(atkField.withLightScreen(LightScreen.enableLightScreen(atkField.lightScreen())), dfcField, weather);
+        }
+    },
+    REFLECT("リフレクター", Type.PSYCHIC, MoveSpecies.CHANGE, DetailMvSpecies.WALL, 0, -1, 20, 0, 0,
+            false, false, false, false, true, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return new OnBattleField(atkField.withReflect(Reflect.enableReflect(atkField.reflect())), dfcField, weather);
+        }
+    },
     /**
      * ここから天候技
      */

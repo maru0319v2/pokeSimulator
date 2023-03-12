@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static pokemon.PokeInfoI.initialize;
 
-public class FieldTest {
+public class WeatherTest {
     @Test
     @DisplayName("天候が上書きできること")
     public void test1() throws InterruptedException {
@@ -46,7 +46,7 @@ public class FieldTest {
 
         // ひでり -> ひでり
         weather = changeWeather(weather, WeatherEnum.DROUGHT);
-        assertEquals(1, weather.elapsedTurnWeather());
+        assertEquals(1, weather.elapsedTurn());
     }
 
     @Test
@@ -122,8 +122,8 @@ public class FieldTest {
         Weather weather = initWeather();
         weather = changeWeather(weather, WeatherEnum.DROUGHT);
 
-        assertEquals(0, weather.elapsedTurnWeather());
-        assertEquals(5, weather.countRecoveryWeather());
+        assertEquals(0, weather.elapsedTurn());
+        assertEquals(5, weather.countRecovery());
     }
 
     @Test
