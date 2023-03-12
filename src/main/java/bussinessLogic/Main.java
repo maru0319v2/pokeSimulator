@@ -31,7 +31,6 @@ import static pokemon.PokeInfoI.initialize;
 // 草タイプはねむりごな等無効
 // とくせい
 // バインド、のろい、ちょうはつ、こだわり
-// リフレクター、ひかりのかべ
 // すでにやけどになっているのメッセージ表示
 // BattleSimulationのロジック最適化
 // テストを充実させる

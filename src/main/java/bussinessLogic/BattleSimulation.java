@@ -76,28 +76,10 @@ public class BattleSimulation {
                 break;
             }
             // ターン終了処理
-            onBF = endTurnProcessWeather(myField, enemyField, weather);
+            onBF = endTurnProcess(myField, enemyField, weather);
             myField = onBF.atkField();
             enemyField = onBF.dfcField();
             weather = onBF.weather();
-
-            if (onBF.isDeadEither()) {
-                break;
-            }
-
-            onBF = endTurnProcessAilment(myField, enemyField, weather);
-            myField = onBF.atkField();
-            enemyField = onBF.dfcField();
-            weather = onBF.weather();
-
-            // 怯み状態をリセットする
-            myField = myField.withPokeInfo(myField.poke().withFlinch(new FlinchI(false)));
-            enemyField = enemyField.withPokeInfo(enemyField.poke().withFlinch(new FlinchI(false)));
-            // リフレクター、ひかりのかべの経過ターンを+1
-            myField = myField.withReflect(myField.reflect().elapsingTurn());
-            myField = myField.withLightScreen(myField.lightScreen().elapsingTurn());
-            enemyField = enemyField.withReflect(enemyField.reflect().elapsingTurn());
-            enemyField = enemyField.withLightScreen(enemyField.lightScreen().elapsingTurn());
         }
 
         showPokemonInfo(myField.poke(), enemyField.poke());
@@ -132,6 +114,41 @@ public class BattleSimulation {
             return doAction(atkField, dfcField, selectedMove, weather);
         }
         return new OnBattleField(atkField, dfcField, weather);
+    }
+
+    private OnBattleField endTurnProcess(Field myField, Field enemyField, Weather weather) throws InterruptedException {
+        // https://wiki.xn--rckteqa2e.com/wiki/%E3%82%BF%E3%83%BC%E3%83%B3
+        // 天候処理
+        OnBattleField onBF = endTurnProcessWeather(myField, enemyField, weather);
+        myField = onBF.atkField();
+        enemyField = onBF.dfcField();
+        weather = onBF.weather();
+
+        if (onBF.isDeadEither()) {
+            return onBF;
+        }
+
+        // 状態異常処理
+        onBF = endTurnProcessAilment(myField, enemyField, weather);
+        myField = onBF.atkField();
+        enemyField = onBF.dfcField();
+        weather = onBF.weather();
+
+        if (onBF.isDeadEither()) {
+            return onBF;
+        }
+
+        // 怯み状態をリセットする
+        myField = myField.withPokeInfo(myField.poke().withFlinch(new FlinchI(false)));
+        enemyField = enemyField.withPokeInfo(enemyField.poke().withFlinch(new FlinchI(false)));
+
+        // リフレクター、ひかりのかべの経過ターンを+1
+        myField = myField.withReflect(myField.reflect().elapsingTurn());
+        myField = myField.withLightScreen(myField.lightScreen().elapsingTurn());
+        enemyField = enemyField.withReflect(enemyField.reflect().elapsingTurn());
+        enemyField = enemyField.withLightScreen(enemyField.lightScreen().elapsingTurn());
+
+        return new OnBattleField(myField, enemyField, weather);
     }
 
     private OnBattleField endTurnProcessAilment(Field myField, Field enemyField, Weather weather) throws InterruptedException {
