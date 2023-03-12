@@ -136,10 +136,7 @@ public class PokeInfoI implements PokeInfo {
 
     @Override
     public PokeInfo recoveryHP(int value) throws InterruptedException {
-        PokeInfo result = this.withCurrentHP(this.currentHP().recovery(this, new CurrentHPI(value)));
-        System.out.println(result.basePrm().pName() + "は体力を" + value + "回復!  HP" + result.currentHP().val() + "/" + result.realHP());
-        System.out.println();
-        return result.withAilment(changeAilment(result, AilmentEnum.FINE));
+        return this.withCurrentHP(this.currentHP().recovery(this, new CurrentHPI(value)));
     }
 
     @Override
@@ -149,7 +146,7 @@ public class PokeInfoI implements PokeInfo {
         if (result.currentHP().isDead()) {
             return result.withAilment(changeAilment(result, AilmentEnum.FAINTING));
         }
-        return result;
+        return Item.afterDamaged(result);
     }
 
     @Override

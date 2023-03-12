@@ -27,7 +27,6 @@ import static pokemon.PokeInfoI.initialize;
 // 覚えられる技は4つまで
 
 // バトルファクトリーに必要なもの
-// もちもの
 // PPが0のときはわるあがきする
 // 草タイプはねむりごな等無効
 // とくせい
@@ -68,7 +67,7 @@ public class Main {
                                 new EffortValueI(252, 0, 0, 0, 0, 0),
                                 new LevelI(50),
                                 List.of(initMv(BaseMvPrm.FLAMETHROWER), initMv(BaseMvPrm.SUNNY_DAY), initMv(BaseMvPrm.REFLECT), initMv(BaseMvPrm.LIGHT_SCREEN)),
-                                Item.LOSTOVER_FOOD
+                                Item.OBON_FRUIT
                         ),
                         new PokeInfoI(
                                 randomPoke(),
@@ -78,7 +77,7 @@ public class Main {
                                 new EffortValueI(252, 0, 0, 252, 0, 6),
                                 new LevelI(50),
                                 List.of(initMv(randomMv()), initMv(randomMv()), initMv(randomMv()), initMv(randomMv())),
-                                Item.PEAL_OF_LIFE
+                                Item.OBON_FRUIT
                         ));
             }
         }

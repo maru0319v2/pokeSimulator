@@ -22,6 +22,7 @@ public enum Item {
     FLAME_BALL("かえんだま"),
     LAPEL_OF_SPIRIT("きあいのタスキ"),
     OBON_FRUIT("オボンの実"),
+    RAMU_FRUIT("ラムの実"),
     LOSTOVER_FOOD("たべのこし"),
     NONE("-");
 
@@ -76,6 +77,24 @@ public enum Item {
         }
     }
 
+    // ダメージを受けたあとの処理
+    public static PokeInfo afterDamaged(PokeInfo poke) throws InterruptedException {
+        Item hasItem = poke.item();
+        switch (hasItem) {
+            case OBON_FRUIT -> {
+                // オボンの実　HPが半分以下になったときに最大HP1/4回復
+                if (hpLessThen50Per(poke)) {
+                    showMessageParChar(poke.basePrm().pName() + "はオボンのみでたいりょくをかいふくした!");
+                    return recoveryMeHP1_4(poke).withItem(Item.NONE);
+                }
+                return poke;
+            }
+            default -> {
+                return poke;
+            }
+        }
+    }
+
     private static OnBattleField doNothing(Field atkField, Field dfcField, Weather weather) {
         return new OnBattleField(atkField, dfcField, weather);
     }
@@ -98,6 +117,11 @@ public enum Item {
         return new OnBattleField(atkField.withPokeInfo(atkField.poke().damage(dmg)), dfcField, weather);
     }
 
+    private static PokeInfo recoveryMeHP1_4(PokeInfo target) throws InterruptedException {
+        int recovery = target.realHP() / 4;
+        return target.recoveryHP(recovery);
+    }
+
     private static boolean random10Per() {
         return (new Random().nextInt(10)) == 0;
     }
@@ -108,5 +132,9 @@ public enum Item {
 
     private static boolean random30Per() {
         return (new Random().nextInt(10)) <= 2;
+    }
+
+    private static boolean hpLessThen50Per(PokeInfo target) {
+        return (double) (target.currentHP().val()) / (double) (target.realHP()) < 0.5;
     }
 }
