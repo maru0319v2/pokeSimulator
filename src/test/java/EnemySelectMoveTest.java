@@ -1,4 +1,5 @@
 import Enum.Gender;
+import Enum.Item;
 import Enum.Nature;
 import field.Field;
 import field.Weather;
@@ -32,7 +33,8 @@ public class EnemySelectMoveTest {
                 new IndividualValueI(10, 10, 10, 10, 10, 10),
                 new EffortValueI(6, 0, 0, 252, 0, 252),
                 new LevelI(50),
-                List.of(initMv(BaseMvPrm.WILL_O_WISP), initMv(BaseMvPrm.DOUBLE_TEAM))
+                List.of(initMv(BaseMvPrm.WILL_O_WISP), initMv(BaseMvPrm.DOUBLE_TEAM)),
+                Item.NONE
         );
         PokeInfo myPk = initialize(BasePrm.BLASTOISE);
         Weather weather = Weather.initWeather();

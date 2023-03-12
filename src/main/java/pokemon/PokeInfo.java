@@ -1,6 +1,7 @@
 package pokemon;
 
 import Enum.Gender;
+import Enum.Item;
 import Enum.Nature;
 import move.Move;
 import pokemonStatus.*;
@@ -64,6 +65,9 @@ public interface PokeInfo {
     // 混乱判定
     Confusion confusion();
 
+    // 所持アイテム
+    Item item();
+
     // 状態異常1
     Ailment ailment();
 
@@ -105,4 +109,6 @@ public interface PokeInfo {
     PokeInfo withFlinch(Flinch flinch);
 
     PokeInfo withConfusion(Confusion confusion);
+
+    PokeInfo withItem(Item item);
 }

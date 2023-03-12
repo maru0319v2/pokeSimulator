@@ -1,5 +1,6 @@
 package bussinessLogic;
 
+import Enum.Item;
 import Enum.MoveSpecies;
 import Enum.Type;
 import field.Field;
@@ -13,6 +14,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
+import static Enum.Item.afterMove;
 import static bussinessLogic.ConsoleOutManager.*;
 
 public class BattleLogic {
@@ -91,8 +93,12 @@ public class BattleLogic {
         if (move.baseMPrm().moveSpecies() == MoveSpecies.PHYSICAL || move.baseMPrm().moveSpecies() == MoveSpecies.SPECIAL) {
             if (isHit(atkField.poke(), dfcField.poke(), move, weather)) {
                 int damage = calcDamage(atkField, dfcField, move, weather);
+                // 相手にダメージを与える
                 dfcField = dfcField.withPokeInfo(dfcField.poke().damage(damage));
-                return move.baseMPrm().effect(atkField, dfcField, damage, weather);
+                // 技の追加効果を与える
+                OnBattleField onBF = move.baseMPrm().effect(atkField, dfcField, damage, weather);
+                // アイテムによる追加効果
+                return afterMove(onBF);
             } else {
                 showMessageParChar(atkField.poke().basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
                 showMessageParChar(atkField.poke().basePrm().pName() + "の" + move.baseMPrm().mvName() + "は外れた");
@@ -144,8 +150,10 @@ public class BattleLogic {
         // リフレクター、ひかりのかべによるダメージ倍率
         double reflectRate = dfcField.reflect().dmgRateByReflect(move.baseMPrm().moveSpecies());
         double lightScreenRate = dfcField.lightScreen().dmgRateByLightScreen(move.baseMPrm().moveSpecies());
+        // 所持道具による倍率
+        double itemRate = Item.dmgRate(atkField.poke(), move);
         // ダメージ倍率合算
-        double totalDmgRate = randomNum * criticalRate * typeMatchRate * effectiveRate * burnedRate * weatherRate * reflectRate * lightScreenRate;
+        double totalDmgRate = randomNum * criticalRate * typeMatchRate * effectiveRate * burnedRate * weatherRate * reflectRate * lightScreenRate * itemRate;
 
         // すなあらしによる岩タイプの特防上昇
         double defenceRateRock = weather.dfcRateBySandStorm(dfcPk);

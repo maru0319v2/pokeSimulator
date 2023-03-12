@@ -1,6 +1,7 @@
 package bussinessLogic;
 
 import Enum.Gender;
+import Enum.Item;
 import Enum.Nature;
 import move.BaseMvPrm;
 import pokemon.BasePrm;
@@ -66,7 +67,8 @@ public class Main {
                                 new IndividualValueI(10, 10, 10, 10, 10, 10),
                                 new EffortValueI(252, 0, 0, 0, 0, 0),
                                 new LevelI(50),
-                                List.of(initMv(BaseMvPrm.FLAMETHROWER), initMv(BaseMvPrm.SUNNY_DAY), initMv(BaseMvPrm.REFLECT), initMv(BaseMvPrm.LIGHT_SCREEN))
+                                List.of(initMv(BaseMvPrm.FLAMETHROWER), initMv(BaseMvPrm.SUNNY_DAY), initMv(BaseMvPrm.REFLECT), initMv(BaseMvPrm.LIGHT_SCREEN)),
+                                Item.LOSTOVER_FOOD
                         ),
                         new PokeInfoI(
                                 randomPoke(),
@@ -75,7 +77,8 @@ public class Main {
                                 new IndividualValueI(10, 10, 10, 10, 10, 10),
                                 new EffortValueI(252, 0, 0, 252, 0, 6),
                                 new LevelI(50),
-                                List.of(initMv(randomMv()), initMv(randomMv()), initMv(randomMv()), initMv(randomMv()))
+                                List.of(initMv(randomMv()), initMv(randomMv()), initMv(randomMv()), initMv(randomMv())),
+                                Item.PEAL_OF_LIFE
                         ));
             }
         }

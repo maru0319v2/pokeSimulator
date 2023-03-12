@@ -1,5 +1,6 @@
 package bussinessLogic;
 
+import Enum.Item;
 import field.Field;
 import field.OnBattleField;
 import field.Weather;
@@ -101,8 +102,14 @@ public class BattleSimulation {
 
     private OnBattleField endTurnProcess(Field myField, Field enemyField, Weather weather) throws InterruptedException {
         // https://wiki.xn--rckteqa2e.com/wiki/%E3%82%BF%E3%83%BC%E3%83%B3
+        // 道具処理
+        OnBattleField onBF = Item.endTurn(new OnBattleField(myField, enemyField, weather));
+        myField = onBF.atkField();
+        enemyField = onBF.dfcField();
+        weather = onBF.weather();
+
         // 天候処理
-        OnBattleField onBF = endTurnProcessWeather(myField, enemyField, weather);
+        onBF = endTurnProcessWeather(myField, enemyField, weather);
         myField = onBF.atkField();
         enemyField = onBF.dfcField();
         weather = onBF.weather();

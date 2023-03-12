@@ -1,4 +1,5 @@
 import Enum.Gender;
+import Enum.Item;
 import Enum.Nature;
 import bussinessLogic.BattleLogic;
 import field.Field;
@@ -30,7 +31,8 @@ public class BattleLogicTest {
                 initIndividualValue(),
                 initEffortValue(),
                 new LevelI(5),
-                List.of(initMv(BaseMvPrm.QUICK_ATTACK))
+                List.of(initMv(BaseMvPrm.QUICK_ATTACK)),
+                Item.NONE
         );
         PokeInfo enemyPoke = new PokeInfoI(
                 BasePrm.BLASTOISE,
@@ -39,7 +41,8 @@ public class BattleLogicTest {
                 initIndividualValue(),
                 initEffortValue(),
                 new LevelI(100),
-                List.of(initMv(BaseMvPrm.TACKLE))
+                List.of(initMv(BaseMvPrm.TACKLE)),
+                Item.NONE
         );
         Field myField = initField(myPoke);
         Field enemyField = initField(enemyPoke);
