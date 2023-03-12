@@ -31,7 +31,6 @@ import static pokemon.PokeInfoI.initialize;
 // 草タイプはねむりごな等無効
 // とくせい
 // バインド、のろい、ちょうはつ、こだわり
-// リフレクター、ひかりのかべ
 // すでにやけどになっているのメッセージ表示
 // BattleSimulationのロジック最適化
 // テストを充実させる
@@ -65,9 +64,9 @@ public class Main {
                                 Gender.MALE,
                                 Nature.MODEST,
                                 new IndividualValueI(10, 10, 10, 10, 10, 10),
-                                new EffortValueI(252, 0, 0, 0, 0, 252),
+                                new EffortValueI(252, 0, 0, 0, 0, 0),
                                 new LevelI(50),
-                                List.of(initMv(BaseMvPrm.AIR_SLASH), initMv(BaseMvPrm.SUNNY_DAY), initMv(BaseMvPrm.RAIN_DANCE), initMv(BaseMvPrm.THUNDER))
+                                List.of(initMv(BaseMvPrm.FLAMETHROWER), initMv(BaseMvPrm.SUNNY_DAY), initMv(BaseMvPrm.REFLECT), initMv(BaseMvPrm.LIGHT_SCREEN))
                         ),
                         new PokeInfoI(
                                 randomPoke(),

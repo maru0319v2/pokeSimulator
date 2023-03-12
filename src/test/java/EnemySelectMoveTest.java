@@ -1,6 +1,7 @@
 import Enum.Gender;
 import Enum.Nature;
 import field.Field;
+import field.Weather;
 import move.BaseMvPrm;
 import move.Move;
 import org.junit.jupiter.api.DisplayName;
@@ -34,9 +35,11 @@ public class EnemySelectMoveTest {
                 List.of(initMv(BaseMvPrm.WILL_O_WISP), initMv(BaseMvPrm.DOUBLE_TEAM))
         );
         PokeInfo myPk = initialize(BasePrm.BLASTOISE);
-        Field field = initField();
+        Weather weather = Weather.initWeather();
+        Field myField = initField(myPk);
+        Field enemyField = initField(enemyPk);
 
-        Move result = enemySelectMove(enemyPk, myPk, field);
+        Move result = enemySelectMove(enemyField, myField, weather);
 
         assertTrue(result.baseMPrm().priority() >= 0);
 

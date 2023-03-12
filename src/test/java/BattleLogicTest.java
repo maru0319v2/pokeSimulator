@@ -1,6 +1,7 @@
 import Enum.Gender;
 import Enum.Nature;
 import bussinessLogic.BattleLogic;
+import field.Field;
 import move.BaseMvPrm;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import pokemonStatus.impl.LevelI;
 
 import java.util.List;
 
+import static field.FieldI.initField;
 import static move.MoveI.initMv;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -39,9 +41,11 @@ public class BattleLogicTest {
                 new LevelI(100),
                 List.of(initMv(BaseMvPrm.TACKLE))
         );
+        Field myField = initField(myPoke);
+        Field enemyField = initField(enemyPoke);
 
-        assertTrue(BattleLogic.isFirstMe(myPoke, enemyPoke, initMv(BaseMvPrm.QUICK_ATTACK), initMv(BaseMvPrm.TACKLE)));
-        assertFalse(BattleLogic.isFirstMe(myPoke, enemyPoke, initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.QUICK_ATTACK)));
+        assertTrue(BattleLogic.isFirstMe(myField, enemyField, initMv(BaseMvPrm.QUICK_ATTACK), initMv(BaseMvPrm.TACKLE)));
+        assertFalse(BattleLogic.isFirstMe(myField, enemyField, initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.QUICK_ATTACK)));
     }
 
 

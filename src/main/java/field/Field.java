@@ -1,7 +1,17 @@
 package field;
 
-public interface Field {
-    Weather weather();
+import pokemon.PokeInfo;
 
-    Field withWeather(Weather weather);
+public interface Field {
+    PokeInfo poke();
+
+    LightScreen lightScreen();
+
+    Reflect reflect();
+
+    Field withPokeInfo(PokeInfo poke);
+
+    Field withLightScreen(LightScreen lightScreen);
+
+    Field withReflect(Reflect reflect);
 }
