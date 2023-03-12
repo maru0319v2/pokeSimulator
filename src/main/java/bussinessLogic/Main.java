@@ -1,18 +1,11 @@
 package bussinessLogic;
 
-import Enum.Gender;
-import Enum.Item;
-import Enum.Nature;
 import move.BaseMvPrm;
-import move.MoveI;
 import pokemon.BasePrm;
 import pokemon.PokeInfo;
 import pokemon.PokeInfoI;
-import pokemonStatus.impl.EffortValueI;
-import pokemonStatus.impl.IndividualValueI;
-import pokemonStatus.impl.LevelI;
+import pokemon.RentalPoke;
 
-import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -56,26 +49,9 @@ public class Main {
                 case "r" -> myPokemon = myPokemon.recoveryAll();
                 case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, PokeInfoI.init(BasePrm.BLASTOISE));
                 case "f" -> myPokemon = new BattleSimulation().battleSimulation(
-                        new PokeInfoI(
-                                BasePrm.CHARIZARD,
-                                Gender.MALE,
-                                Nature.MODEST,
-                                new IndividualValueI(10, 10, 10, 10, 10, 10),
-                                new EffortValueI(252, 0, 0, 0, 0, 0),
-                                new LevelI(50),
-                                List.of(MoveI.init(BaseMvPrm.FLAMETHROWER), MoveI.init(BaseMvPrm.SUNNY_DAY), MoveI.init(BaseMvPrm.REFLECT), MoveI.init(BaseMvPrm.LIGHT_SCREEN)),
-                                Item.OBON_FRUIT
-                        ),
-                        new PokeInfoI(
-                                randomPoke(),
-                                Gender.MALE,
-                                Nature.MODEST,
-                                new IndividualValueI(10, 10, 10, 10, 10, 10),
-                                new EffortValueI(252, 0, 0, 252, 0, 6),
-                                new LevelI(50),
-                                List.of(MoveI.init(randomMv()), MoveI.init(randomMv()), MoveI.init(randomMv()), MoveI.init(randomMv())),
-                                Item.OBON_FRUIT
-                        ));
+                        RentalPoke.randomRental(),
+                        //RentalPoke.rent(CHARIZARD_1),
+                        RentalPoke.randomRental());
             }
         }
         scanner.close();
