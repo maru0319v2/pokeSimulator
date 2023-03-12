@@ -14,7 +14,6 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
-import static Enum.Item.afterMove;
 import static bussinessLogic.ConsoleOutManager.*;
 
 public class BattleLogic {
@@ -98,7 +97,7 @@ public class BattleLogic {
                 // 技の追加効果を与える
                 OnBattleField onBF = move.baseMPrm().effect(atkField, dfcField, damage, weather);
                 // アイテムによる追加効果
-                return afterMove(onBF);
+                return Item.afterMove(onBF);
             } else {
                 showMessageParChar(atkField.poke().basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
                 showMessageParChar(atkField.poke().basePrm().pName() + "の" + move.baseMPrm().mvName() + "は外れた");

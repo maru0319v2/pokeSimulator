@@ -13,24 +13,6 @@ public class LevelI implements Level {
         this.val = val;
     }
 
-    public Level add() {
-        int incrementedVal = this.val + 1;
-        if (incrementedVal > 100) {
-            return new LevelI(100);
-        } else {
-            return new LevelI(incrementedVal);
-        }
-    }
-
-    public Level add(int value) {
-        int incrementedVal = this.val + value;
-        if (incrementedVal > 100) {
-            return new LevelI(100);
-        } else {
-            return new LevelI(incrementedVal);
-        }
-    }
-
     public int val() {
         return this.val;
     }

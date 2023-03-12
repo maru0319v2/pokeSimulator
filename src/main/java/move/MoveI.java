@@ -8,7 +8,7 @@ public class MoveI implements Move {
     BaseMvPrm baseMPrm;
     CurrentPP currentPP;
 
-    public static Move initMv(BaseMvPrm baseMPrm) {
+    public static Move init(BaseMvPrm baseMPrm) {
         return new MoveI(baseMPrm);
     }
 

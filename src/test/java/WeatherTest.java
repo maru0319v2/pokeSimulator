@@ -5,13 +5,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pokemon.BasePrm;
 import pokemon.PokeInfo;
+import pokemon.PokeInfoI;
 
 import static field.Weather.changeWeather;
 import static field.Weather.initWeather;
-import static move.MoveI.initMv;
+import static move.MoveI.init;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static pokemon.PokeInfoI.initialize;
 
 public class WeatherTest {
     @Test
@@ -77,8 +77,8 @@ public class WeatherTest {
         Weather weather = initWeather();
         weather = changeWeather(weather, WeatherEnum.DROUGHT);
 
-        double result1 = weather.dmgRateByWeather(initMv(BaseMvPrm.FLAMETHROWER));
-        double result2 = weather.dmgRateByWeather(initMv(BaseMvPrm.WATER_PULSE));
+        double result1 = weather.dmgRateByWeather(init(BaseMvPrm.FLAMETHROWER));
+        double result2 = weather.dmgRateByWeather(init(BaseMvPrm.WATER_PULSE));
 
         assertEquals(1.5, result1);
         assertEquals(0.5, result2);
@@ -90,8 +90,8 @@ public class WeatherTest {
         Weather weather = initWeather();
         weather = changeWeather(weather, WeatherEnum.RAIN);
 
-        double result1 = weather.dmgRateByWeather(initMv(BaseMvPrm.FLAMETHROWER));
-        double result2 = weather.dmgRateByWeather(initMv(BaseMvPrm.WATER_PULSE));
+        double result1 = weather.dmgRateByWeather(init(BaseMvPrm.FLAMETHROWER));
+        double result2 = weather.dmgRateByWeather(init(BaseMvPrm.WATER_PULSE));
 
         assertEquals(0.5, result1);
         assertEquals(1.5, result2);
@@ -100,8 +100,8 @@ public class WeatherTest {
     @Test
     @DisplayName("砂嵐のときに岩タイプの特防が1.5倍になること")
     public void test6() throws InterruptedException {
-        PokeInfo myPoke1 = initialize(BasePrm.RHYDON);
-        PokeInfo myPoke2 = initialize(BasePrm.CHARIZARD);
+        PokeInfo myPoke1 = PokeInfoI.init(BasePrm.RHYDON);
+        PokeInfo myPoke2 = PokeInfoI.init(BasePrm.CHARIZARD);
 
         Weather weather = initWeather();
         double result1 = weather.dfcRateBySandStorm(myPoke1);
@@ -132,10 +132,10 @@ public class WeatherTest {
         Weather weather = initWeather();
         weather = changeWeather(weather, WeatherEnum.SANDSTORM);
 
-        PokeInfo rockPk = initialize(BasePrm.RHYDON);
-        PokeInfo groundPk = initialize(BasePrm.DUGTRIO);
-        PokeInfo steelPk = initialize(BasePrm.SCIZOR);
-        PokeInfo firePk = initialize(BasePrm.CHARIZARD);
+        PokeInfo rockPk = PokeInfoI.init(BasePrm.RHYDON);
+        PokeInfo groundPk = PokeInfoI.init(BasePrm.DUGTRIO);
+        PokeInfo steelPk = PokeInfoI.init(BasePrm.SCIZOR);
+        PokeInfo firePk = PokeInfoI.init(BasePrm.CHARIZARD);
 
         rockPk = weather.slipDmgByWeather(rockPk);
         groundPk = weather.slipDmgByWeather(groundPk);
@@ -154,8 +154,8 @@ public class WeatherTest {
         Weather weather = initWeather();
         weather = changeWeather(weather, WeatherEnum.HAIL);
 
-        PokeInfo icePk = initialize(BasePrm.LAPRAS);
-        PokeInfo firePk = initialize(BasePrm.CHARIZARD);
+        PokeInfo icePk = PokeInfoI.init(BasePrm.LAPRAS);
+        PokeInfo firePk = PokeInfoI.init(BasePrm.CHARIZARD);
 
         icePk = weather.slipDmgByWeather(icePk);
         firePk = weather.slipDmgByWeather(firePk);

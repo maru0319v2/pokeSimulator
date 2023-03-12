@@ -18,7 +18,7 @@ public class StatusRankI implements StatusRank {
     private final int hitRate;
     private final int avoidRate;
 
-    public static StatusRank initStatusRank() {
+    public static StatusRank init() {
         return new StatusRankI();
     }
 

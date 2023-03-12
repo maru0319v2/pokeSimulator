@@ -5,24 +5,18 @@ import Enum.Item;
 import Enum.Nature;
 import move.BaseMvPrm;
 import move.Move;
+import move.MoveI;
 import pokemonStatus.*;
 import pokemonStatus.impl.*;
 import statusAilment.Ailment;
 import statusAilment.AilmentEnum;
+import statusAilment.AilmentI;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
-import static move.MoveI.initMv;
-import static pokemonStatus.impl.ConfusionI.initConfusion;
-import static pokemonStatus.impl.EffortValueI.initEffortValue;
-import static pokemonStatus.impl.FlinchI.initFlinch;
-import static pokemonStatus.impl.IndividualValueI.initIndividualValue;
-import static pokemonStatus.impl.StatusRankI.initStatusRank;
-import static statusAilment.AilmentI.changeAilment;
-import static statusAilment.AilmentI.initAilment;
 
 public class PokeInfoI implements PokeInfo {
     private final BasePrm basePrm;
@@ -111,7 +105,7 @@ public class PokeInfoI implements PokeInfo {
     public PokeInfo recoveryHP(int value) throws InterruptedException {
         PokeInfo result = this.withCurrentHP(this.currentHP().recovery(this, new CurrentHPI(value)));
         if (result.ailment().val() == AilmentEnum.FAINTING) {
-            return result.withAilment(changeAilment(result, AilmentEnum.FINE));
+            return result.withAilment(AilmentI.changeAilment(result, AilmentEnum.FINE));
         }
         return result;
     }
@@ -121,7 +115,7 @@ public class PokeInfoI implements PokeInfo {
         PokeInfo result = this.withCurrentHP(this.currentHP().damage(new CurrentHPI(value)));
         showMessageParChar(result.basePrm().pName() + "は" + value + "のダメージ!");
         if (result.currentHP().isDead()) {
-            return result.withAilment(changeAilment(result, AilmentEnum.FAINTING));
+            return result.withAilment(AilmentI.changeAilment(result, AilmentEnum.FAINTING));
         }
         return Item.afterDamaged(result);
     }
@@ -157,23 +151,23 @@ public class PokeInfoI implements PokeInfo {
         return this.withMove(decrementedPPMove);
     }
 
-    public static PokeInfo initialize(BasePrm basePrm) {
+    public static PokeInfo init(BasePrm basePrm) {
         return new PokeInfoI(basePrm);
     }
 
     private PokeInfoI(BasePrm basePrm) {
         this.basePrm = basePrm;
-        this.gender = Gender.initGender();
-        this.nature = Nature.initNature();
-        this.individualValue = initIndividualValue();
-        this.effortValue = initEffortValue();
+        this.gender = Gender.init();
+        this.nature = Nature.init();
+        this.individualValue = IndividualValueI.init();
+        this.effortValue = EffortValueI.init();
         this.level = new LevelI(5);
-        this.haveMove = List.of(initMv(BaseMvPrm.TACKLE));
+        this.haveMove = List.of(MoveI.init(BaseMvPrm.TACKLE));
         this.currentHP = new CurrentHPI(realHP());
-        this.statusRank = initStatusRank();
-        this.ailment = initAilment();
-        this.flinch = initFlinch();
-        this.confusion = initConfusion();
+        this.statusRank = StatusRankI.init();
+        this.ailment = AilmentI.init();
+        this.flinch = FlinchI.init();
+        this.confusion = ConfusionI.init();
         this.item = Item.NONE;
     }
 
@@ -196,10 +190,10 @@ public class PokeInfoI implements PokeInfo {
         this.level = new LevelI(level.val());
         this.haveMove = haveMove;
         this.currentHP = new CurrentHPI(realHP());
-        this.statusRank = initStatusRank();
-        this.ailment = initAilment();
-        this.flinch = initFlinch();
-        this.confusion = initConfusion();
+        this.statusRank = StatusRankI.init();
+        this.ailment = AilmentI.init();
+        this.flinch = FlinchI.init();
+        this.confusion = ConfusionI.init();
         this.item = item;
         // TODO　Builderパターンで作る
     }

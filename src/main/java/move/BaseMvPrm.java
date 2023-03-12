@@ -8,11 +8,9 @@ import pokemonStatus.impl.ConfusionI;
 import pokemonStatus.impl.CurrentHPI;
 import pokemonStatus.impl.FlinchI;
 import statusAilment.AilmentEnum;
+import statusAilment.AilmentI;
 
 import java.util.Random;
-
-import static field.Weather.changeWeather;
-import static statusAilment.AilmentI.changeAilment;
 
 @AllArgsConstructor
 public enum BaseMvPrm {
@@ -322,25 +320,25 @@ public enum BaseMvPrm {
     SUNNY_DAY("にほんばれ", Type.FIRE, MoveSpecies.CHANGE, DetailMvSpecies.WEATHER, 0, -1, 5, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
-            return new OnBattleField(atkField, dfcField, changeWeather(weather, WeatherEnum.DROUGHT));
+            return new OnBattleField(atkField, dfcField, Weather.changeWeather(weather, WeatherEnum.DROUGHT));
         }
     },
     RAIN_DANCE("あまごい", Type.WATER, MoveSpecies.CHANGE, DetailMvSpecies.WEATHER, 0, -1, 5, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
-            return new OnBattleField(atkField, dfcField, changeWeather(weather, WeatherEnum.RAIN));
+            return new OnBattleField(atkField, dfcField, Weather.changeWeather(weather, WeatherEnum.RAIN));
         }
     },
     SAND_STORM("すなあらし", Type.ROCK, MoveSpecies.CHANGE, DetailMvSpecies.WEATHER, 0, -1, 10, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
-            return new OnBattleField(atkField, dfcField, changeWeather(weather, WeatherEnum.SANDSTORM));
+            return new OnBattleField(atkField, dfcField, Weather.changeWeather(weather, WeatherEnum.SANDSTORM));
         }
     },
     HAIL("あられ", Type.ICE, MoveSpecies.CHANGE, DetailMvSpecies.WEATHER, 0, -1, 10, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
-            return new OnBattleField(atkField, dfcField, changeWeather(weather, WeatherEnum.HAIL));
+            return new OnBattleField(atkField, dfcField, Weather.changeWeather(weather, WeatherEnum.HAIL));
         }
     };
 
@@ -521,7 +519,7 @@ public enum BaseMvPrm {
 
     private static OnBattleField beBurn(int percent, Field atkField, Field dfcField, Weather weather) throws InterruptedException {
         if ((new Random().nextInt(10)) <= percent / 10 - 1) {
-            return new OnBattleField(atkField, dfcField.withPokeInfo(dfcField.poke().withAilment(changeAilment(dfcField.poke(), AilmentEnum.BURN))), weather);
+            return new OnBattleField(atkField, dfcField.withPokeInfo(dfcField.poke().withAilment(AilmentI.changeAilment(dfcField.poke(), AilmentEnum.BURN))), weather);
         } else {
             return doNothing(atkField, dfcField, weather);
         }
@@ -529,7 +527,7 @@ public enum BaseMvPrm {
 
     private static OnBattleField beParalysis(int percent, Field atkField, Field dfcField, Weather weather) throws InterruptedException {
         if ((new Random().nextInt(10)) <= percent / 10 - 1) {
-            return new OnBattleField(atkField, dfcField.withPokeInfo(dfcField.poke().withAilment(changeAilment(dfcField.poke(), AilmentEnum.PARALYSIS))), weather);
+            return new OnBattleField(atkField, dfcField.withPokeInfo(dfcField.poke().withAilment(AilmentI.changeAilment(dfcField.poke(), AilmentEnum.PARALYSIS))), weather);
         } else {
             return doNothing(atkField, dfcField, weather);
         }
@@ -537,7 +535,7 @@ public enum BaseMvPrm {
 
     private static OnBattleField beFreeze(int percent, Field atkField, Field dfcField, Weather weather) throws InterruptedException {
         if ((new Random().nextInt(10)) <= percent / 10 - 1) {
-            return new OnBattleField(atkField, dfcField.withPokeInfo(dfcField.poke().withAilment(changeAilment(dfcField.poke(), AilmentEnum.FREEZE))), weather);
+            return new OnBattleField(atkField, dfcField.withPokeInfo(dfcField.poke().withAilment(AilmentI.changeAilment(dfcField.poke(), AilmentEnum.FREEZE))), weather);
         } else {
             return doNothing(atkField, dfcField, weather);
         }
@@ -545,7 +543,7 @@ public enum BaseMvPrm {
 
     private static OnBattleField beSleep(int percent, Field atkField, Field dfcField, Weather weather) throws InterruptedException {
         if ((new Random().nextInt(10)) <= percent / 10 - 1) {
-            return new OnBattleField(atkField, dfcField.withPokeInfo(dfcField.poke().withAilment(changeAilment(dfcField.poke(), AilmentEnum.SLEEP))), weather);
+            return new OnBattleField(atkField, dfcField.withPokeInfo(dfcField.poke().withAilment(AilmentI.changeAilment(dfcField.poke(), AilmentEnum.SLEEP))), weather);
         } else {
             return doNothing(atkField, dfcField, weather);
         }

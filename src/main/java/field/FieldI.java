@@ -20,7 +20,7 @@ public class FieldI implements Field {
     }
 
     // 初期化したい場合
-    public static Field initField(PokeInfo poke) {
+    public static Field init(PokeInfo poke) {
         return new FieldI(poke);
     }
 

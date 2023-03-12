@@ -2,6 +2,7 @@ import Enum.Gender;
 import Enum.Item;
 import Enum.Nature;
 import field.Field;
+import field.FieldI;
 import field.Weather;
 import move.BaseMvPrm;
 import move.Move;
@@ -17,10 +18,8 @@ import pokemonStatus.impl.LevelI;
 import java.util.List;
 
 import static bussinessLogic.EnemySelectMove.enemySelectMove;
-import static field.FieldI.initField;
-import static move.MoveI.initMv;
+import static move.MoveI.init;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static pokemon.PokeInfoI.initialize;
 
 public class EnemySelectMoveTest {
     @Test
@@ -33,13 +32,13 @@ public class EnemySelectMoveTest {
                 new IndividualValueI(10, 10, 10, 10, 10, 10),
                 new EffortValueI(6, 0, 0, 252, 0, 252),
                 new LevelI(50),
-                List.of(initMv(BaseMvPrm.WILL_O_WISP), initMv(BaseMvPrm.DOUBLE_TEAM)),
+                List.of(init(BaseMvPrm.WILL_O_WISP), init(BaseMvPrm.DOUBLE_TEAM)),
                 Item.NONE
         );
-        PokeInfo myPk = initialize(BasePrm.BLASTOISE);
+        PokeInfo myPk = PokeInfoI.init(BasePrm.BLASTOISE);
         Weather weather = Weather.initWeather();
-        Field myField = initField(myPk);
-        Field enemyField = initField(enemyPk);
+        Field myField = FieldI.init(myPk);
+        Field enemyField = FieldI.init(enemyPk);
 
         Move result = enemySelectMove(enemyField, myField, weather);
 

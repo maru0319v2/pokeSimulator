@@ -3,22 +3,22 @@ import Enum.Item;
 import Enum.Nature;
 import bussinessLogic.BattleLogic;
 import field.Field;
+import field.FieldI;
 import move.BaseMvPrm;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pokemon.BasePrm;
 import pokemon.PokeInfo;
 import pokemon.PokeInfoI;
+import pokemonStatus.impl.EffortValueI;
+import pokemonStatus.impl.IndividualValueI;
 import pokemonStatus.impl.LevelI;
 
 import java.util.List;
 
-import static field.FieldI.initField;
-import static move.MoveI.initMv;
+import static move.MoveI.init;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static pokemonStatus.impl.EffortValueI.initEffortValue;
-import static pokemonStatus.impl.IndividualValueI.initIndividualValue;
 
 public class BattleLogicTest {
     @Test
@@ -28,27 +28,27 @@ public class BattleLogicTest {
                 BasePrm.CHARIZARD,
                 Gender.MALE,
                 Nature.MODEST,
-                initIndividualValue(),
-                initEffortValue(),
+                IndividualValueI.init(),
+                EffortValueI.init(),
                 new LevelI(5),
-                List.of(initMv(BaseMvPrm.QUICK_ATTACK)),
+                List.of(init(BaseMvPrm.QUICK_ATTACK)),
                 Item.NONE
         );
         PokeInfo enemyPoke = new PokeInfoI(
                 BasePrm.BLASTOISE,
                 Gender.MALE,
                 Nature.MODEST,
-                initIndividualValue(),
-                initEffortValue(),
+                IndividualValueI.init(),
+                EffortValueI.init(),
                 new LevelI(100),
-                List.of(initMv(BaseMvPrm.TACKLE)),
+                List.of(init(BaseMvPrm.TACKLE)),
                 Item.NONE
         );
-        Field myField = initField(myPoke);
-        Field enemyField = initField(enemyPoke);
+        Field myField = FieldI.init(myPoke);
+        Field enemyField = FieldI.init(enemyPoke);
 
-        assertTrue(BattleLogic.isFirstMe(myField, enemyField, initMv(BaseMvPrm.QUICK_ATTACK), initMv(BaseMvPrm.TACKLE)));
-        assertFalse(BattleLogic.isFirstMe(myField, enemyField, initMv(BaseMvPrm.TACKLE), initMv(BaseMvPrm.QUICK_ATTACK)));
+        assertTrue(BattleLogic.isFirstMe(myField, enemyField, init(BaseMvPrm.QUICK_ATTACK), init(BaseMvPrm.TACKLE)));
+        assertFalse(BattleLogic.isFirstMe(myField, enemyField, init(BaseMvPrm.TACKLE), init(BaseMvPrm.QUICK_ATTACK)));
     }
 
 

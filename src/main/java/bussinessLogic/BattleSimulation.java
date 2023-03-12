@@ -2,6 +2,7 @@ package bussinessLogic;
 
 import Enum.Item;
 import field.Field;
+import field.FieldI;
 import field.OnBattleField;
 import field.Weather;
 import move.Move;
@@ -12,7 +13,6 @@ import static bussinessLogic.BattleLogic.*;
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 import static bussinessLogic.ConsoleOutManager.showPokemonInfo;
 import static bussinessLogic.EnemySelectMove.enemySelectMove;
-import static field.FieldI.initField;
 
 public class BattleSimulation {
     public PokeInfo battleSimulation(PokeInfo myPk, PokeInfo enemyPk) throws InterruptedException {
@@ -22,8 +22,8 @@ public class BattleSimulation {
         showMessageParChar("ゆけっ!" + myPk.basePrm().pName() + "!");
         Thread.sleep(500);
 
-        Field myField = initField(myPk);
-        Field enemyField = initField(enemyPk);
+        Field myField = FieldI.init(myPk);
+        Field enemyField = FieldI.init(enemyPk);
         OnBattleField onBF = new OnBattleField(myField, enemyField, Weather.initWeather());
 
         while (onBF.isBothFine()) {

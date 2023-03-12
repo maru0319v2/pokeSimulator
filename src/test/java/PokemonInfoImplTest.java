@@ -5,13 +5,13 @@ import pokemon.PokeInfo;
 import statusAilment.AilmentEnum;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static pokemon.PokeInfoI.initialize;
+import static pokemon.PokeInfoI.init;
 
 public class PokemonInfoImplTest {
     @Test
     @DisplayName("HP0でひんし状態になり、回復すると状態なしになること")
     public void testBattleLogic1() throws InterruptedException {
-        PokeInfo myPoke = initialize(BasePrm.CHARIZARD);
+        PokeInfo myPoke = init(BasePrm.CHARIZARD);
         myPoke = myPoke.damage(200);
         assertEquals(AilmentEnum.FAINTING, myPoke.ailment().val());
 

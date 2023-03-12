@@ -4,6 +4,7 @@ import Enum.Gender;
 import Enum.Item;
 import Enum.Nature;
 import move.BaseMvPrm;
+import move.MoveI;
 import pokemon.BasePrm;
 import pokemon.PokeInfo;
 import pokemon.PokeInfoI;
@@ -15,8 +16,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import static move.MoveI.initMv;
-import static pokemon.PokeInfoI.initialize;
 
 // TODO やることリスト
 // 初期経験値固定値問題
@@ -37,7 +36,7 @@ import static pokemon.PokeInfoI.initialize;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
-        PokeInfo myPokemon = initialize(BasePrm.CHARIZARD);
+        PokeInfo myPokemon = PokeInfoI.init(BasePrm.CHARIZARD);
 
         String inputCommand = "";
         while (!inputCommand.equals("q")) {
@@ -55,7 +54,7 @@ public class Main {
                 case "i" -> ConsoleOutManager.showAllParameters(myPokemon);
                 case "m" -> ConsoleOutManager.showMoveDetail(myPokemon.haveMove());
                 case "r" -> myPokemon = myPokemon.recoveryAll();
-                case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, initialize(BasePrm.BLASTOISE));
+                case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, PokeInfoI.init(BasePrm.BLASTOISE));
                 case "f" -> myPokemon = new BattleSimulation().battleSimulation(
                         new PokeInfoI(
                                 BasePrm.CHARIZARD,
@@ -64,7 +63,7 @@ public class Main {
                                 new IndividualValueI(10, 10, 10, 10, 10, 10),
                                 new EffortValueI(252, 0, 0, 0, 0, 0),
                                 new LevelI(50),
-                                List.of(initMv(BaseMvPrm.FLAMETHROWER), initMv(BaseMvPrm.SUNNY_DAY), initMv(BaseMvPrm.REFLECT), initMv(BaseMvPrm.LIGHT_SCREEN)),
+                                List.of(MoveI.init(BaseMvPrm.FLAMETHROWER), MoveI.init(BaseMvPrm.SUNNY_DAY), MoveI.init(BaseMvPrm.REFLECT), MoveI.init(BaseMvPrm.LIGHT_SCREEN)),
                                 Item.OBON_FRUIT
                         ),
                         new PokeInfoI(
@@ -74,7 +73,7 @@ public class Main {
                                 new IndividualValueI(10, 10, 10, 10, 10, 10),
                                 new EffortValueI(252, 0, 0, 252, 0, 6),
                                 new LevelI(50),
-                                List.of(initMv(randomMv()), initMv(randomMv()), initMv(randomMv()), initMv(randomMv())),
+                                List.of(MoveI.init(randomMv()), MoveI.init(randomMv()), MoveI.init(randomMv()), MoveI.init(randomMv())),
                                 Item.OBON_FRUIT
                         ));
             }

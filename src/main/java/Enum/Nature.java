@@ -40,7 +40,7 @@ public enum Nature {
     private final double defenceRate;
     private final double speedRate;
 
-    public static Nature initNature() {
+    public static Nature init() {
         int index = new Random().nextInt(Nature.values().length);
         return Nature.values()[index];
     }

@@ -29,7 +29,7 @@ public class ConfusionI implements Confusion {
     }
 
     // 初期化のときに使う
-    public static Confusion initConfusion() {
+    public static Confusion init() {
         return new ConfusionI(false);
     }
 
@@ -65,7 +65,7 @@ public class ConfusionI implements Confusion {
         if (this.val && this.countRecovery <= this.elapsedTurn + 1) {
             showMessageParChar(name + "のこんらんがとけた!");
             Thread.sleep(200);
-            return initConfusion();
+            return init();
         }
         return new ConfusionI(this.val, this.countRecovery, this.elapsedTurn + 1);
     }

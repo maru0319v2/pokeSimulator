@@ -14,7 +14,7 @@ public class EffortValueI implements EffortValue {
     private final int defence;
     private final int speed;
 
-    public static EffortValue initEffortValue() {
+    public static EffortValue init() {
         return new EffortValueI();
     }
 
@@ -75,21 +75,6 @@ public class EffortValueI implements EffortValue {
             this.defence = resultDefence;
             this.speed = resultSpeed;
         }
-    }
-
-    public EffortValueI add(final int hp, final int attack, final int block, final int contact, final int defence, final int speed) {
-        int addedHitPoint = this.hp + hp;
-        int addedAttack = this.attack + attack;
-        int addedBlock = this.block + block;
-        int addedContact = this.contact + contact;
-        int addedDefence = this.defence + defence;
-        int addedSpeed = this.speed + speed;
-
-        return new EffortValueI(addedHitPoint, addedAttack, addedBlock, addedContact, addedDefence, addedSpeed);
-    }
-
-    public EffortValue reset() {
-        return new EffortValueI(0, 0, 0, 0, 0, 0);
     }
 
     public int hp() {

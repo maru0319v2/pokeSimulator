@@ -2,18 +2,18 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pokemon.BasePrm;
 import pokemon.PokeInfo;
+import pokemon.PokeInfoI;
 import pokemonStatus.StatusRank;
 import pokemonStatus.impl.StatusRankI;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static pokemon.PokeInfoI.initialize;
-import static pokemonStatus.impl.StatusRankI.initStatusRank;
+import static pokemonStatus.impl.StatusRankI.init;
 
 public class StatusRankTest {
     @Test
     @DisplayName("引数なしコンストラクタを呼んだときにすべてのステータスランクが0になること")
     public void testStatusRank1() {
-        StatusRank sr = initStatusRank();
+        StatusRank sr = init();
         int a = sr.attack();
         int b = sr.block();
         int c = sr.contact();
@@ -53,7 +53,7 @@ public class StatusRankTest {
     @Test
     @DisplayName("ステータスランクが正しく変化していること")
     public void testStatusRank3() throws InterruptedException {
-        StatusRank sr = initStatusRank();
+        StatusRank sr = init();
         sr = sr.change("ポケモン", 0, -2, -9, 2, 9, -3, 3);
         int a = sr.attack();
         int b = sr.block();
@@ -125,8 +125,8 @@ public class StatusRankTest {
     public void testStatusRank6() throws InterruptedException {
         StatusRank mySr1 = new StatusRankI(0, 0, 0, 0, 0, 0, 0);
         StatusRank mySr2 = new StatusRankI(0, 0, 0, 0, 0, 3, 0);
-        PokeInfo enemyPoke1 = initialize(BasePrm.CHARIZARD);
-        PokeInfo enemyPoke2 = initialize(BasePrm.CHARIZARD);
+        PokeInfo enemyPoke1 = PokeInfoI.init(BasePrm.CHARIZARD);
+        PokeInfo enemyPoke2 = PokeInfoI.init(BasePrm.CHARIZARD);
         enemyPoke2 = enemyPoke2.withChStatusRank(0, 0, 0, 0, 0, 0, 5);
 
         assertEquals(1.0, mySr1.hitRateByStatusRank(enemyPoke1));
