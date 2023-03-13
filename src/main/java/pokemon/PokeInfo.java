@@ -77,19 +77,17 @@ public interface PokeInfo {
     // PPを使う
     PokeInfo decrementPP(Move usedMove);
 
-    PokeInfo withCurrentHP(CurrentHP currentHitPoint);
+    PokeInfo changeStatusRank(int attack, int block, int contact, int defence, int speed, int hitRate, int avoidRate) throws InterruptedException;
 
-    PokeInfo withChStatusRank(int attack, int block, int contact, int defence, int speed, int hitRate, int avoidRate) throws InterruptedException;
+    PokeInfo resetStatusRank();
 
-    PokeInfo withResetStatusRank();
+    PokeInfo updateMove(Move move);
 
-    PokeInfo withMove(Move move);
+    PokeInfo updateAilment(Ailment statusAilment);
 
-    PokeInfo withAilment(Ailment statusAilment);
+    PokeInfo updateFlinch(Flinch flinch);
 
-    PokeInfo withFlinch(Flinch flinch);
+    PokeInfo updateConfusion(Confusion confusion);
 
-    PokeInfo withConfusion(Confusion confusion);
-
-    PokeInfo withItem(Item item);
+    PokeInfo updateItem(Item item);
 }

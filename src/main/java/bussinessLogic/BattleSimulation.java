@@ -69,7 +69,7 @@ public class BattleSimulation {
         } else {
             System.out.println(myField.poke().basePrm().pName() + "は倒れた");
         }
-        return myField.poke().withResetStatusRank();
+        return myField.poke().resetStatusRank();
     }
 
 
@@ -79,9 +79,9 @@ public class BattleSimulation {
         Weather weather = onBF.weather();
         String name = atkField.poke().basePrm().pName();
         // 状態異常の場合、経過ターン+1
-        atkField = atkField.withPokeInfo(atkField.poke().withAilment(atkField.poke().ailment().comeTurn(name)));
+        atkField = atkField.updatePokeInfo(atkField.poke().updateAilment(atkField.poke().ailment().comeTurn(name)));
         // 混乱状態の場合、混乱ターン+1
-        atkField = atkField.withPokeInfo(atkField.poke().withConfusion(atkField.poke().confusion().elapseTurn(name)));
+        atkField = atkField.updatePokeInfo(atkField.poke().updateConfusion(atkField.poke().confusion().elapseTurn(name)));
         // 行動可能な場合、技を使う
         boolean canMoveByConfusion = atkField.poke().confusion().canMove(name);
         boolean canMoveByFlinch = atkField.poke().flinch().canMove(name);
@@ -89,7 +89,7 @@ public class BattleSimulation {
 
         if (!canMoveByConfusion) {
             // 自傷ダメージ
-            atkField = atkField.withPokeInfo(atkField.poke().confusion().damageMe(atkField.poke()));
+            atkField = atkField.updatePokeInfo(atkField.poke().confusion().damageMe(atkField.poke()));
             return new OnBattleField(atkField, dfcField, weather);
         }
         if (canMoveByFlinch && canMoveByAilment) {
@@ -127,14 +127,14 @@ public class BattleSimulation {
         }
 
         // 怯み状態をリセットする
-        myField = myField.withPokeInfo(myField.poke().withFlinch(new FlinchI(false)));
-        enemyField = enemyField.withPokeInfo(enemyField.poke().withFlinch(new FlinchI(false)));
+        myField = myField.updatePokeInfo(myField.poke().updateFlinch(new FlinchI(false)));
+        enemyField = enemyField.updatePokeInfo(enemyField.poke().updateFlinch(new FlinchI(false)));
 
         // リフレクター、ひかりのかべの経過ターンを+1
-        myField = myField.withReflect(myField.reflect().elapsingTurn());
-        myField = myField.withLightScreen(myField.lightScreen().elapsingTurn());
-        enemyField = enemyField.withReflect(enemyField.reflect().elapsingTurn());
-        enemyField = enemyField.withLightScreen(enemyField.lightScreen().elapsingTurn());
+        myField = myField.updateReflect(myField.reflect().elapsingTurn());
+        myField = myField.updateLightScreen(myField.lightScreen().elapsingTurn());
+        enemyField = enemyField.updateReflect(enemyField.reflect().elapsingTurn());
+        enemyField = enemyField.updateLightScreen(enemyField.lightScreen().elapsingTurn());
 
         return new OnBattleField(myField, enemyField, weather);
     }
@@ -142,8 +142,8 @@ public class BattleSimulation {
     private OnBattleField endTurnProcessAilment(Field myField, Field enemyField, Weather weather) throws InterruptedException {
         showPokemonInfo(myField.poke(), enemyField.poke());
 
-        myField = myField.withPokeInfo(myField.poke().ailment().slipDmgByAilment(myField.poke()));
-        enemyField = enemyField.withPokeInfo(enemyField.poke().ailment().slipDmgByAilment(enemyField.poke()));
+        myField = myField.updatePokeInfo(myField.poke().ailment().slipDmgByAilment(myField.poke()));
+        enemyField = enemyField.updatePokeInfo(enemyField.poke().ailment().slipDmgByAilment(enemyField.poke()));
         return new OnBattleField(myField, enemyField, weather);
     }
 
@@ -151,8 +151,8 @@ public class BattleSimulation {
         showPokemonInfo(myField.poke(), enemyField.poke());
         weather = weather.elapsingTurnWeather();
 
-        myField = myField.withPokeInfo(weather.slipDmgByWeather(myField.poke()));
-        enemyField = enemyField.withPokeInfo(weather.slipDmgByWeather(enemyField.poke()));
+        myField = myField.updatePokeInfo(weather.slipDmgByWeather(myField.poke()));
+        enemyField = enemyField.updatePokeInfo(weather.slipDmgByWeather(enemyField.poke()));
         return new OnBattleField(myField, enemyField, weather);
     }
 }

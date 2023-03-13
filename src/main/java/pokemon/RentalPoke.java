@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 import static Enum.Gender.MALE;
+import static Enum.Gender.UNKNOWN;
 import static Enum.Item.*;
 import static Enum.Nature.MODEST;
 import static Enum.Nature.TIMID;
@@ -40,12 +41,12 @@ public enum RentalPoke {
             0, 0, 0, 252, 0, 252
     ),
     STARMIE_1(
-            STARMIE, MALE, TIMID, PEAL_OF_LIFE,
+            STARMIE, UNKNOWN, TIMID, PEAL_OF_LIFE,
             ICE_BEAM, PSYCHIC, THUNDERBOLT, SURF,
             0, 0, 0, 252, 0, 252
     ),
     ZAPDOS_1(
-            ZAPDOS, MALE, TIMID, PEAL_OF_LIFE,
+            ZAPDOS, UNKNOWN, TIMID, PEAL_OF_LIFE,
             DRILL_PECK, AIR_SLASH, THUNDERBOLT, REFLECT,
             0, 0, 0, 252, 0, 252
     );
@@ -71,7 +72,7 @@ public enum RentalPoke {
                 rentalPoke.base,
                 rentalPoke.gender,
                 rentalPoke.nature,
-                new IndividualValueI(10, 10, 10, 10, 10, 10),
+                new IndividualValueI(31, 31, 31, 31, 31, 31),
                 new EffortValueI(rentalPoke.H, rentalPoke.A, rentalPoke.B, rentalPoke.C, rentalPoke.D, rentalPoke.S),
                 new LevelI(50),
                 List.of(init(rentalPoke.m1), init(rentalPoke.m2), init(rentalPoke.m3), init(rentalPoke.m4)),

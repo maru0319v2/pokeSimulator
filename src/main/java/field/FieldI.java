@@ -37,17 +37,17 @@ public class FieldI implements Field {
     }
 
     @Override
-    public Field withPokeInfo(PokeInfo poke) {
+    public Field updatePokeInfo(PokeInfo poke) {
         return new FieldI(poke, this.lightScreen, this.reflect);
     }
 
     @Override
-    public Field withLightScreen(LightScreen lightScreen) {
+    public Field updateLightScreen(LightScreen lightScreen) {
         return new FieldI(this.poke, lightScreen, this.reflect);
     }
 
     @Override
-    public Field withReflect(Reflect reflect) {
+    public Field updateReflect(Reflect reflect) {
         return new FieldI(this.poke, this.lightScreen, reflect);
     }
 }

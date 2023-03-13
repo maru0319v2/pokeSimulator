@@ -9,9 +9,9 @@ public interface Field {
 
     Reflect reflect();
 
-    Field withPokeInfo(PokeInfo poke);
+    Field updatePokeInfo(PokeInfo poke);
 
-    Field withLightScreen(LightScreen lightScreen);
+    Field updateLightScreen(LightScreen lightScreen);
 
-    Field withReflect(Reflect reflect);
+    Field updateReflect(Reflect reflect);
 }

@@ -103,19 +103,21 @@ public class PokeInfoI implements PokeInfo {
 
     @Override
     public PokeInfo recoveryHP(int value) throws InterruptedException {
-        PokeInfo result = this.withCurrentHP(this.currentHP().recovery(this, new CurrentHPI(value)));
+        PokeInfo result = new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.haveMove,
+                this.currentHP().recovery(this, new CurrentHPI(value)), this.statusRank, this.ailment, this.flinch, this.confusion, this.item);
         if (result.ailment().val() == AilmentEnum.FAINTING) {
-            return result.withAilment(AilmentI.changeAilment(result, AilmentEnum.FINE));
+            return result.updateAilment(AilmentI.changeAilment(result, AilmentEnum.FINE));
         }
         return result;
     }
 
     @Override
     public PokeInfo damage(int value) throws InterruptedException {
-        PokeInfo result = this.withCurrentHP(this.currentHP().damage(new CurrentHPI(value)));
+        PokeInfo result = new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.haveMove,
+                this.currentHP().damage(new CurrentHPI(value)), this.statusRank, this.ailment, this.flinch, this.confusion, this.item);
         showMessageParChar(result.basePrm().pName() + "は" + value + "のダメージ!");
         if (result.currentHP().isDead()) {
-            return result.withAilment(AilmentI.changeAilment(result, AilmentEnum.FAINTING));
+            return result.updateAilment(AilmentI.changeAilment(result, AilmentEnum.FAINTING));
         }
         return Item.afterDamaged(result);
     }
@@ -131,7 +133,7 @@ public class PokeInfoI implements PokeInfo {
         }
         CurrentPP recoveredPP = targetMoves.currentPP().recovery(targetMoves, new CurrentPPI(value));
         Move recoveredPPMove = targetMoves.withCurrentPP(targetMoves, recoveredPP);
-        return this.withMove(recoveredPPMove);
+        return this.updateMove(recoveredPPMove);
     }
 
     @Override
@@ -148,7 +150,7 @@ public class PokeInfoI implements PokeInfo {
     public PokeInfo decrementPP(Move usedMove) {
         CurrentPP decrementedPowerPoint = usedMove.currentPP().decrement(new CurrentPPI(1));
         Move decrementedPPMove = usedMove.withCurrentPP(usedMove, decrementedPowerPoint);
-        return this.withMove(decrementedPPMove);
+        return this.updateMove(decrementedPPMove);
     }
 
     public static PokeInfo init(BasePrm basePrm) {
@@ -229,22 +231,17 @@ public class PokeInfoI implements PokeInfo {
     }
 
     @Override
-    public PokeInfo withCurrentHP(CurrentHP currentHP) {
-        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.haveMove, currentHP, this.statusRank, this.ailment, this.flinch, this.confusion, this.item);
-    }
-
-    @Override
-    public PokeInfo withChStatusRank(int attack, int block, int contact, int defence, int speed, int hitRate, int avoidRate) throws InterruptedException {
+    public PokeInfo changeStatusRank(int attack, int block, int contact, int defence, int speed, int hitRate, int avoidRate) throws InterruptedException {
         return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.haveMove, this.currentHP, this.statusRank.change(this.basePrm.pName(), attack, block, contact, defence, speed, hitRate, avoidRate), this.ailment, this.flinch, this.confusion, this.item);
     }
 
     @Override
-    public PokeInfo withResetStatusRank() {
+    public PokeInfo resetStatusRank() {
         return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.haveMove, this.currentHP, this.statusRank.reset(), this.ailment, this.flinch, this.confusion, this.item);
     }
 
     @Override
-    public PokeInfo withMove(Move move) {
+    public PokeInfo updateMove(Move move) {
         List<Move> newMoves = new ArrayList<>(4);
         for (Move haveMove : this.haveMove) {
             if (Objects.equals(move.baseMPrm().mvName(), haveMove.baseMPrm().mvName())) {
@@ -257,22 +254,22 @@ public class PokeInfoI implements PokeInfo {
     }
 
     @Override
-    public PokeInfo withAilment(Ailment statusAilment) {
+    public PokeInfo updateAilment(Ailment statusAilment) {
         return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.haveMove, this.currentHP, this.statusRank, statusAilment, this.flinch, this.confusion, this.item);
     }
 
     @Override
-    public PokeInfo withFlinch(Flinch flinch) {
+    public PokeInfo updateFlinch(Flinch flinch) {
         return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.haveMove, this.currentHP, this.statusRank, this.ailment, flinch, this.confusion, this.item);
     }
 
     @Override
-    public PokeInfo withConfusion(Confusion confusion) {
+    public PokeInfo updateConfusion(Confusion confusion) {
         return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.haveMove, this.currentHP, this.statusRank, this.ailment, this.flinch, confusion, this.item);
     }
 
     @Override
-    public PokeInfo withItem(Item item) {
+    public PokeInfo updateItem(Item item) {
         return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.haveMove, this.currentHP, this.statusRank, this.ailment, this.flinch, confusion, item);
     }
 }

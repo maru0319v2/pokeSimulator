@@ -127,7 +127,7 @@ public class StatusRankTest {
         StatusRank mySr2 = new StatusRankI(0, 0, 0, 0, 0, 3, 0);
         PokeInfo enemyPoke1 = PokeInfoI.init(BasePrm.CHARIZARD);
         PokeInfo enemyPoke2 = PokeInfoI.init(BasePrm.CHARIZARD);
-        enemyPoke2 = enemyPoke2.withChStatusRank(0, 0, 0, 0, 0, 0, 5);
+        enemyPoke2 = enemyPoke2.changeStatusRank(0, 0, 0, 0, 0, 0, 5);
 
         assertEquals(1.0, mySr1.hitRateByStatusRank(enemyPoke1));
         assertEquals(2.0, mySr2.hitRateByStatusRank(enemyPoke1));

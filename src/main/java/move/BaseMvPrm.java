@@ -5,7 +5,6 @@ import Enum.Type;
 import field.*;
 import lombok.AllArgsConstructor;
 import pokemonStatus.impl.ConfusionI;
-import pokemonStatus.impl.CurrentHPI;
 import pokemonStatus.impl.FlinchI;
 import statusAilment.AilmentEnum;
 import statusAilment.AilmentI;
@@ -347,13 +346,13 @@ public enum BaseMvPrm {
     LIGHT_SCREEN("ひかりのかべ", Type.PSYCHIC, MoveSpecies.CHANGE, DetailMvSpecies.WALL, 0, -1, 30, 0, 0,
             false, false, false, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
-            return new OnBattleField(atkField.withLightScreen(LightScreen.enableLightScreen(atkField.lightScreen())), dfcField, weather);
+            return new OnBattleField(atkField.updateLightScreen(LightScreen.enableLightScreen(atkField.lightScreen())), dfcField, weather);
         }
     },
     REFLECT("リフレクター", Type.PSYCHIC, MoveSpecies.CHANGE, DetailMvSpecies.WALL, 0, -1, 20, 0, 0,
             false, false, false, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
-            return new OnBattleField(atkField.withReflect(Reflect.enableReflect(atkField.reflect())), dfcField, weather);
+            return new OnBattleField(atkField.updateReflect(Reflect.enableReflect(atkField.reflect())), dfcField, weather);
         }
     },
     /**
@@ -515,21 +514,21 @@ public enum BaseMvPrm {
     }
 
     private static OnBattleField recoilDmg33Per(Field atkField, Field dfcField, Weather weather, int damaged) throws InterruptedException {
-        return new OnBattleField(atkField.withPokeInfo(atkField.poke().damage(damaged / 3)), dfcField, weather);
+        return new OnBattleField(atkField.updatePokeInfo(atkField.poke().damage(damaged / 3)), dfcField, weather);
     }
 
     private static OnBattleField recoveryDmg50Per(Field atkField, Field dfcField, Weather weather, int damaged) throws InterruptedException {
-        return new OnBattleField(atkField.withPokeInfo(atkField.poke().withCurrentHP(atkField.poke().currentHP().recovery(atkField.poke(), new CurrentHPI(damaged)))), dfcField, weather);
+        return new OnBattleField(atkField.updatePokeInfo(atkField.poke().recoveryHP(damaged / 2)), dfcField, weather);
     }
 
     private static OnBattleField recoveryHP50Per(Field atkField, Field dfcField, Weather weather) throws InterruptedException {
         int recovery = atkField.poke().realHP() / 2;
-        return new OnBattleField(atkField.withPokeInfo(atkField.poke().withCurrentHP(atkField.poke().currentHP().recovery(atkField.poke(), new CurrentHPI(recovery)))), dfcField, weather);
+        return new OnBattleField(atkField.updatePokeInfo(atkField.poke().recoveryHP(recovery)), dfcField, weather);
     }
 
     private static OnBattleField myStatusRankCh(int percent, Field atkField, Field dfcField, Weather weather, int A, int B, int C, int D, int S, int HT, int AV) throws InterruptedException {
         if ((new Random().nextInt(10)) <= percent / 10 - 1) {
-            return new OnBattleField(atkField.withPokeInfo(atkField.poke().withChStatusRank(A, B, C, D, S, HT, AV)), dfcField, weather);
+            return new OnBattleField(atkField.updatePokeInfo(atkField.poke().changeStatusRank(A, B, C, D, S, HT, AV)), dfcField, weather);
         } else {
             return doNothing(atkField, dfcField, weather);
         }
@@ -537,7 +536,7 @@ public enum BaseMvPrm {
 
     private static OnBattleField enemyStatusRankCh(int percent, Field atkField, Field dfcField, Weather weather, int A, int B, int C, int D, int S, int HT, int AV) throws InterruptedException {
         if ((new Random().nextInt(10)) <= percent / 10 - 1) {
-            return new OnBattleField(atkField, dfcField.withPokeInfo(dfcField.poke().withChStatusRank(A, B, C, D, S, HT, AV)), weather);
+            return new OnBattleField(atkField, dfcField.updatePokeInfo(dfcField.poke().changeStatusRank(A, B, C, D, S, HT, AV)), weather);
         } else {
             return doNothing(atkField, dfcField, weather);
         }
@@ -545,7 +544,7 @@ public enum BaseMvPrm {
 
     private static OnBattleField beFlinch(int percent, Field atkField, Field dfcField, Weather weather) {
         if ((new Random().nextInt(10)) <= percent / 10 - 1) {
-            return new OnBattleField(atkField, dfcField.withPokeInfo(dfcField.poke().withFlinch(new FlinchI(true))), weather);
+            return new OnBattleField(atkField, dfcField.updatePokeInfo(dfcField.poke().updateFlinch(new FlinchI(true))), weather);
         } else {
             return doNothing(atkField, dfcField, weather);
         }
@@ -553,7 +552,7 @@ public enum BaseMvPrm {
 
     private static OnBattleField beConfusion(int percent, Field atkField, Field dfcField, Weather weather) throws InterruptedException {
         if ((new Random().nextInt(10)) <= percent / 10 - 1) {
-            return new OnBattleField(atkField, dfcField.withPokeInfo(dfcField.poke().withConfusion(ConfusionI.beConfusion(dfcField.poke()))), weather);
+            return new OnBattleField(atkField, dfcField.updatePokeInfo(dfcField.poke().updateConfusion(ConfusionI.beConfusion(dfcField.poke()))), weather);
         } else {
             return doNothing(atkField, dfcField, weather);
         }
@@ -561,7 +560,7 @@ public enum BaseMvPrm {
 
     private static OnBattleField beBurn(int percent, Field atkField, Field dfcField, Weather weather) throws InterruptedException {
         if ((new Random().nextInt(10)) <= percent / 10 - 1) {
-            return new OnBattleField(atkField, dfcField.withPokeInfo(dfcField.poke().withAilment(AilmentI.changeAilment(dfcField.poke(), AilmentEnum.BURN))), weather);
+            return new OnBattleField(atkField, dfcField.updatePokeInfo(dfcField.poke().updateAilment(AilmentI.changeAilment(dfcField.poke(), AilmentEnum.BURN))), weather);
         } else {
             return doNothing(atkField, dfcField, weather);
         }
@@ -569,7 +568,7 @@ public enum BaseMvPrm {
 
     private static OnBattleField beParalysis(int percent, Field atkField, Field dfcField, Weather weather) throws InterruptedException {
         if ((new Random().nextInt(10)) <= percent / 10 - 1) {
-            return new OnBattleField(atkField, dfcField.withPokeInfo(dfcField.poke().withAilment(AilmentI.changeAilment(dfcField.poke(), AilmentEnum.PARALYSIS))), weather);
+            return new OnBattleField(atkField, dfcField.updatePokeInfo(dfcField.poke().updateAilment(AilmentI.changeAilment(dfcField.poke(), AilmentEnum.PARALYSIS))), weather);
         } else {
             return doNothing(atkField, dfcField, weather);
         }
@@ -577,7 +576,7 @@ public enum BaseMvPrm {
 
     private static OnBattleField beFreeze(int percent, Field atkField, Field dfcField, Weather weather) throws InterruptedException {
         if ((new Random().nextInt(10)) <= percent / 10 - 1) {
-            return new OnBattleField(atkField, dfcField.withPokeInfo(dfcField.poke().withAilment(AilmentI.changeAilment(dfcField.poke(), AilmentEnum.FREEZE))), weather);
+            return new OnBattleField(atkField, dfcField.updatePokeInfo(dfcField.poke().updateAilment(AilmentI.changeAilment(dfcField.poke(), AilmentEnum.FREEZE))), weather);
         } else {
             return doNothing(atkField, dfcField, weather);
         }
@@ -585,7 +584,7 @@ public enum BaseMvPrm {
 
     private static OnBattleField beSleep(int percent, Field atkField, Field dfcField, Weather weather) throws InterruptedException {
         if ((new Random().nextInt(10)) <= percent / 10 - 1) {
-            return new OnBattleField(atkField, dfcField.withPokeInfo(dfcField.poke().withAilment(AilmentI.changeAilment(dfcField.poke(), AilmentEnum.SLEEP))), weather);
+            return new OnBattleField(atkField, dfcField.updatePokeInfo(dfcField.poke().updateAilment(AilmentI.changeAilment(dfcField.poke(), AilmentEnum.SLEEP))), weather);
         } else {
             return doNothing(atkField, dfcField, weather);
         }
@@ -593,7 +592,7 @@ public enum BaseMvPrm {
 
     private static OnBattleField bePoison(int percent, Field atkField, Field dfcField, Weather weather) throws InterruptedException {
         if ((new Random().nextInt(10)) <= percent / 10 - 1) {
-            return new OnBattleField(atkField, dfcField.withPokeInfo(dfcField.poke().withAilment(AilmentI.changeAilment(dfcField.poke(), AilmentEnum.POISON))), weather);
+            return new OnBattleField(atkField, dfcField.updatePokeInfo(dfcField.poke().updateAilment(AilmentI.changeAilment(dfcField.poke(), AilmentEnum.POISON))), weather);
         } else {
             return doNothing(atkField, dfcField, weather);
         }
@@ -601,7 +600,7 @@ public enum BaseMvPrm {
 
     private static OnBattleField beBadPoison(int percent, Field atkField, Field dfcField, Weather weather) throws InterruptedException {
         if ((new Random().nextInt(10)) <= percent / 10 - 1) {
-            return new OnBattleField(atkField, dfcField.withPokeInfo(dfcField.poke().withAilment(AilmentI.changeAilment(dfcField.poke(), AilmentEnum.BAD_POISON))), weather);
+            return new OnBattleField(atkField, dfcField.updatePokeInfo(dfcField.poke().updateAilment(AilmentI.changeAilment(dfcField.poke(), AilmentEnum.BAD_POISON))), weather);
         } else {
             return doNothing(atkField, dfcField, weather);
         }

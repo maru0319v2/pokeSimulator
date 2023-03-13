@@ -6,7 +6,6 @@ import field.Weather;
 import lombok.AllArgsConstructor;
 import move.Move;
 import pokemon.PokeInfo;
-import pokemonStatus.impl.CurrentHPI;
 import pokemonStatus.impl.FlinchI;
 
 import java.util.Random;
@@ -85,7 +84,7 @@ public enum Item {
                 // オボンの実　HPが半分以下になったときに最大HP1/4回復
                 if (hpLessThen50Per(poke)) {
                     showMessageParChar(poke.basePrm().pName() + "はオボンのみでたいりょくをかいふくした!");
-                    return recoveryMeHP1_4(poke).withItem(Item.NONE);
+                    return recoveryMeHP1_4(poke).updateItem(Item.NONE);
                 }
                 return poke;
             }
@@ -101,7 +100,7 @@ public enum Item {
 
     private static OnBattleField beFlinch(int percent, Field atkField, Field dfcField, Weather weather) {
         if ((new Random().nextInt(10)) <= percent / 10 - 1) {
-            return new OnBattleField(atkField, dfcField.withPokeInfo(dfcField.poke().withFlinch(new FlinchI(true))), weather);
+            return new OnBattleField(atkField, dfcField.updatePokeInfo(dfcField.poke().updateFlinch(new FlinchI(true))), weather);
         } else {
             return doNothing(atkField, dfcField, weather);
         }
@@ -109,12 +108,12 @@ public enum Item {
 
     private static OnBattleField recoveryMeHP1_16(Field atkField, Field dfcField, Weather weather) throws InterruptedException {
         int recovery = atkField.poke().realHP() / 16;
-        return new OnBattleField(atkField.withPokeInfo(atkField.poke().withCurrentHP(atkField.poke().currentHP().recovery(atkField.poke(), new CurrentHPI(recovery)))), dfcField, weather);
+        return new OnBattleField(atkField.updatePokeInfo(atkField.poke().recoveryHP(recovery)), dfcField, weather);
     }
 
     private static OnBattleField dmgMeHP1_10(Field atkField, Field dfcField, Weather weather) throws InterruptedException {
         int dmg = atkField.poke().realHP() / 10;
-        return new OnBattleField(atkField.withPokeInfo(atkField.poke().damage(dmg)), dfcField, weather);
+        return new OnBattleField(atkField.updatePokeInfo(atkField.poke().damage(dmg)), dfcField, weather);
     }
 
     private static PokeInfo recoveryMeHP1_4(PokeInfo target) throws InterruptedException {

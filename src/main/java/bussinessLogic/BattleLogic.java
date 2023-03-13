@@ -86,14 +86,14 @@ public class BattleLogic {
     // ターンごとの行動 命中判定、ダメージ計算、ダメージ付与を一括で行う
     public static OnBattleField doAction(Field atkField, Field dfcField, Move move, Weather weather) throws InterruptedException {
         // PPを1減らす
-        atkField = atkField.withPokeInfo(atkField.poke().decrementPP(move));
+        atkField = atkField.updatePokeInfo(atkField.poke().decrementPP(move));
 
         // TODO 型で処理を分けてif文なくせそう
         if (move.baseMPrm().moveSpecies() == MoveSpecies.PHYSICAL || move.baseMPrm().moveSpecies() == MoveSpecies.SPECIAL) {
             if (isHit(atkField.poke(), dfcField.poke(), move, weather)) {
                 int damage = calcDamage(atkField, dfcField, move, weather);
                 // 相手にダメージを与える
-                dfcField = dfcField.withPokeInfo(dfcField.poke().damage(damage));
+                dfcField = dfcField.updatePokeInfo(dfcField.poke().damage(damage));
                 // 技の追加効果を与える
                 OnBattleField onBF = move.baseMPrm().effect(atkField, dfcField, damage, weather);
                 // アイテムによる追加効果

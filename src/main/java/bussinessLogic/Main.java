@@ -50,7 +50,7 @@ public class Main {
                 case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, PokeInfoI.init(BasePrm.BLASTOISE));
                 case "f" -> myPokemon = new BattleSimulation().battleSimulation(
                         RentalPoke.randomRental(),
-                        //RentalPoke.rent(CHARIZARD_1),
+                        //RentalPoke.rent(VENUSAUR_1),
                         RentalPoke.randomRental());
             }
         }
