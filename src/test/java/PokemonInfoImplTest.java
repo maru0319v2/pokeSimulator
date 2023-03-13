@@ -12,7 +12,7 @@ public class PokemonInfoImplTest {
     @DisplayName("HP0でひんし状態になり、回復すると状態なしになること")
     public void testBattleLogic1() throws InterruptedException {
         PokeInfo myPoke = init(BasePrm.CHARIZARD);
-        myPoke = myPoke.damage(200);
+        myPoke = myPoke.damage(999);
         assertEquals(AilmentEnum.FAINTING, myPoke.ailment().val());
 
         myPoke = myPoke.recoveryHP(50);

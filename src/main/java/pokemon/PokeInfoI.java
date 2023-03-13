@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static Enum.Item.LAPEL_OF_SPIRIT;
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 
 public class PokeInfoI implements PokeInfo {
@@ -117,6 +118,9 @@ public class PokeInfoI implements PokeInfo {
                 this.currentHP().damage(new CurrentHPI(value)), this.statusRank, this.ailment, this.flinch, this.confusion, this.item);
         showMessageParChar(result.basePrm().pName() + "は" + value + "のダメージ!");
         if (result.currentHP().isDead()) {
+            if (this.currentHP().val() == this.realHP() && this.item() == LAPEL_OF_SPIRIT) {
+                return Item.deadWithFullHP(this);
+            }
             return result.updateAilment(AilmentI.changeAilment(result, AilmentEnum.FAINTING));
         }
         return Item.afterDamaged(result);

@@ -14,7 +14,7 @@ import java.util.Random;
 
 import static Enum.Gender.MALE;
 import static Enum.Gender.UNKNOWN;
-import static Enum.Item.*;
+import static Enum.Item.KAMURA_FRUIT;
 import static Enum.Nature.MODEST;
 import static Enum.Nature.TIMID;
 import static move.BaseMvPrm.*;
@@ -26,27 +26,27 @@ import static pokemon.BasePrm.*;
 public enum RentalPoke {
     // レンタルポケモンのパラメータを表現する
     VENUSAUR_1(
-            VENUSAUR, MALE, MODEST, LOSTOVER_FOOD,
+            VENUSAUR, MALE, MODEST, KAMURA_FRUIT,
             GIGA_DRAIN, LIGHT_SCREEN, SLUDGE_BOMB, SLEEP_POWDER,
             252, 0, 0, 252, 0, 0
     ),
     CHARIZARD_1(
-            CHARIZARD, MALE, MODEST, PEAL_OF_LIFE,
+            CHARIZARD, MALE, MODEST, KAMURA_FRUIT,
             FIRE_BLAST, SUNNY_DAY, AIR_SLASH, DRAGON_DANCE,
             0, 0, 0, 252, 0, 252
     ),
     BLASTOISE_1(
-            BLASTOISE, MALE, MODEST, OBON_FRUIT,
+            BLASTOISE, MALE, MODEST, KAMURA_FRUIT,
             WATER_SPOUT, RAIN_DANCE, ICE_BEAM, AQUA_JET,
             0, 0, 0, 252, 0, 252
     ),
     STARMIE_1(
-            STARMIE, UNKNOWN, TIMID, PEAL_OF_LIFE,
+            STARMIE, UNKNOWN, TIMID, KAMURA_FRUIT,
             ICE_BEAM, PSYCHIC, THUNDERBOLT, SURF,
             0, 0, 0, 252, 0, 252
     ),
     ZAPDOS_1(
-            ZAPDOS, UNKNOWN, TIMID, PEAL_OF_LIFE,
+            ZAPDOS, UNKNOWN, TIMID, KAMURA_FRUIT,
             DRILL_PECK, AIR_SLASH, THUNDERBOLT, REFLECT,
             0, 0, 0, 252, 0, 252
     );

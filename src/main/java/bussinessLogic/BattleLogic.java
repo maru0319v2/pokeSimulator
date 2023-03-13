@@ -130,7 +130,7 @@ public class BattleLogic {
         // ダメージの乱数
         double randomNum = (new Random().nextInt((100 - 85) + 1) + 85) / 100.0;
         // 急所の判定
-        boolean isCritical = isCritical(move);
+        boolean isCritical = isCritical(atkField.poke(), move);
         double criticalRate = isCritical ? 1.5 : 1;
         // 急所の場合は攻撃側のランク下降、防御側のランク上昇補正を無視する
         double attackRateByStatusRank = isCritical ? Math.max(atkPk.statusRank().atkRateByStatusRank(), 1.0) : atkPk.statusRank().atkRateByStatusRank();
@@ -191,16 +191,25 @@ public class BattleLogic {
         }
         // 攻撃側の命中ランクと防御側の回避ランクから算出した命中補正
         double statusRank = atkPk.statusRank().hitRateByStatusRank(dfcPk);
+        // 道具による命中率補正
+        double itemRate = 1.0;
+        itemRate = atkPk.item() == Item.WIDE_LENS ? itemRate * 1.1 : itemRate;
+        itemRate = dfcPk.item() == Item.LIGHT_POWDER ? itemRate * 0.9 : itemRate;
         // ランダムな数値(1~100)
         int randomNum = (new Random().nextInt(100) + 1);
         // 技の命中率
         int hitRate = move.baseMPrm().hitRate(weather);
 
-        return randomNum <= hitRate * statusRank;
+        return randomNum <= hitRate * statusRank * itemRate;
     }
 
-    private static boolean isCritical(Move move) {
-        int criticalRank = move.baseMPrm().criticalRank();
+    private static boolean isCritical(PokeInfo poke, Move move) {
+        Item item = poke.item();
+        int itemRate = 0;
+        if (item == Item.PINTO_LENS) {
+            itemRate = 1;
+        }
+        int criticalRank = move.baseMPrm().criticalRank() + itemRate;
         boolean result;
         switch (criticalRank) {
             case 0 -> result = (new Random().nextInt(24)) == 0;

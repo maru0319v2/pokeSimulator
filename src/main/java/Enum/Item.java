@@ -19,12 +19,14 @@ import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 public enum Item {
     PEAL_OF_LIFE("いのちのたま"),
     MARK_OF_KINGS("おうじゃのしるし"),
-    SEASHELL_BELL("かいがらのすず"),
-    FLAME_BALL("かえんだま"),
     LAPEL_OF_SPIRIT("きあいのタスキ"),
     OBON_FRUIT("オボンの実"),
+    KAMURA_FRUIT("カムラの実"),
     RAMU_FRUIT("ラムの実"),
     LOSTOVER_FOOD("たべのこし"),
+    PINTO_LENS("ピントレンズ"),
+    WIDE_LENS("こうかくレンズ"),
+    LIGHT_POWDER("ひかりのこな"),
     NONE("-");
 
     private final String val;
@@ -90,6 +92,14 @@ public enum Item {
                 }
                 return poke;
             }
+            case KAMURA_FRUIT -> {
+                // カムラの実　HPが1/4以下になったときにすばやさが1段階上がる
+                if (hpLessThen25Per(poke)) {
+                    showMessageParChar(poke.basePrm().pName() + "はカムラのみをつかった!");
+                    return poke.changeStatusRank(0, 0, 0, 0, 1, 0, 0).updateItem(Item.NONE);
+                }
+                return poke;
+            }
             default -> {
                 return poke;
             }
@@ -107,6 +117,22 @@ public enum Item {
                     return recoveryMeAllAilment(poke).updateItem(Item.NONE);
                 }
                 return poke;
+            }
+            default -> {
+                return poke;
+            }
+        }
+    }
+
+    // HPが満タンのときにひんしになるダメージをうけた場合の処理
+    public static PokeInfo deadWithFullHP(PokeInfo poke) throws InterruptedException {
+        Item hasItem = poke.item();
+        switch (hasItem) {
+            case LAPEL_OF_SPIRIT -> {
+                // 気合いの襷　HPを1残す
+                showMessageParChar(poke.basePrm().pName() + "はきあいのタスキをこうげきをたえた!");
+                int dmg = poke.realHP() - 1;
+                return poke.damage(dmg).updateItem(Item.NONE);
             }
             default -> {
                 return poke;
@@ -159,5 +185,9 @@ public enum Item {
 
     private static boolean hpLessThen50Per(PokeInfo target) {
         return (double) (target.currentHP().val()) / (double) (target.realHP()) < 0.5;
+    }
+
+    private static boolean hpLessThen25Per(PokeInfo target) {
+        return (double) (target.currentHP().val()) / (double) (target.realHP()) < 0.25;
     }
 }
