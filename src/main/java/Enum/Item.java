@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import move.Move;
 import pokemon.PokeInfo;
 import pokemonStatus.impl.FlinchI;
+import statusAilment.AilmentEnum;
+import statusAilment.AilmentI;
 
 import java.util.Random;
 
@@ -94,6 +96,24 @@ public enum Item {
         }
     }
 
+    // 状態異常が変化した後の処理
+    public static PokeInfo afterUpdateAilment(PokeInfo poke) throws InterruptedException {
+        Item hasItem = poke.item();
+        switch (hasItem) {
+            case RAMU_FRUIT -> {
+                // ラムの実　ひんし以外のすべての状態異常を回復
+                if (poke.ailment().isSick()) {
+                    showMessageParChar(poke.basePrm().pName() + "はラムのみでじょうたいいじょうをかいふくした!");
+                    return recoveryMeAllAilment(poke).updateItem(Item.NONE);
+                }
+                return poke;
+            }
+            default -> {
+                return poke;
+            }
+        }
+    }
+
     private static OnBattleField doNothing(Field atkField, Field dfcField, Weather weather) {
         return new OnBattleField(atkField, dfcField, weather);
     }
@@ -119,6 +139,10 @@ public enum Item {
     private static PokeInfo recoveryMeHP1_4(PokeInfo target) throws InterruptedException {
         int recovery = target.realHP() / 4;
         return target.recoveryHP(recovery);
+    }
+
+    private static PokeInfo recoveryMeAllAilment(PokeInfo target) throws InterruptedException {
+        return target.updateAilment(AilmentI.changeAilment(target, AilmentEnum.FINE));
     }
 
     private static boolean random10Per() {

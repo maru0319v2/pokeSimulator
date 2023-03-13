@@ -81,7 +81,7 @@ public interface PokeInfo {
 
     PokeInfo resetStatusRank();
 
-    PokeInfo updateAilment(Ailment statusAilment);
+    PokeInfo updateAilment(Ailment statusAilment) throws InterruptedException;
 
     PokeInfo updateFlinch(Flinch flinch);
 

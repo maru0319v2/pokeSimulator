@@ -246,8 +246,9 @@ public class PokeInfoI implements PokeInfo {
     }
 
     @Override
-    public PokeInfo updateAilment(Ailment statusAilment) {
-        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.haveMove, this.currentHP, this.statusRank, statusAilment, this.flinch, this.confusion, this.item);
+    public PokeInfo updateAilment(Ailment statusAilment) throws InterruptedException {
+        PokeInfo poke = new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.haveMove, this.currentHP, this.statusRank, statusAilment, this.flinch, this.confusion, this.item);
+        return Item.afterUpdateAilment(poke);
     }
 
     @Override

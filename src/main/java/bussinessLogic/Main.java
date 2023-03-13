@@ -9,6 +9,8 @@ import pokemon.RentalPoke;
 import java.util.Random;
 import java.util.Scanner;
 
+import static pokemon.RentalPoke.VENUSAUR_1;
+
 
 // TODO やることリスト
 // 初期経験値固定値問題
@@ -49,8 +51,8 @@ public class Main {
                 case "r" -> myPokemon = myPokemon.recoveryAll();
                 case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, PokeInfoI.init(BasePrm.BLASTOISE));
                 case "f" -> myPokemon = new BattleSimulation().battleSimulation(
-                        RentalPoke.randomRental(),
-                        //RentalPoke.rent(VENUSAUR_1),
+                        //RentalPoke.randomRental(),
+                        RentalPoke.rent(VENUSAUR_1),
                         RentalPoke.randomRental());
             }
         }

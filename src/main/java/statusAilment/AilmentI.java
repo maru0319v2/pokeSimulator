@@ -166,7 +166,7 @@ public class AilmentI implements Ailment {
     }
 
     public boolean isSick() {
-        return this.val != AilmentEnum.FINE;
+        return this.val != AilmentEnum.FINE && this.val != AilmentEnum.FAINTING;
     }
 
     public double dmgRateByBurn() {
