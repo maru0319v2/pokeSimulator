@@ -33,7 +33,7 @@ public class MoveI implements Move {
     }
 
     @Override
-    public Move withCurrentPP(Move move, CurrentPP decrementedPowerPoint) {
+    public Move updateCurrentPP(Move move, CurrentPP decrementedPowerPoint) {
         return new MoveI(move, decrementedPowerPoint);
     }
 

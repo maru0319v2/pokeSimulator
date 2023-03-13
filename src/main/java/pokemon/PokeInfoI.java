@@ -124,16 +124,28 @@ public class PokeInfoI implements PokeInfo {
 
     @Override
     public PokeInfo recoveryPP(Move move, int value) {
-        Move targetMoves = null;
-        List<Move> haveMoves = this.haveMove();
-        for (Move haveMove : haveMoves) {
-            if (move.getClass() == haveMove.getClass()) {
-                targetMoves = haveMove;
+        CurrentPP recoveredPowerPoint = move.currentPP().recovery(move, new CurrentPPI(value));
+        Move recoveredPPMove = move.updateCurrentPP(move, recoveredPowerPoint);
+        return this.updateMove(recoveredPPMove);
+    }
+
+    @Override
+    public PokeInfo decrementPP(Move usedMove) {
+        CurrentPP decrementedPowerPoint = usedMove.currentPP().decrement(new CurrentPPI(1));
+        Move decrementedPPMove = usedMove.updateCurrentPP(usedMove, decrementedPowerPoint);
+        return this.updateMove(decrementedPPMove);
+    }
+
+    private PokeInfo updateMove(Move move) {
+        List<Move> newMoves = new ArrayList<>(4);
+        for (Move haveMove : this.haveMove) {
+            if (Objects.equals(move.baseMPrm(), haveMove.baseMPrm())) {
+                newMoves.add(move);
+            } else {
+                newMoves.add(haveMove);
             }
         }
-        CurrentPP recoveredPP = targetMoves.currentPP().recovery(targetMoves, new CurrentPPI(value));
-        Move recoveredPPMove = targetMoves.withCurrentPP(targetMoves, recoveredPP);
-        return this.updateMove(recoveredPPMove);
+        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, newMoves, this.currentHP, this.statusRank, this.ailment, this.flinch, this.confusion, this.item);
     }
 
     @Override
@@ -144,13 +156,6 @@ public class PokeInfoI implements PokeInfo {
             result = result.recoveryPP(move, 99);
         }
         return result;
-    }
-
-    @Override
-    public PokeInfo decrementPP(Move usedMove) {
-        CurrentPP decrementedPowerPoint = usedMove.currentPP().decrement(new CurrentPPI(1));
-        Move decrementedPPMove = usedMove.withCurrentPP(usedMove, decrementedPowerPoint);
-        return this.updateMove(decrementedPPMove);
     }
 
     public static PokeInfo init(BasePrm basePrm) {
@@ -238,19 +243,6 @@ public class PokeInfoI implements PokeInfo {
     @Override
     public PokeInfo resetStatusRank() {
         return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, this.haveMove, this.currentHP, this.statusRank.reset(), this.ailment, this.flinch, this.confusion, this.item);
-    }
-
-    @Override
-    public PokeInfo updateMove(Move move) {
-        List<Move> newMoves = new ArrayList<>(4);
-        for (Move haveMove : this.haveMove) {
-            if (Objects.equals(move.baseMPrm().mvName(), haveMove.baseMPrm().mvName())) {
-                newMoves.add(move);
-            } else {
-                newMoves.add(haveMove);
-            }
-        }
-        return new PokeInfoI(this.basePrm, this.gender, this.nature, this.individualValue, this.effortValue, this.level, newMoves, this.currentHP, this.statusRank, this.ailment, this.flinch, this.confusion, this.item);
     }
 
     @Override

@@ -81,8 +81,6 @@ public interface PokeInfo {
 
     PokeInfo resetStatusRank();
 
-    PokeInfo updateMove(Move move);
-
     PokeInfo updateAilment(Ailment statusAilment);
 
     PokeInfo updateFlinch(Flinch flinch);

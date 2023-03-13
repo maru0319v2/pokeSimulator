@@ -10,7 +10,7 @@ public interface Move {
     // 現在のPP
     CurrentPP currentPP();
 
-    Move withCurrentPP(Move move, CurrentPP decrementedPowerPoint);
+    Move updateCurrentPP(Move move, CurrentPP decrementedPowerPoint);
 
     boolean canUse();
 }
