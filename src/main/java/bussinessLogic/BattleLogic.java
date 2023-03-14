@@ -6,6 +6,7 @@ import Enum.Type;
 import field.Field;
 import field.OnBattleField;
 import field.Weather;
+import move.BaseMvPrm;
 import move.Move;
 import pokemon.PokeInfo;
 
@@ -104,6 +105,13 @@ public class BattleLogic {
                 return new OnBattleField(atkField, dfcField, weather);
             }
         } else {
+            if (BaseMvPrm.powderMove.contains(move.baseMPrm())) {
+                if (dfcField.poke().basePrm().type1() == Type.GRASS || dfcField.poke().basePrm().type2() == Type.GRASS) {
+                    showMessageParChar(atkField.poke().basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
+                    showMessageParChar("しかし" + atkField.poke().basePrm().pName() + "にはきかなかった!");
+                    return new OnBattleField(atkField, dfcField, weather);
+                }
+            }
             if (isHit(atkField.poke(), dfcField.poke(), move, weather)) {
                 showMessageParChar(atkField.poke().basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
                 return move.baseMPrm().effect(atkField, dfcField, 0, weather);

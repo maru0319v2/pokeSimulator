@@ -9,7 +9,10 @@ import pokemonStatus.impl.FlinchI;
 import statusAilment.AilmentEnum;
 import statusAilment.AilmentI;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 @AllArgsConstructor
 public enum BaseMvPrm {
@@ -382,6 +385,9 @@ public enum BaseMvPrm {
             return new OnBattleField(atkField, dfcField, Weather.changeWeather(weather, WeatherEnum.HAIL));
         }
     };
+
+    // 粉技、草タイプには無効
+    public static final Set<BaseMvPrm> powderMove = new HashSet<>(Arrays.asList(BaseMvPrm.SLEEP_POWDER, BaseMvPrm.SPORE));
 
     // わざめい
     private final String mvName;
