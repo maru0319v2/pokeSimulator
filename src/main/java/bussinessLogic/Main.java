@@ -6,6 +6,7 @@ import pokemon.PokeInfo;
 import pokemon.PokeInfoI;
 import pokemon.RentalPoke;
 
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -27,26 +28,29 @@ import java.util.Scanner;
 // テストを充実させる
 public class Main {
     public static void main(String[] args) throws InterruptedException {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         Scanner scanner = new Scanner(System.in);
         PokeInfo myPokemon = PokeInfoI.init(BasePrm.CHARIZARD);
+
+        List<PokeInfo> randomRentalPoke = RentalPoke.randomRental(3);
+        for (PokeInfo p : randomRentalPoke) {
+            ConsoleOutManager.showAllParameters(p);
+        }
 
         String inputCommand = "";
         while (!inputCommand.equals("q")) {
             System.out.println("-------------------------------------------------");
             System.out.print("i:ステータス表示");
             System.out.print("　　m:技表示  ");
-            System.out.print("r:体力回復");
-            System.out.print("          b:野生ポケモンと戦闘");
-            System.out.print(" 　f:バトルファクトリー");
-            System.out.println(" 　q:終了");
+            System.out.println(" 　f:バトルファクトリー");
+            System.out.println("q:終了");
             System.out.print("コマンドを入力してください > ");
             inputCommand = scanner.nextLine();
 
             switch (inputCommand) {
                 case "i" -> ConsoleOutManager.showAllParameters(myPokemon);
                 case "m" -> ConsoleOutManager.showMoveDetail(myPokemon.haveMove());
-                case "r" -> myPokemon = myPokemon.recoveryAll();
-                case "b" -> myPokemon = new BattleSimulation().battleSimulation(myPokemon, PokeInfoI.init(BasePrm.BLASTOISE));
                 case "f" -> myPokemon = new BattleSimulation().battleSimulation(
                         RentalPoke.randomRental(),
                         // RentalPoke.rent(VENUSAUR_1),

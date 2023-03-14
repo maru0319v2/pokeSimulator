@@ -91,6 +91,12 @@ public enum BaseMvPrm {
             return myStatusRankCh(50, atkField, dfcField, weather, 1, 0, 0, 0, 0, 0, 0);
         }
     },
+    DRAIN_PUNCH("ドレインパンチ", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 75, 100, 10, 0, 0,
+            true, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return recoveryDmg50Per(atkField, dfcField, weather, recoveryHP);
+        }
+    },
     CRESS_CHOP("クロスチョップ", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 100, 80, 5, 1, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
@@ -229,6 +235,12 @@ public enum BaseMvPrm {
             return doNothing(atkField, dfcField, weather);
         }
     },
+    BULLET_PUNCH("バレットパンチ", Type.STEEL, MoveSpecies.PHYSICAL, DetailMvSpecies.PRIORITY, 40, 100, 30, 0, 1,
+            true, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return doNothing(atkField, dfcField, weather);
+        }
+    },
     IRON_TAIL("アイアンテール", Type.STEEL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 100, 75, 15, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
@@ -353,6 +365,12 @@ public enum BaseMvPrm {
             false, true, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return beSleep(100, atkField, dfcField, weather);
+        }
+    },
+    TOXIC("どくどく", Type.POISON, MoveSpecies.CHANGE, DetailMvSpecies.AILMENT, 0, 90, 10, 0, 0,
+            false, true, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return BaseMvPrm.beBadPoison(100, atkField, dfcField, weather);
         }
     },
     /**

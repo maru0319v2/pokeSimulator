@@ -9,8 +9,7 @@ import pokemonStatus.impl.EffortValueI;
 import pokemonStatus.impl.IndividualValueI;
 import pokemonStatus.impl.LevelI;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static Enum.Gender.*;
 import static Enum.Item.*;
@@ -92,5 +91,17 @@ public enum RentalPoke {
     public static PokeInfoI randomRental() {
         int pick = new Random().nextInt(RentalPoke.values().length);
         return rent(RentalPoke.values()[pick]);
+    }
+
+    // ランダムにレンタルポケモンの中から6体選択する(重複なし)
+    public static List<PokeInfo> randomRental(int num) {
+        List<RentalPoke> valuesList = new ArrayList<>(EnumSet.allOf(RentalPoke.class));
+        Collections.shuffle(valuesList, new Random());
+        List<RentalPoke> rentalPokeList = valuesList.subList(0, num);
+        List<PokeInfo> resultList = new ArrayList<>(num);
+        for (RentalPoke p : rentalPokeList) {
+            resultList.add(rent(p));
+        }
+        return resultList;
     }
 }

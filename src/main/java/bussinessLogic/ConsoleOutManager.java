@@ -11,28 +11,23 @@ public class ConsoleOutManager {
     // コンソール出力を管理するクラス
 
     public static void showAllParameters(PokeInfo target) {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-        System.out.println("名前:" + target.basePrm().pName() + " ");
-        System.out.println("タイプ1: " + target.basePrm().type1().val() + " タイプ2: " + target.basePrm().type2().val());
-        System.out.println("状態: " + target.ailment().val());
-        System.out.print("レベル: " + target.level().val());
-
-        System.out.println("性別: " + target.gender().val());
-        System.out.println("性格: " + target.nature().val());
-        System.out.print("覚えている技: ");
+        System.out.println("");
+        System.out.print(target.basePrm().pName());
+        System.out.print(" " + target.gender().val());
+        System.out.print(" Lv:" + target.level().val());
+        System.out.print(" " + target.nature().val());
+        System.out.println(" " + target.item().val());
         for (Move move : target.haveMove()) {
             System.out.print(move.baseMPrm().mvName() + "  ");
         }
         System.out.println("");
-        System.out.print("HP: " + target.currentHP().val() + "/" + target.realHP() + " ");
-        showProgressBar(target);
+        System.out.print(" H　   P " + target.realHP());
         System.out.println("");
-        System.out.println("攻撃 " + target.realAtk());
-        System.out.println("防御 " + target.realBlk());
-        System.out.println("特攻 " + target.realCnt());
-        System.out.println("特防 " + target.realDfc());
-        System.out.println("素早 " + target.realSpd());
+        System.out.println("こうげき " + target.realAtk());
+        System.out.println("ぼうぎょ " + target.realBlk());
+        System.out.println("とくこう " + target.realCnt());
+        System.out.println("とくぼう " + target.realDfc());
+        System.out.println("すばやさ " + target.realSpd());
     }
 
     public static void showMoveDetail(List<Move> moves) {
@@ -296,9 +291,9 @@ public class ConsoleOutManager {
     public static void showMessageParChar(String message) throws InterruptedException {
         for (int i = 0; i < message.length(); i++) {
             System.out.print(message.charAt(i));
-            //  Thread.sleep(20);
+            Thread.sleep(20);
         }
         System.out.println("");
-        // Thread.sleep(150);
+        Thread.sleep(150);
     }
 }
