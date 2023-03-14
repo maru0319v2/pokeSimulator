@@ -17,10 +17,7 @@ public class CurrentHPI implements CurrentHP {
 
     @Override
     public CurrentHPI recovery(PokeInfo target, CurrentHP recoveryVal) throws InterruptedException {
-        if (recoveryVal.val() <= MIN) {
-            throw new IllegalArgumentException("回復量は1以上を指定してください。");
-        }
-        final int added = this.val + recoveryVal.val();
+        final int added = this.val + Math.max(recoveryVal.val(), MIN);
         int result = Math.min(added, target.realHP());
         int diff = result - this.val;
         if (this.val == result) {
@@ -33,10 +30,7 @@ public class CurrentHPI implements CurrentHP {
 
     @Override
     public CurrentHPI damage(CurrentHP currentHP) {
-        if (currentHP.val() <= MIN) {
-            throw new IllegalArgumentException("ダメージは1以上を指定してください。");
-        }
-        final int damaged = this.val - currentHP.val();
+        final int damaged = this.val - Math.max(currentHP.val(), MIN);
         if (damaged <= MIN) {
             return new CurrentHPI(0);
         }

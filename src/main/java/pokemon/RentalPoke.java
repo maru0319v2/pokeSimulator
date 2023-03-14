@@ -12,11 +12,9 @@ import pokemonStatus.impl.LevelI;
 import java.util.List;
 import java.util.Random;
 
-import static Enum.Gender.MALE;
-import static Enum.Gender.UNKNOWN;
-import static Enum.Item.KAMURA_FRUIT;
-import static Enum.Nature.MODEST;
-import static Enum.Nature.TIMID;
+import static Enum.Gender.*;
+import static Enum.Item.*;
+import static Enum.Nature.*;
 import static move.BaseMvPrm.*;
 import static move.MoveI.init;
 import static pokemon.BasePrm.*;
@@ -45,9 +43,19 @@ public enum RentalPoke {
             ICE_BEAM, PSYCHIC, THUNDERBOLT, SURF,
             0, 0, 0, 252, 0, 252
     ),
+    GENGAR_1(
+            GENGAR, FEMALE, TIMID, LAPEL_OF_SPIRIT,
+            SHADOW_BALL, CONFUSE_RAY, THUNDERBOLT, HYPNOSIS,
+            0, 0, 0, 252, 0, 252
+    ),
     ZAPDOS_1(
             ZAPDOS, UNKNOWN, TIMID, KAMURA_FRUIT,
             DRILL_PECK, AIR_SLASH, THUNDERBOLT, REFLECT,
+            0, 0, 0, 252, 0, 252
+    ),
+    DRAGONITE_1(
+            DRAGONITE, MALE, ADAMANT, LOSTOVER_FOOD,
+            DRAGON_CLAW, DRAGON_DANCE, EARTHQUAKE, EXTREME_SPEED,
             0, 0, 0, 252, 0, 252
     );
 
