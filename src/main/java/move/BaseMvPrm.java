@@ -328,6 +328,12 @@ public enum BaseMvPrm {
             return enemyStatusRankCh(100, atkField, dfcField, weather, -2, 0, 0, 0, 0, 0, 0);
         }
     },
+    NASTY_PLOT("わるだくみ", Type.DARK, MoveSpecies.CHANGE, DetailMvSpecies.UP_C, 0, 100, 20, 0, 0,
+            false, true, true, false, true, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return myStatusRankCh(100, atkField, dfcField, weather, 0, 0, 2, 0, 0, 0, 0);
+        }
+    },
     DRAGON_DANCE("りゅうのまい", Type.DRAGON, MoveSpecies.CHANGE, DetailMvSpecies.UP_A, 0, 100, 20, 0, 0,
             false, true, true, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
