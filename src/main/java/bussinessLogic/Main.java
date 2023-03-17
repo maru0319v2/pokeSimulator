@@ -51,10 +51,7 @@ public class Main {
             switch (inputCommand) {
                 case "i" -> ConsoleOutManager.showAllParameters(myPokemon);
                 case "m" -> ConsoleOutManager.showMoveDetail(myPokemon.haveMove());
-                case "f" -> myPokemon = new BattleSimulation().battleSimulation(
-                        RentalPoke.randomRental(),
-                        // RentalPoke.rent(VENUSAUR_1),
-                        RentalPoke.randomRental());
+                case "f" -> new BattleSimulation().initBattle(randomRentalPoke);
             }
         }
         scanner.close();

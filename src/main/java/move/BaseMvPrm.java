@@ -379,6 +379,13 @@ public enum BaseMvPrm {
             return BaseMvPrm.beBadPoison(100, atkField, dfcField, weather);
         }
     },
+    THUNDER_WAVE("でんじは", Type.ELECTRIC, MoveSpecies.CHANGE, DetailMvSpecies.AILMENT, 0, 90, 20, 0, 0,
+            false, true, true, false, false, false) {
+        // TODO 多分地面タイプにも効く
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return BaseMvPrm.beParalysis(100, atkField, dfcField, weather);
+        }
+    },
     /**
      * ここからその他変化技
      */
