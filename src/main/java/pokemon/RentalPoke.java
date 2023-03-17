@@ -104,4 +104,18 @@ public enum RentalPoke {
         }
         return resultList;
     }
+
+    // CPUのポケモンをランダムで決定する。(自分が選んだポケモンは選ばれない)
+    public static List<PokeInfo> randomCPURental(List<PokeInfo> mySelectedPoke) {
+        List<BasePrm> mySelectedBase = mySelectedPoke.stream().map(e -> e.basePrm()).toList();
+        List<RentalPoke> valuesList = Arrays.stream(RentalPoke.values()).filter(e -> !mySelectedBase.contains(e.base)).toList();
+        valuesList = new ArrayList<RentalPoke>(valuesList);
+        Collections.shuffle(valuesList);
+        List<RentalPoke> rentalPokeList = valuesList.subList(0, 3);
+        List<PokeInfo> resultList = new ArrayList<>(3);
+        for (RentalPoke p : rentalPokeList) {
+            resultList.add(rent(p));
+        }
+        return resultList;
+    }
 }
