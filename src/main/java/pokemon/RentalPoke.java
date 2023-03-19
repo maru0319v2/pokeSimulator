@@ -37,6 +37,21 @@ public enum RentalPoke {
             WATER_SPOUT, RAIN_DANCE, ICE_BEAM, AQUA_JET,
             0, 0, 0, 252, 0, 252
     ),
+    BUTTERFREE_1(
+            BUTTERFREE, FEMALE, TIMID, LAPEL_OF_SPIRIT,
+            BUG_BUZZ, QUIVER_DANCE, SLEEP_POWDER, PSYCHIC,
+            0, 0, 0, 252, 0, 252
+    ),
+    ARCANINE_1(
+            ARCANINE, MALE, NAIVE, RAMU_FRUIT,
+            OVERHEAT, CLOSE_COMBAT, EXTREME_SPEED, CRUNCH,
+            0, 252, 0, 6, 0, 252
+    ),
+    AKAKAZAM_1(
+            AKAKAZAM, MALE, TIMID, LAPEL_OF_SPIRIT,
+            PSYCHIC, SHADOW_BALL, ENERGY_BALL, HYPNOSIS,
+            6, 0, 0, 252, 0, 252
+    ),
     STARMIE_1(
             STARMIE, UNKNOWN, TIMID, KAMURA_FRUIT,
             ICE_BEAM, PSYCHIC, THUNDERBOLT, SURF,
@@ -46,6 +61,11 @@ public enum RentalPoke {
             GENGAR, FEMALE, TIMID, LAPEL_OF_SPIRIT,
             SHADOW_BALL, CONFUSE_RAY, THUNDERBOLT, HYPNOSIS,
             0, 0, 0, 252, 0, 252
+    ),
+    GYARADOS_1(
+            GYARADOS, FEMALE, ADAMANT, LOSTOVER_FOOD,
+            WATERFALL, EARTHQUAKE, DRAGON_DANCE, STONE_EDGE,
+            252, 152, 0, 0, 0, 100
     ),
     ZAPDOS_1(
             ZAPDOS, UNKNOWN, TIMID, KAMURA_FRUIT,
