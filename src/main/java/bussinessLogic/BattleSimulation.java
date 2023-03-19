@@ -82,11 +82,6 @@ public class BattleSimulation {
     }
 
     public OnBattleField battleSimulation(Field myField, Field enemyField, Weather weather) throws InterruptedException {
-//        System.out.print("\033[H\033[2J");
-//        System.out.flush();
-//        showMessageParChar("野生の" + enemyField.poke().basePrm().pName() + "が飛び出してきた!");
-//        showMessageParChar("ゆけっ!" + myField.poke().basePrm().pName() + "!");
-//        Thread.sleep(500);
 
         OnBattleField onBF = new OnBattleField(myField, enemyField, weather);
 

@@ -42,6 +42,11 @@ public enum RentalPoke {
             BUG_BUZZ, QUIVER_DANCE, SLEEP_POWDER, PSYCHIC,
             0, 0, 0, 252, 0, 252
     ),
+    PERSIAN_1(
+            PERSIAN, FEMALE, JOLLY, PINTO_LENS,
+            SLASH, HYPNOSIS, DOUBLE_TEAM, IRON_TAIL,
+            6, 252, 0, 0, 0, 252
+    ),
     ARCANINE_1(
             ARCANINE, MALE, NAIVE, RAMU_FRUIT,
             OVERHEAT, CLOSE_COMBAT, EXTREME_SPEED, SWORDS_DANCE,
@@ -69,7 +74,7 @@ public enum RentalPoke {
     ),
     ZAPDOS_1(
             ZAPDOS, UNKNOWN, TIMID, KAMURA_FRUIT,
-            DRILL_PECK, AIR_SLASH, THUNDERBOLT, REFLECT,
+            DRILL_PECK, AIR_SLASH, THUNDER, REFLECT,
             0, 0, 0, 252, 0, 252
     ),
     DRAGONITE_1(

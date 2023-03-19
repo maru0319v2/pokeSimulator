@@ -43,6 +43,12 @@ public enum BaseMvPrm {
             return doNothing(atkField, dfcField, weather);
         }
     },
+    SLASH("きりさく", Type.NORMAL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 70, 100, 20, 1, 0,
+            true, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
+            return doNothing(atkField, dfcField, weather);
+        }
+    },
     DOUBLE_EDGE("すてみタックル", Type.NORMAL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 120, 100, 15, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int damaged, Weather weather) throws InterruptedException {
