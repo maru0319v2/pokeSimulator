@@ -35,7 +35,7 @@ public class Weather {
     }
 
     // 初期化したい場合
-    public static Weather initWeather() {
+    public static Weather init() {
         return new Weather();
     }
 
@@ -67,7 +67,7 @@ public class Weather {
     public Weather elapsingTurnWeather() throws InterruptedException {
         if (this.countRecovery <= this.elapsedTurn + 1) {
             showUndoWeather(this.val);
-            return initWeather();
+            return init();
         }
         showKeepWeather(this.val);
         return new Weather(this.val, this.elapsedTurn + 1, this.countRecovery);

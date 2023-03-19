@@ -9,22 +9,67 @@ import move.Move;
 import pokemon.PokeInfo;
 import pokemonStatus.impl.FlinchI;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static bussinessLogic.BattleLogic.*;
 import static bussinessLogic.ConsoleOutManager.showMessageParChar;
 import static bussinessLogic.ConsoleOutManager.showPokemonInfo;
 import static bussinessLogic.EnemySelectMove.enemySelectMove;
 
 public class BattleSimulation {
-    public PokeInfo battleSimulation(PokeInfo myPk, PokeInfo enemyPk) throws InterruptedException {
+
+    public void initBattle(List<PokeInfo> myPokeList, List<PokeInfo> enemyPokeList) throws InterruptedException {
+        // フィールド、天気を初期化
+        Field myField = FieldI.init(myPokeList.get(0));
+        Field enemyField = FieldI.init(enemyPokeList.get(0));
+        Weather weather = Weather.init();
+
+        OnBattleField onBF;
+
+        boolean continueFlg = true;
+        while (continueFlg) {
+            // 互いの先頭ポケモンをバトルに出す
+            onBF = battleSimulation(myField, enemyField, weather);
+            myField = onBF.atkField();
+            enemyField = onBF.dfcField();
+            weather = onBF.weather();
+            // 互いのListを更新する
+            myPokeList = updatePokeList(myPokeList, myField.poke());
+            enemyPokeList = updatePokeList(enemyPokeList, enemyField.poke());
+
+            if (myField.poke().currentHP().isDead()) {
+                if (myPokeList.get(1).currentHP().isAlive()) {
+                    myField = myField.updatePokeInfo(myPokeList.get(1));
+                } else if (myPokeList.get(2).currentHP().isAlive()) {
+                    myField = myField.updatePokeInfo(myPokeList.get(2));
+                } else {
+                    // 自分の負け
+                    continueFlg = false;
+                }
+            }
+
+            if (enemyField.poke().currentHP().isDead()) {
+                if (enemyPokeList.get(1).currentHP().isAlive()) {
+                    enemyField = enemyField.updatePokeInfo(enemyPokeList.get(1));
+                } else if (enemyPokeList.get(2).currentHP().isAlive()) {
+                    enemyField = enemyField.updatePokeInfo(enemyPokeList.get(2));
+                } else {
+                    // 相手トレーナの負け
+                    continueFlg = false;
+                }
+            }
+        }
+    }
+
+    public OnBattleField battleSimulation(Field myField, Field enemyField, Weather weather) throws InterruptedException {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        showMessageParChar("野生の" + enemyPk.basePrm().pName() + "が飛び出してきた!");
-        showMessageParChar("ゆけっ!" + myPk.basePrm().pName() + "!");
+        showMessageParChar("野生の" + enemyField.poke().basePrm().pName() + "が飛び出してきた!");
+        showMessageParChar("ゆけっ!" + myField.poke().basePrm().pName() + "!");
         Thread.sleep(500);
 
-        Field myField = FieldI.init(myPk);
-        Field enemyField = FieldI.init(enemyPk);
-        OnBattleField onBF = new OnBattleField(myField, enemyField, Weather.initWeather());
+        OnBattleField onBF = new OnBattleField(myField, enemyField, weather);
 
         while (onBF.isBothFine()) {
             // 技選択
@@ -64,12 +109,7 @@ public class BattleSimulation {
         }
 
         showPokemonInfo(myField.poke(), enemyField.poke());
-        if (myField.poke().currentHP().isAlive()) {
-            System.out.println(enemyPk.basePrm().pName() + "は倒れた!");
-        } else {
-            System.out.println(myField.poke().basePrm().pName() + "は倒れた");
-        }
-        return myField.poke().resetStatusRank();
+        return new OnBattleField(myField, enemyField, onBF.weather());
     }
 
 
@@ -154,5 +194,11 @@ public class BattleSimulation {
         myField = myField.updatePokeInfo(weather.slipDmgByWeather(myField.poke()));
         enemyField = enemyField.updatePokeInfo(weather.slipDmgByWeather(enemyField.poke()));
         return new OnBattleField(myField, enemyField, weather);
+    }
+
+    private List<PokeInfo> updatePokeList(List<PokeInfo> targetList, PokeInfo updatePoke) {
+        return targetList.stream()
+                .map(pokeInfo -> pokeInfo.basePrm().equals(updatePoke.basePrm()) ? updatePoke : pokeInfo)
+                .collect(Collectors.toList());
     }
 }

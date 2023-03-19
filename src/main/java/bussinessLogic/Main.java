@@ -12,18 +12,11 @@ import java.util.Scanner;
 
 
 // TODO やることリスト
-// 初期経験値固定値問題
-// 覚える技リスト
-// 経験値を得るタイミングを努力値を得る
-// レベルアップ時ステータス上昇幅表示
-// 6匹まで自分のポケモンをもてるようにする
-// 覚えられる技は4つまで
-
-// バトルファクトリーに必要なもの
 // PPが0のときはわるあがきする
 // とくせい
 // バインド、のろい、ちょうはつ、こだわり
 // すでにやけどになっているのメッセージ表示
+// 相手のもつたべのこしが発動していない
 // BattleSimulationのロジック最適化
 // テストを充実させる
 public class Main {
@@ -38,6 +31,9 @@ public class Main {
             ConsoleOutManager.showAllParameters(p);
         }
 
+        // 相手のポケモン3体をランダム選択
+        List<PokeInfo> enemyPokeList = RentalPoke.randomCPURental(randomRentalPoke);
+
         String inputCommand = "";
         while (!inputCommand.equals("q")) {
             System.out.println("-------------------------------------------------");
@@ -51,7 +47,7 @@ public class Main {
             switch (inputCommand) {
                 case "i" -> ConsoleOutManager.showAllParameters(myPokemon);
                 case "m" -> ConsoleOutManager.showMoveDetail(myPokemon.haveMove());
-                case "f" -> new BattleSimulation().initBattle(randomRentalPoke);
+                case "f" -> new BattleSimulation().initBattle(randomRentalPoke, enemyPokeList);
             }
         }
         scanner.close();

@@ -36,7 +36,7 @@ public class EnemySelectMoveTest {
                 Item.NONE
         );
         PokeInfo myPk = PokeInfoI.init(BasePrm.BLASTOISE);
-        Weather weather = Weather.initWeather();
+        Weather weather = Weather.init();
         Field myField = FieldI.init(myPk);
         Field enemyField = FieldI.init(enemyPk);
 

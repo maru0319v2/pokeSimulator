@@ -8,7 +8,6 @@ import pokemon.PokeInfo;
 import pokemon.PokeInfoI;
 
 import static field.Weather.changeWeather;
-import static field.Weather.initWeather;
 import static move.MoveI.init;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -18,7 +17,7 @@ public class WeatherTest {
     @DisplayName("天候が上書きできること")
     public void test1() throws InterruptedException {
         // 初期化 天候なし
-        Weather weather = initWeather();
+        Weather weather = Weather.init();
         assertEquals(WeatherEnum.NONE, weather.val());
 
         // 天候なし -> ひでり
@@ -34,7 +33,7 @@ public class WeatherTest {
     @DisplayName("変更する天候がもとの天候と同じ場合上書きできないこと")
     public void test2() throws InterruptedException {
         // 初期化 天候なし
-        Weather weather = initWeather();
+        Weather weather = Weather.init();
         assertEquals(WeatherEnum.NONE, weather.val());
 
         // 天候なし -> ひでり
@@ -53,7 +52,7 @@ public class WeatherTest {
     @DisplayName("5ターン経過後にもとの天候にもどること")
     public void test3() throws InterruptedException {
         // 初期化 天候なし
-        Weather weather = initWeather();
+        Weather weather = Weather.init();
         assertEquals(WeatherEnum.NONE, weather.val());
 
         // 天候なし -> ひでり
@@ -74,7 +73,7 @@ public class WeatherTest {
     @Test
     @DisplayName("晴れのとき炎技が1.5倍、水技が0.5倍になること")
     public void test4() throws InterruptedException {
-        Weather weather = initWeather();
+        Weather weather = Weather.init();
         weather = changeWeather(weather, WeatherEnum.DROUGHT);
 
         double result1 = weather.dmgRateByWeather(init(BaseMvPrm.FLAMETHROWER));
@@ -87,7 +86,7 @@ public class WeatherTest {
     @Test
     @DisplayName("雨のとき炎技が0.5倍、水技が1.5倍になること")
     public void test5() throws InterruptedException {
-        Weather weather = initWeather();
+        Weather weather = Weather.init();
         weather = changeWeather(weather, WeatherEnum.RAIN);
 
         double result1 = weather.dmgRateByWeather(init(BaseMvPrm.FLAMETHROWER));
@@ -103,7 +102,7 @@ public class WeatherTest {
         PokeInfo myPoke1 = PokeInfoI.init(BasePrm.RHYDON);
         PokeInfo myPoke2 = PokeInfoI.init(BasePrm.CHARIZARD);
 
-        Weather weather = initWeather();
+        Weather weather = Weather.init();
         double result1 = weather.dfcRateBySandStorm(myPoke1);
         double result2 = weather.dfcRateBySandStorm(myPoke2);
         assertEquals(1.0, result1);
@@ -119,7 +118,7 @@ public class WeatherTest {
     @Test
     @DisplayName("晴れになったときにcountForRecoveryが5、elapsedTurnが0であること")
     public void test7() throws InterruptedException {
-        Weather weather = initWeather();
+        Weather weather = Weather.init();
         weather = changeWeather(weather, WeatherEnum.DROUGHT);
 
         assertEquals(0, weather.elapsedTurn());
@@ -129,7 +128,7 @@ public class WeatherTest {
     @Test
     @DisplayName("岩、地面、鋼タイプはすなあらしダメージを受けないこと")
     public void test8() throws InterruptedException {
-        Weather weather = initWeather();
+        Weather weather = Weather.init();
         weather = changeWeather(weather, WeatherEnum.SANDSTORM);
 
         PokeInfo rockPk = PokeInfoI.init(BasePrm.RHYDON);
@@ -151,7 +150,7 @@ public class WeatherTest {
     @Test
     @DisplayName("氷タイプはあられダメージを受けないこと")
     public void test9() throws InterruptedException {
-        Weather weather = initWeather();
+        Weather weather = Weather.init();
         weather = changeWeather(weather, WeatherEnum.HAIL);
 
         PokeInfo icePk = PokeInfoI.init(BasePrm.LAPRAS);
