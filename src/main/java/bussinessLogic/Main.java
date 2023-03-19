@@ -3,7 +3,6 @@ package bussinessLogic;
 import move.BaseMvPrm;
 import pokemon.BasePrm;
 import pokemon.PokeInfo;
-import pokemon.PokeInfoI;
 import pokemon.RentalPoke;
 
 import java.util.List;
@@ -18,36 +17,34 @@ import java.util.Scanner;
 // すでにやけどになっているのメッセージ表示
 // 相手のもつたべのこしが発動していない
 // BattleSimulationのロジック最適化
+// ポケモン交代
 // テストを充実させる
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         Scanner scanner = new Scanner(System.in);
-        PokeInfo myPokemon = PokeInfoI.init(BasePrm.CHARIZARD);
 
         List<PokeInfo> randomRentalPoke = RentalPoke.randomRental(3);
         for (PokeInfo p : randomRentalPoke) {
             ConsoleOutManager.showAllParameters(p);
         }
 
-        // 相手のポケモン3体をランダム選択
-        List<PokeInfo> enemyPokeList = RentalPoke.randomCPURental(randomRentalPoke);
-
         String inputCommand = "";
+        int wins = 0;
         while (!inputCommand.equals("q")) {
             System.out.println("-------------------------------------------------");
-            System.out.print("i:ステータス表示");
-            System.out.print("　　m:技表示  ");
-            System.out.println(" 　f:バトルファクトリー");
-            System.out.println("q:終了");
+            System.out.println("現在 " + wins + "連勝");
+            System.out.println("b:バトルファクトリーへ");
             System.out.print("コマンドを入力してください > ");
             inputCommand = scanner.nextLine();
 
-            switch (inputCommand) {
-                case "i" -> ConsoleOutManager.showAllParameters(myPokemon);
-                case "m" -> ConsoleOutManager.showMoveDetail(myPokemon.haveMove());
-                case "f" -> new BattleSimulation().initBattle(randomRentalPoke, enemyPokeList);
+            if ("b".equals(inputCommand)) {
+                if (new BattleSimulation().initBattle(randomRentalPoke, RentalPoke.randomCPURental(randomRentalPoke))) {
+                    wins++;
+                } else {
+                    wins = 0;
+                }
             }
         }
         scanner.close();

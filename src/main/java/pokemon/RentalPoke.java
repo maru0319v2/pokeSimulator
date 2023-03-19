@@ -23,18 +23,18 @@ import static pokemon.BasePrm.*;
 public enum RentalPoke {
     // レンタルポケモンのパラメータを表現する
     VENUSAUR_1(
-            VENUSAUR, MALE, MODEST, KAMURA_FRUIT,
+            VENUSAUR, MALE, MODEST, OBON_FRUIT,
             GIGA_DRAIN, LIGHT_SCREEN, SLUDGE_BOMB, SLEEP_POWDER,
             252, 0, 0, 252, 0, 0
     ),
     CHARIZARD_1(
-            CHARIZARD, MALE, MODEST, KAMURA_FRUIT,
+            CHARIZARD, MALE, MODEST, PEAL_OF_LIFE,
             FIRE_BLAST, SUNNY_DAY, AIR_SLASH, DRAGON_DANCE,
             0, 0, 0, 252, 0, 252
     ),
     BLASTOISE_1(
             BLASTOISE, MALE, MODEST, KAMURA_FRUIT,
-            WATER_SPOUT, RAIN_DANCE, ICE_BEAM, AQUA_JET,
+            SURF, RAIN_DANCE, ICE_BEAM, AQUA_JET,
             0, 0, 0, 252, 0, 252
     ),
     BUTTERFREE_1(
@@ -44,7 +44,7 @@ public enum RentalPoke {
     ),
     ARCANINE_1(
             ARCANINE, MALE, NAIVE, RAMU_FRUIT,
-            OVERHEAT, CLOSE_COMBAT, EXTREME_SPEED, CRUNCH,
+            OVERHEAT, CLOSE_COMBAT, EXTREME_SPEED, SWORDS_DANCE,
             0, 252, 0, 6, 0, 252
     ),
     AKAKAZAM_1(

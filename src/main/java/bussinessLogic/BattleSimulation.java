@@ -19,11 +19,17 @@ import static bussinessLogic.EnemySelectMove.enemySelectMove;
 
 public class BattleSimulation {
 
-    public void initBattle(List<PokeInfo> myPokeList, List<PokeInfo> enemyPokeList) throws InterruptedException {
+    public boolean initBattle(List<PokeInfo> myPokeList, List<PokeInfo> enemyPokeList) throws InterruptedException {
         // フィールド、天気を初期化
         Field myField = FieldI.init(myPokeList.get(0));
         Field enemyField = FieldI.init(enemyPokeList.get(0));
         Weather weather = Weather.init();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        showMessageParChar("相手のポケモントレーナーは" + enemyField.poke().basePrm().pName() + "をくりだした!");
+        showMessageParChar("ゆけっ! " + myField.poke().basePrm().pName() + "!");
+        Thread.sleep(500);
 
         OnBattleField onBF;
 
@@ -41,33 +47,46 @@ public class BattleSimulation {
             if (myField.poke().currentHP().isDead()) {
                 if (myPokeList.get(1).currentHP().isAlive()) {
                     myField = myField.updatePokeInfo(myPokeList.get(1));
+                    showMessageParChar("ゆけっ! " + myField.poke().basePrm().pName() + "!");
+                    Thread.sleep(500);
                 } else if (myPokeList.get(2).currentHP().isAlive()) {
                     myField = myField.updatePokeInfo(myPokeList.get(2));
+                    showMessageParChar("ゆけっ! " + myField.poke().basePrm().pName() + "!");
+                    Thread.sleep(500);
                 } else {
                     // 自分の負け
+                    showMessageParChar("相手のポケモントレーナーとのバトルに負けた。。。");
                     continueFlg = false;
+                    return false;
                 }
             }
 
             if (enemyField.poke().currentHP().isDead()) {
                 if (enemyPokeList.get(1).currentHP().isAlive()) {
                     enemyField = enemyField.updatePokeInfo(enemyPokeList.get(1));
+                    showMessageParChar("相手のポケモントレーナーは" + enemyField.poke().basePrm().pName() + "をくりだした!");
+                    Thread.sleep(500);
                 } else if (enemyPokeList.get(2).currentHP().isAlive()) {
                     enemyField = enemyField.updatePokeInfo(enemyPokeList.get(2));
+                    showMessageParChar("相手のポケモントレーナーは" + enemyField.poke().basePrm().pName() + "をくりだした!");
+                    Thread.sleep(500);
                 } else {
                     // 相手トレーナの負け
+                    showMessageParChar("相手のポケモントレーナーとのバトルに勝った!");
                     continueFlg = false;
+                    return true;
                 }
             }
         }
+        return true;
     }
 
     public OnBattleField battleSimulation(Field myField, Field enemyField, Weather weather) throws InterruptedException {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-        showMessageParChar("野生の" + enemyField.poke().basePrm().pName() + "が飛び出してきた!");
-        showMessageParChar("ゆけっ!" + myField.poke().basePrm().pName() + "!");
-        Thread.sleep(500);
+//        System.out.print("\033[H\033[2J");
+//        System.out.flush();
+//        showMessageParChar("野生の" + enemyField.poke().basePrm().pName() + "が飛び出してきた!");
+//        showMessageParChar("ゆけっ!" + myField.poke().basePrm().pName() + "!");
+//        Thread.sleep(500);
 
         OnBattleField onBF = new OnBattleField(myField, enemyField, weather);
 
