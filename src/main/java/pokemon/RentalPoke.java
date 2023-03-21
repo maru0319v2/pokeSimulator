@@ -42,6 +42,11 @@ public enum RentalPoke {
             BUG_BUZZ, QUIVER_DANCE, SLEEP_POWDER, PSYCHIC,
             0, 0, 0, 252, 0, 252
     ),
+    RAICHU_1(
+            RAICHU, MALE, NAIVE, LAPEL_OF_SPIRIT,
+            THUNDERBOLT, NASTY_PLOT, SURF, THUNDER_WAVE,
+            6, 0, 0, 252, 0, 252
+    ),
     PERSIAN_1(
             PERSIAN, FEMALE, JOLLY, PINTO_LENS,
             SLASH, HYPNOSIS, DOUBLE_TEAM, IRON_TAIL,
@@ -57,10 +62,20 @@ public enum RentalPoke {
             PSYCHIC, SHADOW_BALL, ENERGY_BALL, HYPNOSIS,
             6, 0, 0, 252, 0, 252
     ),
+    MACHAMP_1(
+            MACHAMP, MALE, ADAMANT, MARK_OF_KINGS,
+            CRESS_CHOP, STONE_EDGE, BULK_UP, BULLET_PUNCH,
+            252, 252, 0, 0, 0, 6
+    ),
     STARMIE_1(
             STARMIE, UNKNOWN, TIMID, KAMURA_FRUIT,
             ICE_BEAM, PSYCHIC, THUNDERBOLT, SURF,
             0, 0, 0, 252, 0, 252
+    ),
+    MAGNRTON_1(
+            MAGNRTON, UNKNOWN, MODEST, LAPEL_OF_SPIRIT,
+            THUNDERBOLT, FLASH_CANNON, THUNDER_WAVE, LIGHT_SCREEN,
+            152, 0, 0, 252, 0, 100
     ),
     GENGAR_1(
             GENGAR, FEMALE, TIMID, LAPEL_OF_SPIRIT,
@@ -71,6 +86,11 @@ public enum RentalPoke {
             GYARADOS, FEMALE, ADAMANT, LOSTOVER_FOOD,
             WATERFALL, EARTHQUAKE, DRAGON_DANCE, STONE_EDGE,
             252, 152, 0, 0, 0, 100
+    ),
+    LAPRAS_1(
+            LAPRAS, FEMALE, CALM, LOSTOVER_FOOD,
+            SURF, THUNDERBOLT, ICE_BEAM, CONFUSE_RAY,
+            252, 0, 0, 100, 156, 0
     ),
     ZAPDOS_1(
             ZAPDOS, UNKNOWN, TIMID, KAMURA_FRUIT,

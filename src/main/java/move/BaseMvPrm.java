@@ -259,6 +259,12 @@ public enum BaseMvPrm {
             return doNothing(atkField, dfcField, weather);
         }
     },
+    FLASH_CANNON("ラスターカノン", Type.STEEL, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 80, 100, 10, 0, 0,
+            false, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return enemyStatusRankCh(10, atkField, dfcField, weather, 0, 0, 0, -1, 0, 0, 0);
+        }
+    },
     IRON_TAIL("アイアンテール", Type.STEEL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 100, 75, 15, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
@@ -362,6 +368,12 @@ public enum BaseMvPrm {
             false, true, true, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return myStatusRankCh(100, atkField, dfcField, weather, 0, 0, 1, 1, 1, 0, 0);
+        }
+    },
+    BULK_UP("ビルドアップ", Type.FIGHTING, MoveSpecies.CHANGE, DetailMvSpecies.UP_A, 0, 100, 20, 0, 0,
+            false, true, true, false, true, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return myStatusRankCh(100, atkField, dfcField, weather, 1, 1, 0, 0, 0, 0, 0);
         }
     },
     /**
