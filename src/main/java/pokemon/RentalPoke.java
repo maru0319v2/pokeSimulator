@@ -52,6 +52,11 @@ public enum RentalPoke {
             SLASH, HYPNOSIS, DOUBLE_TEAM, IRON_TAIL,
             6, 252, 0, 0, 0, 252
     ),
+    VILEPLUME_1(
+            VILEPLUME, FEMALE, MODEST, LIGHT_POWDER,
+            SLUDGE_BOMB, SLEEP_POWDER, GIGA_DRAIN, DOUBLE_TEAM,
+            252, 0, 0, 252, 0, 6
+    ),
     ARCANINE_1(
             ARCANINE, MALE, NAIVE, RAMU_FRUIT,
             OVERHEAT, CLOSE_COMBAT, EXTREME_SPEED, SWORDS_DANCE,
