@@ -145,6 +145,12 @@ public enum BaseMvPrm {
             return doNothing(atkField, dfcField, weather);
         }
     },
+    WILD_CHARGE("ワイルドボルト", Type.ELECTRIC, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 90, 100, 15, 0, 0,
+            true, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int damaged, Weather weather) throws InterruptedException {
+            return recoilDmg25Per(atkField, dfcField, weather, damaged);
+        }
+    },
     THUNDERBOLT("10まんボルト", Type.ELECTRIC, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 90, 100, 15, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
@@ -251,6 +257,12 @@ public enum BaseMvPrm {
             false, false, true, false, false, true) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return enemyStatusRankCh(10, atkField, dfcField, weather, 0, 0, 0, -1, 0, 0, 0);
+        }
+    },
+    MEGA_HORN("メガホーン", Type.BUG, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 120, 85, 10, 0, 0,
+            true, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
+            return doNothing(atkField, dfcField, weather);
         }
     },
     BULLET_PUNCH("バレットパンチ", Type.STEEL, MoveSpecies.PHYSICAL, DetailMvSpecies.PRIORITY, 40, 100, 30, 0, 1,
@@ -602,6 +614,10 @@ public enum BaseMvPrm {
 
     private static OnBattleField doNothing(Field atkField, Field dfcField, Weather weather) {
         return new OnBattleField(atkField, dfcField, weather);
+    }
+
+    private static OnBattleField recoilDmg25Per(Field atkField, Field dfcField, Weather weather, int damaged) throws InterruptedException {
+        return new OnBattleField(atkField.updatePokeInfo(atkField.poke().damage(damaged / 4)), dfcField, weather);
     }
 
     private static OnBattleField recoilDmg33Per(Field atkField, Field dfcField, Weather weather, int damaged) throws InterruptedException {

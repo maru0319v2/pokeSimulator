@@ -59,7 +59,7 @@ public enum RentalPoke {
     ),
     ARCANINE_1(
             ARCANINE, MALE, NAIVE, RAMU_FRUIT,
-            OVERHEAT, CLOSE_COMBAT, EXTREME_SPEED, SWORDS_DANCE,
+            OVERHEAT, CLOSE_COMBAT, EXTREME_SPEED, WILD_CHARGE,
             0, 252, 0, 6, 0, 252
     ),
     AKAKAZAM_1(
@@ -85,6 +85,11 @@ public enum RentalPoke {
     GENGAR_1(
             GENGAR, FEMALE, TIMID, LAPEL_OF_SPIRIT,
             SHADOW_BALL, CONFUSE_RAY, THUNDERBOLT, HYPNOSIS,
+            0, 0, 0, 252, 0, 252
+    ),
+    TAUROS_1(
+            TAUROS, MALE, JOLLY, PEAL_OF_LIFE,
+            DOUBLE_EDGE, BULK_UP, EARTHQUAKE, WILD_CHARGE,
             0, 0, 0, 252, 0, 252
     ),
     GYARADOS_1(
