@@ -79,6 +79,12 @@ public enum BaseMvPrm {
             return beFlinch(30, atkField, dfcField, weather);
         }
     },
+    HAMMER_ARM("アームハンマー", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 100, 90, 10, 0, 0,
+            true, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return myStatusRankCh(100, atkField, dfcField, weather, 0, 0, 0, 0, -1, 0, 0);
+        }
+    },
     CLOSE_COMBAT("インファイト", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 120, 100, 5, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
@@ -107,6 +113,12 @@ public enum BaseMvPrm {
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
+        }
+    },
+    BULLDOZE("じならし", Type.GROUND, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 60, 100, 10, 0, 0,
+            false, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return enemyStatusRankCh(100, atkField, dfcField, weather, 0, 0, 0, 0, -1, 0, 0);
         }
     },
     EARTHQUAKE("じしん", Type.GROUND, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 100, 100, 10, 0, 0,
@@ -241,6 +253,12 @@ public enum BaseMvPrm {
             return recoveryDmg50Per(atkField, dfcField, weather, recoveryHP);
         }
     },
+    WOOD_HAMMER("ウッドハンマー", Type.GRASS, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 120, 100, 15, 0, 0,
+            true, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int damaged, Weather weather) throws InterruptedException {
+            return recoilDmg33Per(atkField, dfcField, weather, damaged);
+        }
+    },
     LEECH_LIFE("きゅうけつ", Type.BUG, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 80, 100, 10, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
@@ -281,6 +299,18 @@ public enum BaseMvPrm {
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return enemyStatusRankCh(30, atkField, dfcField, weather, 0, -1, 0, 0, 0, 0, 0);
+        }
+    },
+    METEOR_MASH("コメットパンチ", Type.STEEL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 90, 90, 10, 0, 0,
+            true, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return myStatusRankCh(20, atkField, dfcField, weather, 1, 0, 0, 0, 0, 0, 0);
+        }
+    },
+    ROCK_TOMB("がんせきふうじ", Type.ROCK, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 60, 95, 15, 0, 0,
+            false, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return enemyStatusRankCh(100, atkField, dfcField, weather, 0, 0, 0, 0, -1, 0, 0);
         }
     },
     ROCK_SLIDE("いわなだれ", Type.ROCK, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 75, 90, 10, 0, 0,
@@ -329,6 +359,12 @@ public enum BaseMvPrm {
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return enemyStatusRankCh(20, atkField, dfcField, weather, 0, 0, 0, -1, 0, 0, 0);
+        }
+    },
+    PLAY_ROUGH("じゃれつく", Type.FAIRY, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 90, 90, 10, 0, 0,
+            true, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return enemyStatusRankCh(10, atkField, dfcField, weather, -1, 0, 0, 0, 0, 0, 0);
         }
     },
     /**
@@ -388,6 +424,12 @@ public enum BaseMvPrm {
             return myStatusRankCh(100, atkField, dfcField, weather, 1, 1, 0, 0, 0, 0, 0);
         }
     },
+    SHELL_SMASH("からをやぶる", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.UP_A, 0, 100, 15, 0, 0,
+            false, true, true, false, true, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return myStatusRankCh(100, atkField, dfcField, weather, 2, -1, 2, -1, 2, 0, 0);
+        }
+    },
     /**
      * ここから状態異常技
      */
@@ -432,6 +474,13 @@ public enum BaseMvPrm {
         // TODO 多分地面タイプにも効く
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return BaseMvPrm.beParalysis(100, atkField, dfcField, weather);
+        }
+    },
+    SWAGGER("いばる", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.CONFUSE, 0, 85, 15, 0, 0,
+            false, true, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            OnBattleField onBf = enemyStatusRankCh(100, atkField, dfcField, weather, 2, 0, 0, 0, 0, 0, 0);
+            return beConfusion(100, onBf.atkField(), onBf.dfcField(), onBf.weather());
         }
     },
     /**
