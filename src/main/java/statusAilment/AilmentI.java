@@ -187,8 +187,8 @@ public class AilmentI implements Ailment {
             }
             case BAD_POISON -> {
                 showMessageParChar(target.basePrm().pName() + "はどくでダメージをうけた！");
-                int rate = elapsedTurn / 16;
-                damage = target.realHP() / rate;
+                double rate = ((double) (elapsedTurn + 1) / 16d);
+                damage = (int) ((double) (target.realHP()) / rate);
             }
             case BURN -> {
                 showMessageParChar(target.basePrm().pName() + "はやけどでダメージをうけた！");

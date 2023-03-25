@@ -24,13 +24,13 @@ public enum RentalPoke {
     // レンタルポケモンのパラメータを表現する
     VENUSAUR_1(
             VENUSAUR, MALE, MODEST, OBON_FRUIT,
-            GIGA_DRAIN, LIGHT_SCREEN, SLUDGE_BOMB, SLEEP_POWDER,
+            GIGA_DRAIN, SYNTHESIS, SLUDGE_BOMB, SLEEP_POWDER,
             252, 0, 0, 252, 0, 0
     ),
     CHARIZARD_1(
-            CHARIZARD, MALE, MODEST, PEAL_OF_LIFE,
-            FIRE_BLAST, SUNNY_DAY, AIR_SLASH, DRAGON_DANCE,
-            0, 0, 0, 252, 0, 252
+            CHARIZARD, MALE, MODEST, OBON_FRUIT,
+            FLARE_BLITZ, AERIAL_ACE, OVERHEAT, BELLY_DRUM,
+            6, 252, 0, 0, 0, 252
     ),
     BLASTOISE_1(
             BLASTOISE, MALE, MODEST, KAMURA_FRUIT,
@@ -59,12 +59,12 @@ public enum RentalPoke {
     ),
     ARCANINE_1(
             ARCANINE, MALE, NAIVE, RAMU_FRUIT,
-            OVERHEAT, CLOSE_COMBAT, EXTREME_SPEED, WILD_CHARGE,
+            HONE_CLAWS, FLARE_BLITZ, EXTREME_SPEED, WILD_CHARGE,
             0, 252, 0, 6, 0, 252
     ),
     AKAKAZAM_1(
             AKAKAZAM, MALE, TIMID, LAPEL_OF_SPIRIT,
-            PSYCHIC, SHADOW_BALL, ENERGY_BALL, HYPNOSIS,
+            PSYCHIC, SHADOW_BALL, RECOVER, CALM_MIND,
             6, 0, 0, 252, 0, 252
     ),
     MACHAMP_1(
@@ -74,18 +74,43 @@ public enum RentalPoke {
     ),
     STARMIE_1(
             STARMIE, UNKNOWN, TIMID, KAMURA_FRUIT,
-            ICE_BEAM, PSYCHIC, THUNDERBOLT, SURF,
+            ICE_BEAM, PSYCHIC, THUNDERBOLT, HYDRO_PUMP,
             0, 0, 0, 252, 0, 252
+    ),
+    SLOWBRO_1(
+            SLOWBRO, FEMALE, RELAXED, RAMU_FRUIT,
+            SCALD, PSYCHIC, SLACK_OFF, CALM_MIND,
+            252, 0, 0, 200, 156, 0
     ),
     MAGNRTON_1(
             MAGNRTON, UNKNOWN, MODEST, LAPEL_OF_SPIRIT,
-            THUNDERBOLT, FLASH_CANNON, THUNDER_WAVE, LIGHT_SCREEN,
+            THUNDERBOLT, FLASH_CANNON, THUNDER_WAVE, STEEL_BEAM,
             152, 0, 0, 252, 0, 100
+    ),
+    CLOYSTER_1(
+            CLOYSTER, MALE, MODEST, PEAL_OF_LIFE,
+            SURF, ICE_BEAM, SHELL_SMASH, EXPLOSION,
+            0, 0, 0, 252, 0, 252
     ),
     GENGAR_1(
             GENGAR, FEMALE, TIMID, LAPEL_OF_SPIRIT,
             SHADOW_BALL, CONFUSE_RAY, THUNDERBOLT, HYPNOSIS,
             0, 0, 0, 252, 0, 252
+    ),
+    EXEGGUTOR_1(
+            EXEGGUTOR, MALE, MODEST, OBON_FRUIT,
+            GIGA_DRAIN, PSYCHIC, HYPNOSIS, SYNTHESIS,
+            252, 0, 0, 252, 0, 6
+    ),
+    WEEZING_1(
+            WEEZING, FEMALE, RELAXED, RAMU_FRUIT,
+            SLUDGE_BOMB, WILL_O_WISP, EXPLOSION, FLAMETHROWER,
+            252, 100, 0, 152, 0, 6
+    ),
+    CHANSEY_1(
+            CHANSEY, FEMALE, BOLD, LIGHT_POWDER,
+            FLAMETHROWER, ICE_BEAM, THUNDERBOLT, SOFT_BOILED,
+            252, 0, 6, 252, 0, 0
     ),
     TAUROS_1(
             TAUROS, MALE, JOLLY, PEAL_OF_LIFE,
@@ -99,12 +124,27 @@ public enum RentalPoke {
     ),
     LAPRAS_1(
             LAPRAS, FEMALE, CALM, LOSTOVER_FOOD,
-            SURF, THUNDERBOLT, ICE_BEAM, CONFUSE_RAY,
+            SCALD, THUNDERBOLT, ICE_BEAM, CONFUSE_RAY,
             252, 0, 0, 100, 156, 0
+    ),
+    VAPAREON_1(
+            VAPAREON, MALE, CALM, LOSTOVER_FOOD,
+            SCALD, TOXIC, SWAGGER, ICE_BEAM,
+            252, 0, 0, 252, 6, 0
+    ),
+    JOLTEON_1(
+            JOLTEON, MALE, TIMID, LAPEL_OF_SPIRIT,
+            THUNDERBOLT, SHADOW_BALL, SWAGGER, THUNDER_WAVE,
+            6, 0, 0, 252, 0, 252
+    ),
+    FLAREON_1(
+            FLAREON, MALE, JOLLY, PEAL_OF_LIFE,
+            FLARE_BLITZ, FLAME_CHARGE, QUICK_ATTACK, SUPERPOWER,
+            6, 252, 0, 0, 0, 252
     ),
     ZAPDOS_1(
             ZAPDOS, UNKNOWN, TIMID, KAMURA_FRUIT,
-            DRILL_PECK, AIR_SLASH, THUNDER, REFLECT,
+            THUNDER, HURRICANE, RAIN_DANCE, THUNDER_WAVE,
             0, 0, 0, 252, 0, 252
     ),
     DRAGONITE_1(
