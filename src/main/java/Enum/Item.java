@@ -67,17 +67,27 @@ public enum Item {
 
     // ターン終了時の処理
     public static OnBattleField endTurn(OnBattleField onBF) throws InterruptedException {
-        Item hasItem = onBF.atkField().poke().item();
-        switch (hasItem) {
+        Field atkField = onBF.atkField();
+        Field dfcField = onBF.dfcField();
+
+
+        Item atkHasItem = onBF.atkField().poke().item();
+        switch (atkHasItem) {
             case LOSTOVER_FOOD -> {
                 // たべのこし　HPを1/16回復
                 showMessageParChar(onBF.atkField().poke().basePrm().pName() + "はたべのこしですこしかいふく!");
-                return recoveryMeHP1_16(onBF.atkField(), onBF.dfcField(), onBF.weather());
-            }
-            default -> {
-                return onBF;
+                atkField = recoveryMeHP1_16(onBF.atkField(), onBF.dfcField(), onBF.weather()).atkField();
             }
         }
+        Item dfcHasItem = onBF.dfcField().poke().item();
+        switch (dfcHasItem) {
+            case LOSTOVER_FOOD -> {
+                // たべのこし　HPを1/16回復
+                showMessageParChar(onBF.dfcField().poke().basePrm().pName() + "はたべのこしですこしかいふく!");
+                dfcField = recoveryEnemyHP1_16(onBF.atkField(), onBF.dfcField(), onBF.weather()).dfcField();
+            }
+        }
+        return new OnBattleField(atkField, dfcField, onBF.weather());
     }
 
     // ダメージを受けたあとの処理
@@ -155,6 +165,11 @@ public enum Item {
     private static OnBattleField recoveryMeHP1_16(Field atkField, Field dfcField, Weather weather) throws InterruptedException {
         int recovery = atkField.poke().realHP() / 16;
         return new OnBattleField(atkField.updatePokeInfo(atkField.poke().recoveryHP(recovery)), dfcField, weather);
+    }
+
+    private static OnBattleField recoveryEnemyHP1_16(Field atkField, Field dfcField, Weather weather) throws InterruptedException {
+        int recovery = dfcField.poke().realHP() / 16;
+        return new OnBattleField(atkField, dfcField.updatePokeInfo(dfcField.poke().recoveryHP(recovery)), weather);
     }
 
     private static OnBattleField dmgMeHP1_10(Field atkField, Field dfcField, Weather weather) throws InterruptedException {

@@ -847,7 +847,7 @@ public enum BaseMvPrm {
     }
 
     private static OnBattleField recoilDmgHP50Per(Field atkField, Field dfcField, Weather weather) throws InterruptedException {
-        int dmg = atkField.poke().realHP() / 2;
+        int dmg = (atkField.poke().realHP() / 2) + 1;
         return new OnBattleField(atkField.updatePokeInfo(atkField.poke().damage(dmg)), dfcField, weather);
     }
 
