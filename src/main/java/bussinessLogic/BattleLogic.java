@@ -189,7 +189,7 @@ public class BattleLogic {
         if (effectiveRate == 0.0) {
             showMessageParChar("効果はないようだ");
         }
-        return result;
+        return Math.min(result, dfcField.poke().currentHP().val());
     }
 
     private static boolean isHit(PokeInfo atkPk, PokeInfo dfcPk, Move move, Weather weather) {
