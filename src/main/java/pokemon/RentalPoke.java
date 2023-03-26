@@ -128,8 +128,8 @@ public enum RentalPoke {
             252, 0, 0, 100, 156, 0
     ),
     VAPAREON_1(
-            VAPAREON, MALE, CALM, LOSTOVER_FOOD,
-            SCALD, TOXIC, SWAGGER, ICE_BEAM,
+            VAPAREON, MALE, CALM, RAMU_FRUIT,
+            SCALD, TOXIC, REST, ICE_BEAM,
             252, 0, 0, 252, 6, 0
     ),
     JOLTEON_1(
@@ -176,7 +176,7 @@ public enum RentalPoke {
                 rentalPoke.nature,
                 new IndividualValueI(31, 31, 31, 31, 31, 31),
                 new EffortValueI(rentalPoke.H, rentalPoke.A, rentalPoke.B, rentalPoke.C, rentalPoke.D, rentalPoke.S),
-                new LevelI(50),
+                new LevelI(100),
                 List.of(init(rentalPoke.m1), init(rentalPoke.m2), init(rentalPoke.m3), init(rentalPoke.m4)),
                 rentalPoke.item
         );

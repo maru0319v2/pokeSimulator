@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Random;
 
 import static bussinessLogic.ConsoleOutManager.*;
+import static statusAilment.AilmentEnum.*;
 
 public class AilmentI implements Ailment {
     private final AilmentEnum val;
@@ -43,7 +44,7 @@ public class AilmentI implements Ailment {
     }
 
     private AilmentI() {
-        this.val = AilmentEnum.FINE;
+        this.val = FINE;
         this.countRecoverySleep = 0;
         this.elapsedTurn = 0;
     }
@@ -54,17 +55,17 @@ public class AilmentI implements Ailment {
         Type type2 = target.basePrm().type2();
         List<Type> typeList = List.of(type1, type2);
         // こおりタイプはこおり状態にならない
-        if (typeList.contains(Type.ICE) && value == AilmentEnum.FREEZE) {
+        if (typeList.contains(Type.ICE) && value == FREEZE) {
             showMessageParChar(target.basePrm().pName() + "にはきかなかった!");
             return target.ailment();
         }
         // ほのおタイプはやけど状態にならない
-        if (typeList.contains(Type.FIRE) && value == AilmentEnum.BURN) {
+        if (typeList.contains(Type.FIRE) && value == BURN) {
             showMessageParChar(target.basePrm().pName() + "にはきかなかった!");
             return target.ailment();
         }
         // どくタイプ、はがねタイプはどく、もうどく状態にならない
-        if (value == AilmentEnum.BAD_POISON || value == AilmentEnum.POISON) {
+        if (value == BAD_POISON || value == POISON) {
             if (typeList.contains(Type.POISON) || typeList.contains(Type.STEEL)) {
                 showMessageParChar(target.basePrm().pName() + "にはきかなかった!");
                 return target.ailment();
@@ -77,9 +78,13 @@ public class AilmentI implements Ailment {
 
         if (isOverwrite(target, value)) {
             int count = 0;
-            if (value == AilmentEnum.SLEEP) {
+            if (value == SLEEP) {
                 // 2~5ターン
                 count = (new Random().nextInt(4) + 2);
+            }
+            if (value == SELF_SLEEP) {
+                // 3ターン
+                count = 3;
             }
             this.val = value;
             this.countRecoverySleep = count;
@@ -96,26 +101,26 @@ public class AilmentI implements Ailment {
         // 元の状態異常
         AilmentEnum beforeAilment = target.ailment().val();
 
-        if (beforeAilment == AilmentEnum.FINE) {
+        if (beforeAilment == FINE) {
             // 元の状態が健康ならすべて上書きされる
             return true;
         }
 
-        if (beforeAilment == AilmentEnum.FAINTING) {
+        if (beforeAilment == FAINTING) {
             // 元の状態が瀕死なら健康でしか上書きできない
-            if (value == AilmentEnum.FINE) {
+            if (value == FINE) {
                 return true;
             }
         }
-        if (beforeAilment == AilmentEnum.SLEEP) {
+        if (beforeAilment == SLEEP || beforeAilment == SELF_SLEEP) {
             // 元の状態がねむりの場合、引数の経過ターンが大きい、またはひんしか健康の場合上書きする
-            if (target.ailment().elapsedTurn() < this.elapsedTurn() || value == AilmentEnum.FINE || value == AilmentEnum.FAINTING) {
+            if (target.ailment().elapsedTurn() < this.elapsedTurn() || value == FINE || value == FAINTING) {
                 return true;
             }
         }
-        if (beforeAilment == AilmentEnum.PARALYSIS || beforeAilment == AilmentEnum.POISON || beforeAilment == AilmentEnum.BAD_POISON || beforeAilment == AilmentEnum.BURN || beforeAilment == AilmentEnum.FREEZE) {
+        if (beforeAilment == PARALYSIS || beforeAilment == POISON || beforeAilment == BAD_POISON || beforeAilment == BURN || beforeAilment == FREEZE) {
             // 元の状態がまひ、どく、もうどく、やけど、こおりなら健康と瀕死でしか上書きできない
-            if (value == AilmentEnum.FINE || value == AilmentEnum.FAINTING) {
+            if (value == FINE || value == FAINTING || value == SELF_SLEEP) {
                 return true;
             }
             showAlreadyAilmentMessage(target);
@@ -127,7 +132,7 @@ public class AilmentI implements Ailment {
     public Ailment comeTurn(String pokeName) throws InterruptedException {
 
         // ねむりの場合、経過ターンを1増やしカウンタを同じになればねむりを解く
-        if (this.val == AilmentEnum.SLEEP) {
+        if (this.val == SLEEP || this.val == SELF_SLEEP) {
             if (this.countRecoverySleep <= this.elapsedTurn + 1) {
                 showMessageParChar(pokeName + "はめをさました!");
                 return init();
@@ -135,26 +140,30 @@ public class AilmentI implements Ailment {
             return keepAilment(this.val, this.countRecoverySleep, this.elapsedTurn + 1);
         }
         // こおりの場合、20%の確率でこおりを解く
-        if (this.val == AilmentEnum.FREEZE) {
+        if (this.val == FREEZE) {
             if ((new Random().nextInt(5)) == 0) {
                 showMessageParChar(pokeName + "のこおりがとけた!");
                 return init();
             }
+        }
+        // もうどくの場合、経過ターン+1
+        if (this.val == BAD_POISON) {
+            return keepAilment(this.val, this.countRecoverySleep, this.elapsedTurn + 1);
         }
         // その他の状態異常の場合、継続
         return keepAilment(this.val, this.countRecoverySleep, this.elapsedTurn);
     }
 
     public boolean canMove(String pokeName) throws InterruptedException {
-        if (this.val == AilmentEnum.SLEEP) {
+        if (this.val == SLEEP || this.val == SELF_SLEEP) {
             showMessageParChar(pokeName + "はぐうぐうねむっている・・・");
             return false;
         }
-        if (this.val == AilmentEnum.FREEZE) {
+        if (this.val == FREEZE) {
             showMessageParChar(pokeName + "はこおってしまってうごけない！");
             return false;
         }
-        if (this.val == AilmentEnum.PARALYSIS && (new Random().nextInt(4)) == 0) {
+        if (this.val == PARALYSIS && (new Random().nextInt(4)) == 0) {
             showMessageParChar(pokeName + "はしびれてうごけない!");
             return false;
         }
@@ -162,19 +171,19 @@ public class AilmentI implements Ailment {
     }
 
     public boolean isFine() {
-        return this.val == AilmentEnum.FINE;
+        return this.val == FINE;
     }
 
     public boolean isSick() {
-        return this.val != AilmentEnum.FINE && this.val != AilmentEnum.FAINTING;
+        return this.val != FINE && this.val != FAINTING;
     }
 
     public double dmgRateByBurn() {
-        return Objects.equals(this.val, AilmentEnum.BURN) ? 0.5 : 1.0;
+        return Objects.equals(this.val, BURN) ? 0.5 : 1.0;
     }
 
     public double spdRateByParalysis() {
-        return Objects.equals(this.val, AilmentEnum.PARALYSIS) ? 0.5 : 1.0;
+        return Objects.equals(this.val, PARALYSIS) ? 0.5 : 1.0;
     }
 
     public PokeInfo slipDmgByAilment(PokeInfo target) throws InterruptedException {
@@ -187,8 +196,7 @@ public class AilmentI implements Ailment {
             }
             case BAD_POISON -> {
                 showMessageParChar(target.basePrm().pName() + "はどくでダメージをうけた！");
-                double rate = ((double) (elapsedTurn + 1) / 16d);
-                damage = (int) ((double) (target.realHP()) / rate);
+                damage = (target.realHP() / 16) * (elapsedTurn + 1);
             }
             case BURN -> {
                 showMessageParChar(target.basePrm().pName() + "はやけどでダメージをうけた！");

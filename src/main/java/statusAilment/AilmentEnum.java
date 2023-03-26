@@ -10,6 +10,7 @@ public enum AilmentEnum {
     POISON("どく"),
     BAD_POISON("もうどく"),
     SLEEP("ねむり"),
+    SELF_SLEEP("ねむり"),
     FAINTING("ひんし"),
     FINE("-");
 

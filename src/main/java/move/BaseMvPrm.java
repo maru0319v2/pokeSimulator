@@ -502,7 +502,8 @@ public enum BaseMvPrm {
     SHELL_SMASH("からをやぶる", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.UP_A, 0, 100, 15, 0, 0,
             false, true, true, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
-            return myStatusRankCh(100, atkField, dfcField, weather, 2, -1, 2, -1, 2, 0, 0);
+            OnBattleField onBf = myStatusRankCh(100, atkField, dfcField, weather, 0, -1, 0, -1, 0, 0, 0);
+            return myStatusRankCh(100, onBf.atkField(), dfcField, weather, 2, 0, 2, 0, 2, 0, 0);
         }
     },
     MINIMIZE("ちいさくなる", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.UP_AV, 0, 100, 10, 0, 0,
@@ -651,6 +652,17 @@ public enum BaseMvPrm {
             false, false, false, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return recoveryByWeather(atkField, dfcField, weather);
+        }
+    },
+    REST("ねむる", Type.PSYCHIC, MoveSpecies.CHANGE, DetailMvSpecies.RECOVERY, 0, -1, 10, 0, 0,
+            false, false, false, false, true, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            if (atkField.poke().realHP() > atkField.poke().currentHP().val()) {
+                OnBattleField onBf = recoveryHP100Per(atkField, dfcField, weather);
+                return beSelfSleep(100, onBf.atkField(), onBf.dfcField(), onBf.weather());
+            } else {
+                return recoveryHP100Per(atkField, dfcField, weather);
+            }
         }
     },
     LIGHT_SCREEN("ひかりのかべ", Type.PSYCHIC, MoveSpecies.CHANGE, DetailMvSpecies.WALL, 0, -1, 30, 0, 0,
@@ -853,6 +865,11 @@ public enum BaseMvPrm {
         return new OnBattleField(atkField.updatePokeInfo(atkField.poke().recoveryHP(recovery)), dfcField, weather);
     }
 
+    private static OnBattleField recoveryHP100Per(Field atkField, Field dfcField, Weather weather) throws InterruptedException {
+        int recovery = atkField.poke().realHP();
+        return new OnBattleField(atkField.updatePokeInfo(atkField.poke().recoveryHP(recovery)), dfcField, weather);
+    }
+
     private static OnBattleField recoveryByWeather(Field atkField, Field dfcField, Weather weather) throws InterruptedException {
         int recovery;
         switch (weather.val()) {
@@ -922,6 +939,14 @@ public enum BaseMvPrm {
     private static OnBattleField beSleep(int percent, Field atkField, Field dfcField, Weather weather) throws InterruptedException {
         if ((new Random().nextInt(10)) <= percent / 10 - 1) {
             return new OnBattleField(atkField, dfcField.updatePokeInfo(dfcField.poke().updateAilment(AilmentI.changeAilment(dfcField.poke(), AilmentEnum.SLEEP))), weather);
+        } else {
+            return doNothing(atkField, dfcField, weather);
+        }
+    }
+
+    private static OnBattleField beSelfSleep(int percent, Field atkField, Field dfcField, Weather weather) throws InterruptedException {
+        if ((new Random().nextInt(10)) <= percent / 10 - 1) {
+            return new OnBattleField(atkField.updatePokeInfo(atkField.poke().updateAilment(AilmentI.changeAilment(atkField.poke(), AilmentEnum.SELF_SLEEP))), dfcField, weather);
         } else {
             return doNothing(atkField, dfcField, weather);
         }

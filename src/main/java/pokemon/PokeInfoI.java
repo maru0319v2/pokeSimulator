@@ -172,7 +172,7 @@ public class PokeInfoI implements PokeInfo {
         this.nature = Nature.init();
         this.individualValue = IndividualValueI.init();
         this.effortValue = EffortValueI.init();
-        this.level = new LevelI(5);
+        this.level = new LevelI(50);
         this.haveMove = List.of(MoveI.init(BaseMvPrm.TACKLE));
         this.currentHP = new CurrentHPI(realHP());
         this.statusRank = StatusRankI.init();
