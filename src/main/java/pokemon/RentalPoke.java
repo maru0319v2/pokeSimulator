@@ -98,7 +98,7 @@ public enum RentalPoke {
             0, 0, 0, 252, 0, 252
     ),
     プクリン_1(
-            WIGGLYTUFF, FEMALE, MODEST, LIGHT_POWDER,
+            WIGGLYTUFF, FEMALE, ADAMANT, LIGHT_POWDER,
             DOUBLE_EDGE, THUNDER_WAVE, PLAY_ROUGH, DOUBLE_TEAM,
             252, 0, 0, 0, 0, 252
     ),

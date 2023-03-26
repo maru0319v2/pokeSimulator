@@ -183,16 +183,14 @@ public class BattleLogic {
 
         int result = (int) Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * totalDmgRate);
         if (isCritical) {
-            showMessageParChar("急所に当った!");
+            showMessageParChar("きゅうしょにあたった!");
         }
         if (effectiveRate >= 2.0) {
-            showMessageParChar("効果は抜群だ!");
-        }
-        if (effectiveRate <= 0.5) {
-            showMessageParChar("効果はいまひとつのようだ");
-        }
-        if (effectiveRate == 0.0) {
-            showMessageParChar("効果はないようだ");
+            showMessageParChar("こうかはばつぐんだ!");
+        } else if (effectiveRate <= 0.5 && effectiveRate != 0.0) {
+            showMessageParChar("こうかはいまひとつのようだ");
+        } else if (effectiveRate == 0.0) {
+            showMessageParChar("こうかはないようだ");
         }
         return Math.min(result, dfcField.poke().currentHP().val());
     }

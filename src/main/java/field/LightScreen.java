@@ -67,7 +67,7 @@ public class LightScreen {
     public LightScreen elapsingTurn() throws InterruptedException {
         if (val) {
             if (this.countRecovery <= this.elapsedTurn + 1) {
-                showMessageParChar("ひかりのかべの効果がきれた!");
+                showMessageParChar("ひかりのかべのこうかがきれた!");
                 return initLightScreen();
             }
             return new LightScreen(this.val, this.elapsedTurn + 1, this.countRecovery);

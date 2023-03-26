@@ -67,7 +67,7 @@ public class Reflect {
     public Reflect elapsingTurn() throws InterruptedException {
         if (val) {
             if (this.countRecovery <= this.elapsedTurn + 1) {
-                showMessageParChar("リフレクターの効果がきれた!");
+                showMessageParChar("リフレクターのこうかがきれた!");
                 return initReflect();
             }
             return new Reflect(this.val, this.elapsedTurn + 1, this.countRecovery);
