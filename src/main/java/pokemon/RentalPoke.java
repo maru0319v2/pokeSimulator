@@ -42,6 +42,31 @@ public enum RentalPoke {
             BUG_BUZZ, QUIVER_DANCE, SLEEP_POWDER, PSYCHIC,
             0, 0, 0, 252, 0, 252
     ),
+    スピアー_1(
+            BEEDRILL, MALE, TIMID, LAPEL_OF_SPIRIT,
+            SLUDGE_BOMB, MEMENTO, DOUBLE_TEAM, SWAGGER,
+            0, 252, 0, 0, 0, 252
+    ),
+    ピジョット_1(
+            PIDGEOT, MALE, ADAMANT, KAMURA_FRUIT,
+            AIR_SLASH, DOUBLE_TEAM, DOUBLE_EDGE, AERIAL_ACE,
+            0, 252, 0, 0, 0, 252
+    ),
+    ラッタ_1(
+            RATICATE, MALE, ADAMANT, LOSTOVER_FOOD,
+            QUICK_ATTACK, DOUBLE_TEAM, DOUBLE_EDGE, SWAGGER,
+            0, 252, 0, 0, 0, 252
+    ),
+    オニドリル_1(
+            FEAROW, FEMALE, ADAMANT, KAMURA_FRUIT,
+            DRILL_PECK, DOUBLE_TEAM, DOUBLE_EDGE, SWAGGER,
+            0, 252, 0, 0, 0, 252
+    ),
+    アーボック_1(
+            ARBOK, FEMALE, NAIVE, KAMURA_FRUIT,
+            BULLDOZE, DOUBLE_TEAM, TOXIC, SWAGGER,
+            252, 0, 152, 152, 0, 0
+    ),
     ライチュウ_1(
             RAICHU, MALE, NAIVE, LAPEL_OF_SPIRIT,
             THUNDERBOLT, NASTY_PLOT, SURF, THUNDER_WAVE,
@@ -406,7 +431,7 @@ public enum RentalPoke {
                 rentalPoke.nature,
                 new IndividualValueI(31, 31, 31, 31, 31, 31),
                 new EffortValueI(rentalPoke.H, rentalPoke.A, rentalPoke.B, rentalPoke.C, rentalPoke.D, rentalPoke.S),
-                new LevelI(100),
+                new LevelI(50),
                 List.of(init(rentalPoke.m1), init(rentalPoke.m2), init(rentalPoke.m3), init(rentalPoke.m4)),
                 rentalPoke.item
         );
