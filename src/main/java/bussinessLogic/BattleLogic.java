@@ -125,6 +125,12 @@ public class BattleLogic {
 
     private static int calcDamage(Field atkField, Field dfcField, Move move, Weather weather) throws InterruptedException {
         // ダメージ計算参考　https://latest.pokewiki.net/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F
+        showMessageParChar(atkField.poke().basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
+        // 固定ダメージ用の特別処理
+        if (BaseMvPrm.constDmgMove.contains(move.baseMPrm())) {
+            return move.baseMPrm().constDmgCalc(atkField, dfcField);
+        }
+
         // 攻撃側ポケモン
         PokeInfo atkPk = atkField.poke();
         // 防御側ポケモン
@@ -176,7 +182,6 @@ public class BattleLogic {
         }
 
         int result = (int) Math.floor(Math.floor(Math.floor(Math.floor(attackPokeLv * 2 / 5 + 2) * moveDamage * attackVal / defenceVal) / 50 + 2) * totalDmgRate);
-        showMessageParChar(atkPk.basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
         if (isCritical) {
             showMessageParChar("急所に当った!");
         }

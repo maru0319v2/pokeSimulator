@@ -57,6 +57,12 @@ public enum BaseMvPrm {
             return doNothing(atkField, dfcField, weather);
         }
     },
+    FACADE("からげんき", Type.NORMAL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 70, 100, 15, 0, 0,
+            true, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
+            return doNothing(atkField, dfcField, weather);
+        }
+    },
     DOUBLE_EDGE("すてみタックル", Type.NORMAL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 120, 100, 15, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int damaged, Weather weather) throws InterruptedException {
@@ -73,6 +79,12 @@ public enum BaseMvPrm {
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int damaged, Weather weather) throws InterruptedException {
             return recoilDmgHP100Per(atkField, dfcField, weather);
+        }
+    },
+    ENDEAVOR("がむしゃら", Type.NORMAL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 1, 100, 5, 0, 0,
+            true, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
+            return doNothing(atkField, dfcField, weather);
         }
     },
     AERIAL_ACE("つばめがえし", Type.FLYING, MoveSpecies.PHYSICAL, DetailMvSpecies.HIT, 60, -1, 20, 0, 0,
@@ -108,6 +120,12 @@ public enum BaseMvPrm {
     MACH_PUNCH("マッハパンチ", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.PRIORITY, 40, 100, 30, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return doNothing(atkField, dfcField, weather);
+        }
+    },
+    SEISMIC_TOSS("ちきゅうなげ", Type.FIGHTING, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 1, 100, 20, 0, 0,
+            true, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
@@ -184,6 +202,13 @@ public enum BaseMvPrm {
         }
     },
     EARTHQUAKE("じしん", Type.GROUND, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 100, 100, 10, 0, 0,
+            false, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
+            return doNothing(atkField, dfcField, weather);
+        }
+    },
+    // TODO ひこうタイプにもあたる
+    FISSURE("じわれ", Type.GROUND, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 1, 30, 5, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
@@ -332,6 +357,12 @@ public enum BaseMvPrm {
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return beFreeze(10, atkField, dfcField, weather);
+        }
+    },
+    SHEER_COLD("ぜったいれいど", Type.ICE, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 1, 30, 5, 0, 0,
+            false, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
+            return doNothing(atkField, dfcField, weather);
         }
     },
     VINE_WHIP("つるのムチ", Type.GRASS, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 45, 100, 25, 0, 0,
@@ -572,7 +603,7 @@ public enum BaseMvPrm {
             return myStatusRankCh(100, atkField, dfcField, weather, 0, 0, 2, 0, 0, 0, 0);
         }
     },
-    MEMENTO("おきみやげ", Type.DARK, MoveSpecies.CHANGE, DetailMvSpecies.DOWN_A, 0, 100, 10, 0, 0,
+    MEMENTO("おきみやげ", Type.DARK, MoveSpecies.CHANGE, DetailMvSpecies.DOWN_A, 0, -1, 10, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             OnBattleField onBf = enemyStatusRankCh(100, atkField, dfcField, weather, -2, 0, -2, 0, 0, 0, 0);
@@ -747,7 +778,10 @@ public enum BaseMvPrm {
     };
 
     // 粉技、草タイプには無効
-    public static final Set<BaseMvPrm> powderMove = new HashSet<>(Arrays.asList(BaseMvPrm.SLEEP_POWDER, BaseMvPrm.SPORE));
+    public static final Set<BaseMvPrm> powderMove = new HashSet<>(Arrays.asList(SLEEP_POWDER, SPORE));
+
+    // 固定ダメージ、一撃技リスト
+    public static final Set<BaseMvPrm> constDmgMove = new HashSet<>(Arrays.asList(SEISMIC_TOSS, SHEER_COLD, FISSURE, ENDEAVOR));
 
     // わざめい
     private final String mvName;
@@ -806,6 +840,19 @@ public enum BaseMvPrm {
             case ERUPTION, WATER_SPOUT -> result = 150 * atkField.poke().currentHP().val() / atkField.poke().realHP();
             case REVERSAL, FLAIL -> result = calcReversalDmg(atkField);
             case BRINE -> result = (double) (dfcField.poke().currentHP().val()) / (double) (dfcField.poke().realHP()) <= 0.5 ? this.damage * 2 : this.damage;
+            case FACADE -> result = atkField.poke().ailment().isSick() ? this.damage * 2 : this.damage;
+            default -> result = this.damage;
+        }
+        return result;
+    }
+
+    // 固定ダメージ、一撃技のダメージ計算
+    public int constDmgCalc(Field atkField, Field dfcField) {
+        int result;
+        switch (this) {
+            case SEISMIC_TOSS -> result = atkField.poke().level().val();
+            case SHEER_COLD, FISSURE -> result = dfcField.poke().currentHP().val();
+            case ENDEAVOR -> result = Math.max(0, dfcField.poke().currentHP().val() - atkField.poke().currentHP().val());
             default -> result = this.damage;
         }
         return result;

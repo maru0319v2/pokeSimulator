@@ -44,7 +44,7 @@ public enum RentalPoke {
     ),
     スピアー_1(
             BEEDRILL, MALE, TIMID, LAPEL_OF_SPIRIT,
-            SLUDGE_BOMB, MEMENTO, DOUBLE_TEAM, SWAGGER,
+            SLUDGE_BOMB, MEMENTO, DOUBLE_TEAM, ENDEAVOR,
             0, 252, 0, 0, 0, 252
     ),
     ピジョット_1(
@@ -54,7 +54,7 @@ public enum RentalPoke {
     ),
     ラッタ_1(
             RATICATE, MALE, ADAMANT, LOSTOVER_FOOD,
-            QUICK_ATTACK, DOUBLE_TEAM, DOUBLE_EDGE, SWAGGER,
+            FACADE, DOUBLE_TEAM, DOUBLE_EDGE, ENDEAVOR,
             0, 252, 0, 0, 0, 252
     ),
     オニドリル_1(
@@ -279,7 +279,7 @@ public enum RentalPoke {
     ),
     ラッキー_1(
             CHANSEY, FEMALE, BOLD, LIGHT_POWDER,
-            FLAMETHROWER, ICE_BEAM, THUNDERBOLT, SOFT_BOILED,
+            FLAMETHROWER, ICE_BEAM, SEISMIC_TOSS, SOFT_BOILED,
             252, 0, 6, 252, 0, 0
     ),
     モンジャラ_1(
@@ -349,7 +349,7 @@ public enum RentalPoke {
     ),
     ラプラス_1(
             LAPRAS, FEMALE, CALM, LOSTOVER_FOOD,
-            SCALD, THUNDERBOLT, ICE_BEAM, CONFUSE_RAY,
+            SCALD, THUNDERBOLT, ICE_BEAM, SHEER_COLD,
             252, 0, 0, 100, 156, 0
     ),
     シャワーズ_1(
@@ -389,7 +389,7 @@ public enum RentalPoke {
     ),
     フリーザー_1(
             ARTICUNO, UNKNOWN, HARDY, LIGHT_POWDER,
-            BLIZZARD, HURRICANE, ICE_SHARD, HAIL,
+            BLIZZARD, HURRICANE, ICE_SHARD, SHEER_COLD,
             52, 0, 0, 200, 252, 6
     ),
     サンダー_1(
