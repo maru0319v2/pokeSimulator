@@ -39,7 +39,7 @@ public enum RentalPoke {
     ),
     バタフリー_1(
             BUTTERFREE, FEMALE, TIMID, LAPEL_OF_SPIRIT,
-            BUG_BUZZ, QUIVER_DANCE, SLEEP_POWDER, PSYCHIC,
+            BUG_BUZZ, QUIVER_DANCE, SLEEP_POWDER, PSYCHICS,
             0, 0, 0, 252, 0, 252
     ),
     スピアー_1(
@@ -119,7 +119,7 @@ public enum RentalPoke {
     ),
     モルフォン_1(
             VENOMATH, MALE, JOLLY, MARK_OF_KINGS,
-            BUG_BUZZ, PSYCHIC, SLUDGE_BOMB, QUIVER_DANCE,
+            BUG_BUZZ, PSYCHICS, SLUDGE_BOMB, QUIVER_DANCE,
             6, 0, 0, 152, 100, 252
     ),
     ダグトリオ_1(
@@ -134,7 +134,7 @@ public enum RentalPoke {
     ),
     ゴルダック_1(
             GOLDUCK, MALE, TIMID, RAMU_FRUIT,
-            HYDRO_PUMP, ICE_BEAM, PSYCHIC, CALM_MIND,
+            HYDRO_PUMP, ICE_BEAM, PSYCHICS, CALM_MIND,
             0, 0, 0, 252, 6, 252
     ),
     オコリザル_1(
@@ -154,7 +154,7 @@ public enum RentalPoke {
     ),
     フーディン_1(
             AKAKAZAM, MALE, TIMID, LAPEL_OF_SPIRIT,
-            PSYCHIC, SHADOW_BALL, RECOVER, CALM_MIND,
+            PSYCHICS, SHADOW_BALL, RECOVER, CALM_MIND,
             6, 0, 0, 252, 0, 252
     ),
     カイリキー_1(
@@ -184,7 +184,7 @@ public enum RentalPoke {
     ),
     ヤドラン_1(
             SLOWBRO, FEMALE, RELAXED, RAMU_FRUIT,
-            SCALD, PSYCHIC, SLACK_OFF, CALM_MIND,
+            SCALD, PSYCHICS, SLACK_OFF, CALM_MIND,
             252, 0, 0, 200, 56, 0
     ),
     レアコイル_1(
@@ -229,7 +229,7 @@ public enum RentalPoke {
     ),
     スリーパー_1(
             HYPNO, MALE, MODEST, RAMU_FRUIT,
-            PSYCHIC, SHADOW_BALL, DAZZLING_GLEAM, HYPNOSIS,
+            PSYCHICS, SHADOW_BALL, DAZZLING_GLEAM, HYPNOSIS,
             50, 0, 0, 252, 202, 6
     ),
     キングラー_1(
@@ -244,7 +244,7 @@ public enum RentalPoke {
     ),
     ナッシー_1(
             EXEGGUTOR, MALE, MODEST, OBON_FRUIT,
-            GIGA_DRAIN, PSYCHIC, HYPNOSIS, SYNTHESIS,
+            GIGA_DRAIN, PSYCHICS, HYPNOSIS, SYNTHESIS,
             252, 0, 0, 252, 0, 6
     ),
     ガラガラ_1(
@@ -304,12 +304,12 @@ public enum RentalPoke {
     ),
     スターミー_1(
             STARMIE, UNKNOWN, TIMID, KAMURA_FRUIT,
-            ICE_BEAM, PSYCHIC, THUNDERBOLT, HYDRO_PUMP,
+            ICE_BEAM, PSYCHICS, THUNDERBOLT, HYDRO_PUMP,
             0, 0, 0, 252, 0, 252
     ),
     バリヤード_1(
             MRMIME, MALE, CALM, OBON_FRUIT,
-            PSYCHIC, THUNDERBOLT, LIGHT_SCREEN, REFLECT,
+            PSYCHICS, THUNDERBOLT, LIGHT_SCREEN, REFLECT,
             6, 0, 0, 252, 0, 252
     ),
     ストライク_1(
@@ -319,17 +319,17 @@ public enum RentalPoke {
     ),
     ルージュラ_1(
             JYNX, FEMALE, HASTY, RAMU_FRUIT,
-            ICE_BEAM, LOVELY_KISS, PSYCHIC, FOCUS_BLAST,
+            ICE_BEAM, LOVELY_KISS, PSYCHICS, FOCUS_BLAST,
             6, 0, 0, 252, 0, 252
     ),
     エレブー_1(
             ELECTABUZZ, FEMALE, HASTY, LIGHT_POWDER,
-            THUNDERBOLT, MACH_PUNCH, PSYCHIC, HIDDEN_POWER_ICE,
+            THUNDERBOLT, MACH_PUNCH, PSYCHICS, HIDDEN_POWER_ICE,
             6, 0, 0, 252, 0, 252
     ),
     ブーバー_1(
             MAGMAR, FEMALE, HASTY, LIGHT_POWDER,
-            FIRE_BLAST, MACH_PUNCH, PSYCHIC, DOUBLE_EDGE,
+            FIRE_BLAST, MACH_PUNCH, PSYCHICS, DOUBLE_EDGE,
             0, 100, 0, 156, 0, 252
     ),
     カイロス_1(

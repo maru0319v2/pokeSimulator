@@ -14,520 +14,523 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import static Enum.MoveSpecies.*;
+import static Enum.Type.*;
 import static field.WeatherEnum.*;
+import static move.DetailMvSpecies.*;
 
 @AllArgsConstructor
 public enum BaseMvPrm {
     /**
      * ここから通常攻撃
      */
-    TACKLE("たいあたり", Type.NORMAL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 40, 95, 35, 0, 0,
+    TACKLE("たいあたり", NORMAL, PHYSICAL, DAMAGE, 40, 95, 35, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    QUICK_ATTACK("でんこうせっか", Type.NORMAL, MoveSpecies.PHYSICAL, DetailMvSpecies.PRIORITY, 40, 100, 30, 0, 1,
+    QUICK_ATTACK("でんこうせっか", NORMAL, PHYSICAL, PRIORITY, 40, 100, 30, 0, 1,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    BODY_SLAM("のしかかり", Type.NORMAL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 85, 100, 15, 0, 0,
+    BODY_SLAM("のしかかり", NORMAL, PHYSICAL, DAMAGE, 85, 100, 15, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return BaseMvPrm.beParalysis(30, atkField, dfcField, weather);
         }
     },
-    EXTREME_SPEED("しんそく", Type.NORMAL, MoveSpecies.PHYSICAL, DetailMvSpecies.PRIORITY, 80, 100, 5, 0, 2,
+    EXTREME_SPEED("しんそく", NORMAL, PHYSICAL, PRIORITY, 80, 100, 5, 0, 2,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    FLAIL("じたばた", Type.NORMAL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 20, 100, 15, 0, 0,
+    FLAIL("じたばた", NORMAL, PHYSICAL, DAMAGE, 20, 100, 15, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    SLASH("きりさく", Type.NORMAL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 70, 100, 20, 1, 0,
+    SLASH("きりさく", NORMAL, PHYSICAL, DAMAGE, 70, 100, 20, 1, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    FACADE("からげんき", Type.NORMAL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 70, 100, 15, 0, 0,
+    FACADE("からげんき", NORMAL, PHYSICAL, DAMAGE, 70, 100, 15, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    DOUBLE_EDGE("すてみタックル", Type.NORMAL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 120, 100, 15, 0, 0,
+    DOUBLE_EDGE("すてみタックル", NORMAL, PHYSICAL, DAMAGE, 120, 100, 15, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int damaged, Weather weather) throws InterruptedException {
             return recoilDmg33Per(atkField, dfcField, weather, damaged);
         }
     },
-    SELF_DESTRUCT("じばく", Type.NORMAL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 200, 100, 5, 0, 0,
+    SELF_DESTRUCT("じばく", NORMAL, PHYSICAL, DAMAGE, 200, 100, 5, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int damaged, Weather weather) throws InterruptedException {
             return recoilDmgHP100Per(atkField, dfcField, weather);
         }
     },
-    EXPLOSION("だいばくはつ", Type.NORMAL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 250, 100, 5, 0, 0,
+    EXPLOSION("だいばくはつ", NORMAL, PHYSICAL, DAMAGE, 250, 100, 5, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int damaged, Weather weather) throws InterruptedException {
             return recoilDmgHP100Per(atkField, dfcField, weather);
         }
     },
-    ENDEAVOR("がむしゃら", Type.NORMAL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 1, 100, 5, 0, 0,
+    ENDEAVOR("がむしゃら", NORMAL, PHYSICAL, DAMAGE, 1, 100, 5, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    AERIAL_ACE("つばめがえし", Type.FLYING, MoveSpecies.PHYSICAL, DetailMvSpecies.HIT, 60, -1, 20, 0, 0,
+    AERIAL_ACE("つばめがえし", FLYING, PHYSICAL, HIT, 60, -1, 20, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    DRILL_PECK("ドリルくちばし", Type.FLYING, MoveSpecies.PHYSICAL, DetailMvSpecies.HIT, 80, 100, 20, 0, 0,
+    DRILL_PECK("ドリルくちばし", FLYING, PHYSICAL, HIT, 80, 100, 20, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    BRAVE_BIRD("ブレイブバード", Type.FLYING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 120, 100, 15, 0, 0,
+    BRAVE_BIRD("ブレイブバード", FLYING, PHYSICAL, DAMAGE, 120, 100, 15, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int damaged, Weather weather) throws InterruptedException {
             return recoilDmg33Per(atkField, dfcField, weather, damaged);
         }
     },
-    AIR_SLASH("エアスラッシュ", Type.FLYING, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 75, 95, 15, 0, 0,
+    AIR_SLASH("エアスラッシュ", FLYING, SPECIAL, DAMAGE, 75, 95, 15, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return beFlinch(30, atkField, dfcField, weather);
         }
     },
-    HURRICANE("ぼうふう", Type.FLYING, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 110, 70, 10, 0, 0,
+    HURRICANE("ぼうふう", FLYING, SPECIAL, DAMAGE, 110, 70, 10, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return beConfusion(30, atkField, dfcField, weather);
         }
     },
-    MACH_PUNCH("マッハパンチ", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.PRIORITY, 40, 100, 30, 0, 0,
+    MACH_PUNCH("マッハパンチ", FIGHTING, PHYSICAL, PRIORITY, 40, 100, 30, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    SEISMIC_TOSS("ちきゅうなげ", Type.FIGHTING, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 1, 100, 20, 0, 0,
+    SEISMIC_TOSS("ちきゅうなげ", FIGHTING, SPECIAL, DAMAGE, 1, 100, 20, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    FOCUS_BLAST("きあいだま", Type.FIGHTING, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 120, 70, 5, 0, 0,
+    FOCUS_BLAST("きあいだま", FIGHTING, SPECIAL, DAMAGE, 120, 70, 5, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return enemyStatusRankCh(10, atkField, dfcField, weather, 0, 0, 0, -1, 0, 0, 0);
         }
     },
-    REVERSAL("きしかいせい", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 20, 100, 15, 0, 0,
+    REVERSAL("きしかいせい", FIGHTING, PHYSICAL, DAMAGE, 20, 100, 15, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    HAMMER_ARM("アームハンマー", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 100, 90, 10, 0, 0,
+    HAMMER_ARM("アームハンマー", FIGHTING, PHYSICAL, DAMAGE, 100, 90, 10, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return myStatusRankCh(100, atkField, dfcField, weather, 0, 0, 0, 0, -1, 0, 0);
         }
     },
-    DYNAMIC_PUNCH("ばくれつパンチ", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 100, 50, 5, 0, 0,
+    DYNAMIC_PUNCH("ばくれつパンチ", FIGHTING, PHYSICAL, DAMAGE, 100, 50, 5, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return beConfusion(100, atkField, dfcField, weather);
         }
     },
-    AURA_SPHERE("はどうだん", Type.FIGHTING, MoveSpecies.SPECIAL, DetailMvSpecies.HIT, 80, -1, 20, 0, 0,
+    AURA_SPHERE("はどうだん", FIGHTING, SPECIAL, HIT, 80, -1, 20, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    CLOSE_COMBAT("インファイト", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 120, 100, 5, 0, 0,
+    CLOSE_COMBAT("インファイト", FIGHTING, PHYSICAL, DAMAGE, 120, 100, 5, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return myStatusRankCh(100, atkField, dfcField, weather, 0, -1, 0, -1, 0, 0, 0);
         }
     },
-    SUPERPOWER("ばかぢから", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 120, 100, 5, 0, 0,
+    SUPERPOWER("ばかぢから", FIGHTING, PHYSICAL, DAMAGE, 120, 100, 5, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return myStatusRankCh(100, atkField, dfcField, weather, -1, -1, 0, 0, 0, 0, 0);
         }
     },
-    POWER_UP_PUNCH("グロウパンチ", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 40, 100, 20, 0, 0,
+    POWER_UP_PUNCH("グロウパンチ", FIGHTING, PHYSICAL, DAMAGE, 40, 100, 20, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return myStatusRankCh(50, atkField, dfcField, weather, 1, 0, 0, 0, 0, 0, 0);
         }
     },
-    DRAIN_PUNCH("ドレインパンチ", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 75, 100, 10, 0, 0,
+    DRAIN_PUNCH("ドレインパンチ", FIGHTING, PHYSICAL, DAMAGE, 75, 100, 10, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return recoveryDmg50Per(atkField, dfcField, weather, recoveryHP);
         }
     },
-    CRESS_CHOP("クロスチョップ", Type.FIGHTING, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 100, 80, 5, 1, 0,
+    CRESS_CHOP("クロスチョップ", FIGHTING, PHYSICAL, DAMAGE, 100, 80, 5, 1, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    BULLDOZE("じならし", Type.GROUND, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 60, 100, 10, 0, 0,
+    BULLDOZE("じならし", GROUND, PHYSICAL, DAMAGE, 60, 100, 10, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return enemyStatusRankCh(100, atkField, dfcField, weather, 0, 0, 0, 0, -1, 0, 0);
         }
     },
-    EARTH_POWER("だいちのちから", Type.GROUND, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 90, 100, 10, 0, 0,
+    EARTH_POWER("だいちのちから", GROUND, SPECIAL, DAMAGE, 90, 100, 10, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return enemyStatusRankCh(10, atkField, dfcField, weather, 0, 0, 0, -1, 0, 0, 0);
         }
     },
-    EARTHQUAKE("じしん", Type.GROUND, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 100, 100, 10, 0, 0,
+    EARTHQUAKE("じしん", GROUND, PHYSICAL, DAMAGE, 100, 100, 10, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
     // TODO ひこうタイプにもあたる
-    FISSURE("じわれ", Type.GROUND, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 1, 30, 5, 0, 0,
+    FISSURE("じわれ", GROUND, PHYSICAL, DAMAGE, 1, 30, 5, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    SLUDGE_BOMB("ヘドロばくだん", Type.POISON, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 90, 100, 10, 0, 0,
+    SLUDGE_BOMB("ヘドロばくだん", POISON, SPECIAL, DAMAGE, 90, 100, 10, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return bePoison(10, atkField, dfcField, weather);
         }
     },
-    FLAME_CHARGE("ニトロチャージ", Type.FIRE, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 50, 100, 20, 0, 0,
+    FLAME_CHARGE("ニトロチャージ", FIRE, PHYSICAL, DAMAGE, 50, 100, 20, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return myStatusRankCh(100, atkField, dfcField, weather, 0, 0, 0, 0, 1, 0, 0);
         }
     },
-    FLAMETHROWER("かえんほうしゃ", Type.FIRE, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 90, 100, 15, 0, 0,
+    FLAMETHROWER("かえんほうしゃ", FIRE, SPECIAL, DAMAGE, 90, 100, 15, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return beBurn(10, atkField, dfcField, weather);
         }
     },
-    FIRE_BLAST("だいもんじ", Type.FIRE, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 110, 85, 5, 0, 0,
+    FIRE_BLAST("だいもんじ", FIRE, SPECIAL, DAMAGE, 110, 85, 5, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return beBurn(10, atkField, dfcField, weather);
         }
     },
-    FLARE_BLITZ("フレアドライブ", Type.FIRE, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 120, 100, 15, 0, 0,
+    FLARE_BLITZ("フレアドライブ", FIRE, PHYSICAL, DAMAGE, 120, 100, 15, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int damaged, Weather weather) throws InterruptedException {
             OnBattleField onBf = beBurn(10, atkField, dfcField, weather);
             return recoilDmg33Per(onBf.atkField(), onBf.dfcField(), onBf.weather(), damaged);
         }
     },
-    OVERHEAT("オーバーヒート", Type.FIRE, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 130, 90, 5, 0, 0,
+    OVERHEAT("オーバーヒート", FIRE, SPECIAL, DAMAGE, 130, 90, 5, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return myStatusRankCh(100, atkField, dfcField, weather, 0, 0, -2, 0, 0, 0, 0);
         }
     },
-    ERUPTION("ふんか", Type.FIRE, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 150, 100, 5, 0, 0,
+    ERUPTION("ふんか", FIRE, SPECIAL, DAMAGE, 150, 100, 5, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    WILD_CHARGE("ワイルドボルト", Type.ELECTRIC, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 90, 100, 15, 0, 0,
+    WILD_CHARGE("ワイルドボルト", ELECTRIC, PHYSICAL, DAMAGE, 90, 100, 15, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int damaged, Weather weather) throws InterruptedException {
             return recoilDmg25Per(atkField, dfcField, weather, damaged);
         }
     },
-    THUNDERBOLT("10まんボルト", Type.ELECTRIC, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 90, 100, 15, 0, 0,
+    THUNDERBOLT("10まんボルト", ELECTRIC, SPECIAL, DAMAGE, 90, 100, 15, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return beParalysis(10, atkField, dfcField, weather);
         }
     },
-    THUNDER("かみなり", Type.ELECTRIC, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 110, 70, 10, 0, 0,
+    THUNDER("かみなり", ELECTRIC, SPECIAL, DAMAGE, 110, 70, 10, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return beParalysis(30, atkField, dfcField, weather);
         }
     },
-    DRAGON_CLAW("ドラゴンクロー", Type.DRAGON, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 80, 100, 15, 0, 0,
+    DRAGON_CLAW("ドラゴンクロー", DRAGON, PHYSICAL, DAMAGE, 80, 100, 15, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    DRACO_METEOR("りゅうせいぐん", Type.DRAGON, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 130, 90, 5, 0, 0,
+    DRACO_METEOR("りゅうせいぐん", DRAGON, SPECIAL, DAMAGE, 130, 90, 5, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return myStatusRankCh(100, atkField, dfcField, weather, 0, 0, -2, 0, 0, 0, 0);
         }
     },
-    AQUA_JET("アクアジェット", Type.WATER, MoveSpecies.PHYSICAL, DetailMvSpecies.PRIORITY, 40, 100, 20, 0, 1,
+    AQUA_JET("アクアジェット", WATER, PHYSICAL, PRIORITY, 40, 100, 20, 0, 1,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    WATER_PULSE("みずのはどう", Type.WATER, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 60, 100, 20, 0, 0,
+    WATER_PULSE("みずのはどう", WATER, SPECIAL, DAMAGE, 60, 100, 20, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return beConfusion(20, atkField, dfcField, weather);
         }
     },
-    BRINE("しおみず", Type.WATER, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 65, 100, 10, 0, 0,
+    BRINE("しおみず", WATER, SPECIAL, DAMAGE, 65, 100, 10, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    WATERFALL("たきのぼり", Type.WATER, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 80, 100, 15, 0, 0,
+    WATERFALL("たきのぼり", WATER, PHYSICAL, DAMAGE, 80, 100, 15, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return beFlinch(20, atkField, dfcField, weather);
         }
     },
-    SCALD("ねっとう", Type.WATER, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 80, 100, 15, 0, 0,
+    SCALD("ねっとう", WATER, SPECIAL, DAMAGE, 80, 100, 15, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return beBurn(30, atkField, dfcField, weather);
         }
     },
-    LIQUIDATION("アクアブレイク", Type.WATER, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 85, 100, 10, 0, 0,
+    LIQUIDATION("アクアブレイク", WATER, PHYSICAL, DAMAGE, 85, 100, 10, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return enemyStatusRankCh(20, atkField, dfcField, weather, 0, -1, 0, 0, 0, 0, 0);
         }
     },
-    SURF("なみのり", Type.WATER, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 90, 100, 15, 0, 0,
+    SURF("なみのり", WATER, SPECIAL, DAMAGE, 90, 100, 15, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    HYDRO_PUMP("ハイドロポンプ", Type.WATER, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 110, 80, 5, 0, 0,
+    HYDRO_PUMP("ハイドロポンプ", WATER, SPECIAL, DAMAGE, 110, 80, 5, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    WATER_SPOUT("しおふき", Type.WATER, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 150, 100, 5, 0, 0,
+    WATER_SPOUT("しおふき", WATER, SPECIAL, DAMAGE, 150, 100, 5, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    ICE_SHARD("こおりのつぶて", Type.ICE, MoveSpecies.PHYSICAL, DetailMvSpecies.PRIORITY, 40, 100, 30, 0, 1,
+    ICE_SHARD("こおりのつぶて", ICE, PHYSICAL, PRIORITY, 40, 100, 30, 0, 1,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    ICE_BEAM("れいとうビーム", Type.ICE, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 90, 100, 10, 0, 0,
+    ICE_BEAM("れいとうビーム", ICE, SPECIAL, DAMAGE, 90, 100, 10, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return beFreeze(10, atkField, dfcField, weather);
         }
     },
-    BLIZZARD("ふぶき", Type.ICE, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 110, 70, 5, 0, 0,
+    BLIZZARD("ふぶき", ICE, SPECIAL, DAMAGE, 110, 70, 5, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return beFreeze(10, atkField, dfcField, weather);
         }
     },
-    SHEER_COLD("ぜったいれいど", Type.ICE, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 1, 30, 5, 0, 0,
+    SHEER_COLD("ぜったいれいど", ICE, SPECIAL, DAMAGE, 1, 30, 5, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    VINE_WHIP("つるのムチ", Type.GRASS, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 45, 100, 25, 0, 0,
+    VINE_WHIP("つるのムチ", GRASS, PHYSICAL, DAMAGE, 45, 100, 25, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    ENERGY_BALL("エナジーボール", Type.GRASS, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 90, 100, 10, 0, 0,
+    ENERGY_BALL("エナジーボール", GRASS, SPECIAL, DAMAGE, 90, 100, 10, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return enemyStatusRankCh(10, atkField, dfcField, weather, 0, 0, 0, -1, 0, 0, 0);
         }
     },
-    SEED_BOMB("タネばくだん", Type.GRASS, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 80, 100, 15, 0, 0,
+    SEED_BOMB("タネばくだん", GRASS, PHYSICAL, DAMAGE, 80, 100, 15, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    GIGA_DRAIN("ギガドレイン", Type.GRASS, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 75, 100, 10, 0, 0,
+    GIGA_DRAIN("ギガドレイン", GRASS, SPECIAL, DAMAGE, 75, 100, 10, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return recoveryDmg50Per(atkField, dfcField, weather, recoveryHP);
         }
     },
-    WOOD_HAMMER("ウッドハンマー", Type.GRASS, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 120, 100, 15, 0, 0,
+    WOOD_HAMMER("ウッドハンマー", GRASS, PHYSICAL, DAMAGE, 120, 100, 15, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int damaged, Weather weather) throws InterruptedException {
             return recoilDmg33Per(atkField, dfcField, weather, damaged);
         }
     },
-    LEECH_LIFE("きゅうけつ", Type.BUG, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 80, 100, 10, 0, 0,
+    LEECH_LIFE("きゅうけつ", BUG, PHYSICAL, DAMAGE, 80, 100, 10, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return recoveryDmg50Per(atkField, dfcField, weather, recoveryHP);
         }
     },
-    X_SCISSOR("シザークロス", Type.BUG, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 80, 100, 15, 0, 0,
+    X_SCISSOR("シザークロス", BUG, PHYSICAL, DAMAGE, 80, 100, 15, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    BUG_BUZZ("むしのさざめき", Type.BUG, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 90, 100, 10, 0, 0,
+    BUG_BUZZ("むしのさざめき", BUG, SPECIAL, DAMAGE, 90, 100, 10, 0, 0,
             false, false, true, false, false, true) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return enemyStatusRankCh(10, atkField, dfcField, weather, 0, 0, 0, -1, 0, 0, 0);
         }
     },
-    MEGA_HORN("メガホーン", Type.BUG, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 120, 85, 10, 0, 0,
+    MEGA_HORN("メガホーン", BUG, PHYSICAL, DAMAGE, 120, 85, 10, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    BULLET_PUNCH("バレットパンチ", Type.STEEL, MoveSpecies.PHYSICAL, DetailMvSpecies.PRIORITY, 40, 100, 30, 0, 1,
+    BULLET_PUNCH("バレットパンチ", STEEL, PHYSICAL, PRIORITY, 40, 100, 30, 0, 1,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    FLASH_CANNON("ラスターカノン", Type.STEEL, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 80, 100, 10, 0, 0,
+    FLASH_CANNON("ラスターカノン", STEEL, SPECIAL, DAMAGE, 80, 100, 10, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return enemyStatusRankCh(10, atkField, dfcField, weather, 0, 0, 0, -1, 0, 0, 0);
         }
     },
-    IRON_TAIL("アイアンテール", Type.STEEL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 100, 75, 15, 0, 0,
+    IRON_TAIL("アイアンテール", STEEL, PHYSICAL, DAMAGE, 100, 75, 15, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return enemyStatusRankCh(30, atkField, dfcField, weather, 0, -1, 0, 0, 0, 0, 0);
         }
     },
-    METEOR_MASH("コメットパンチ", Type.STEEL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 90, 90, 10, 0, 0,
+    METEOR_MASH("コメットパンチ", STEEL, PHYSICAL, DAMAGE, 90, 90, 10, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return myStatusRankCh(20, atkField, dfcField, weather, 1, 0, 0, 0, 0, 0, 0);
         }
     },
-    STEEL_BEAM("てっていこうせん", Type.STEEL, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 140, 95, 5, 0, 0,
+    STEEL_BEAM("てっていこうせん", STEEL, SPECIAL, DAMAGE, 140, 95, 5, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int damaged, Weather weather) throws InterruptedException {
             return recoilDmgHP50Per(atkField, dfcField, weather);
         }
     },
-    ROCK_TOMB("がんせきふうじ", Type.ROCK, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 60, 95, 15, 0, 0,
+    ROCK_TOMB("がんせきふうじ", ROCK, PHYSICAL, DAMAGE, 60, 95, 15, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return enemyStatusRankCh(100, atkField, dfcField, weather, 0, 0, 0, 0, -1, 0, 0);
         }
     },
-    ROCK_SLIDE("いわなだれ", Type.ROCK, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 75, 90, 10, 0, 0,
+    ROCK_SLIDE("いわなだれ", ROCK, PHYSICAL, DAMAGE, 75, 90, 10, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return beFlinch(30, atkField, dfcField, weather);
         }
     },
-    STONE_EDGE("ストーンエッジ", Type.ROCK, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 100, 80, 5, 1, 0,
+    STONE_EDGE("ストーンエッジ", ROCK, PHYSICAL, DAMAGE, 100, 80, 5, 1, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    NIGHT_SLASH("つじぎり", Type.DARK, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 70, 100, 15, 1, 0,
+    NIGHT_SLASH("つじぎり", DARK, PHYSICAL, DAMAGE, 70, 100, 15, 1, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    CRUNCH("かみくだく", Type.DARK, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 80, 100, 15, 0, 0,
+    CRUNCH("かみくだく", DARK, PHYSICAL, DAMAGE, 80, 100, 15, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return enemyStatusRankCh(20, atkField, dfcField, weather, 0, -1, 0, 0, 0, 0, 0);
         }
     },
-    PSYCHIC("サイコキネシス", Type.PSYCHIC, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 90, 100, 10, 0, 0,
+    PSYCHICS("サイコキネシス", PSYCHIC, SPECIAL, DAMAGE, 90, 100, 10, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return enemyStatusRankCh(10, atkField, dfcField, weather, 0, 0, 0, -1, 0, 0, 0);
         }
     },
-    ZEN_HEADBUTT("しねんのずつき", Type.PSYCHIC, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 80, 90, 15, 0, 0,
+    ZEN_HEADBUTT("しねんのずつき", PSYCHIC, PHYSICAL, DAMAGE, 80, 90, 15, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
             return beFlinch(20, atkField, dfcField, weather);
         }
     },
-    SHADOW_BALL("シャドーボール", Type.GHOST, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 80, 100, 15, 0, 0,
+    SHADOW_BALL("シャドーボール", GHOST, SPECIAL, DAMAGE, 80, 100, 15, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return enemyStatusRankCh(20, atkField, dfcField, weather, 0, 0, 0, -1, 0, 0, 0);
         }
     },
-    PLAY_ROUGH("じゃれつく", Type.FAIRY, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 90, 90, 10, 0, 0,
+    PLAY_ROUGH("じゃれつく", FAIRY, PHYSICAL, DAMAGE, 90, 90, 10, 0, 0,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return enemyStatusRankCh(10, atkField, dfcField, weather, -1, 0, 0, 0, 0, 0, 0);
         }
     },
-    DAZZLING_GLEAM("マジカルシャイン", Type.FAIRY, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 80, 100, 10, 0, 0,
+    DAZZLING_GLEAM("マジカルシャイン", FAIRY, SPECIAL, DAMAGE, 80, 100, 10, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    MOONBLAST("ムーンフォース", Type.FAIRY, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 95, 100, 15, 0, 0,
+    MOONBLAST("ムーンフォース", FAIRY, SPECIAL, DAMAGE, 95, 100, 15, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return enemyStatusRankCh(30, atkField, dfcField, weather, 0, 0, -1, 0, 0, 0, 0);
         }
     },
-    HIDDEN_POWER_FIRE("めざめるパワー", Type.FIRE, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 70, 100, 15, 0, 0,
+    HIDDEN_POWER_FIRE("めざめるパワー", FIRE, SPECIAL, DAMAGE, 70, 100, 15, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    HIDDEN_POWER_ICE("めざめるパワー", Type.ICE, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 70, 100, 15, 0, 0,
+    HIDDEN_POWER_ICE("めざめるパワー", ICE, SPECIAL, DAMAGE, 70, 100, 15, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return doNothing(atkField, dfcField, weather);
         }
     },
-    HIDDEN_POWER_GRASS("めざめるパワー", Type.GRASS, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 70, 100, 15, 0, 0,
+    HIDDEN_POWER_GRASS("めざめるパワー", GRASS, SPECIAL, DAMAGE, 70, 100, 15, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return doNothing(atkField, dfcField, weather);
@@ -537,19 +540,19 @@ public enum BaseMvPrm {
     /**
      * ここからランク変化技
      */
-    GROWL("なきごえ", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.DOWN_A, 0, 100, 20, 0, 0,
+    GROWL("なきごえ", NORMAL, CHANGE, DOWN_A, 0, 100, 20, 0, 0,
             false, true, true, false, true, true) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return enemyStatusRankCh(100, atkField, dfcField, weather, -1, 0, 0, 0, 0, 0, 0);
         }
     },
-    DOUBLE_TEAM("かげぶんしん", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.UP_AV, 0, -1, 15, 0, 0,
+    DOUBLE_TEAM("かげぶんしん", NORMAL, CHANGE, UP_AV, 0, -1, 15, 0, 0,
             false, false, false, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return myStatusRankCh(100, atkField, dfcField, weather, 0, 0, 0, 0, 0, 0, 1);
         }
     },
-    GROWTH("せいちょう", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.UP_C, 0, -1, 20, 0, 0,
+    GROWTH("せいちょう", NORMAL, CHANGE, UP_C, 0, -1, 20, 0, 0,
             false, false, true, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             if (weather.val() == DROUGHT) {
@@ -559,76 +562,76 @@ public enum BaseMvPrm {
             }
         }
     },
-    SWORDS_DANCE("つるぎのまい", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.UP_A, 0, -1, 20, 0, 0,
+    SWORDS_DANCE("つるぎのまい", NORMAL, CHANGE, UP_A, 0, -1, 20, 0, 0,
             false, false, true, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return myStatusRankCh(100, atkField, dfcField, weather, 2, 0, 0, 0, 0, 0, 0);
         }
     },
-    SHELL_SMASH("からをやぶる", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.UP_A, 0, 100, 15, 0, 0,
+    SHELL_SMASH("からをやぶる", NORMAL, CHANGE, UP_A, 0, 100, 15, 0, 0,
             false, true, true, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             OnBattleField onBf = myStatusRankCh(100, atkField, dfcField, weather, 0, -1, 0, -1, 0, 0, 0);
             return myStatusRankCh(100, onBf.atkField(), dfcField, weather, 2, 0, 2, 0, 2, 0, 0);
         }
     },
-    MINIMIZE("ちいさくなる", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.UP_AV, 0, 100, 10, 0, 0,
+    MINIMIZE("ちいさくなる", NORMAL, CHANGE, UP_AV, 0, 100, 10, 0, 0,
             false, true, true, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return myStatusRankCh(100, atkField, dfcField, weather, 0, 0, 0, 0, 0, 0, 2);
         }
     },
-    BELLY_DRUM("はらだいこ", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.UP_AV, 0, -1, 10, 0, 0,
+    BELLY_DRUM("はらだいこ", NORMAL, CHANGE, UP_AV, 0, -1, 10, 0, 0,
             false, true, true, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             OnBattleField onBf = recoilDmgHP50Per(atkField, dfcField, weather);
             return myStatusRankCh(100, onBf.atkField(), onBf.dfcField(), onBf.weather(), 12, 0, 0, 0, 0, 0, 0);
         }
     },
-    CHARM("あまえる", Type.PSYCHIC, MoveSpecies.CHANGE, DetailMvSpecies.DOWN_A, 0, 100, 20, 0, 0,
+    CHARM("あまえる", PSYCHIC, CHANGE, DOWN_A, 0, 100, 20, 0, 0,
             false, true, true, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return enemyStatusRankCh(100, atkField, dfcField, weather, -2, 0, 0, 0, 0, 0, 0);
         }
     },
-    CALM_MIND("めいそう", Type.PSYCHIC, MoveSpecies.CHANGE, DetailMvSpecies.UP_C, 0, 100, 20, 0, 0,
+    CALM_MIND("めいそう", PSYCHIC, CHANGE, UP_C, 0, 100, 20, 0, 0,
             false, false, false, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return myStatusRankCh(100, atkField, dfcField, weather, 0, 0, 1, 1, 0, 0, 0);
         }
     },
-    NASTY_PLOT("わるだくみ", Type.DARK, MoveSpecies.CHANGE, DetailMvSpecies.UP_C, 0, 100, 20, 0, 0,
+    NASTY_PLOT("わるだくみ", Type.DARK, CHANGE, UP_C, 0, 100, 20, 0, 0,
             false, true, true, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return myStatusRankCh(100, atkField, dfcField, weather, 0, 0, 2, 0, 0, 0, 0);
         }
     },
-    MEMENTO("おきみやげ", Type.DARK, MoveSpecies.CHANGE, DetailMvSpecies.DOWN_A, 0, -1, 10, 0, 0,
+    MEMENTO("おきみやげ", Type.DARK, CHANGE, DOWN_A, 0, -1, 10, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             OnBattleField onBf = enemyStatusRankCh(100, atkField, dfcField, weather, -2, 0, -2, 0, 0, 0, 0);
             return recoilDmgHP100Per(onBf.atkField(), onBf.dfcField(), onBf.weather());
         }
     },
-    HONE_CLAWS("つめとぎ", Type.DARK, MoveSpecies.CHANGE, DetailMvSpecies.UP_A, 0, 100, 15, 0, 0,
+    HONE_CLAWS("つめとぎ", Type.DARK, CHANGE, UP_A, 0, 100, 15, 0, 0,
             false, false, true, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return myStatusRankCh(100, atkField, dfcField, weather, 1, 0, 0, 0, 0, 1, 0);
         }
     },
-    DRAGON_DANCE("りゅうのまい", Type.DRAGON, MoveSpecies.CHANGE, DetailMvSpecies.UP_A, 0, 100, 20, 0, 0,
+    DRAGON_DANCE("りゅうのまい", Type.DRAGON, CHANGE, UP_A, 0, 100, 20, 0, 0,
             false, true, true, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return myStatusRankCh(100, atkField, dfcField, weather, 1, 0, 0, 0, 1, 0, 0);
         }
     },
-    QUIVER_DANCE("ちょうのまい", Type.BUG, MoveSpecies.CHANGE, DetailMvSpecies.UP_C, 0, 100, 20, 0, 0,
+    QUIVER_DANCE("ちょうのまい", BUG, CHANGE, UP_C, 0, 100, 20, 0, 0,
             false, true, true, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return myStatusRankCh(100, atkField, dfcField, weather, 0, 0, 1, 1, 1, 0, 0);
         }
     },
-    BULK_UP("ビルドアップ", Type.FIGHTING, MoveSpecies.CHANGE, DetailMvSpecies.UP_A, 0, 100, 20, 0, 0,
+    BULK_UP("ビルドアップ", FIGHTING, CHANGE, UP_A, 0, 100, 20, 0, 0,
             false, true, true, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return myStatusRankCh(100, atkField, dfcField, weather, 1, 1, 0, 0, 0, 0, 0);
@@ -637,56 +640,56 @@ public enum BaseMvPrm {
     /**
      * ここから状態異常技
      */
-    SLEEP_POWDER("ねむりごな", Type.GRASS, MoveSpecies.CHANGE, DetailMvSpecies.AILMENT, 0, 75, 15, 0, 0,
+    SLEEP_POWDER("ねむりごな", GRASS, CHANGE, AILMENT, 0, 75, 15, 0, 0,
             false, true, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return beSleep(100, atkField, dfcField, weather);
         }
     },
-    SPORE("キノコのほうし", Type.GRASS, MoveSpecies.CHANGE, DetailMvSpecies.AILMENT, 0, 100, 15, 0, 0,
+    SPORE("キノコのほうし", GRASS, CHANGE, AILMENT, 0, 100, 15, 0, 0,
             false, true, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return beSleep(100, atkField, dfcField, weather);
         }
     },
-    LOVELY_KISS("あくまのキッス", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.AILMENT, 0, 75, 10, 0, 0,
+    LOVELY_KISS("あくまのキッス", NORMAL, CHANGE, AILMENT, 0, 75, 10, 0, 0,
             false, true, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return beSleep(100, atkField, dfcField, weather);
         }
     },
-    WILL_O_WISP("おにび", Type.FIRE, MoveSpecies.CHANGE, DetailMvSpecies.AILMENT, 0, 85, 15, 0, 0,
+    WILL_O_WISP("おにび", FIRE, CHANGE, AILMENT, 0, 85, 15, 0, 0,
             false, true, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return beBurn(100, atkField, dfcField, weather);
         }
     },
-    CONFUSE_RAY("あやしいひかり", Type.GHOST, MoveSpecies.CHANGE, DetailMvSpecies.CONFUSE, 0, 100, 10, 0, 0,
+    CONFUSE_RAY("あやしいひかり", GHOST, CHANGE, CONFUSE, 0, 100, 10, 0, 0,
             false, true, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return beConfusion(100, atkField, dfcField, weather);
         }
     },
-    HYPNOSIS("さいみんじゅつ", Type.PSYCHIC, MoveSpecies.CHANGE, DetailMvSpecies.AILMENT, 0, 60, 20, 0, 0,
+    HYPNOSIS("さいみんじゅつ", PSYCHIC, CHANGE, AILMENT, 0, 60, 20, 0, 0,
             false, true, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return beSleep(100, atkField, dfcField, weather);
         }
     },
-    TOXIC("どくどく", Type.POISON, MoveSpecies.CHANGE, DetailMvSpecies.AILMENT, 0, 90, 10, 0, 0,
+    TOXIC("どくどく", POISON, CHANGE, AILMENT, 0, 90, 10, 0, 0,
             false, true, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return BaseMvPrm.beBadPoison(100, atkField, dfcField, weather);
         }
     },
-    THUNDER_WAVE("でんじは", Type.ELECTRIC, MoveSpecies.CHANGE, DetailMvSpecies.AILMENT, 0, 90, 20, 0, 0,
+    THUNDER_WAVE("でんじは", ELECTRIC, CHANGE, AILMENT, 0, 90, 20, 0, 0,
             false, true, true, false, false, false) {
         // TODO 多分地面タイプにも効く
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return BaseMvPrm.beParalysis(100, atkField, dfcField, weather);
         }
     },
-    SWAGGER("いばる", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.CONFUSE, 0, 85, 15, 0, 0,
+    SWAGGER("いばる", NORMAL, CHANGE, CONFUSE, 0, 85, 15, 0, 0,
             false, true, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             OnBattleField onBf = enemyStatusRankCh(100, atkField, dfcField, weather, 2, 0, 0, 0, 0, 0, 0);
@@ -696,37 +699,37 @@ public enum BaseMvPrm {
     /**
      * ここからその他変化技
      */
-    RECOVER("じこさいせい", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.RECOVERY, 0, -1, 5, 0, 0,
+    RECOVER("じこさいせい", NORMAL, CHANGE, RECOVERY, 0, -1, 5, 0, 0,
             false, false, false, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return recoveryHP50Per(atkField, dfcField, weather);
         }
     },
-    SLACK_OFF("なまける", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.RECOVERY, 0, -1, 5, 0, 0,
+    SLACK_OFF("なまける", NORMAL, CHANGE, RECOVERY, 0, -1, 5, 0, 0,
             false, false, false, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return recoveryHP50Per(atkField, dfcField, weather);
         }
     },
-    SOFT_BOILED("タマゴうみ", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.RECOVERY, 0, -1, 5, 0, 0,
+    SOFT_BOILED("タマゴうみ", NORMAL, CHANGE, RECOVERY, 0, -1, 5, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return recoveryHP50Per(atkField, dfcField, weather);
         }
     },
-    MOONLIGHT("つきのひかり", Type.PSYCHIC, MoveSpecies.CHANGE, DetailMvSpecies.RECOVERY, 0, -1, 5, 0, 0,
+    MOONLIGHT("つきのひかり", PSYCHIC, CHANGE, RECOVERY, 0, -1, 5, 0, 0,
             false, false, false, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return recoveryByWeather(atkField, dfcField, weather);
         }
     },
-    SYNTHESIS("こうごうせい", Type.GRASS, MoveSpecies.CHANGE, DetailMvSpecies.RECOVERY, 0, -1, 5, 0, 0,
+    SYNTHESIS("こうごうせい", GRASS, CHANGE, RECOVERY, 0, -1, 5, 0, 0,
             false, false, false, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return recoveryByWeather(atkField, dfcField, weather);
         }
     },
-    REST("ねむる", Type.PSYCHIC, MoveSpecies.CHANGE, DetailMvSpecies.RECOVERY, 0, -1, 10, 0, 0,
+    REST("ねむる", PSYCHIC, CHANGE, RECOVERY, 0, -1, 10, 0, 0,
             false, false, false, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             if (atkField.poke().realHP() > atkField.poke().currentHP().val()) {
@@ -737,13 +740,13 @@ public enum BaseMvPrm {
             }
         }
     },
-    LIGHT_SCREEN("ひかりのかべ", Type.PSYCHIC, MoveSpecies.CHANGE, DetailMvSpecies.WALL, 0, -1, 30, 0, 0,
+    LIGHT_SCREEN("ひかりのかべ", PSYCHIC, CHANGE, WALL, 0, -1, 30, 0, 0,
             false, false, false, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return new OnBattleField(atkField.updateLightScreen(LightScreen.enableLightScreen(atkField.lightScreen())), dfcField, weather);
         }
     },
-    REFLECT("リフレクター", Type.PSYCHIC, MoveSpecies.CHANGE, DetailMvSpecies.WALL, 0, -1, 20, 0, 0,
+    REFLECT("リフレクター", PSYCHIC, CHANGE, WALL, 0, -1, 20, 0, 0,
             false, false, false, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return new OnBattleField(atkField.updateReflect(Reflect.enableReflect(atkField.reflect())), dfcField, weather);
@@ -752,25 +755,25 @@ public enum BaseMvPrm {
     /**
      * ここから天候技
      */
-    SUNNY_DAY("にほんばれ", Type.FIRE, MoveSpecies.CHANGE, DetailMvSpecies.WEATHER, 0, -1, 5, 0, 0,
+    SUNNY_DAY("にほんばれ", FIRE, CHANGE, WEATHER, 0, -1, 5, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return new OnBattleField(atkField, dfcField, Weather.changeWeather(weather, DROUGHT));
         }
     },
-    RAIN_DANCE("あまごい", Type.WATER, MoveSpecies.CHANGE, DetailMvSpecies.WEATHER, 0, -1, 5, 0, 0,
+    RAIN_DANCE("あまごい", WATER, CHANGE, WEATHER, 0, -1, 5, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return new OnBattleField(atkField, dfcField, Weather.changeWeather(weather, RAIN));
         }
     },
-    SAND_STORM("すなあらし", Type.ROCK, MoveSpecies.CHANGE, DetailMvSpecies.WEATHER, 0, -1, 10, 0, 0,
+    SAND_STORM("すなあらし", ROCK, CHANGE, WEATHER, 0, -1, 10, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return new OnBattleField(atkField, dfcField, Weather.changeWeather(weather, SANDSTORM));
         }
     },
-    HAIL("あられ", Type.ICE, MoveSpecies.CHANGE, DetailMvSpecies.WEATHER, 0, -1, 10, 0, 0,
+    HAIL("あられ", ICE, CHANGE, WEATHER, 0, -1, 10, 0, 0,
             false, false, false, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return new OnBattleField(atkField, dfcField, Weather.changeWeather(weather, WeatherEnum.HAIL));
