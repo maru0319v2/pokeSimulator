@@ -33,6 +33,12 @@ public enum BaseMvPrm {
             return doNothing(atkField, dfcField, weather);
         }
     },
+    BODY_SLAM("のしかかり", Type.NORMAL, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 85, 100, 15, 0, 0,
+            true, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return BaseMvPrm.beParalysis(30, atkField, dfcField, weather);
+        }
+    },
     EXTREME_SPEED("しんそく", Type.NORMAL, MoveSpecies.PHYSICAL, DetailMvSpecies.PRIORITY, 80, 100, 5, 0, 2,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
@@ -286,6 +292,12 @@ public enum BaseMvPrm {
             return beBurn(30, atkField, dfcField, weather);
         }
     },
+    LIQUIDATION("アクアブレイク", Type.WATER, MoveSpecies.PHYSICAL, DetailMvSpecies.DAMAGE, 85, 100, 10, 0, 0,
+            true, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return enemyStatusRankCh(20, atkField, dfcField, weather, 0, -1, 0, 0, 0, 0, 0);
+        }
+    },
     SURF("なみのり", Type.WATER, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 90, 100, 15, 0, 0,
             false, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) {
@@ -472,6 +484,25 @@ public enum BaseMvPrm {
             return enemyStatusRankCh(30, atkField, dfcField, weather, 0, 0, -1, 0, 0, 0, 0);
         }
     },
+    HIDDEN_POWER_FIRE("めざめるパワー", Type.FIRE, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 70, 100, 15, 0, 0,
+            false, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return doNothing(atkField, dfcField, weather);
+        }
+    },
+    HIDDEN_POWER_ICE("めざめるパワー", Type.ICE, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 70, 100, 15, 0, 0,
+            false, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return doNothing(atkField, dfcField, weather);
+        }
+    },
+    HIDDEN_POWER_GRASS("めざめるパワー", Type.GRASS, MoveSpecies.SPECIAL, DetailMvSpecies.DAMAGE, 70, 100, 15, 0, 0,
+            false, false, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return doNothing(atkField, dfcField, weather);
+        }
+    },
+
     /**
      * ここからランク変化技
      */
@@ -490,7 +521,11 @@ public enum BaseMvPrm {
     GROWTH("せいちょう", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.UP_C, 0, -1, 20, 0, 0,
             false, false, true, false, true, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
-            return myStatusRankCh(100, atkField, dfcField, weather, 0, 0, 1, 0, 0, 0, 0);
+            if (weather.val() == DROUGHT) {
+                return myStatusRankCh(100, atkField, dfcField, weather, 2, 0, 2, 0, 0, 0, 0);
+            } else {
+                return myStatusRankCh(100, atkField, dfcField, weather, 1, 0, 1, 0, 0, 0, 0);
+            }
         }
     },
     SWORDS_DANCE("つるぎのまい", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.UP_A, 0, -1, 20, 0, 0,
@@ -578,6 +613,12 @@ public enum BaseMvPrm {
         }
     },
     SPORE("キノコのほうし", Type.GRASS, MoveSpecies.CHANGE, DetailMvSpecies.AILMENT, 0, 100, 15, 0, 0,
+            false, true, true, false, false, false) {
+        public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
+            return beSleep(100, atkField, dfcField, weather);
+        }
+    },
+    LOVELY_KISS("あくまのキッス", Type.NORMAL, MoveSpecies.CHANGE, DetailMvSpecies.AILMENT, 0, 75, 10, 0, 0,
             false, true, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return beSleep(100, atkField, dfcField, weather);
