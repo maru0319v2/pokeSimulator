@@ -48,13 +48,13 @@ public enum RentalPoke {
             0, 252, 0, 0, 0, 252
     ),
     ピジョット_1(
-            PIDGEOT, MALE, ADAMANT, KAMURA_FRUIT,
-            AIR_SLASH, DOUBLE_TEAM, DOUBLE_EDGE, AERIAL_ACE,
-            0, 252, 0, 0, 0, 252
+            PIDGEOT, MALE, MODEST, KAMURA_FRUIT,
+            AIR_SLASH, DOUBLE_TEAM, HEAT_WAVE, HURRICANE,
+            0, 0, 0, 252, 0, 252
     ),
     ラッタ_1(
             RATICATE, MALE, ADAMANT, LOSTOVER_FOOD,
-            FACADE, DOUBLE_TEAM, DOUBLE_EDGE, ENDEAVOR,
+            FACADE, FEINT_ATTACK, DOUBLE_EDGE, ENDEAVOR,
             0, 252, 0, 0, 0, 252
     ),
     オニドリル_1(
@@ -89,18 +89,18 @@ public enum RentalPoke {
     ),
     ピクシー_1(
             CLEFABLE, FEMALE, MODEST, LIGHT_POWDER,
-            DOUBLE_EDGE, THUNDER_WAVE, PLAY_ROUGH, DOUBLE_TEAM,
-            252, 0, 0, 0, 0, 252
+            DAZZLING_GLEAM, HYPER_VOICE, FLAMETHROWER, DOUBLE_TEAM,
+            252, 0, 0, 252, 0, 0
     ),
     キュウコン_1(
             NINETALES, MALE, MODEST, RAMU_FRUIT,
-            FLAMETHROWER, WILL_O_WISP, HIDDEN_POWER_ICE, DOUBLE_TEAM,
+            MYSTICAL_FIRE, WILL_O_WISP, HIDDEN_POWER_ICE, DOUBLE_TEAM,
             0, 0, 0, 252, 0, 252
     ),
     プクリン_1(
-            WIGGLYTUFF, FEMALE, ADAMANT, LIGHT_POWDER,
-            DOUBLE_EDGE, THUNDER_WAVE, PLAY_ROUGH, DOUBLE_TEAM,
-            252, 0, 0, 0, 0, 252
+            WIGGLYTUFF, FEMALE, MODEST, LIGHT_POWDER,
+            DAZZLING_GLEAM, HYPER_VOICE, FLAMETHROWER, DOUBLE_TEAM,
+            252, 0, 0, 252, 0, 0
     ),
     ゴルバット_1(
             GOLBAT, FEMALE, MODEST, LIGHT_POWDER,
@@ -194,7 +194,7 @@ public enum RentalPoke {
     ),
     カモネギ_1(
             FARFETCHD, MALE, JOLLY, MARK_OF_KINGS,
-            BRAVE_BIRD, DOUBLE_EDGE, SWORDS_DANCE, SWAGGER,
+            BRAVE_BIRD, DOUBLE_EDGE, SWORDS_DANCE, KNOCK_OFF,
             6, 252, 0, 0, 0, 252
     ),
     ドードリオ_1(
@@ -209,7 +209,7 @@ public enum RentalPoke {
     ),
     ベトベトン_1(
             MUK, MALE, BOLD, RAMU_FRUIT,
-            SLUDGE_BOMB, TOXIC, REST, MEMENTO,
+            SLUDGE_BOMB, TOXIC, REST, KNOCK_OFF,
             252, 0, 48, 152, 48, 0
     ),
     パルシェン_1(
@@ -309,7 +309,7 @@ public enum RentalPoke {
     ),
     バリヤード_1(
             MRMIME, MALE, CALM, OBON_FRUIT,
-            PSYCHICS, THUNDERBOLT, LIGHT_SCREEN, REFLECT,
+            PSYCHICS, MYSTICAL_FIRE, LIGHT_SCREEN, REFLECT,
             6, 0, 0, 252, 0, 252
     ),
     ストライク_1(
@@ -379,7 +379,7 @@ public enum RentalPoke {
     ),
     プテラ_1(
             AERODACTYL, MALE, JOLLY, MARK_OF_KINGS,
-            STONE_EDGE, EARTHQUAKE, AERIAL_ACE, SWAGGER,
+            HEAD_SMASH, EARTHQUAKE, AERIAL_ACE, SWAGGER,
             0, 252, 0, 0, 6, 252
     ),
     カビゴン_1(
