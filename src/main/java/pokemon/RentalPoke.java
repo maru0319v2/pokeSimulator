@@ -153,7 +153,7 @@ public enum RentalPoke {
             6, 252, 0, 0, 152, 100
     ),
     フーディン_1(
-            AKAKAZAM, MALE, TIMID, LAPEL_OF_SPIRIT,
+            AKAKAZAM, MALE, HASTY, LAPEL_OF_SPIRIT,
             PSYCHICS, SHADOW_BALL, RECOVER, CALM_MIND,
             6, 0, 0, 252, 0, 252
     ),
@@ -218,7 +218,7 @@ public enum RentalPoke {
             0, 0, 0, 252, 0, 252
     ),
     ゲンガー_1(
-            GENGAR, FEMALE, TIMID, LAPEL_OF_SPIRIT,
+            GENGAR, FEMALE, HASTY, LAPEL_OF_SPIRIT,
             SHADOW_BALL, CONFUSE_RAY, THUNDERBOLT, HYPNOSIS,
             0, 0, 0, 252, 0, 252
     ),
@@ -385,27 +385,27 @@ public enum RentalPoke {
     カビゴン_1(
             SNORLAX, MALE, SERIOUS, RAMU_FRUIT,
             BODY_SLAM, EARTHQUAKE, REST, SELF_DESTRUCT,
-            252, 200, 52, 0, 6, 0
+            252, 100, 102, 0, 56, 0
     ),
     フリーザー_1(
             ARTICUNO, UNKNOWN, HARDY, LIGHT_POWDER,
             BLIZZARD, HURRICANE, ICE_SHARD, SHEER_COLD,
-            52, 0, 0, 200, 252, 6
+            102, 0, 102, 102, 102, 102
     ),
     サンダー_1(
             ZAPDOS, UNKNOWN, SERIOUS, KAMURA_FRUIT,
             THUNDER, HURRICANE, RAIN_DANCE, THUNDER_WAVE,
-            50, 0, 50, 202, 50, 152
+            102, 0, 102, 102, 102, 102
     ),
     ファイヤー_1(
             MOLTRES, UNKNOWN, QUIRKY, RAMU_FRUIT,
             FIRE_BLAST, AIR_SLASH, WILL_O_WISP, HIDDEN_POWER_GRASS,
-            0, 0, 0, 252, 0, 252
+            102, 0, 102, 102, 102, 102
     ),
     カイリュー_1(
-            DRAGONITE, MALE, NAUGHTY, LOSTOVER_FOOD,
+            DRAGONITE, MALE, BASHFUL, LOSTOVER_FOOD,
             DRAGON_CLAW, DRAGON_DANCE, EARTHQUAKE, EXTREME_SPEED,
-            52, 200, 52, 0, 52, 148
+            102, 102, 102, 0, 102, 102
     );
 
     private final BasePrm base;

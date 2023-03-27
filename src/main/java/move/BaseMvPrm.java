@@ -120,7 +120,7 @@ public enum BaseMvPrm {
             return beConfusion(30, atkField, dfcField, weather);
         }
     },
-    MACH_PUNCH("マッハパンチ", FIGHTING, PHYSICAL, PRIORITY, 40, 100, 30, 0, 0,
+    MACH_PUNCH("マッハパンチ", FIGHTING, PHYSICAL, PRIORITY, 40, 100, 30, 0, 1,
             true, false, true, false, false, false) {
         public OnBattleField effect(Field atkField, Field dfcField, int recoveryHP, Weather weather) throws InterruptedException {
             return doNothing(atkField, dfcField, weather);
