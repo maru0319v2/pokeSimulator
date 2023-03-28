@@ -36,8 +36,16 @@ public class ConsoleOutManager {
             System.out.println("技　名: " + move.baseMPrm().mvName());
             System.out.println("タイプ: " + move.baseMPrm().moveType().val());
             System.out.println("分　類: " + move.baseMPrm().moveSpecies().val());
-            System.out.println("威　力: " + move.baseMPrm().damage());
-            System.out.println("命中率: " + move.baseMPrm().hitRate());
+            if (null == move.baseMPrm().damage()) {
+                System.out.println("威　力: -");
+            } else {
+                System.out.println("威　力: " + move.baseMPrm().damage());
+            }
+            if (null == move.baseMPrm().hitRate()) {
+                System.out.println("命中率: -");
+            } else {
+                System.out.println("命中率: " + move.baseMPrm().hitRate());
+            }
             System.out.println("");
         }
     }

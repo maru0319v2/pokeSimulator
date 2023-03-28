@@ -196,8 +196,8 @@ public class BattleLogic {
     }
 
     private static boolean isHit(PokeInfo atkPk, PokeInfo dfcPk, Move move, Weather weather) {
-        // 技の命中率が-1のときは必中
-        if (move.baseMPrm().hitRate(weather) == -1) {
+        // 技の命中率がnullのときは必中
+        if (null == move.baseMPrm().hitRate(weather)) {
             return true;
         }
         // 攻撃側の命中ランクと防御側の回避ランクから算出した命中補正
