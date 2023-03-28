@@ -152,7 +152,7 @@ public class EnemySelectMove {
         // 攻撃側のレベル
         int attackPokeLv = atkField.poke().level().val();
         // 技の威力
-        int moveDamage = move.baseMPrm().damage();
+        int moveDamage = null == move.baseMPrm().damage() ? 1 : move.baseMPrm().damage();
         // 技の分類
         MoveSpecies moveSpecies = move.baseMPrm().moveSpecies();
         // ダメージの乱数
