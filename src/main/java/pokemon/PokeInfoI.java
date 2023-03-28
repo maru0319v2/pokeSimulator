@@ -172,7 +172,7 @@ public class PokeInfoI implements PokeInfo {
         this.individualValue = IndividualValueI.init();
         this.effortValue = EffortValueI.init();
         this.level = new LevelI(50);
-        this.haveMove = List.of(MoveI.init(BaseMvPrm.TACKLE));
+        this.haveMove = List.of(MoveI.init(BaseMvPrm.BODY_SLAM));
         this.currentHP = new CurrentHPI(realHP());
         this.statusRank = StatusRankI.init();
         this.ailment = AilmentI.init();

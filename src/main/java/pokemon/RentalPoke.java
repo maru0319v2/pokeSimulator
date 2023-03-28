@@ -280,7 +280,7 @@ public enum RentalPoke {
     ラッキー_1(
             CHANSEY, FEMALE, BOLD, LIGHT_POWDER,
             FLAMETHROWER, ICE_BEAM, SEISMIC_TOSS, SOFT_BOILED,
-            252, 0, 6, 252, 0, 0
+            252, 0, 252, 0, 0, 6
     ),
     モンジャラ_1(
             TANGELA, MALE, CALM, LOSTOVER_FOOD,
@@ -388,17 +388,17 @@ public enum RentalPoke {
             252, 100, 102, 0, 56, 0
     ),
     フリーザー_1(
-            ARTICUNO, UNKNOWN, HARDY, LIGHT_POWDER,
+            ARTICUNO, UNKNOWN, SASSY, LIGHT_POWDER,
             BLIZZARD, HURRICANE, ICE_SHARD, SHEER_COLD,
             102, 0, 102, 102, 102, 102
     ),
     サンダー_1(
-            ZAPDOS, UNKNOWN, SERIOUS, KAMURA_FRUIT,
+            ZAPDOS, UNKNOWN, MILD, KAMURA_FRUIT,
             THUNDER, HURRICANE, RAIN_DANCE, THUNDER_WAVE,
             102, 0, 102, 102, 102, 102
     ),
     ファイヤー_1(
-            MOLTRES, UNKNOWN, QUIRKY, RAMU_FRUIT,
+            MOLTRES, UNKNOWN, NAIVE, RAMU_FRUIT,
             FIRE_BLAST, AIR_SLASH, WILL_O_WISP, HIDDEN_POWER_GRASS,
             102, 0, 102, 102, 102, 102
     ),

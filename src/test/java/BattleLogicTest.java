@@ -41,14 +41,14 @@ public class BattleLogicTest {
                 IndividualValueI.init(),
                 EffortValueI.init(),
                 new LevelI(100),
-                List.of(init(BaseMvPrm.TACKLE)),
+                List.of(init(BaseMvPrm.BODY_SLAM)),
                 Item.NONE
         );
         Field myField = FieldI.init(myPoke);
         Field enemyField = FieldI.init(enemyPoke);
 
-        assertTrue(BattleLogic.isFirstMe(myField, enemyField, init(BaseMvPrm.QUICK_ATTACK), init(BaseMvPrm.TACKLE)));
-        assertFalse(BattleLogic.isFirstMe(myField, enemyField, init(BaseMvPrm.TACKLE), init(BaseMvPrm.QUICK_ATTACK)));
+        assertTrue(BattleLogic.isFirstMe(myField, enemyField, init(BaseMvPrm.QUICK_ATTACK), init(BaseMvPrm.BODY_SLAM)));
+        assertFalse(BattleLogic.isFirstMe(myField, enemyField, init(BaseMvPrm.BODY_SLAM), init(BaseMvPrm.QUICK_ATTACK)));
     }
 
 
