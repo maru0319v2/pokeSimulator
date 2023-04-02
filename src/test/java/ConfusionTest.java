@@ -17,7 +17,7 @@ public class ConfusionTest {
 
     @Test
     @DisplayName("混乱状態にしたとき混乱状態が維持されていること")
-    public void test2() throws InterruptedException {
+    public void test2() {
         PokeInfo pk = init(BasePrm.CHARIZARD);
         pk = pk.updateConfusion(beConfusion(pk));
         assertTrue(pk.confusion().val());
@@ -25,7 +25,7 @@ public class ConfusionTest {
 
     @Test
     @DisplayName("混乱状態にしたときcountRecoveryが2以上、elapsedTurnが0であること")
-    public void test3() throws InterruptedException {
+    public void test3() {
         PokeInfo pk = init(BasePrm.CHARIZARD);
         pk = pk.updateConfusion(beConfusion(pk));
         assertTrue(pk.confusion().countRecovery() >= 2);
@@ -34,7 +34,7 @@ public class ConfusionTest {
 
     @Test
     @DisplayName("1ターン経過でelapsedTurnが1増えること")
-    public void test4() throws InterruptedException {
+    public void test4() {
         PokeInfo pk = init(BasePrm.CHARIZARD);
         pk = pk.updateConfusion(beConfusion(pk));
         pk = pk.updateConfusion(pk.confusion().elapseTurn(pk.basePrm().pName()));
@@ -43,7 +43,7 @@ public class ConfusionTest {
 
     @Test
     @DisplayName("5ターン経過後に混乱状態が解除されていること")
-    public void test5() throws InterruptedException {
+    public void test5() {
         PokeInfo pk = init(BasePrm.CHARIZARD);
         pk = pk.updateConfusion(beConfusion(pk));
 
@@ -58,7 +58,7 @@ public class ConfusionTest {
 
     @Test
     @DisplayName("すでに混乱状態になっている場合は、さらに混乱にならないこと")
-    public void test6() throws InterruptedException {
+    public void test6() {
         PokeInfo pk = init(BasePrm.CHARIZARD);
         pk = pk.updateConfusion(beConfusion(pk));
         pk = pk.updateConfusion(pk.confusion().elapseTurn(pk.basePrm().pName()));

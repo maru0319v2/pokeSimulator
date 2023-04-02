@@ -10,9 +10,9 @@ public interface Ailment {
 
     int countRecoverySleep();
 
-    Ailment comeTurn(String pokeName) throws InterruptedException;
+    Ailment comeTurn(String pokeName);
 
-    boolean canMove(String pokeName) throws InterruptedException;
+    boolean canMove(String pokeName);
 
     boolean isFine();
 
@@ -22,6 +22,6 @@ public interface Ailment {
 
     double spdRateByParalysis();
 
-    PokeInfo slipDmgByAilment(PokeInfo target) throws InterruptedException;
+    PokeInfo slipDmgByAilment(PokeInfo target);
 
 }

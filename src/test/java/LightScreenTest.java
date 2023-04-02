@@ -17,7 +17,7 @@ public class LightScreenTest {
 
     @Test
     @DisplayName("ひかりのかべが有効になること")
-    public void test2() throws InterruptedException {
+    public void test2() {
         LightScreen rightScreen = LightScreen.initLightScreen();
         rightScreen = LightScreen.enableLightScreen(rightScreen);
         assertTrue(rightScreen.val());
@@ -27,7 +27,7 @@ public class LightScreenTest {
 
     @Test
     @DisplayName("5ターン後にひかりのかべが無効になること")
-    public void test3() throws InterruptedException {
+    public void test3() {
         LightScreen rightScreen = LightScreen.initLightScreen();
         rightScreen = LightScreen.enableLightScreen(rightScreen);
 
@@ -42,7 +42,7 @@ public class LightScreenTest {
 
     @Test
     @DisplayName("物理、特殊攻撃を受けたときにダメージ倍率が正しいこと")
-    public void test4() throws InterruptedException {
+    public void test4() {
         LightScreen rightScreen = LightScreen.initLightScreen();
 
         // ひかりのかべがない状態の場合

@@ -218,7 +218,7 @@ public class ConsoleOutManager {
         System.out.println("");
     }
 
-    public static void showAlreadyAilmentMessage(PokeInfo target) throws InterruptedException {
+    public static void showAlreadyAilmentMessage(PokeInfo target) {
         switch (target.ailment().val()) {
             case PARALYSIS -> showMessageParChar(target.basePrm().pName() + "はすでにしびれている!");
             case POISON -> showMessageParChar(target.basePrm().pName() + "はすでにどくをあびている!");
@@ -229,7 +229,7 @@ public class ConsoleOutManager {
         }
     }
 
-    public static void showChangeAilmentMessage(PokeInfo target, AilmentEnum value) throws InterruptedException {
+    public static void showChangeAilmentMessage(PokeInfo target, AilmentEnum value) {
         switch (value) {
             case PARALYSIS -> showMessageParChar(target.basePrm().pName() + "はしびれてしまった!");
             case POISON -> showMessageParChar(target.basePrm().pName() + "はどくをあびた!");
@@ -242,7 +242,7 @@ public class ConsoleOutManager {
         }
     }
 
-    public static void showChangeWeather(WeatherEnum value) throws InterruptedException {
+    public static void showChangeWeather(WeatherEnum value) {
         switch (value) {
             case DROUGHT -> showMessageParChar("ひざしがつよくなった!");
             case RAIN -> showMessageParChar("あめがふりはじめた!");
@@ -251,7 +251,7 @@ public class ConsoleOutManager {
         }
     }
 
-    public static void showUndoWeather(WeatherEnum value) throws InterruptedException {
+    public static void showUndoWeather(WeatherEnum value) {
         switch (value) {
             case DROUGHT -> showMessageParChar("ひざしがよわまった!");
             case RAIN -> showMessageParChar("あめがやんだ!");
@@ -260,7 +260,7 @@ public class ConsoleOutManager {
         }
     }
 
-    public static void showKeepWeather(WeatherEnum value) throws InterruptedException {
+    public static void showKeepWeather(WeatherEnum value) {
         switch (value) {
             case DROUGHT -> showMessageParChar("ひざしがつよい");
             case RAIN -> showMessageParChar("あめがふりつづいている");
@@ -269,7 +269,7 @@ public class ConsoleOutManager {
         }
     }
 
-    public static void showChangeStatusRank(String name, List<Integer> beforeSRList, List<Integer> afterSRList, List<Integer> changeSRList) throws InterruptedException {
+    public static void showChangeStatusRank(String name, List<Integer> beforeSRList, List<Integer> afterSRList, List<Integer> changeSRList) {
         List<String> statusMsg = List.of("こうげき", "ぼうぎょ", "とくこう", "とくぼう", "すばやさ", "めいちゅうりつ", "かいひりつ");
 
         for (int i = 0; i < 7; i++) {
@@ -296,12 +296,15 @@ public class ConsoleOutManager {
         }
     }
 
-    public static void showMessageParChar(String message) throws InterruptedException {
-        for (int i = 0; i < message.length(); i++) {
-            System.out.print(message.charAt(i));
-            Thread.sleep(20);
+    public static void showMessageParChar(String message) {
+        try {
+            for (int i = 0; i < message.length(); i++) {
+                System.out.print(message.charAt(i));
+                Thread.sleep(20);
+            }
+            System.out.println("");
+            Thread.sleep(150);
+        } catch (InterruptedException ignored) {
         }
-        System.out.println("");
-        Thread.sleep(150);
     }
 }

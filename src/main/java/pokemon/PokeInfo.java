@@ -63,25 +63,25 @@ public interface PokeInfo {
     Ailment ailment();
 
     // 体力を回復
-    PokeInfo recoveryHP(int value) throws InterruptedException;
+    PokeInfo recoveryHP(int value);
 
     // ダメージを受ける
-    PokeInfo damage(int value) throws InterruptedException;
+    PokeInfo damage(int value);
 
     // 指定PPを回復
     PokeInfo recoveryPP(Move move, int value);
 
     // 体力、PP全回復
-    PokeInfo recoveryAll() throws InterruptedException;
+    PokeInfo recoveryAll();
 
     // PPを使う
     PokeInfo decrementPP(Move usedMove);
 
-    PokeInfo changeStatusRank(int attack, int block, int contact, int defence, int speed, int hitRate, int avoidRate) throws InterruptedException;
+    PokeInfo changeStatusRank(int attack, int block, int contact, int defence, int speed, int hitRate, int avoidRate);
 
     PokeInfo resetStatusRank();
 
-    PokeInfo updateAilment(Ailment statusAilment) throws InterruptedException;
+    PokeInfo updateAilment(Ailment statusAilment);
 
     PokeInfo updateFlinch(Flinch flinch);
 

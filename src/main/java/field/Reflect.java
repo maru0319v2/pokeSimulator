@@ -35,11 +35,11 @@ public class Reflect {
     }
 
     // リフレクター状態にする場合
-    public static Reflect enableReflect(Reflect currentReflect) throws InterruptedException {
+    public static Reflect enableReflect(Reflect currentReflect) {
         return new Reflect(currentReflect);
     }
 
-    private Reflect(Reflect currentReflect) throws InterruptedException {
+    private Reflect(Reflect currentReflect) {
         if (currentReflect.val()) {
             // すでに壁が張られている
             showMessageParChar("リフレクターはすではられている!");
@@ -64,7 +64,7 @@ public class Reflect {
         return 1.0;
     }
 
-    public Reflect elapsingTurn() throws InterruptedException {
+    public Reflect elapsingTurn() {
         if (val) {
             if (this.countRecovery <= this.elapsedTurn + 1) {
                 showMessageParChar("リフレクターのこうかがきれた!");

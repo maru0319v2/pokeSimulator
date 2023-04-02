@@ -10,7 +10,7 @@ import static pokemon.PokeInfoI.init;
 public class PokemonInfoImplTest {
     @Test
     @DisplayName("HP0でひんし状態になり、回復すると状態なしになること")
-    public void testBattleLogic1() throws InterruptedException {
+    public void testBattleLogic1() {
         PokeInfo myPoke = init(BasePrm.CHARIZARD);
         myPoke = myPoke.damage(999);
         assertEquals(AilmentEnum.FAINTING, myPoke.ailment().val());

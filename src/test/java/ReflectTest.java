@@ -17,7 +17,7 @@ public class ReflectTest {
 
     @Test
     @DisplayName("リフレクターが有効になること")
-    public void test2() throws InterruptedException {
+    public void test2() {
         Reflect reflect = Reflect.initReflect();
         reflect = Reflect.enableReflect(reflect);
         assertTrue(reflect.val());
@@ -27,7 +27,7 @@ public class ReflectTest {
 
     @Test
     @DisplayName("5ターン後にリフレクターが無効になること")
-    public void test3() throws InterruptedException {
+    public void test3() {
         Reflect reflect = Reflect.initReflect();
         reflect = Reflect.enableReflect(reflect);
 
@@ -42,7 +42,7 @@ public class ReflectTest {
 
     @Test
     @DisplayName("物理、特殊攻撃を受けたときにダメージ倍率が正しいこと")
-    public void test4() throws InterruptedException {
+    public void test4() {
         Reflect reflect = Reflect.initReflect();
 
         // リフレクターがない状態の場合

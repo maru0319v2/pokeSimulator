@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class WeatherTest {
     @Test
     @DisplayName("天候が上書きできること")
-    public void test1() throws InterruptedException {
+    public void test1() {
         // 初期化 天候なし
         Weather weather = Weather.init();
         assertEquals(WeatherEnum.NONE, weather.val());
@@ -31,7 +31,7 @@ public class WeatherTest {
 
     @Test
     @DisplayName("変更する天候がもとの天候と同じ場合上書きできないこと")
-    public void test2() throws InterruptedException {
+    public void test2() {
         // 初期化 天候なし
         Weather weather = Weather.init();
         assertEquals(WeatherEnum.NONE, weather.val());
@@ -50,7 +50,7 @@ public class WeatherTest {
 
     @Test
     @DisplayName("5ターン経過後にもとの天候にもどること")
-    public void test3() throws InterruptedException {
+    public void test3() {
         // 初期化 天候なし
         Weather weather = Weather.init();
         assertEquals(WeatherEnum.NONE, weather.val());
@@ -72,7 +72,7 @@ public class WeatherTest {
 
     @Test
     @DisplayName("晴れのとき炎技が1.5倍、水技が0.5倍になること")
-    public void test4() throws InterruptedException {
+    public void test4() {
         Weather weather = Weather.init();
         weather = changeWeather(weather, WeatherEnum.DROUGHT);
 
@@ -85,7 +85,7 @@ public class WeatherTest {
 
     @Test
     @DisplayName("雨のとき炎技が0.5倍、水技が1.5倍になること")
-    public void test5() throws InterruptedException {
+    public void test5() {
         Weather weather = Weather.init();
         weather = changeWeather(weather, WeatherEnum.RAIN);
 
@@ -98,7 +98,7 @@ public class WeatherTest {
 
     @Test
     @DisplayName("砂嵐のときに岩タイプの特防が1.5倍になること")
-    public void test6() throws InterruptedException {
+    public void test6() {
         PokeInfo myPoke1 = PokeInfoI.init(BasePrm.RHYDON);
         PokeInfo myPoke2 = PokeInfoI.init(BasePrm.CHARIZARD);
 
@@ -117,7 +117,7 @@ public class WeatherTest {
 
     @Test
     @DisplayName("晴れになったときにcountForRecoveryが5、elapsedTurnが0であること")
-    public void test7() throws InterruptedException {
+    public void test7() {
         Weather weather = Weather.init();
         weather = changeWeather(weather, WeatherEnum.DROUGHT);
 
@@ -127,7 +127,7 @@ public class WeatherTest {
 
     @Test
     @DisplayName("岩、地面、鋼タイプはすなあらしダメージを受けないこと")
-    public void test8() throws InterruptedException {
+    public void test8() {
         Weather weather = Weather.init();
         weather = changeWeather(weather, WeatherEnum.SANDSTORM);
 
@@ -149,7 +149,7 @@ public class WeatherTest {
 
     @Test
     @DisplayName("氷タイプはあられダメージを受けないこと")
-    public void test9() throws InterruptedException {
+    public void test9() {
         Weather weather = Weather.init();
         weather = changeWeather(weather, WeatherEnum.HAIL);
 

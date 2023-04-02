@@ -34,7 +34,7 @@ public class ConfusionI implements Confusion {
     }
 
     // 混乱状態にするときに使う
-    public static Confusion beConfusion(PokeInfo target) throws InterruptedException {
+    public static Confusion beConfusion(PokeInfo target) {
         if (target.confusion().val()) {
             showMessageParChar(target.basePrm().pName() + "はすでにこんらんしている!");
             return target.confusion();
@@ -61,27 +61,36 @@ public class ConfusionI implements Confusion {
         this.elapsedTurn = elapsedTurn;
     }
 
-    public Confusion elapseTurn(String name) throws InterruptedException {
+    public Confusion elapseTurn(String name) {
         if (this.val && this.countRecovery <= this.elapsedTurn + 1) {
             showMessageParChar(name + "のこんらんがとけた!");
-            Thread.sleep(200);
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException ignored) {
+            }
             return init();
         }
         return new ConfusionI(this.val, this.countRecovery, this.elapsedTurn + 1);
     }
 
-    public boolean canMove(String name) throws InterruptedException {
+    public boolean canMove(String name) {
         if (this.val) {
             showMessageParChar(name + "はこんらんしている!");
-            Thread.sleep(200);
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException ignored) {
+            }
             return (new Random().nextInt(2)) != 0;
         }
         return true;
     }
 
-    public PokeInfo damageMe(PokeInfo target) throws InterruptedException {
+    public PokeInfo damageMe(PokeInfo target) {
         showMessageParChar(target.basePrm().pName() + "はわけもわからずじぶんをこうげきした!");
-        Thread.sleep(200);
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException ignored) {
+        }
         return target.damage(calcDamage(target));
     }
 

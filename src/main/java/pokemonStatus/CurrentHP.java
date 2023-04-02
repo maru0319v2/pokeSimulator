@@ -8,7 +8,7 @@ public interface CurrentHP {
     int val();
 
     // 体力を回復する。
-    CurrentHP recovery(PokeInfo target, CurrentHP currentHP) throws InterruptedException;
+    CurrentHP recovery(PokeInfo target, CurrentHP currentHP);
 
     // 体力を減らす。
     CurrentHP damage(CurrentHP currentHP);

@@ -77,7 +77,7 @@ public class StatusRankI implements StatusRank {
         this.avoidRate = resultAvoidRate;
     }
 
-    public StatusRankI change(String name, int attack, int block, int contact, int defence, int speed, int hitRate, int avoidRate) throws InterruptedException {
+    public StatusRankI change(String name, int attack, int block, int contact, int defence, int speed, int hitRate, int avoidRate) {
         int addedAttack = this.attack + attack < MIN ? MIN : Math.min(this.attack + attack, MAX);
         int addedBlock = this.block + block < MIN ? MIN : Math.min(this.block + block, MAX);
         int addedContact = this.contact + contact < MIN ? MIN : Math.min(this.contact + contact, MAX);

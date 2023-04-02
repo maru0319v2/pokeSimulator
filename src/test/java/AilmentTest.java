@@ -21,7 +21,7 @@ import static statusAilment.AilmentI.changeAilment;
 public class AilmentTest {
     @Test
     @DisplayName("やけど状態が健康とひんし状態と自己ねむり以外に上書きされないこと")
-    public void test1() throws InterruptedException {
+    public void test1() {
         PokeInfo poke1 = init(BasePrm.BLASTOISE);
         PokeInfo poke2 = init(CHARIZARD);
         PokeInfo poke3 = init(BasePrm.AKAKAZAM);
@@ -56,7 +56,7 @@ public class AilmentTest {
 
     @Test
     @DisplayName("こおり状態が健康とひんし状態と自己ねむり以外に上書きされないこと")
-    public void test2() throws InterruptedException {
+    public void test2() {
         PokeInfo poke1 = init(BasePrm.BLASTOISE);
         PokeInfo poke2 = init(CHARIZARD);
         PokeInfo poke3 = init(BasePrm.AKAKAZAM);
@@ -91,7 +91,7 @@ public class AilmentTest {
 
     @Test
     @DisplayName("まひ状態が健康とひんし状態と自己ねむり以外に上書きされないこと")
-    public void test3() throws InterruptedException {
+    public void test3() {
         PokeInfo poke1 = init(BasePrm.BLASTOISE);
         PokeInfo poke2 = init(CHARIZARD);
         PokeInfo poke3 = init(BasePrm.AKAKAZAM);
@@ -126,7 +126,7 @@ public class AilmentTest {
 
     @Test
     @DisplayName("どく状態が健康とひんし状態と自己ねむり以外に上書きされないこと")
-    public void test4() throws InterruptedException {
+    public void test4() {
         PokeInfo poke1 = init(BasePrm.BLASTOISE);
         PokeInfo poke2 = init(CHARIZARD);
         PokeInfo poke3 = init(BasePrm.AKAKAZAM);
@@ -161,7 +161,7 @@ public class AilmentTest {
 
     @Test
     @DisplayName("もうどく状態が健康とひんし状態と自己ねむり以外に上書きされないこと")
-    public void test5() throws InterruptedException {
+    public void test5() {
         PokeInfo poke1 = init(BasePrm.BLASTOISE);
         PokeInfo poke2 = init(CHARIZARD);
         PokeInfo poke3 = init(BasePrm.AKAKAZAM);
@@ -196,7 +196,7 @@ public class AilmentTest {
 
     @Test
     @DisplayName("ねむり状態が健康とひんし状態以外に上書きされないこと")
-    public void test6() throws InterruptedException {
+    public void test6() {
         PokeInfo poke1 = init(BasePrm.BLASTOISE);
         PokeInfo poke2 = init(CHARIZARD);
         poke1 = poke1.updateAilment(changeAilment(poke1, AilmentEnum.SLEEP));
@@ -229,7 +229,7 @@ public class AilmentTest {
 
     @Test
     @DisplayName("ひんし状態が健康と状態以外に上書きされないこと")
-    public void test7() throws InterruptedException {
+    public void test7() {
         PokeInfo poke1 = init(BasePrm.BLASTOISE);
         poke1 = poke1.updateAilment(changeAilment(poke1, AilmentEnum.FAINTING));
 
@@ -257,7 +257,7 @@ public class AilmentTest {
 
     @Test
     @DisplayName("健康状態がすべての状態に上書きできること")
-    public void test8() throws InterruptedException {
+    public void test8() {
         PokeInfo poke1 = init(BasePrm.BLASTOISE);
         PokeInfo poke2 = init(BasePrm.BLASTOISE);
         PokeInfo poke3 = init(BasePrm.BLASTOISE);
@@ -290,7 +290,7 @@ public class AilmentTest {
 
     @Test
     @DisplayName("ねむり状態が1ターン経過後は継続され行動できず、5ターン経過後は解除され行動できること")
-    public void test9() throws InterruptedException {
+    public void test9() {
         PokeInfo myPokemon = init(BasePrm.BLASTOISE);
         myPokemon = myPokemon.updateAilment(changeAilment(myPokemon, AilmentEnum.SLEEP));
         myPokemon = myPokemon.updateAilment(myPokemon.ailment().comeTurn(myPokemon.basePrm().pName()));
@@ -308,7 +308,7 @@ public class AilmentTest {
 
     @Test
     @DisplayName("自己ねむり状態で1ターン経過後は継続され行動できず、3ターン経過後は解除され行動できること")
-    public void test10() throws InterruptedException {
+    public void test10() {
         PokeInfo myPokemon = init(BasePrm.BLASTOISE);
         myPokemon = myPokemon.updateAilment(changeAilment(myPokemon, AilmentEnum.SELF_SLEEP));
         myPokemon = myPokemon.updateAilment(myPokemon.ailment().comeTurn(myPokemon.basePrm().pName()));
@@ -324,7 +324,7 @@ public class AilmentTest {
 
     @Test
     @DisplayName("ねむり状態から0ターン経過後、新たにねむり状態になってもねむり解除ターンがリセットされないこと")
-    public void test11() throws InterruptedException {
+    public void test11() {
         PokeInfo poke = init(BasePrm.BLASTOISE);
         poke = poke.updateAilment(changeAilment(poke, AilmentEnum.SLEEP));
         int beforeCount = poke.ailment().countRecoverySleep();
@@ -336,7 +336,7 @@ public class AilmentTest {
 
     @Test
     @DisplayName("自己ねむり状態から0ターン経過後、新たにねむり状態になってもねむり解除ターンがリセットされないこと")
-    public void test12() throws InterruptedException {
+    public void test12() {
         PokeInfo poke = init(BasePrm.BLASTOISE);
         poke = poke.updateAilment(changeAilment(poke, AilmentEnum.SELF_SLEEP));
         int beforeCount = poke.ailment().countRecoverySleep();
@@ -348,7 +348,7 @@ public class AilmentTest {
 
     @Test
     @DisplayName("ねむり状態から1ターン経過後、新たにねむり状態になっても経過ターンがリセットされないこと")
-    public void test13() throws InterruptedException {
+    public void test13() {
         PokeInfo poke = init(BasePrm.BLASTOISE);
         poke = poke.updateAilment(changeAilment(poke, AilmentEnum.SLEEP));
         poke = poke.updateAilment(poke.ailment().comeTurn(poke.basePrm().pName()));
@@ -359,7 +359,7 @@ public class AilmentTest {
 
     @Test
     @DisplayName("自己ねむり状態から1ターン経過後、新たにねむり状態になっても経過ターンがリセットされないこと")
-    public void test14() throws InterruptedException {
+    public void test14() {
         PokeInfo poke = init(BasePrm.BLASTOISE);
         poke = poke.updateAilment(changeAilment(poke, AilmentEnum.SELF_SLEEP));
         poke = poke.updateAilment(poke.ailment().comeTurn(poke.basePrm().pName()));
@@ -370,7 +370,7 @@ public class AilmentTest {
 
     @Test
     @DisplayName("やけど状態によるダメージ倍率が正しいこと")
-    public void test15() throws InterruptedException {
+    public void test15() {
         PokeInfo myPokemon1 = init(BasePrm.BLASTOISE);
         PokeInfo myPokemon2 = init(BasePrm.CHANSEY);
         myPokemon1 = myPokemon1.updateAilment(changeAilment(myPokemon1, AilmentEnum.BURN));
@@ -381,7 +381,7 @@ public class AilmentTest {
 
     @Test
     @DisplayName("こおりタイプはこおり状態にならないこと")
-    public void test16() throws InterruptedException {
+    public void test16() {
         PokeInfo icePk = init(BasePrm.ARTICUNO);
         PokeInfo elePk = init(BasePrm.ZAPDOS);
         icePk = icePk.updateAilment(changeAilment(icePk, AilmentEnum.FREEZE));
@@ -393,7 +393,7 @@ public class AilmentTest {
 
     @Test
     @DisplayName("ほのおタイプはやけど状態にならないこと")
-    public void test17() throws InterruptedException {
+    public void test17() {
         PokeInfo firePk = init(CHARIZARD);
         PokeInfo elePk = init(BasePrm.ZAPDOS);
         firePk = firePk.updateAilment(changeAilment(firePk, AilmentEnum.BURN));
@@ -405,7 +405,7 @@ public class AilmentTest {
 
     @Test
     @DisplayName("はがね、どくタイプはどく状態にならないこと")
-    public void test18() throws InterruptedException {
+    public void test18() {
         PokeInfo firePk = init(CHARIZARD);
         PokeInfo posPk = init(BasePrm.MUK);
         PokeInfo stlPk = init(BasePrm.MAGNRTON);
@@ -420,7 +420,7 @@ public class AilmentTest {
 
     @Test
     @DisplayName("はがね、どくタイプはもうどく状態にならないこと")
-    public void test19() throws InterruptedException {
+    public void test19() {
         PokeInfo firePk = init(CHARIZARD);
         PokeInfo posPk = init(BasePrm.MUK);
         PokeInfo stlPk = init(BasePrm.MAGNRTON);
@@ -435,7 +435,7 @@ public class AilmentTest {
 
     @Test
     @DisplayName("もうどくによるダメージがターン経過ごとに増加すること")
-    public void test20() throws InterruptedException {
+    public void test20() {
         PokeInfo poke = new PokeInfoI(
                 CHARIZARD,
                 Gender.init(),

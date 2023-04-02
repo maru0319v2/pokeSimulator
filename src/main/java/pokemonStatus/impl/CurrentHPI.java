@@ -16,7 +16,7 @@ public class CurrentHPI implements CurrentHP {
     }
 
     @Override
-    public CurrentHPI recovery(PokeInfo target, CurrentHP recoveryVal) throws InterruptedException {
+    public CurrentHPI recovery(PokeInfo target, CurrentHP recoveryVal) {
         final int added = this.val + Math.max(recoveryVal.val(), MIN);
         int result = Math.min(added, target.realHP());
         int diff = result - this.val;

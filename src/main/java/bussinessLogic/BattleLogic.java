@@ -85,7 +85,7 @@ public class BattleLogic {
     }
 
     // ターンごとの行動 命中判定、ダメージ計算、ダメージ付与を一括で行う
-    public static OnBattleField doAction(Field atkField, Field dfcField, Move move, Weather weather) throws InterruptedException {
+    public static OnBattleField doAction(Field atkField, Field dfcField, Move move, Weather weather) {
         // PPを1減らす
         atkField = atkField.updatePokeInfo(atkField.poke().decrementPP(move));
 
@@ -123,7 +123,7 @@ public class BattleLogic {
         }
     }
 
-    private static int calcDamage(Field atkField, Field dfcField, Move move, Weather weather) throws InterruptedException {
+    private static int calcDamage(Field atkField, Field dfcField, Move move, Weather weather) {
         // ダメージ計算参考　https://latest.pokewiki.net/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F
         showMessageParChar(atkField.poke().basePrm().pName() + "の" + move.baseMPrm().mvName() + "!");
         // 固定ダメージ用の特別処理

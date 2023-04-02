@@ -3,11 +3,11 @@ package pokemonStatus;
 import pokemon.PokeInfo;
 
 public interface Confusion {
-    boolean canMove(String name) throws InterruptedException;
+    boolean canMove(String name);
 
-    PokeInfo damageMe(PokeInfo target) throws InterruptedException;
+    PokeInfo damageMe(PokeInfo target);
 
-    Confusion elapseTurn(String name) throws InterruptedException;
+    Confusion elapseTurn(String name);
 
     boolean val();
 

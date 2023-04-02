@@ -35,11 +35,11 @@ public class LightScreen {
     }
 
     //ひかりのかべ状態にする場合
-    public static LightScreen enableLightScreen(LightScreen currentLightScreen) throws InterruptedException {
+    public static LightScreen enableLightScreen(LightScreen currentLightScreen) {
         return new LightScreen(currentLightScreen);
     }
 
-    private LightScreen(LightScreen currentLightScreen) throws InterruptedException {
+    private LightScreen(LightScreen currentLightScreen) {
         if (currentLightScreen.val()) {
             //すでに壁が張られている
             showMessageParChar("ひかりのかべはすではられている!");
@@ -64,7 +64,7 @@ public class LightScreen {
         return 1.0;
     }
 
-    public LightScreen elapsingTurn() throws InterruptedException {
+    public LightScreen elapsingTurn() {
         if (val) {
             if (this.countRecovery <= this.elapsedTurn + 1) {
                 showMessageParChar("ひかりのかべのこうかがきれた!");

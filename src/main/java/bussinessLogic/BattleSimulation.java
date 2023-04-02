@@ -127,7 +127,7 @@ public class BattleSimulation {
     }
 
 
-    private OnBattleField doTurn(OnBattleField onBF, Move selectedMove) throws InterruptedException {
+    private OnBattleField doTurn(OnBattleField onBF, Move selectedMove) {
         Field atkField = onBF.atkField();
         Field dfcField = onBF.dfcField();
         Weather weather = onBF.weather();
@@ -152,7 +152,7 @@ public class BattleSimulation {
         return new OnBattleField(atkField, dfcField, weather);
     }
 
-    private OnBattleField endTurnProcess(Field myField, Field enemyField, Weather weather) throws InterruptedException {
+    private OnBattleField endTurnProcess(Field myField, Field enemyField, Weather weather) {
         // https://wiki.xn--rckteqa2e.com/wiki/%E3%82%BF%E3%83%BC%E3%83%B3
         // 道具処理
         OnBattleField onBF = Item.endTurn(new OnBattleField(myField, enemyField, weather));
@@ -193,7 +193,7 @@ public class BattleSimulation {
         return new OnBattleField(myField, enemyField, weather);
     }
 
-    private OnBattleField endTurnProcessAilment(Field myField, Field enemyField, Weather weather) throws InterruptedException {
+    private OnBattleField endTurnProcessAilment(Field myField, Field enemyField, Weather weather) {
         showPokemonInfo(myField.poke(), enemyField.poke());
 
         myField = myField.updatePokeInfo(myField.poke().ailment().slipDmgByAilment(myField.poke()));
@@ -201,7 +201,7 @@ public class BattleSimulation {
         return new OnBattleField(myField, enemyField, weather);
     }
 
-    private OnBattleField endTurnProcessWeather(Field myField, Field enemyField, Weather weather) throws InterruptedException {
+    private OnBattleField endTurnProcessWeather(Field myField, Field enemyField, Weather weather) {
         showPokemonInfo(myField.poke(), enemyField.poke());
         weather = weather.elapsingTurnWeather();
 

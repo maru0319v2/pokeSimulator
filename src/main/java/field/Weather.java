@@ -46,11 +46,11 @@ public class Weather {
     }
 
     // 天候を変化させる場合
-    public static Weather changeWeather(Weather currentWeather, WeatherEnum weather) throws InterruptedException {
+    public static Weather changeWeather(Weather currentWeather, WeatherEnum weather) {
         return new Weather(currentWeather, weather);
     }
 
-    private Weather(Weather currentWeather, WeatherEnum weather) throws InterruptedException {
+    private Weather(Weather currentWeather, WeatherEnum weather) {
         if (currentWeather.val() != weather) {
             // 引数の天候がもとの天候以外なら上書きする
             this.val = weather;
@@ -64,7 +64,7 @@ public class Weather {
         }
     }
 
-    public Weather elapsingTurnWeather() throws InterruptedException {
+    public Weather elapsingTurnWeather() {
         if (this.countRecovery <= this.elapsedTurn + 1) {
             showUndoWeather(this.val);
             return init();
@@ -73,7 +73,7 @@ public class Weather {
         return new Weather(this.val, this.elapsedTurn + 1, this.countRecovery);
     }
 
-    public PokeInfo slipDmgByWeather(PokeInfo target) throws InterruptedException {
+    public PokeInfo slipDmgByWeather(PokeInfo target) {
         List<Type> types = List.of(target.basePrm().type1(), target.basePrm().type2());
         Set<Type> roGrSt = new HashSet<>(Arrays.asList(Type.ROCK, Type.GROUND, Type.STEEL));
         int damage;
@@ -87,7 +87,10 @@ public class Weather {
         } else {
             return target;
         }
-        Thread.sleep(500);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException ignored) {
+        }
         return target.damage(damage);
     }
 

@@ -26,7 +26,7 @@ public class FlinchI implements Flinch {
         this.val = value;
     }
 
-    public boolean canMove(String pokeName) throws InterruptedException {
+    public boolean canMove(String pokeName) {
         if (this.val) {
             showMessageParChar(pokeName + "はひるんでうごけない!");
             return false;

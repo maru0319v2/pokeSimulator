@@ -50,7 +50,7 @@ public class AilmentI implements Ailment {
     }
 
     // 状態異常を変化させる場合
-    public static Ailment changeAilment(PokeInfo target, AilmentEnum value) throws InterruptedException {
+    public static Ailment changeAilment(PokeInfo target, AilmentEnum value) {
         Type type1 = target.basePrm().type1();
         Type type2 = target.basePrm().type2();
         List<Type> typeList = List.of(type1, type2);
@@ -74,7 +74,7 @@ public class AilmentI implements Ailment {
         return new AilmentI(target, value);
     }
 
-    private AilmentI(PokeInfo target, AilmentEnum value) throws InterruptedException {
+    private AilmentI(PokeInfo target, AilmentEnum value) {
 
         if (isOverwrite(target, value)) {
             int count = 0;
@@ -97,7 +97,7 @@ public class AilmentI implements Ailment {
         }
     }
 
-    private boolean isOverwrite(PokeInfo target, AilmentEnum value) throws InterruptedException {
+    private boolean isOverwrite(PokeInfo target, AilmentEnum value) {
         // 元の状態異常
         AilmentEnum beforeAilment = target.ailment().val();
 
@@ -129,7 +129,7 @@ public class AilmentI implements Ailment {
         return false;
     }
 
-    public Ailment comeTurn(String pokeName) throws InterruptedException {
+    public Ailment comeTurn(String pokeName) {
 
         // ねむりの場合、経過ターンを1増やしカウンタを同じになればねむりを解く
         if (this.val == SLEEP || this.val == SELF_SLEEP) {
@@ -154,7 +154,7 @@ public class AilmentI implements Ailment {
         return keepAilment(this.val, this.countRecoverySleep, this.elapsedTurn);
     }
 
-    public boolean canMove(String pokeName) throws InterruptedException {
+    public boolean canMove(String pokeName) {
         if (this.val == SLEEP || this.val == SELF_SLEEP) {
             showMessageParChar(pokeName + "はぐうぐうねむっている・・・");
             return false;
@@ -186,7 +186,7 @@ public class AilmentI implements Ailment {
         return Objects.equals(this.val, PARALYSIS) ? 0.5 : 1.0;
     }
 
-    public PokeInfo slipDmgByAilment(PokeInfo target) throws InterruptedException {
+    public PokeInfo slipDmgByAilment(PokeInfo target) {
         AilmentEnum ailment = target.ailment().val();
         int damage;
         switch (ailment) {
@@ -206,7 +206,10 @@ public class AilmentI implements Ailment {
                 return target;
             }
         }
-        Thread.sleep(500);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException ignored) {
+        }
         return target.damage(damage);
     }
 }

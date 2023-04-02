@@ -47,7 +47,7 @@ public enum Item {
     }
 
     // 物理、特殊技を使った後の効果
-    public static OnBattleField afterMove(OnBattleField onBF) throws InterruptedException {
+    public static OnBattleField afterMove(OnBattleField onBF) {
         Item hasItem = onBF.atkField().poke().item();
         switch (hasItem) {
             case PEAL_OF_LIFE -> {
@@ -66,7 +66,7 @@ public enum Item {
     }
 
     // ターン終了時の処理
-    public static OnBattleField endTurn(OnBattleField onBF) throws InterruptedException {
+    public static OnBattleField endTurn(OnBattleField onBF) {
         Field atkField = onBF.atkField();
         Field dfcField = onBF.dfcField();
 
@@ -91,7 +91,7 @@ public enum Item {
     }
 
     // ダメージを受けたあとの処理
-    public static PokeInfo afterDamaged(PokeInfo poke) throws InterruptedException {
+    public static PokeInfo afterDamaged(PokeInfo poke) {
         Item hasItem = poke.item();
         switch (hasItem) {
             case OBON_FRUIT -> {
@@ -117,7 +117,7 @@ public enum Item {
     }
 
     // 状態異常が変化した後の処理
-    public static PokeInfo afterUpdateAilment(PokeInfo poke) throws InterruptedException {
+    public static PokeInfo afterUpdateAilment(PokeInfo poke) {
         Item hasItem = poke.item();
         switch (hasItem) {
             case RAMU_FRUIT -> {
@@ -135,7 +135,7 @@ public enum Item {
     }
 
     // HPが満タンのときにひんしになるダメージをうけた場合の処理
-    public static PokeInfo deadWithFullHP(PokeInfo poke) throws InterruptedException {
+    public static PokeInfo deadWithFullHP(PokeInfo poke) {
         Item hasItem = poke.item();
         switch (hasItem) {
             case LAPEL_OF_SPIRIT -> {
@@ -162,27 +162,27 @@ public enum Item {
         }
     }
 
-    private static OnBattleField recoveryMeHP1_16(Field atkField, Field dfcField, Weather weather) throws InterruptedException {
+    private static OnBattleField recoveryMeHP1_16(Field atkField, Field dfcField, Weather weather) {
         int recovery = atkField.poke().realHP() / 16;
         return new OnBattleField(atkField.updatePokeInfo(atkField.poke().recoveryHP(recovery)), dfcField, weather);
     }
 
-    private static OnBattleField recoveryEnemyHP1_16(Field atkField, Field dfcField, Weather weather) throws InterruptedException {
+    private static OnBattleField recoveryEnemyHP1_16(Field atkField, Field dfcField, Weather weather) {
         int recovery = dfcField.poke().realHP() / 16;
         return new OnBattleField(atkField, dfcField.updatePokeInfo(dfcField.poke().recoveryHP(recovery)), weather);
     }
 
-    private static OnBattleField dmgMeHP1_10(Field atkField, Field dfcField, Weather weather) throws InterruptedException {
+    private static OnBattleField dmgMeHP1_10(Field atkField, Field dfcField, Weather weather) {
         int dmg = atkField.poke().realHP() / 10;
         return new OnBattleField(atkField.updatePokeInfo(atkField.poke().damage(dmg)), dfcField, weather);
     }
 
-    private static PokeInfo recoveryMeHP1_4(PokeInfo target) throws InterruptedException {
+    private static PokeInfo recoveryMeHP1_4(PokeInfo target) {
         int recovery = target.realHP() / 4;
         return target.recoveryHP(recovery);
     }
 
-    private static PokeInfo recoveryMeAllAilment(PokeInfo target) throws InterruptedException {
+    private static PokeInfo recoveryMeAllAilment(PokeInfo target) {
         return target.updateAilment(AilmentI.changeAilment(target, AilmentEnum.FINE));
     }
 
