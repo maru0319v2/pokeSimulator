@@ -10,6 +10,7 @@ import pokemon.PokeInfo;
 import pokemonStatus.impl.FlinchI;
 
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import static bussinessLogic.BattleLogic.*;
@@ -21,6 +22,23 @@ public class BattleSimulation {
 
     public boolean phaseTrainerCommand(List<PokeInfo> myPokeList, List<PokeInfo> enemyPokeList) {
         // たたかう、ポケモン交代を選択するフェイズ
+        Scanner scanner = new Scanner(System.in);
+        String inputCommand = "";
+        while (!inputCommand.equals("q")) {
+            System.out.println("-------------------------------------------------");
+            System.out.println("1: たたかう");
+            System.out.println("2: ポケモン交代");
+            System.out.println("");
+            System.out.print("コマンドを入力してください > ");
+            inputCommand = scanner.nextLine();
+
+            if ("1".equals(inputCommand)) {
+                phaseMoveCommand(myPokeList, enemyPokeList);
+            }
+            if ("2".equals(inputCommand)) {
+                phaseChangePoke(myPokeList);
+            }
+        }
         return false;
     }
 
@@ -29,9 +47,28 @@ public class BattleSimulation {
         return false;
     }
 
-    public PokeInfo phaseChangePoke(List<PokeInfo> myPokeList, List<PokeInfo> enemyPokeList) {
+    public PokeInfo phaseChangePoke(List<PokeInfo> myPokeList) {
+        // TODO　現在場に出ているポケモンも選択できてしまう
         // 交代するポケモンを選択するフェイズ
-        return myPokeList.get(0);
+        System.out.println("-------------------------------------------------");
+        System.out.println("1: " + myPokeList.get(0).basePrm().pName());
+        System.out.println("2: " + myPokeList.get(1).basePrm().pName());
+        System.out.println("3: " + myPokeList.get(2).basePrm().pName());
+        System.out.println("");
+        PokeInfo selectedPoke = null;
+        boolean ignoredNumSelected = true;
+
+        while (ignoredNumSelected) {
+            System.out.print("交代先ポケモンを選択してください > ");
+            int pkIndex = Integer.parseInt(new Scanner(System.in).nextLine());
+            if (pkIndex < 0 || pkIndex > 2) {
+                System.out.println("有効な数字ではありません。");
+            } else {
+                selectedPoke = myPokeList.get(pkIndex);
+                ignoredNumSelected = false;
+            }
+        }
+        return selectedPoke;
     }
 
 

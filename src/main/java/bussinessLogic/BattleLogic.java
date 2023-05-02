@@ -54,6 +54,7 @@ public class BattleLogic {
             i++;
         }
         System.out.println();
+        System.out.println("b: もどる"); // TODO 未実装
         System.out.println("i: ステータス確認");
         System.out.println("m: 技確認");
 
