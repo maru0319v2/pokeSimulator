@@ -19,6 +19,22 @@ import static bussinessLogic.EnemySelectMove.enemySelectMove;
 
 public class BattleSimulation {
 
+    public boolean phaseTrainerCommand(List<PokeInfo> myPokeList, List<PokeInfo> enemyPokeList) {
+        // たたかう、ポケモン交代を選択するフェイズ
+        return false;
+    }
+
+    public boolean phaseMoveCommand(List<PokeInfo> myPokeList, List<PokeInfo> enemyPokeList) {
+        // 技を選択するフェイズ
+        return false;
+    }
+
+    public PokeInfo phaseChangePoke(List<PokeInfo> myPokeList, List<PokeInfo> enemyPokeList) {
+        // 交代するポケモンを選択するフェイズ
+        return myPokeList.get(0);
+    }
+
+
     public boolean initBattle(List<PokeInfo> myPokeList, List<PokeInfo> enemyPokeList) throws InterruptedException {
         // フィールド、天気を初期化
         Field myField = FieldI.init(myPokeList.get(0));
